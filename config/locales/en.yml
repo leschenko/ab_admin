@@ -1,0 +1,304 @@
+--- 
+en: 
+  _no: "No"
+  _yes: "Yes"
+  admin: 
+    actions: 
+      activate: 
+        link: Activate
+      batch_destroy: 
+        confirmation: Are you sure you want to delete the selected records?
+        link: Delete Selected
+        title: Multi-removal
+      batch_publish: 
+        link: Publish selected
+        title: Multi-publication
+      batch_un_publish: 
+        link: Remove from selected publications
+        title: Multi-hiding
+      create: 
+        link: Create
+        title: Creation
+      destroy: 
+        link: Remove
+        title: Removal
+      edit: 
+        link: Edit
+        title: Editing
+      history: 
+        link: History
+        title: History
+      index: 
+        link: List
+        title: List
+      new: 
+        link: Create
+        title: Creation
+      perms: 
+        link: Rights
+        title: Editing access rights
+      preview: 
+        link: Preview
+      show: 
+        link: Review
+        title: Details
+      suspend: 
+        link: Ban
+      update: 
+        link: Edit
+        title: Editing
+    add: Add
+    auth: 
+      profile: Profile
+      sign_out: Output
+    avatar: Picture
+    batch_actions: Activity
+    cache_clear: Clear cache
+    cant_be_deleted: Can not delete
+    choose: Select %{attr}
+    close: Close
+    columns_hider: 
+      button: Adjust the table
+      title: Setting the display of columns
+    comments: 
+      add: Comment
+      author: Author
+      body: Body
+      errors: 
+        empty_text: Comment was not saved because of the lack of content
+      no_comments_yet: No comments yet
+      resource: Resource
+      title: Comment
+      title_content: Comments (%{count})
+    delete: Remove
+    delete_confirmation: Are you sure you want to delete this?
+    details: More
+    empty: Empty
+    exit: Output
+    fileupload: 
+      button: Select the file
+      buttons: Select the files
+      delete: Delete file
+      drop_here: Drag and drop files here
+      max_size: Max size
+    form: 
+      cancel: Cancellation
+      save: Save
+      save_and_add_another: Save and add new
+      save_and_edit: Save and continue editing
+      save_and_edit_next: Save and track.
+      save_and_edit_prev: Save and before.
+    gender: 
+      female: Female
+      male: Male
+    geo_autocomplete: Enter the address
+    group: 
+      kind: 
+        admin: Administrative
+        default: By default
+        private: Reserved
+        public: Public
+    keywords: Keywords
+    langs: 
+      en: En
+      it: It
+      ru: Ru
+      uk: Uk
+    loading: Loading ...
+    locators: 
+      edit_file: Edit the file
+      edit_files: Edit files
+      file: File
+      locale: Locale
+      prepare: Prepare localization files
+      restart: Update localization
+      title: Edit location
+      update_file: Update File
+    main_image: Set Main
+    max_size: Max posted.
+    navigation: 
+      system: System
+      users: Members
+    no_results_text: Nothing found
+    permissions: 
+      actions: 
+        create: Create
+        delete: Remove
+        publish: Publish
+        read: Browse
+        update: Edit
+      assocs: 
+        company: company
+      form: 
+        actions: Can
+        add: Add
+        assoc: Through
+        assoc_ids: resource
+        context: "on"
+        destroy: Remove?
+        includes: Related
+        is_own: Only the owner
+        is_visibility: hide unpublished
+        is_work: hide published
+        per_resource: According to one resource
+        resource: Namely
+        resources: Entire resource
+        subject: By Resource
+    perms: 
+      actions: 
+        add_styles: Edit styles
+        create: Create
+        delete: Remove
+        import: Import Manager
+        journalist: Journalist
+        moderator: Moderator
+        publish: Publish
+        publish_social: Publish to Social
+        read: Browse
+        update: Edit
+      assocs: 
+        catalogues: catalogs
+        company: company
+        group: group
+        groups: Group
+      form: 
+        actions: Can
+        add: Add
+        assoc: Through
+        assoc_ids: resource
+        context: "on"
+        destroy: Remove?
+        includes: Related
+        is_own: Only the owner
+        is_visibility: hide unpublished
+        is_work: hide published
+        per_resource: According to one resource
+        resource: Namely
+        resources: Entire resource
+        subject: By Resource
+    photo: Main picture
+    pictures: Image
+    preview: Preview
+    role: 
+      kind: 
+        admin: admin
+        default: default
+        group: group
+        user: user
+    save: Save
+    scopes: 
+      un_visible: Hidden
+      visible: Published
+    search: 
+      cancel: Clean
+      submit: Refine
+      title: Search
+    set_main: Make the main image
+    show: 
+      attr: Attribute
+      value: Value
+    table: 
+      actions: Activity
+    user: 
+      role: 
+        admin: Admin
+        default: Client
+        guest: Guest
+        moderator: Moderator
+        redactor: Editor
+      state: 
+        active: Most Active
+        deleted: Removed
+        pending: Inactive
+        suspended: Frozen
+    versions: 
+      current: The current version of
+      item: Element
+      modified_at: Date of editing
+      modified_by: Edited (a)
+      title: Story
+      type: Type
+  admin_js: 
+    add_link: Create?
+    button_description: Description
+    button_name_add: Add
+    button_name_cancel: Reset
+    button_name_remove: Remove
+    cancel: Cancellation
+    clear: Reset
+    confirm: Confirm
+    create_product: Create a new product
+    day: ""
+    day_short: Sun, Mon, Tuesday, Wed, Thu, Fri, Sat
+    delete_nested_elements: Can not delete
+    edit: Edit
+    month: ""
+    name: Name
+    no_results: Nothing found
+    search: Searching ...
+    value: Value
+  attributes: 
+    address: Address
+    country: Country
+    country_id: Country
+    created_at: Date of creation
+    description: Description
+    footmarks_count: ""
+    is_visible: Display
+    name: Name
+    parent: ""
+    parent_id: ""
+    position: Position
+    region: Region
+    region_id: Region
+    reviews_count: ""
+    synonyms: Synonyms
+    title: Name
+    updated_at: Date of change
+    user: User
+    user_id: User
+  attrs: 
+    en: Eng.
+    it: Italian.
+    ru: rus.
+    uk: Ukr.
+  flash: 
+    admin: 
+      actions: 
+        create: 
+          error: "%{resource_name} while creating errors occurred."
+          notice: "%{resource_name} was successfully created."
+        destroy: 
+          error: "%{resource_name} could not be deleted."
+          notice: "%{resource_name} was successfully deleted."
+        update: 
+          error: "%{resource_name} while updating errors occurred."
+          notice: "%{resource_name} was successfully changed."
+      controller_name: 
+        update: 
+          success: products
+      locators: 
+        prepared: Translations successfully prepared
+        restart: Translations successfully reloaded
+        update_error: An error occurred while updating data
+        updated: Translation successfully updated
+      permissions: 
+        failure: Update Error
+        success: Rights successfully updated
+  simple_form: 
+    buttons: 
+      cancel: Cancellation
+    creating: Creating ...
+    error_notification: 
+      default_message: When you save any errors
+    "no": "No"
+    required: 
+      mark: "*"
+      text: mandatory
+    updating: Update ...
+    "yes": "Yes"
+  will_paginate: 
+    next_label: "Next. →"
+    page_gap: ...
+    pagination_info: Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} only
+    previous_label: "← Prev."

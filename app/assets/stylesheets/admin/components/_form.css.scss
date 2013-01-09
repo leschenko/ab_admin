@@ -1,0 +1,104 @@
+.simple_form {
+  input, textarea {
+    width: auto;
+  }
+  .fields {
+    .second_nest {
+      display: inline-block;
+    }
+    hr {
+      margin: 10px 0;
+    }
+  }
+  select {
+    width: 350px;
+  }
+  .tab-content {
+    position: relative;
+  }
+  select.date {
+    width: auto;
+  }
+  .control-group.boolean {
+    margin-bottom: 0;
+    .controls {
+      width: 20px;
+    }
+  }
+  .form-actions {
+    position: fixed;
+    bottom: -20px;
+    left: 0px;
+    border-radius: 10px;
+    padding: 10px;
+    z-index: 4;
+    .btn {
+      margin-right: 5px;
+    }
+  }
+}
+
+#search_form {
+  select.input-small {
+    margin-right: 30px;
+  }
+  .right-label {
+    padding: 5px 0 0 130px;
+  }
+  #search_cancel {
+    margin-left: 35px;
+  }
+  label {
+    margin-top: 5px;
+  }
+}
+
+.form_block {
+  width: 700px;
+}
+
+.datepicker {
+  margin-top: 0;
+}
+
+.right_picker {
+  &.datepicker::after {
+    right: 7px;
+    left: auto;
+  }
+  &.datepicker::before {
+    right: 6px;
+    left: auto;
+  }
+}
+
+input[type='color'] {
+  width: 30px;
+  height: 30px;
+  padding: 3px;
+}
+
+.label.do_toggle {
+  cursor: pointer;
+}
+
+textarea.do_wysihtml5 {
+  width: 625px;
+}
+
+.fileupload {
+  position: relative;
+}
+
+.fileupload-drop-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 70px;
+  z-index: 2;
+  text-align: center;
+  color: #999;
+  font-size: 26px;
+}

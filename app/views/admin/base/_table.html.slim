@@ -1,0 +1,16 @@
+table.table.table-striped.index_table#list
+  thead
+    tr.pjax_links
+      = batch_action_toggle
+      th Id
+      - resource_class.content_columns.map(&:name).without('updated_at').each do |col|
+        th= sort_link(@search, col)
+      th=t 'admin.table.actions'
+  tbody
+    - collection.each do |item|
+      tr
+        = batch_action_item(item)
+        td= id_link(item)
+        - resource_class.content_columns.map(&:name).without('updated_at').each do |col|
+          td= pretty_data item[col]
+        td.actions= item_index_actions(item)

@@ -1,0 +1,304 @@
+--- 
+ru: 
+  _no: "Нет"
+  _yes: "Да"
+  admin: 
+    actions: 
+      activate: 
+        link: "Активировать"
+      batch_destroy: 
+        confirmation: "Вы уверены что хотите удалить выбранные записи?"
+        link: "Удалить выбранные"
+        title: "Мульти-удаление"
+      batch_publish: 
+        link: "Опубликовать выбранные"
+        title: "Мульти-публикация"
+      batch_un_publish: 
+        link: "Снять с публикации выбранные"
+        title: "Мульти-скрытие"
+      create: 
+        link: "Создать"
+        title: "Создание"
+      destroy: 
+        link: "Удалить"
+        title: "Удаление"
+      edit: 
+        link: "Редактировать"
+        title: "Редактирование"
+      history: 
+        link: "История"
+        title: "История"
+      index: 
+        link: "Список"
+        title: "Список"
+      new: 
+        link: "Создать"
+        title: "Создание"
+      perms: 
+        link: "Права"
+        title: "Редактирование прав доступа"
+      preview: 
+        link: "Предпросмотр"
+      show: 
+        link: "Просмотр"
+        title: "Детали"
+      suspend: 
+        link: "Бан"
+      update: 
+        link: "Редактировать"
+        title: "Редактирование"
+    add: "Добавить"
+    auth: 
+      profile: "Профиль"
+      sign_out: "Выход"
+    avatar: "Аватар"
+    batch_actions: "Действия"
+    cache_clear: "Очистить кэш"
+    cant_be_deleted: "Удаление невозможно"
+    choose: "Выберите %{attr}"
+    close: "Закрыть"
+    columns_hider: 
+      button: "Настроить таблицу"
+      title: "Настройка отображения колонок"
+    comments: 
+      add: "Комментировать"
+      author: Author
+      body: Body
+      errors: 
+        empty_text: "Комментарий не был сохранен из-за отсутствия контента"
+      no_comments_yet: "Еще нету комментариев"
+      resource: Resource
+      title: Comment
+      title_content: "Комментариев (%{count})"
+    delete: "Удалить"
+    delete_confirmation: "Вы уверены, что хотите удалить это?"
+    details: "Подробнее"
+    empty: "Пусто"
+    exit: "Выход"
+    fileupload: 
+      button: "Выберите файл"
+      buttons: "Выберите файлы"
+      delete: "Удалить файл"
+      drop_here: "Перетащите файлы сюда"
+      max_size: "Макс. р."
+    form: 
+      cancel: "Отмена"
+      save: "Сохранить"
+      save_and_add_another: "Сохранить и добавить новый"
+      save_and_edit: "Сохранить и продолжить редактирование"
+      save_and_edit_next: "Сохранить и след."
+      save_and_edit_prev: "Сохранить и пред."
+    gender: 
+      female: "Женский"
+      male: "Мужской"
+    geo_autocomplete: "Введите адрес"
+    group: 
+      kind: 
+        admin: "Административная"
+        default: "По умолчанию"
+        private: "Приватная"
+        public: "Публичная"
+    keywords: "Ключевые слова"
+    langs: 
+      en: En
+      it: It
+      ru: Ru
+      uk: Uk
+    loading: "Загрузка..."
+    locators: 
+      edit_file: "Редактировать файл"
+      edit_files: "Редактировать файлы"
+      file: "Файл"
+      locale: "Локаль"
+      prepare: "Подготовить файлы локализации"
+      restart: "Обновить локализацию"
+      title: "Редактирование локализации"
+      update_file: "Обновить файл"
+    main_image: "Сделать главным"
+    max_size: "Макс разм."
+    navigation: 
+      system: "Система"
+      users: "Пользователи"
+    no_results_text: "Ничего не найдено"
+    permissions: 
+      actions: 
+        create: "Создавать"
+        delete: "Удалять"
+        publish: "Публиковать"
+        read: "Просматривать"
+        update: "Редактировать"
+      assocs: 
+        company: "компанию"
+      form: 
+        actions: "Может"
+        add: "Добавить"
+        assoc: "Через"
+        assoc_ids: "ресурс"
+        context: "на"
+        destroy: "Удалить?"
+        includes: "Относящиеся"
+        is_own: "только как владелец"
+        is_visibility: "скрывать неопубликованные"
+        is_work: "скрывать опубликованные"
+        per_resource: "По единице ресурса"
+        resource: "А именно"
+        resources: "Весь ресурс"
+        subject: "По ресурсу"
+    perms: 
+      actions: 
+        add_styles: "Редактировать стили"
+        create: "Создавать"
+        delete: "Удалять"
+        import: "Импорт менеджер"
+        journalist: "Журналист"
+        moderator: "Модератор"
+        publish: "Публиковать"
+        publish_social: "Публиковать в соц"
+        read: "Просматривать"
+        update: "Редактировать"
+      assocs: 
+        catalogues: "каталоги"
+        company: "компанию"
+        group: "группу"
+        groups: "группы"
+      form: 
+        actions: "Может"
+        add: "Добавить"
+        assoc: "Через"
+        assoc_ids: "ресурс"
+        context: "на"
+        destroy: "Удалить?"
+        includes: "Относящиеся"
+        is_own: "только как владелец"
+        is_visibility: "скрывать неопубликованные"
+        is_work: "скрывать опубликованные"
+        per_resource: "По единице ресурса"
+        resource: "А именно"
+        resources: "Весь ресурс"
+        subject: "По ресурсу"
+    photo: "Главное изображение"
+    pictures: "Изображения"
+    preview: "Предпросмотр"
+    role: 
+      kind: 
+        admin: admin
+        default: default
+        group: group
+        user: user
+    save: "Сохранить"
+    scopes: 
+      un_visible: "Скрытые"
+      visible: "Опубликованные"
+    search: 
+      cancel: "Очистить"
+      submit: "Уточнить"
+      title: "Поиск"
+    set_main: "Сделать главным изображением"
+    show: 
+      attr: "Атрибут"
+      value: "Значение"
+    table: 
+      actions: "Действия"
+    user: 
+      role: 
+        admin: "Админ"
+        default: "Клиент"
+        guest: "Гость"
+        moderator: "Модератор"
+        redactor: "Редактор"
+      state: 
+        active: "Активен"
+        deleted: "Удален"
+        pending: "Неактивирован"
+        suspended: "Заморожен"
+    versions: 
+      current: "Текущая версия"
+      item: "Элемент"
+      modified_at: "Дата редактирования"
+      modified_by: "Редактировал(а)"
+      title: "История"
+      type: "Тип"
+  admin_js: 
+    add_link: "Создать?"
+    button_description: "Описание"
+    button_name_add: "Добавить"
+    button_name_cancel: "Сбросить"
+    button_name_remove: "Удалить"
+    cancel: "Отмена"
+    clear: "Сброс"
+    confirm: "Подтвердить"
+    create_product: "Создать новый товар"
+    day: "Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота"
+    day_short: "Вс,Пн,Вторник,Ср,Чт,Пт,Сб"
+    delete_nested_elements: "Невозможно удалить"
+    edit: "Редактировать"
+    month: "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь"
+    name: "Название"
+    no_results: "Ничего не найдено"
+    search: "Идет поиск..."
+    value: "Значение"
+  attributes: 
+    address: "Адрес"
+    country: "Страна"
+    country_id: "Страна"
+    created_at: "Дата создания"
+    description: "Описание"
+    footmarks_count: "Лайков"
+    is_visible: "Отображать"
+    name: "Название"
+    parent: "Родительский элемент"
+    parent_id: "Родительский элемент"
+    position: "Позиция"
+    region: "Регион"
+    region_id: "Регион"
+    reviews_count: "Просмотров"
+    synonyms: "Синонимы"
+    title: "Название"
+    updated_at: "Дата изменения"
+    user: "Пользователь"
+    user_id: "Пользователь"
+  attrs: 
+    en: "анг."
+    it: "итал."
+    ru: "рус."
+    uk: "укр."
+  flash: 
+    admin: 
+      actions: 
+        create: 
+          error: "%{resource_name} при сохранении возникли ошибки."
+          notice: "%{resource_name} был успешно создан."
+        destroy: 
+          error: "%{resource_name} не может быть удален."
+          notice: "%{resource_name} был успешно удален."
+        update: 
+          error: "%{resource_name} при сохранении возникли ошибки."
+          notice: "%{resource_name} был успешно изменен."
+      controller_name: 
+        update: 
+          success: products
+      locators: 
+        prepared: "Переводы успешно подготовлены"
+        restart: "Переводы успешно перезагружены"
+        update_error: "Возникли ошибки при обновлении данных"
+        updated: "Перевод успешно обновлен"
+      permissions: 
+        failure: "Ошибка обновления"
+        success: "Права успешно обновлены"
+  simple_form: 
+    buttons: 
+      cancel: "Отмена"
+    creating: "Создание..."
+    error_notification: 
+      default_message: "При сохранении возникли ошибки"
+    "no": "Нет"
+    required: 
+      mark: "*"
+      text: "обязательное"
+    updating: "Обновление..."
+    "yes": "Да"
+  will_paginate: 
+    next_label: "След. &#8594;"
+    page_gap: "&hellip;"
+    pagination_info: "Показано <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
+    previous_label: "&#8592; Пред."

@@ -1,0 +1,19 @@
+.admin_map {
+  height: 400px;
+  margin-left: 10%;
+  width: 80%;
+  margin-top: 0.6em;
+  img {
+    max-width: none;
+  }
+}
+.geo_input {
+  label {
+    display: inline-block;
+    width: 10%;
+  }
+  input {
+    display: inline-block;
+    width: 80% !important;
+  }
+}

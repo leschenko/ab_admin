@@ -1,0 +1,8 @@
+= cache [I18n.locale, 'admin', 'footer'] do
+  = render 'admin/fileupload/tmpl'
+  = render 'admin/fileupload/ftmpl'
+  = render 'admin/shared/columns_hider'
+
+- unless admin?
+  :css
+    .admin_content{display: none;}

@@ -1,0 +1,50 @@
+header.navbar
+  nav.navbar-inner
+    .container
+      a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse" 
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.brand href=root_path = t 'admin.title'
+      .nav-collapse.in.collapse style=("max-height: 626px;")
+        - cache ['admin_nav', controller_name, action_name, current_user.user_role_id, rand_str] do
+          ul.nav
+            - [].each do |m|
+              = model_admin_menu_link(m)
+            li.dropdown
+              a.dropdown-toggle data-toggle="dropdown" href="#" 
+                = t 'admin.navigation.catalogues'
+                b.caret
+              ul.dropdown-menu
+                - [].each do |m|
+                  = model_admin_menu_link(m)
+                = admin_menu_link(t('admin.navigation.cabinet_meta_tags'), 'cabinet_meta_tags')
+            - if admin?
+              li.dropdown
+                a.dropdown-toggle data-toggle="dropdown" href="#" 
+                  = t 'admin.navigation.system'
+                  b.caret
+                ul.dropdown-menu
+                  - [].each do |m|
+                    = model_admin_menu_link(m)
+
+        .btn-group.pull-right
+          a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
+            i.icon-user
+            = current_user.name
+            span.caret
+          ul.dropdown-menu
+            li
+              a href=edit_admin_user_path(current_user) = t 'admin.auth.profile'
+            li.divider
+            li
+              = link_to(t('admin.auth.sign_out'), destroy_user_session_path, :method => 'delete')
+
+  = render 'admin/shared/breadcrumbs'
+
+.top_bar.clearfix
+  .resource_actions
+    - action_items.each do |act|
+      = action_link(act)
+  .resource_title
+    h1= @page_title
