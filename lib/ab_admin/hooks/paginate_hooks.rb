@@ -1,3 +1,4 @@
+require 'will_paginate/view_helpers/action_view'
 module WillPaginate
   module ActiveRecord
     module RelationMethods

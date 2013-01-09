@@ -4,3 +4,6 @@ source 'https://rubygems.org'
 gemspec
 
 gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
+gem 'mysql2'
+gem 'devise'
+gem 'devise-encryptable'

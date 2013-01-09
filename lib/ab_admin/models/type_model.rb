@@ -13,9 +13,11 @@ module AbAdmin
         @code = code.to_sym
       end
 
-      define_enum do |builder|
-        codes.each do |kind|
-          builder.member kind, :object => new(kind.to_s)
+      def self.define_enum_by_codes
+        define_enum do |builder|
+          codes.each do |kind|
+            builder.member kind, :object => new(kind.to_s)
+          end
         end
       end
 

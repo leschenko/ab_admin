@@ -71,8 +71,8 @@ if Object.const_defined?(:HTMLEntities)
       coder.decode(self.no_html)
     end
   end
-else
-  Rails.logger.warn 'Install gem \'htmlentities\' to use clean_text'
+#else
+#  STDERR.puts 'Install gem \'htmlentities\' to use clean_text'
 end
 
 unless ''.respond_to?(:each)
