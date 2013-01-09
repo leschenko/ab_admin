@@ -1,0 +1,12 @@
+javascript:
+  function sortable_tree(item_id, parent_id, prev_id, next_id){
+    $.ajax({
+      type:       'POST',
+      dataType:   'script',
+      url:        '/admin/#{resource_collection_name}/rebuild',
+      data:       { id: item_id, parent_id: parent_id, prev_id: prev_id, next_id: next_id,class:'#{resource_collection_name}' },
+      beforeSend: function(xhr){ $('.nested_set i.handle').hide() },
+      success:    function(data, status, xhr){ $('.nested_set i.handle').show() },
+      error:      function(xhr, status, error){ alert(error) }
+    });
+  }

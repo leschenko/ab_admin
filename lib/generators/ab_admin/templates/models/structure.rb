@@ -9,9 +9,12 @@ class Structure < ActiveRecord::Base
 
   has_many :visible_children, :class_name => name, :foreign_key => 'parent_id', :conditions => {:is_visible => true}
 
-  fileuploads :menu_image, :pictures
+  fileuploads :pictures
   translates :title, :redirect_url
+
   include AbAdmin::Concerns::AdminAddition
+  extend FriendlyId
+  friendly_id :title, :use => :slugged
 
   after_create proc { @move_to_end = true }
   after_save :move_to_end

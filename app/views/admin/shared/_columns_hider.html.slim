@@ -1,0 +1,9 @@
+#columns_hider.modal.hide
+  .modal-header
+    button.close data-dismiss="modal" type="button" ×
+    h3= t 'admin.columns_hider.title'
+  .modal-body
+    .btn-group#columns_hider_data data-toggle="buttons-checkbox" 
+  .modal-footer
+    span.btn data-dismiss="modal" href="#" = t 'admin.close'
+    span.btn.btn-danger#submit_columns_hider href="#" = t 'admin.save'

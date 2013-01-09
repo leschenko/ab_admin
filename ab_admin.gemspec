@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rack-pjax'
   gem.add_dependency 'ransack'
   gem.add_dependency 'has_scope'
+  gem.add_dependency 'friendly_id'
   gem.add_dependency 'carrierwave'
   gem.add_dependency 'mini_magick'
   gem.add_dependency 'jquery-rails'

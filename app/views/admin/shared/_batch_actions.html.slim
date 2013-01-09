@@ -1,0 +1,21 @@
+.batch_actions.clearfix
+  - cache [I18n.locale, 'admin', resource_class.name, 'batch_actions'] do
+    - if settings[:batch]
+      .btn-group
+        a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
+          = t 'admin.batch_actions'
+          span.caret
+        ul.dropdown-menu
+          - resource_class.batch_actions.each do |action|
+            li
+              a.batch_action_link href='#' data-action=action data-confirm=((t('admin.delete_confirmation') if action.to_s == 'destroy')) 
+                = t "admin.actions.batch_#{action}.link"
+  .btn-group.pjax_links
+    - button_scopes.each do |name, opts|
+      - active = params[opts[:as]]
+      a.btn[href=(url_for(opts[:as] => (active ? nil : 1))) class=('active' if active)]= t "admin.scopes.#{name}"
+  .btn-group.downloads
+    = link_to params.merge(:format => :csv) do
+      = icon('list-alt') + 'csv'
+  a.btn.pull-right#columns_hider_show[href="#columns_hider" data-toggle='modal']= t 'admin.columns_hider.button'
+

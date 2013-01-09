@@ -1,0 +1,23 @@
+input type='hidden' name='return_to' value=((params[:return_to].presence || request.referer))
+.form-actions
+  button.btn.btn-primary type="submit" name="_save" data-disable-with=t("admin.form.save") 
+    = icon('ok', true)
+    = t("admin.form.save")
+  span.extra_buttons
+    - unless resource.new_record?
+      span.next_prev_buttons
+        button.btn.btn-info type="submit" name="_add_edit_prev" data-disable-with=t("admin.form.save_and_edit_prev") 
+          = icon('chevron-left', true)
+          = t("admin.form.save_and_edit_prev")
+        button.btn.btn-info type="submit" name="_add_edit_next" data-disable-with=t("admin.form.save_and_edit_next") 
+          = t("admin.form.save_and_edit_next")
+          = icon('chevron-right', true)
+    - if can? :create, resource_class
+      button.btn.btn-info type="submit" name="_add_another" data-disable-with=t("admin.form.save_and_add_another") 
+        = t("admin.form.save_and_add_another")
+    - if can? :edit, resource
+      button.btn.btn-info type="submit" name="_add_edit" data-disable-with=t("admin.form.save_and_edit")
+        = t("admin.form.save_and_edit")
+    button.btn type="submit" name="_continue" data-disable-with=t("admin.form.cancel")
+      = icon('remove')
+      = t("admin.form.cancel")
