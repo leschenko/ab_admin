@@ -44,7 +44,7 @@ module AbAdmin
       end
 
       def image?
-        AbAdmin::Utils.image_types.include?(self.data_content_type)
+        AbAdmin.image_types.include?(self.data_content_type)
       end
     end
   end

@@ -1,0 +1,93 @@
+upstream <%= app_name %>_upstream {
+  server unix:/var/www/<%= app_name %>/tmp/sockets/unicorn.sock fail_timeout=0;
+}
+server {
+  server_name static.<%= app_name %>.com;
+
+  server_tokens off;
+  access_log off;
+
+  gzip             on;
+  gzip_proxied     any;
+  gzip_min_length  1100;
+  gzip_buffers     12 4k;
+  gzip_types text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+  gzip_static on;
+
+  root /var/www/<%= app_name %>/public;
+
+  expires max;
+  add_header Cache-Control public;
+  add_header Last-Modified "";
+  add_header ETag "";
+}
+
+server {
+  server_name www.<%= app_name %>.com <%= app_name %>.com;
+
+  sendfile on;
+  server_tokens off;
+
+  tcp_nopush on; # off may be better for *some* Comet/long-poll stuff
+  tcp_nodelay off; # on may be better for some Comet/long-poll stuff
+
+  gzip             on;
+  gzip_proxied     any;
+  gzip_min_length  1100;
+  gzip_buffers     12 4k;
+  gzip_types text/css application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+  proxy_read_timeout 1800;
+  client_max_body_size	200M;
+
+  keepalive_timeout 5;
+
+  root /var/www/<%= app_name %>/public;
+
+#  if (-f $document_root/maintenance.html) {
+#    rewrite  ^(.*)$  /maintenance.html last;
+#    break;
+#  }
+
+#  if ($host != 'www.<%= app_name %>.com' ) {
+#     rewrite  ^/(.*)$  http://www.<%= app_name %>.com/$1  permanent;
+#  }
+
+  location ~ ^/uploads|ckeditor_assets|images|javascripts|stylesheets|static/ {
+    expires max;
+    add_header Cache-Control public;
+    access_log off;
+
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+
+  location ~ ^/assets/ {
+    gzip_static on; # to serve pre-gzipped version
+    expires max;
+    add_header Cache-Control public;
+    access_log off;
+
+    add_header Last-Modified "";
+    add_header ETag "";
+    break;
+  }
+
+  try_files $uri/index.html $uri.html $uri @app;
+
+  location @app {
+    proxy_redirect     off;
+    proxy_set_header   Host             $host;
+    proxy_set_header   X-Real-IP        $remote_addr;
+    proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+    # proxy_set_header X-Forwarded-Proto https; # for SSL, add this
+
+    proxy_pass http://<%= app_name %>_upstream;
+  }
+
+  error_page 500 502 503 504 /500.html;
+  location = /500.html {
+    root /var/www/<%= app_name %>/public;
+  }
+}

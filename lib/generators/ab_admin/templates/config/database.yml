@@ -1,0 +1,24 @@
+login: &login
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  pool: 5
+  username: root
+  password:
+  socket: /var/lib/mysql/mysql.sock
+
+development:
+  database: <%= app_name %>
+  <<: *login
+
+test:
+  database: <%= app_name %>_test
+  <<: *login
+
+staging:
+  database: <%= app_name %>
+  <<: *login
+
+production:
+  database: <%= app_name %>
+  <<: *login

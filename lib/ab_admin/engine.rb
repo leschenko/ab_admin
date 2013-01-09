@@ -10,18 +10,25 @@ module AbAdmin
       ActiveSupport.on_load :active_record do
         ActiveRecord::Base.send :include, AbAdmin::CarrierWave::Glue
         ActiveRecord::Base.send :include, AbAdmin::Utils::Mysql
+        ActiveRecord::Base.send :include, AbAdmin::Concerns::DeepCloneable
+        ActiveRecord::Base.send :include, AbAdmin::Concerns::Utilities
+        ActiveRecord::Base.send :include, AbAdmin::Concerns::Silencer
+        ActiveRecord::Base.send :extend,  AbAdmin::Concerns::Silencer
       end
-      
+
+      ActiveSupport.on_load :action_mailer do
+        ActionMailer::Base.send :include, AbAdmin::Mailers::Helpers
+      end
+
+      ActiveSupport.on_load :action_controller do
+        ActionController::Base.send :include, Utils::Controllers::HeadOptions
+      end
+
       ActiveSupport.on_load :action_view do
-        ActionView::Base.send :include, AbAdmin::Views::Helper
+        ActionView::Base.send :include, AbAdmin::Views::Helpers
+        ActionView::Base.send :include, AbAdmin::Views::AdminHelpers
       end
     end
-    
-    #initializer 'ab_admin.csv_renderer' do
-    #  ::ActionController::Renderers.add :csv do |collection, options|
-    #    doc = AbAdmin::Utils::CsvDocument.new(collection, options)
-    #    send_data(doc.render, :filename => doc.filename, :type => Mime::CSV, :disposition => 'attachment')
-    #  end
-    #end
+
   end
 end

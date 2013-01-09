@@ -1,0 +1,9 @@
+<%= app_path %>/log/*.log {
+    copytruncate
+    daily
+    rotate 4
+    missingok
+    notifempty
+    compress
+    nodelaycompress
+}

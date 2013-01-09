@@ -5,7 +5,7 @@ module AbAdmin
     autoload :Logger, 'ab_admin/utils/logger'
     autoload :Mysql, 'ab_admin/utils/mysql'
 
-    extend self
+    #extend self
 
     def load_files!(path = 'lib/utils')
       Dir[Rails.root.join("#{path}/**/*.rb")].each do |path|
@@ -67,7 +67,7 @@ module AbAdmin
     end
 
     def full_url(path)
-      host = Rails.application.config.action_mailer.default_url_options[:host] || 'www.abitant.com'
+      host = Rails.application.config.action_mailer.default_url_options[:host] || 'www.example.com'
       "http://#{host}#{path}"
     end
 

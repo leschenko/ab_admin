@@ -7,7 +7,7 @@ module AbAdmin
       included do
         scope :admin, scoped
         scope :base, scoped
-        scope :ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin::Utils.val_to_array(ids).push(0)) }
+        scope :ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) }
 
         class_attribute :batch_actions, :instance_writer => false
         self.batch_actions = [:destroy]
