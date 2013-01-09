@@ -34,6 +34,7 @@ module AbAdmin
     autoload :Headerable, 'ab_admin/models/headerable'
     autoload :NestedSet, 'ab_admin/models/nested_set'
     autoload :Structure, 'ab_admin/models/structure'
+    autoload :TypeModel, 'ab_admin/models/type_model'
   end
 
   module Views
