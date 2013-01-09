@@ -1,0 +1,22 @@
+class Admin::<%= controller_class_name %>Controller < Admin::BaseController
+<% if model_class.respond_to?(:acts_as_nested_set_options) -%>
+  include TheSortableTreeController::ReversedRebuild
+
+<% end -%>
+  load_and_authorize_resource
+
+<% if model_class.respond_to?(:visible) -%>
+  has_scope :visible
+<% end -%>
+<% if model_class.respond_to?(:un_visible) -%>
+  has_scope :un_visible
+<% end -%>
+
+<% if model_class.respond_to?(:acts_as_nested_set_options) -%>
+  protected
+
+  def settings
+    {:index_view => 'tree'}
+  end
+<% end -%>
+end

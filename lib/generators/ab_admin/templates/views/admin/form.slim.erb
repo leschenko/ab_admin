@@ -1,0 +1,75 @@
+<%
+   def input_by_col(key, col)
+     case col.type
+       when :integer
+         if key.to_s =~ /_id$/
+           if model_class.reflect_on_association(key.sub(/_id$/, '').to_sym)
+             "= f.association :#{key.sub(/_id$/, '')}"
+           else
+             if key.to_s =~ /_type/
+               "= f.input :#{key}, :collection => #{key.sub(/_type.*/, '').camelize}Type.all, :include_blank => false"
+             else
+               "= f.input :#{key}"
+             end
+           end
+         else
+           "= f.input :#{key}"
+         end
+       when :string
+         "= f.input :#{key}"
+       when :boolean
+         "= f.input :#{key}"
+       when :text
+         %Q[= f.input :#{key}, :as => :editor]
+       else
+         "= f.input :#{key}"
+     end
+   end
+
+   def input_by_col_loc(key, col)
+     col = :string if [:name, :web_site, :title].include?(key)
+     case col
+       when :integer
+         %Q[= f.input :#{key}, :locale => l]
+       when :string
+         %Q[= f.input :#{key}, :locale => l]
+       when :boolean
+         %Q[= f.input :#{key}, :locale => l]
+       when :text
+         %Q[= f.input :#{key}, :locale => l, :as => :editor]
+       else
+         %Q[= f.input :#{key}, :locale => l]
+     end
+   end
+-%>
+= admin_form_for @<%= model_key %> do |f|
+<% if model_class.translates? -%>
+  = f.locale_tabs do |l|
+<% model_class.translated_columns_hash.each do |key, col| -%>
+    <%= input_by_col_loc(key, col) %>
+<% end -%>
+<% end -%>
+
+<% model_class.columns_hash.except('id', 'updated_at', 'slug', 'created_at', 'lat', 'lon', 'zoom', 'user_id').
+           reject{|k| k =~ /_count$/ }.each do |key, col| -%>
+  <%= input_by_col(key, col) %>
+<% end -%>
+
+<% if ['lat', 'lon', 'zoom'].all? { |k| model_class.column_names.include?(k) } %>
+  = input_set t('admin.geo_details') do
+    = f.input :lat, :as => :hidden
+    = f.input :lon, :as => :hidden
+    = f.input :zoom, :as => :hidden
+    = geo_input '<%= model_key %>'
+<% end -%>
+
+<% asset_assocs = model_class.reflect_on_all_associations.find_all { |a| a.options[:as] == :assetable } -%>
+<% asset_assocs.each do |a| -%>
+  = input_set t('admin.<%= a.name %>') do
+    = f.attach_file_field :<%= a.name %>, :file_max_size => 2
+<% end -%>
+<% unless asset_assocs.empty? %>
+  = f.hidden_field :fileupload_guid if f.object.new_record?
+<% end -%>
+
+  = f.save_buttons
