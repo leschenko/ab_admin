@@ -45,6 +45,11 @@ end
 group :development, :test do
   gem 'fuubar'
   gem 'launchy'
+  #gem 'spork'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'rb-fsevent'
+  gem 'growl'
 end
 
 #gem 'thin', :group => :development
