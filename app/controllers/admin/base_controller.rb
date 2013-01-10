@@ -79,6 +79,11 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
+  def interpolation_options
+    return {} if collection_action? || resource.errors.empty?
+    {:errors => resource.errors.full_messages.map { |m| "<br/> - #{m}" }.join.html_safe}
+  end
+
   def self.csv(options={}, &block)
     self.csv_builder = ::AbAdmin::Utils::CSVBuilder.new(options, &block)
   end

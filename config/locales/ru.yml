@@ -265,15 +265,15 @@ ru:
   flash: 
     admin: 
       actions: 
-        create: 
-          error: "%{resource_name} при сохранении возникли ошибки."
-          notice: "%{resource_name} был успешно создан."
-        destroy: 
-          error: "%{resource_name} не может быть удален."
-          notice: "%{resource_name} был успешно удален."
-        update: 
-          error: "%{resource_name} при сохранении возникли ошибки."
-          notice: "%{resource_name} был успешно изменен."
+        create:
+          error: "%{resource_name} - при сохранении возникли ошибки: %{errors}"
+          notice: "%{resource_name} - запись успешно создана."
+        destroy:
+          error: "%{resource_name} - запись не может быть удалена"
+          notice: "%{resource_name} - запись была успешно удалена."
+        update:
+          error: "%{resource_name} - при сохранении возникли ошибки: %{errors}"
+          notice: "%{resource_name} - запись была успешно изменена."
       controller_name: 
         update: 
           success: products
