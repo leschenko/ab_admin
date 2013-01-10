@@ -5,7 +5,7 @@ header.navbar
         span.icon-bar
         span.icon-bar
         span.icon-bar
-      a.brand href=root_path = t 'admin.title'
+      a.brand[href=root_path]= AbAdmin.site_name
       .nav-collapse.in.collapse style=("max-height: 626px;")
         - cache ['admin_nav', controller_name, action_name, current_user.user_role_id] do
           ul.nav

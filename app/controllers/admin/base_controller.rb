@@ -70,10 +70,6 @@ class Admin::BaseController < ::InheritedResources::Base
     render :index
   end
 
-  def self.csv(options={}, &block)
-    self.csv_builder = ::Utils::CSVTools::CSVBuilder.new(options, &block)
-  end
-
   protected
 
   def self.inherited(base)
@@ -83,12 +79,16 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
+  def self.csv(options={}, &block)
+    self.csv_builder = ::AbAdmin::Utils::CSVBuilder.new(options, &block)
+  end
+
   def csv_filename
     "#{resource_collection_name.to_s.gsub('_', '-')}-#{Time.now.strftime("%Y-%m-%d")}.csv"
   end
 
   def csv_builder
-    self.class.csv_builder || ::Utils::CSVTools::CSVBuilder.default_for_resource(resource_class)
+    self.class.csv_builder ||= ::AbAdmin::Utils::CSVBuilder.default_for_resource(resource_class)
   end
 
   def set_title
@@ -133,7 +133,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def collection_action?
-    ['index', 'search', 'batch'].include?(action_name)
+    %w(index search batch).include?(action_name)
   end
 
   def with_sidebar?

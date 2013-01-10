@@ -53,6 +53,9 @@ module AbAdmin
   mattr_accessor :title_spliter
   @@title_spliter = ' – '
 
+  mattr_accessor :site_name
+  @@title_spliter = 'AbAdmin'
+
   mattr_accessor :image_types
   @@image_types = %w(image/jpeg image/png image/gif image/jpg image/pjpeg image/tiff image/x-png)
 

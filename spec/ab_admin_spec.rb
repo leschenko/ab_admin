@@ -10,12 +10,14 @@ describe AbAdmin do
       AbAdmin.setup do |c|
         c.flash_keys = [:test, :test2]
         c.title_spliter = ' -> '
+        c.site_name = 'Test'
       end
     end
     
     it "should store configuration" do
       AbAdmin.flash_keys.should == [:test, :test2]
       AbAdmin.title_spliter.should == ' -> '
+      AbAdmin.site_name.should == 'Test'
     end
   end
 end
