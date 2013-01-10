@@ -16,6 +16,8 @@ module AbAdmin
         class_attribute :thumb_size
         self.thumb_size = :thumb
 
+        before_save :reprocess
+
         alias_attribute :filename, :original_filename
         alias_attribute :size, :data_file_size
         alias_attribute :content_type, :data_content_type
@@ -90,6 +92,14 @@ module AbAdmin
 
       def rotate_degrees_changed?
         @rotate_degrees_changed === true
+      end
+
+      protected
+
+      def reprocess
+        if cropper_geometry_changed? || rotate_degrees_changed?
+          data.cache_stored_file!
+        end
       end
 
     end

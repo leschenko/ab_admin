@@ -79,7 +79,7 @@ module AbAdmin
         
         if geometry && geometry.size == 4
           manipulate! do |img|
-            img.crop "%ix%i+%i+%i" % geometry
+            img.crop '%ix%i+%i+%i' % geometry
             img = yield(img) if block_given?
             img
           end
@@ -107,7 +107,8 @@ module AbAdmin
       end
       
       def magick
-        @magick ||= ::MiniMagick::Image.new(current_path)
+        #@magick ||= ::MiniMagick::Image.new(current_path)
+        ::MiniMagick::Image.new(current_path)
       end
       
       protected
