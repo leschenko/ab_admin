@@ -29,3 +29,4 @@ spec/dummy/public/assets/
 spec/dummy/public/ckeditor_assets/
 spec/dummy/public/uploads/
 spec/dummy/vendor/bundle/
+spec/dummy/app/helpers

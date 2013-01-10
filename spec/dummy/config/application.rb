@@ -70,7 +70,8 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
-    STDERR.puts File.expand_path('../../../../app/controllers', __FILE__)
-    config.eager_load_paths << File.expand_path('../../../../app/controllers', __FILE__)
+    base_dir = File.expand_path('../../../../app/', __FILE__)
+    dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)
+    config.eager_load_paths += dirs
   end
 end

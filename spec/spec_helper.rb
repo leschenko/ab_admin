@@ -9,6 +9,15 @@ require 'generator_spec/test_case'
 require 'capybara/rspec'
 require 'connection_pool'
 
+# Copy helpers
+require 'fileutils'
+dest = File.join(File.dirname(__FILE__), 'dummy/app/helpers/admin')
+FileUtils.rm_r(dest, :force => true)
+FileUtils.mkdir_p(dest)
+
+source = File.expand_path('../../lib/generators/ab_admin/templates/helpers/admin', __FILE__)
+FileUtils.cp(Dir[File.join(source, '*.rb')], dest)
+
 require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
 FactoryGirl.find_definitions
