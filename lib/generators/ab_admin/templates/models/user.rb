@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   scope :managers, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
   scope :active, where(:trust_state => ::UserState.active.id)
-  scope :admin, includes(:avatar)
+  #scope :admin, includes(:avatar)
 
   after_initialize :init
   before_validation :generate_login

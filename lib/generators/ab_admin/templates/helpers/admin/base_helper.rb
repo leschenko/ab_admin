@@ -22,6 +22,21 @@ module Admin
       "<i class='icon-#{name} #{'icon-white' if white}'></i> ".html_safe
     end
 
+    def pretty_data(val)
+      case val
+        when TrueClass
+          '+'
+        when FalseClass #, NilClass
+          '-'
+        when Date, DateTime, Time, ActiveSupport::TimeWithZone
+          I18n.l(val, :format => :long)
+        when String, Integer
+          val
+        else
+          val.respond_to?(:title) ? val.title : val
+      end
+    end
+
     def item_image_link(item, url, assoc=:photo, version=:thumb)
       image = item.send(assoc)
       return nil unless image
