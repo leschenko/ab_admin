@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 module AbAdmin
-  module Models
+  module Concerns
     module Headerable
       extend ActiveSupport::Concern
 

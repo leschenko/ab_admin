@@ -5,7 +5,8 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
-        include AbAdmin::Models::Headerable
+        include AbAdmin::Concerns::Headerable
+        include AbAdmin::Concerns::NestedSet
 
         enumerated_attribute :structure_type, :id_attribute => :kind
         enumerated_attribute :position_type, :id_attribute => :position
@@ -15,17 +16,11 @@ module AbAdmin
 
         has_one :static_page, :dependent => :destroy
 
-        acts_as_nested_set
-
         scope :visible, where(:is_visible => true)
         scope :with_kind, proc {|structure_type| where(:kind => structure_type.id) }
-        scope :with_depth, proc {|level| where(:depth => level.to_i) }
         scope :with_position, proc {|position_type| where(:position => position_type.id).order('lft DESC') }
       end
-      
-      def moveable?
-        new_record? or !root?
-      end
+
     end
   end
 end

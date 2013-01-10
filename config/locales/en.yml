@@ -302,3 +302,11 @@ en:
     page_gap: ...
     pagination_info: Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} only
     previous_label: "← Prev."
+
+  errors:
+    messages:
+      wrong_size: "is the wrong size (should be %{file_size})"
+      size_too_small: "is too small (should be at least %{file_size})"
+      size_too_big: "is too big (should be at most %{file_size})"
+      carrierwave_processing_error: 'Cannot resize image.'
+      carrierwave_integrity_error: 'Not an image.'

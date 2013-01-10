@@ -8,10 +8,17 @@ module AbAdmin
         belongs_to :user
         belongs_to :assetable, :polymorphic => true
 
+        # Store options for image manipulation
+        attr_reader :cropper_geometry, :rotate_degrees
+
         delegate :url, :original_filename, :to => :data
-        alias :filename :original_filename
-        #alias :size :data_file_size
-        #alias :content_type :data_content_type
+
+        class_attribute :thumb_size
+        self.thumb_size = :thumb
+
+        alias_attribute :filename, :original_filename
+        alias_attribute :size, :data_file_size
+        alias_attribute :content_type, :data_content_type
       end
 
       module ClassMethods
@@ -21,7 +28,7 @@ module AbAdmin
       end
 
       def thumb_url
-        data.url(self.class.thumb_size) if image?
+        data.url(self.thumb_size) if image?
       end
 
       def format_created_at
@@ -46,6 +53,45 @@ module AbAdmin
       def image?
         AbAdmin.image_types.include?(self.data_content_type)
       end
+
+      def main!
+        self.class.update_all('is_main=0', ["assetable_type=? AND assetable_id=? AND type=?", assetable_type, assetable_id, type])
+        update_column(:is_main, true) and self
+      end
+
+      def self.clean!
+        Asset.where(:created_at.lt => 1.week.ago).where('assetable_id IS NULL OR assetable_id = 0').destroy_all
+      end
+
+      def full_url(*args)
+        host = Rails.application.config.action_mailer.default_url_options[:host] || 'www.example.com'
+        "//#{host}#{data.url(*args)}"
+      end
+
+      def cropper_geometry=(value)
+        geometry = (value || '').to_s.split(',')
+
+        unless geometry.map(&:blank?).any?
+          @cropper_geometry_changed = true
+          @cropper_geometry = geometry
+        end
+      end
+
+      def cropper_geometry_changed?
+        @cropper_geometry_changed === true
+      end
+
+      def rotate_degrees=(value)
+        unless value.blank?
+          @rotate_degrees_changed = true
+          @rotate_degrees = value.to_s
+        end
+      end
+
+      def rotate_degrees_changed?
+        @rotate_degrees_changed === true
+      end
+
     end
   end
 end

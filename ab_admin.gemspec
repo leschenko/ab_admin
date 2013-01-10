@@ -54,6 +54,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'database_cleaner'
   gem.add_development_dependency 'fuubar', '1.1.0'
   gem.add_development_dependency 'generator_spec'
+  gem.add_development_dependency 'forgery'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'connection_pool'
   gem.add_development_dependency 'rack_session_access'

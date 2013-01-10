@@ -45,11 +45,12 @@ end
 group :development, :test do
   gem 'fuubar'
   gem 'launchy'
+  gem 'forgery'
   #gem 'spork'
   gem 'guard-rspec'
   gem 'guard-spork'
-  gem 'rb-fsevent'
-  gem 'growl'
+  gem 'rb-fsevent', :require => false
+  gem 'growl', :require => false
 end
 
 #gem 'thin', :group => :development

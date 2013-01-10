@@ -16,6 +16,8 @@ module AbAdmin
     autoload :DeepCloneable, 'ab_admin/concerns/deep_cloneable'
     autoload :Silencer, 'ab_admin/concerns/silencer'
     autoload :Utilities, 'ab_admin/concerns/utilities'
+    autoload :Headerable, 'ab_admin/concerns/headerable'
+    autoload :NestedSet, 'ab_admin/concerns/nested_set'
   end
 
   module Controllers
@@ -33,8 +35,6 @@ module AbAdmin
     autoload :Asset, 'ab_admin/models/asset'
     autoload :AttachmentFile, 'ab_admin/models/attachment_file'
     autoload :Header, 'ab_admin/models/header'
-    autoload :Headerable, 'ab_admin/models/headerable'
-    autoload :NestedSet, 'ab_admin/models/nested_set'
     autoload :Structure, 'ab_admin/models/structure'
     autoload :TypeModel, 'ab_admin/models/type_model'
   end

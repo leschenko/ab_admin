@@ -302,3 +302,11 @@ ru:
     page_gap: "&hellip;"
     pagination_info: "Показано <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
     previous_label: "&#8592; Пред."
+
+  errors:
+    messages:
+      wrong_size: "неправильный размер (должно быть %{file_size})"
+      size_too_small: "слишком маленький размер (должно быть не менее %{file_size})"
+      size_too_big: "слишком большой размер (должно быть не более %{file_size})"
+      carrierwave_processing_error: 'Невозможно переконвертировать'
+      carrierwave_integrity_error: 'Не является рисунком'
