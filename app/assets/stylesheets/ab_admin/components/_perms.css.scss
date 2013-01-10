@@ -1,0 +1,39 @@
+.perms_form {
+  table {
+    width: 100%;
+    select {
+      width: auto;
+    }
+    label {
+      display: inline;
+    }
+  }
+  .collection_perms {
+    td, th {
+      width: 11%;
+    }
+    td.big_col {
+      width: 66%;
+    }
+    .big_col td {
+      width: 20%;
+    }
+    .token-input-list-facebook {
+      width: 200px;
+    }
+  }
+  .resource_perms {
+    td, th {
+      width: 25%;
+    }
+    td.big_col {
+      width: 42%;
+    }
+    .big_col td {
+      width: 50%;
+    }
+    .token-input-list-facebook {
+      width: 200px;
+    }
+  }
+}

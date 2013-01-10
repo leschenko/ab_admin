@@ -1,0 +1,75 @@
+.downloads {
+  margin-top: 9px;
+  a {
+    font-size: 14px;
+    text-transform: uppercase;
+    i {
+      padding-right: 5px;
+    }
+  }
+}
+
+.pagination {
+  margin: 0;
+  .pagination {
+    float: left;
+  }
+  .pagination_info {
+    float: left;
+    padding: 10px;
+  }
+}
+
+.batch_actions > .pagination {
+  margin-left: 15px;
+}
+
+.breadcrumb {
+  margin-bottom: 5px;
+}
+
+.resource_actions {
+  float: left;
+  .btn {
+    margin-right: 5px;
+  }
+}
+
+.resource_title {
+  margin-left: 50px;
+  float: left;
+  h1 {
+    color: #333;
+  }
+}
+
+.top_bar {
+  padding: 5px 10px 10px;
+}
+
+.order_indicator {
+  color: gray;
+  font-size: 10px;
+}
+
+.batch_actions {
+  margin-bottom: 10px;
+  margin-left: -30px;
+  .btn-group {
+    float: left;
+    margin-left: 15px;
+  }
+  .btn-group:first-child {
+    margin-left: 30px;
+  }
+}
+
+#columns_hider {
+  width: 60%;
+  margin-left: -30%;
+}
+
+#lang_bar img {
+  height: 16px;
+  width: 24px;
+}

@@ -1,0 +1,32 @@
+@mixin colored_tabs($border_color){
+  .nav-tabs {
+    border-bottom: 1px solid $border_color;
+    margin-bottom: 0;
+  }
+  .nav-tabs > li > a {
+    color: #555;
+    border-bottom: none;
+    padding-left: 32px;
+    border-color: lighten($border_color, 50%);
+    &:hover {
+      border-color: $border_color;
+    }
+  }
+  .nav-tabs > .active > a, .nav-tabs > .active > a:hover {
+    color: #333;
+    background-color: $white;
+    border: 1px solid $border_color;
+    border-bottom-color: transparent;
+  }
+
+  .tab-pane {
+    background-color: white;
+    border: 1px solid $border_color;
+    border-top: none;
+    padding: 10px;
+  }
+  margin: 20px 0;
+  input[type="text"] {
+    width: 50%;
+  }
+}
