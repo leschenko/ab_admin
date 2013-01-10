@@ -51,6 +51,10 @@ class User < ActiveRecord::Base
     full_name.strip.presence || email
   end
 
+  def full_name
+    [first_name.presence, last_name.presence].compact.join(' ')
+  end
+
   def activate
     self.trust_state = ::UserState.active.id
     self.locked_at = nil

@@ -13,6 +13,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   has_scope :ids, :type => :array
 
+  helper_method :admin?, :moderator?
+
   helper_method :button_scopes, :collection_action?, :action_items, :index_actions, :csv_builder,
                 :preview_resource_path, :get_subject, :settings, :with_sidebar?
 

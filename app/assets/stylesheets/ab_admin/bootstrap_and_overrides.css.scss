@@ -3,19 +3,19 @@ $iconSpritePath: asset-url('glyphicons-halflings.png', image);
 $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 @import "bootstrap";
 @import "bootstrap-responsive";
-@import "admin/components/base";
-@import "admin/components/navigation";
-@import "admin/components/table_view";
-@import "admin/components/grid_view";
-@import "admin/components/form";
+@import "ab_admin/components/base";
+@import "ab_admin/components/navigation";
+@import "ab_admin/components/table_view";
+@import "ab_admin/components/grid_view";
+@import "ab_admin/components/form";
 
-@import "admin/components/colored_tabs";
-@import "admin/components/locale_tabs";
-@import "admin/components/translations";
-@import "admin/components/perms";
-@import "admin/components/admin_comments";
-@import "admin/components/geo_input";
-@import "admin/components/sortable_tree";
+@import "ab_admin/components/colored_tabs";
+@import "ab_admin/components/locale_tabs";
+@import "ab_admin/components/translations";
+@import "ab_admin/components/perms";
+@import "ab_admin/components/admin_comments";
+@import "ab_admin/components/geo_input";
+@import "ab_admin/components/sortable_tree";
 
 .btn .caret {
   margin-left: 3px;
