@@ -3,10 +3,9 @@ $ ->
     window.viewType = 'list'
   else if $('form.simple_form')[0]
     window.viewType = 'form'
-  $(document).trigger('admin:init', {view: window.viewType})
 
   $(document).on 'admin:init', (e) ->
-    return unless if e.viewType == 'list'
+    return unless e.view == 'list'
     clonePagination()
     initPopover()
     initTooltip()
@@ -35,7 +34,8 @@ $ ->
 
 
   $(document).on 'pjax:end', ->
-    $(document).trigger('admin:init', {view: window.viewType, pjax: true})
+    $(document).trigger({type: 'admin:init', view: window.viewType, pjax: true})
+  $(document).trigger({type: 'admin:init', view: window.viewType})
 
 
   initChosen()

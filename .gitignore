@@ -30,3 +30,4 @@ spec/dummy/public/ckeditor_assets/
 spec/dummy/public/uploads/
 spec/dummy/vendor/bundle/
 spec/dummy/app/helpers
+spec/dummy/app/assets/javascripts/i18n/translations.js
