@@ -5,11 +5,11 @@ class Structure < ActiveRecord::Base
   attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible, :structure_type, :position_type,
                   :linked_id, :linked_type, :is_hidden, :slug, :parent
 
-  has_many :pictures, :as => :assetable, :dependent => :destroy
+  has_one :picture, :as => :assetable, :dependent => :destroy
 
   has_many :visible_children, :class_name => name, :foreign_key => 'parent_id', :conditions => {:is_visible => true}
 
-  fileuploads :pictures
+  fileuploads :picture
   translates :title, :redirect_url
 
   include AbAdmin::Concerns::AdminAddition
@@ -26,8 +26,6 @@ class Structure < ActiveRecord::Base
 
   alias_attribute :name, :title
 
-  ac_field :title
-
   self.per_page = 1000
 
   def og_tags
@@ -36,7 +34,7 @@ class Structure < ActiveRecord::Base
         'og:type' => 'activity',
         'og:description' => header.try(:description)
     }
-    res['og:image'] = menu_image.full_url(:content) if menu_image
+    res['og:image'] = picture.full_url(:content) if picture
     res
   end
 

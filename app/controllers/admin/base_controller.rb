@@ -6,7 +6,7 @@ class Admin::BaseController < ::InheritedResources::Base
   include AbAdmin::Controllers::Callbacks
   define_admin_callbacks :save, :create
 
-  before_filter :authenticate_user!, :require_manager
+  before_filter :authenticate_user!, :require_moderator
   before_filter :add_breadcrumbs, :set_title, :set_user_vars, :unless => :xhr?
 
   class_attribute :csv_builder
@@ -216,16 +216,16 @@ class Admin::BaseController < ::InheritedResources::Base
     gon.admin = admin?
   end
 
-  def manager?
-    user_signed_in? && current_user.manager?
+  def moderator?
+    user_signed_in? && current_user.moderator?
   end
 
   def admin?
     user_signed_in? && current_user.admin?
   end
 
-  def require_manager
-    raise CanCan::AccessDenied unless manager?
+  def require_moderator
+    raise CanCan::AccessDenied unless moderator?
   end
 
   def require_admin
@@ -255,7 +255,8 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def fetch_role
-    @as_role ||= get_role
+    return @as_role if defined?(@as_role)
+    @as_role = get_role
   end
 
   def get_subject

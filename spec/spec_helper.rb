@@ -1,12 +1,13 @@
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require File.expand_path('../dummy/config/environment.rb', __FILE__)
+require 'active_record'
 require 'rspec/rails'
 require 'database_cleaner'
 require 'generator_spec/test_case'
 require 'capybara/rspec'
-
+require 'connection_pool'
 
 require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
@@ -16,6 +17,9 @@ ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = 'example.com'
 
+ActiveRecord::Migrator.migrate File.expand_path('../dummy/db/migrate/', __FILE__)
+ActiveRecord::Migrator.migrate File.expand_path('../../db/migrate/', __FILE__)
+
 Rails.backtrace_cleaner.remove_silencers!
 
 require 'carrierwave'
@@ -24,7 +28,7 @@ CarrierWave.configure do |config|
   config.enable_processing = false
 end
 
-Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 RSpec.configure do |config|
   require 'rspec/expectations'
   config.include RSpec::Matchers

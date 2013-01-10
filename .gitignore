@@ -19,3 +19,13 @@ tmp
 .idea
 .rvmrc
 .rspec
+
+spec/tmp
+spec/dummy/log/*.log
+spec/dummy/tmp/
+spec/dummy/db/schema.rb
+spec/dummy/public/cache/
+spec/dummy/public/assets/
+spec/dummy/public/ckeditor_assets/
+spec/dummy/public/uploads/
+spec/dummy/vendor/bundle/

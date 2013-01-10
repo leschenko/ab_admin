@@ -1,21 +1,7 @@
 # -*- encoding : utf-8 -*-
-class StructureType
-  include EnumField::DefineEnum
+class StructureType < AbAdmin::Models::TypeModel
+  self.codes = [:static_page, :posts, :main, :redirect, :group]
+  self.i18n_scope = [:admin, :structure, :kind]
 
-  attr_reader :kind
-
-  def initialize(value)
-    @kind = value
-  end
-
-  define_enum do |builder|
-    [:static_page, :posts, :main, :redirect, :group].each do |kind|
-      builder.member kind, :object => new(kind.to_s)
-    end
-  end
-
-  def title
-    I18n.t(@kind, :scope => [:admin, :structure, :kind])
-  end
-
+  define_enum_by_codes
 end

@@ -1,5 +1,17 @@
 require 'rails'
 require 'ab_admin'
+require 'awesome_nested_set'
+require 'inherited_resources'
+require 'sunrise-file-upload'
+require 'carrierwave'
+require 'rack/pjax'
+require 'has_scope'
+require 'cancan'
+require 'enum_field'
+require 'the_sortable_tree'
+require 'friendly_id'
+require 'will_paginate'
+
 
 module AbAdmin
   class Engine < ::Rails::Engine
@@ -21,7 +33,7 @@ module AbAdmin
       end
 
       ActiveSupport.on_load :action_controller do
-        ActionController::Base.send :include, Utils::Controllers::HeadOptions
+        ActionController::Base.send :include, AbAdmin::Controllers::HeadOptions
       end
 
       ActiveSupport.on_load :action_view do

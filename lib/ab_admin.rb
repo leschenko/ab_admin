@@ -1,13 +1,14 @@
 # encoding: utf-8
 require 'ab_admin/version'
 require 'ab_admin/core_ext'
+require 'ab_admin/engine'
 
 module AbAdmin
   autoload :Utils, 'ab_admin/utils'
   module CarrierWave
-    autoload :Glue, 'ab_admin/carrier_wave/glue'
-    autoload :BaseUploader, 'ab_admin/carrier_wave/base_uploader'
-    autoload :FileSizeValidator, 'ab_admin/carrier_wave/file_size_validator'
+    autoload :Glue, 'ab_admin/carrierwave/glue'
+    autoload :BaseUploader, 'ab_admin/carrierwave/base_uploader'
+    autoload :FileSizeValidator, 'ab_admin/carrierwave/file_size_validator'
   end
 
   module Concerns

@@ -1,7 +1,29 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
-#   Mayor.create(:name => 'Emanuel', :city => cities.first)
+# encoding: utf-8
+
+ActiveRecord::Migrator.migrate File.expand_path('../../../../db/migrate/', __FILE__)
+
+def insert_user  
+  User.truncate!
+  password = Rails.env.production? ? Devise.friendly_token : (1..6).to_a.join
+  
+  admin = User.new do |u|
+    u.email = 'test@test.com'
+    u.password = password
+    u.password_confirmation = password
+    u.user_role_id = UserRoleType.admin.id
+  end
+    
+  admin.activate!
+  admin.save!
+
+  puts "Admin: #{admin.email}, #{admin.password}"
+end
+
+def insert_structures
+  Structure.truncate!
+  
+  main_page = Structure.create!({:title => 'Главная страница', :slug => 'main-page', :structure_type => StructureType.main, :parent => nil}, :as => :admin)
+end
+
+insert_user
+insert_structures

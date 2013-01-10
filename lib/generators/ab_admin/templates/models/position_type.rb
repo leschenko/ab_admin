@@ -1,21 +1,7 @@
 # -*- encoding : utf-8 -*-
-class PositionType
-  include EnumField::DefineEnum
+class PositionType < AbAdmin::Models::TypeModel
+  self.codes = [:default, :menu, :bottom]
+  self.i18n_scope = [:admin, :structure, :position]
 
-  def initialize(code)
-    @code = code.to_sym
-  end
-
-  attr_reader :code
-
-  define_enum do |builder|
-    builder.member :default, :object => new("default")
-    builder.member :menu, :object => new("menu")
-    builder.member :bottom, :object => new("bottom")
-  end
-
-  def title
-    I18n.t(@code, :scope => [:admin, :structure, :position])
-  end
-
+  define_enum_by_codes
 end

@@ -1,5 +1,4 @@
 require 'ab_admin/hooks'
-require 'enum_field'
 
 if Object.const_defined?('AbAdmin')
   AbAdmin.setup do |config|
@@ -8,4 +7,4 @@ if Object.const_defined?('AbAdmin')
   end
 end
 
-
+I18n.available_locales = Globalize.available_locales = [:ru, :en]

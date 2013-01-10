@@ -23,7 +23,7 @@ class User < ActiveRecord::Base
   scope :admin, includes(:avatar)
 
   after_initialize :init
-  before_validation :generate_login, :set_password_confirmation
+  before_validation :generate_login
   before_validation :set_default_role, :unless => :user_role_id?
   before_update proc { |r| r.touch }
 
@@ -126,7 +126,7 @@ class User < ActiveRecord::Base
   end
 
   def check_role
-    errors.add(:role_type_id, :invalid) unless ::RoleType.legal?(role_type_id)
+    errors.add(:user_role_id, :invalid) unless ::UserRoleType.legal?(user_role_id)
   end
 end
 
