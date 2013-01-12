@@ -15,6 +15,7 @@ module AbAdmin
         validates_numericality_of :position, :only_integer => true
 
         has_one :static_page, :dependent => :destroy
+        has_many :visible_children, :class_name => name, :foreign_key => 'parent_id', :conditions => {:is_visible => true}
 
         scope :visible, where(:is_visible => true)
         scope :with_kind, proc {|structure_type| where(:kind => structure_type.id) }

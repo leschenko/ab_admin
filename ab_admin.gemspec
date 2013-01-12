@@ -50,6 +50,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'ruby-progressbar'
 
   gem.add_development_dependency 'rspec-rails'
+  gem.add_development_dependency 'shoulda-matchers'
   gem.add_development_dependency 'factory_girl_rails'
   gem.add_development_dependency 'database_cleaner'
   gem.add_development_dependency 'fuubar', '1.1.0'

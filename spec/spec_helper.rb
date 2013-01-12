@@ -8,6 +8,7 @@ require 'database_cleaner'
 require 'generator_spec/test_case'
 require 'capybara/rspec'
 require 'connection_pool'
+require 'shoulda/matchers'
 
 # Copy helpers
 require 'fileutils'
@@ -51,6 +52,43 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include MailerMacros
   config.before(:each) { reset_email }
+
+  config.use_transactional_fixtures = false
+
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.after(:suite) do
+    FileUtils.rm_rf(Dir["#{Rails.root}/public/uploads/[^.]*"])
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+
+  #config.after(:all) do
+  #  Warden.test_reset!
+  #end
+
+  #config.before(:suite) do
+  #  DatabaseCleaner.strategy = :truncation
+  #  DatabaseCleaner.clean
+  #end
+
+  #config.before(:all) do
+  #  DatabaseCleaner.clean
+  #end
+  #
+  #config.after(:all) do
+  #  DatabaseCleaner.clean
+  #  Warden.test_reset!
+  #end
 
 end
 

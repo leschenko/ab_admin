@@ -8,6 +8,8 @@ module AbAdmin
         acts_as_nested_set
         after_move :update_search_index
 
+        scope :nested_set, order('lft ASC')
+        scope :reversed_nested_set, order('lft DESC')
         scope :with_depth, proc { |level| where(:depth => level) }
       end
 

@@ -1,71 +1,159 @@
 require 'spec_helper'
 
 describe User do
-  before(:all) do
-    @user = FactoryGirl.build(:default_user)
+
+  describe 'associations' do
+    it { should have_one(:avatar) }
   end
-  
-  it "should create a new instance given valid attributes" do
-    @user.save!
+
+  describe 'validations' do
+    it { should validate_presence_of(:email) }
+    it { should_not allow_value('blah').for(:email) }
+    it { should allow_value('a@b.com').for(:email) }
+    it { should_not allow_value('123').for(:password) }
+    it { should allow_value('123456').for(:password) }
+    it { should_not allow_value(5).for(:user_role_id) }
   end
-    
-  context "validations" do
-    it "should not be valid with empty name" do
-      @user.name = nil
-      @user.should_not be_valid
+
+  describe 'attributes' do
+    it 'allow mass assignment of user data attributes' do
+      [:password, :password_confirmation, :email, :remember_me,
+       :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
+       :time_zone, :locale, :bg_color].each do |attr|
+        should allow_mass_assignment_of(attr)
+      end
     end
-    
-    it "should not be valid with empty email" do
-      @user.email = nil
-      @user.should_not be_valid
-    end
-    
-    it "should not be valid with invalid email" do
-      @user.email = 'wrong'
-      @user.should_not be_valid
-    end
-    
-    it "should not be valid with invalid password" do
-      @user.password = '123'
-      @user.should_not be_valid
+    it 'allow mass assignment of user_role_id, trust_state only for admin' do
+      [:user_role_id, :trust_state].each do |attr|
+        should_not allow_mass_assignment_of(attr)
+        should allow_mass_assignment_of(attr).as(:admin)
+      end
     end
   end
-  
-  context "after create" do
-    before(:each) do
-      @user = FactoryGirl.create(:default_user)
+
+  describe 'scopes' do
+    before(:all) do
+      @user = create(:default_user)
+      @moderator = create(:moderator_user)
+      @inactive = create(:user)
     end
-    
-    it 'should search users by email' do
-      # TODO: not working in mongoid
-      #User.with_email(@user.email.split(/@/).first).first.should == @user
-      User.with_email(@user.email).first.should == @user
+
+    it 'search for moderators' do
+      User.moderators.should_not include(@user)
+      User.moderators.should include(@moderator)
     end
-    
-    it "should search users by role" do
-      User.with_role(::RoleType.default).all.should include(@user)
+
+    it 'search for active users' do
+      User.active.should include(@user)
+      User.moderators.should_not include(@inactive)
     end
-    
-    it "export users in csv format" do
-      User.to_csv.should include([@user.id,@user.email,@user.name,@user.current_sign_in_ip].join(','))
+  end
+
+  context 'after create' do
+    before :all do
+      @user = create(:default_user)
+      @admin = create(:admin_user)
+      @moderator = create(:moderator_user)
+      @inactive = create(:user, :email => 'test@example.com')
     end
-    
-    it "export users in csv format with custom columns" do
-      options = { :columns => [:id, :email, :confirmed_at, :created_at ] }
-      User.to_csv(options).should include([@user.id,@user.email,@user.confirmed_at,@user.created_at].join(','))
+
+    before :each do
+      @user.reload
+      @admin.reload
+      @moderator.reload
+      @inactive.reload
     end
-    
-    it "should set default role" do
-      @user.role_type_id.should == RoleType.default.id
-      @user.role_symbol.should == RoleType.default.code
+
+    it '#title' do
+      @inactive.title.should == @inactive.email
+      @user.title.should == @user.full_name
     end
-    
-    it "should return current user events" do
-      @user.confirmed_at = nil
-      @user.lock_access!
-      
-      @user.events_for_current_state.should include('unlock')
-      @user.events_for_current_state.should include('activate')
+
+    it '#full_name' do
+      @user.full_name.should == "#{@user.first_name} #{@user.last_name}"
+    end
+
+    it 'set user defaults' do
+      @inactive.user_role_id.should == ::UserRoleType.default.id
+      @inactive.trust_state.should == ::UserState.pending.id
+      @inactive.locale.should == 'ru'
+      @inactive.time_zone.should == 'Kiev'
+    end
+
+    it 'generate login' do
+      @inactive.login.should == 'test'
+    end
+
+    describe 'auth' do
+      it '#generate_password!' do
+        new_pass = @user.generate_password!
+        @user.valid_password?(new_pass).should be_true
+      end
+
+      it 'activate user' do
+        @inactive.activate
+        @inactive.trust_state.should == ::UserState.active.id
+        @inactive.locked_at.should be_nil
+      end
+
+      it 'activate! user' do
+        @inactive.activate!
+        @inactive.reload
+        @inactive.trust_state.should == ::UserState.active.id
+        @inactive.locked_at.should be_nil
+        @inactive.should be_confirmed
+      end
+
+      it 'should set default role' do
+        @inactive.reload
+        @inactive.user_role_id = nil
+        @inactive.save
+        @inactive.user_role_id.should == ::UserRoleType.default.id
+      end
+
+      it 'pending by default' do
+        @inactive.reload
+        @inactive.should be_pending
+        @inactive.inactive_message.should == :unconfirmed
+      end
+
+      it 'active for authentication' do
+        @user.should be_active_for_authentication
+      end
+
+      it 'suspend user' do
+        @user.suspend!
+        @user.reload
+        @user.trust_state.should == ::UserState.suspended.id
+      end
+
+      it 'delete user' do
+        @user.delete!
+        @user.reload
+        @user.trust_state.should == ::UserState.deleted.id
+        @user.should be_deleted
+      end
+
+      it 'delete user' do
+        @user.unsuspend!
+        @user.reload
+        @user.trust_state.should == ::UserState.active.id
+      end
+
+      describe 'roles' do
+        it 'default' do
+          @user.should be_default
+        end
+
+        it 'moderator' do
+          @moderator.should be_moderator
+          @admin.should be_moderator
+        end
+
+        it 'admin' do
+          @admin.should be_admin
+        end
+      end
     end
   end
 end

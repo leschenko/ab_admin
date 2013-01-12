@@ -46,6 +46,7 @@ group :development, :test do
   gem 'fuubar'
   gem 'launchy'
   gem 'forgery'
+  gem 'shoulda-matchers'
   #gem 'spork'
   gem 'guard-rspec'
   gem 'guard-spork'

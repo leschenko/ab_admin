@@ -8,22 +8,24 @@ FactoryGirl.define do
     factory :default_user do
       confirmed_at 1.hour.ago
       trust_state UserState.active.id
-    end
+      first_name Forgery::Name.first_name
+      last_name Forgery::Name.last_name
 
-    factory :inactive_user do
-      trust_state UserState.suspended.id
-    end
+      factory :admin_user do
+        user_role_id UserRoleType.admin.id
+      end
 
-    factory :admin_user do
-      user_role_id UserRoleType.admin.id
-    end
+      factory :redactor_user do
+        user_role_id UserRoleType.redactor.id
+      end
 
-    factory :redactor_user do
-      user_role_id UserRoleType.redactor.id
-    end
+      factory :moderator_user do
+        user_role_id UserRoleType.moderator.id
+      end
 
-    factory :moderator_user do
-      user_role_id UserRoleType.moderator.id
+      factory :inactive_user do
+        trust_state UserState.suspended.id
+      end
     end
   end
 end

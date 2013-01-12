@@ -2,14 +2,12 @@
 class Structure < ActiveRecord::Base
   include AbAdmin::Models::Structure
 
-  attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible, :structure_type, :position_type,
-                  :linked_id, :linked_type, :is_hidden, :slug, :parent
+  attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible,
+                  :structure_type, :position_type, :slug, :parent
 
   has_one :picture, :as => :assetable, :dependent => :destroy
 
-  has_many :visible_children, :class_name => name, :foreign_key => 'parent_id', :conditions => {:is_visible => true}
-
-  fileuploads :picture
+  #fileuploads :picture
   translates :title, :redirect_url
 
   include AbAdmin::Concerns::AdminAddition
@@ -18,9 +16,6 @@ class Structure < ActiveRecord::Base
 
   after_create proc { @move_to_end = true }
   after_save :move_to_end
-
-  scope :nested_set, order('lft ASC')
-  scope :reversed_nested_set, order('lft DESC')
 
   default_scope reversed_nested_set.includes(:translations)
 

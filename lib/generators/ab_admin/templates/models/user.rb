@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
 
   has_one :avatar, :as => :assetable, :dependent => :destroy, :autosave => true
 
-  scope :managers, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
+  scope :moderators, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
   scope :active, where(:trust_state => ::UserState.active.id)
   #scope :admin, includes(:avatar)
 
@@ -32,12 +32,14 @@ class User < ActiveRecord::Base
   alias_attribute :name, :title
 
   def init
-    if new_record?
-      self.user_role_id = ::UserRoleType.default.id unless user_role_id_changed?
-      self.trust_state = ::UserState.pending.id unless trust_state_changed?
-    end
+    set_default_role
+    self.trust_state ||= ::UserState.pending.id
     self.locale ||= 'ru'
     self.time_zone ||= 'Kiev'
+  end
+
+  def set_default_role
+    self.user_role_id ||= ::UserRoleType.default.id
   end
 
   def generate_password!
@@ -115,10 +117,6 @@ class User < ActiveRecord::Base
   end
 
   protected
-
-  def set_default_role
-    self.user_role_type ||= ::UserRoleType.default
-  end
 
   def generate_login
     self.login ||= begin
