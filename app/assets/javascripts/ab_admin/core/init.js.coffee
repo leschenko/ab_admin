@@ -21,6 +21,7 @@ $ ->
 
   $(document).on 'admin:init', (e) ->
     return unless e.viewType == 'form'
+    window.resource_id = $('form.simple_form').data('id')
     $('form .region_ac').regionAc()
     initEditor()
     inputSetToggle()

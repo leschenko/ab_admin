@@ -98,7 +98,6 @@ module AbAdmin
               class_eval(<<-EOS, __FILE__, __LINE__ + 1)
               # def self.before_create_callbacks
               def self.#{type}_#{name}_callbacks
-                Rails.logger.debug "=== run callback #{type}_#{name}"
                 @#{type}_#{name}_callbacks ||= []
               end
 

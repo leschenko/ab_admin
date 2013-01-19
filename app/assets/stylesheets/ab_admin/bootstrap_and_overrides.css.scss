@@ -27,6 +27,7 @@ $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 
 .radio.inline {
   margin-left: 5px;
+  white-space: nowrap;
 }
 
 .radio.inline + .radio.inline, .checkbox.inline + .checkbox.inline {

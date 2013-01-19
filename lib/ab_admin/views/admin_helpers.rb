@@ -8,6 +8,7 @@ module AbAdmin
         options[:html] ||= {}
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
+        options[:html]['data-id'] = object.id
         if options.delete(:nested)
           simple_nested_form_for([:admin, object].flatten, *(args << options), &block)
         else
