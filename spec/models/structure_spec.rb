@@ -1,6 +1,5 @@
 # encoding: utf-8
 require 'spec_helper'
-require 'models/shared_spec'
 
 describe Structure do
   it_should_behave_like 'headerable'
