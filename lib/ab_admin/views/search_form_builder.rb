@@ -3,7 +3,7 @@ module AbAdmin
     class SearchFormBuilder < ::Ransack::Helpers::FormBuilder
       delegate :content_tag, :tag, :params,
                :text_field_tag, :check_box_tag, :radio_button_tag, :label_tag, :select_tag,
-               :options_for_select, :options_from_collection_for_select, :to => :@template
+               :options_for_select, :options_from_collection_for_select, :hidden_field_tag, :to => :@template
 
       def input(attr, options={})
         filed_type = filed_type(attr, options)
@@ -64,6 +64,10 @@ module AbAdmin
             check_box_tag("q[#{param}]", 0, params[:q][param] && params[:q][param].to_i == 0, :class => 'inline') + I18n.t('simple_form.no')
           end
         end + label(attr, options[:label], :class => 'right-label')
+      end
+
+      def hidden_field(attr, options={})
+        hidden_field_tag("q[#{attr}_eq]", options.delete(:value), options)
       end
 
       def filed_type(attr, options={})

@@ -39,6 +39,9 @@ CarrierWave.configure do |config|
 end
 
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+
+Dir["#{File.dirname(__FILE__)}/shared_behaviors/**/*.rb"].each { |f| require f }
+
 RSpec.configure do |config|
   require 'rspec/expectations'
   config.include RSpec::Matchers

@@ -52,6 +52,7 @@ group :development, :test do
   gem 'guard-spork'
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false
+  gem 'cucumber-rails', :require => false
 end
 
 #gem 'thin', :group => :development
