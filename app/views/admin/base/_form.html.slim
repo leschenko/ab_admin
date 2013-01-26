@@ -1,0 +1,7 @@
+= admin_form_for resource do |f|
+  - resource.class.content_columns.each do |column|
+    = f.input column.name.to_sym
+
+    = f.hidden_field :fileupload_guid if f.object.new_record?
+
+    = f.save_buttons

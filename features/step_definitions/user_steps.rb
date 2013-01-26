@@ -12,7 +12,7 @@ def sign_in(user)
 end
 
 ### GIVEN ###
-Given /^I am logged out$/ do
+Given /^I am signed out$/ do
   visit '/users/sign_out'
 end
 
@@ -21,7 +21,7 @@ Given /^I do not exist as a user$/ do
 end
 
 Given /^I exist as a user$/ do
-  FactoryGirl.create(:default_user, valid_user)
+  FactoryGirl.create(:admin_user, valid_user)
 end
 
 When /^I sign in with valid credentials$/ do
@@ -29,7 +29,7 @@ When /^I sign in with valid credentials$/ do
 end
 
 Then /^I see an invalid login message$/ do
-  page.should have_content('asd')
+  page.should have_content('Invalid email or password')
 end
 
 Then /^I should be signed out$/ do
@@ -42,17 +42,26 @@ When /^I sign in with a wrong password$/ do
 end
 
 Then /^I see a successful sign in message$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should be on the dashboard page$/ do
-  pending # express the regexp above with the code you wish you had
-end
-
-Then /^I should see "(.*?)"$/ do |arg1|
-  pending # express the regexp above with the code you wish you had
+  page.should have_content('Signed in successfully')
 end
 
 Then /^I should see my name$/ do
-  pending # express the regexp above with the code you wish you had
+  page.should have_content(User.where(:email => valid_user[:email]).first.try(:name))
+end
+
+Given /^I am logged in$/ do
+  @me = FactoryGirl.create(:admin_user, valid_user)
+  login_as @me
+end
+
+When /^I sign out$/ do
+  visit '/users/sign_out'
+end
+
+Then /^I should see a signed out message$/ do
+  page.should have_content('Signed out successfully')
+end
+
+When /^I return to the site$/ do
+  current_path.should == '/'
 end

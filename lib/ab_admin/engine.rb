@@ -16,7 +16,7 @@ require 'will_paginate'
 module AbAdmin
   class Engine < ::Rails::Engine
     engine_name 'ab_admin'
-    isolate_namespace AbAdmin
+    #isolate_namespace AbAdmin
     
     initializer 'ab_admin.setup' do
 

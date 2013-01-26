@@ -1,8 +1,7 @@
-@javascript
 Feature: Sign out
   To protect my account from unauthorized access
-  A signed in user
-  Should be able to sign out
+  Aa a signed in user
+  I want to sign out
 
     Scenario: User signs out
       Given I am logged in

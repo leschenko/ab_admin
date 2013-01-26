@@ -25,9 +25,9 @@ module Dummy
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
-        #{config.root}/../../lib/generators/ab_admin/templates/models/
-        #{config.root}/../../lib/generators/ab_admin/templates/uploaders
-        #{config.root}/../../lib/generators/ab_admin/templates/models/ab_admin
+        #{config.root}/../../lib/generators/ab_admin/install/templates/models/
+        #{config.root}/../../lib/generators/ab_admin/install/templates/uploaders
+        #{config.root}/../../lib/generators/ab_admin/install/templates/models/ab_admin
         #{config.root}/app/models/ab_admin)
 
     # Only load the plugins named here, in the order given (default is alphabetical).
@@ -45,7 +45,7 @@ module Dummy
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :ru
 
-    # Configure the default encoding used in templates for Ruby 1.9.
+    # Configure the default encoding used in install/templates for Ruby 1.9.
     config.encoding = 'utf-8'
 
     # Configure sensitive parameters which will be filtered from the log file.
@@ -74,7 +74,7 @@ module Dummy
     dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)
     config.eager_load_paths += dirs
 
-    config.action_mailer.default_url_options = {:host => 'www.example.com'}
+    config.action_mailer.default_url_options = {:host => 'localhost:3000'}
 
   end
 end

@@ -18,7 +18,7 @@ header.navbar
               ul.dropdown-menu
                 - [].each do |m|
                   = model_admin_menu_link(m)
-                = admin_menu_link(t('admin.navigation.cabinet_meta_tags'), 'cabinet_meta_tags')
+                /= admin_menu_link(t('admin.navigation.cabinet_meta_tags'), 'cabinet_meta_tags')
             - if admin?
               li.dropdown
                 a.dropdown-toggle data-toggle="dropdown" href="#" 
@@ -37,8 +37,7 @@ header.navbar
             li
               a href=edit_admin_user_path(current_user) = t 'admin.auth.profile'
             li.divider
-            li
-              = link_to(t('admin.auth.sign_out'), destroy_user_session_path, :method => 'delete')
+            li= link_to(t('admin.auth.sign_out'), destroy_user_session_path, :method => 'delete')
 
   = render 'admin/shared/breadcrumbs'
 

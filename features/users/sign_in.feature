@@ -1,11 +1,10 @@
-@wip
 Feature: Sign in
   In order to get access to protected sections of the site
   As a user
   I want to sign in
 
   Background:
-    Given I am logged out
+    Given I am signed out
 
   Scenario: User do not exist
     Given I do not exist as a user
@@ -24,5 +23,5 @@ Feature: Sign in
     When I sign in with valid credentials
     Then I see a successful sign in message
     And I should be on the dashboard page
-    And I should see "Logout"
+    And I should see "Sign out"
     And I should see my name
