@@ -43,7 +43,7 @@ module Dummy
 
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    # config.i18n.default_locale = :ru
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = 'utf-8'
@@ -73,5 +73,8 @@ module Dummy
     base_dir = File.expand_path('../../../../app/', __FILE__)
     dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)
     config.eager_load_paths += dirs
+
+    config.action_mailer.default_url_options = {:host => 'www.example.com'}
+
   end
 end

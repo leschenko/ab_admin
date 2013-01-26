@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root :to => 'welcome#index'
+  root :to => redirect('/')
 
-  devise_for :users
+  devise_for :users, AbAdmin::Devise.config
 
 end

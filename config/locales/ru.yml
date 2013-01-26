@@ -51,6 +51,18 @@ ru:
     auth: 
       profile: "Профиль"
       sign_out: "Выход"
+      sessions:
+        title: "Вход"
+        button: "Войти"
+      passwords:
+        new:
+          title: "Забыли пароль?"
+          button: Выслать инструкции
+        edit:
+          title: Изменение пароля
+          button: Изменить пароль
+          password: Новый пароль
+          password_confirmation: Новый пароль еще раз
     avatar: "Аватар"
     batch_actions: "Действия"
     cache_clear: "Очистить кэш"
@@ -257,6 +269,8 @@ ru:
     updated_at: "Дата изменения"
     user: "Пользователь"
     user_id: "Пользователь"
+    remember_me: "Запомнить"
+    password: "Пароль"
   attrs: 
     en: "анг."
     it: "итал."

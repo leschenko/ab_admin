@@ -43,16 +43,23 @@ group :assets do
 end
 
 group :development, :test do
-  gem 'fuubar'
+  gem 'rspec-rails'
+  gem 'factory_girl_rails'
   gem 'launchy'
   gem 'forgery'
+end
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
   gem 'shoulda-matchers'
-  #gem 'spork'
+  gem 'database_cleaner'
+  gem 'connection_pool'
+  gem 'fuubar'
   gem 'guard-rspec'
-  gem 'guard-spork'
+  gem 'guard-cucumber'
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false
-  gem 'cucumber-rails', :require => false
 end
 
 #gem 'thin', :group => :development

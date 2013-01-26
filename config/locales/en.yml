@@ -50,7 +50,20 @@ en:
     add: Add
     auth: 
       profile: Profile
-      sign_out: Output
+      sign_out: Sign out
+      sessions:
+        title: Sign in
+        button: Sign in
+      passwords:
+        new:
+          title: Forgot your password?
+          button: Send me reset password instructions
+        edit:
+          title: Change your password
+          button: 'Change my password'
+          password: New password
+          password_confirmation: Confirm your new password
+
     avatar: Picture
     batch_actions: Activity
     cache_clear: Clear cache

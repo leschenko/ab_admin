@@ -5,6 +5,8 @@ require 'ab_admin/engine'
 
 module AbAdmin
   autoload :Utils, 'ab_admin/utils'
+  autoload :Devise, 'ab_admin/devise'
+
   module CarrierWave
     autoload :Glue, 'ab_admin/carrierwave/glue'
     autoload :BaseUploader, 'ab_admin/carrierwave/base_uploader'
@@ -55,6 +57,9 @@ module AbAdmin
 
   mattr_accessor :site_name
   @@title_spliter = 'AbAdmin'
+
+  mattr_accessor :devise_layout
+  @@devise_layout = 'admin/devise'
 
   mattr_accessor :image_types
   @@image_types = %w(image/jpeg image/png image/gif image/jpg image/pjpeg image/tiff image/x-png)

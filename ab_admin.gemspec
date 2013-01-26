@@ -58,6 +58,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'forgery'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'connection_pool'
-  gem.add_development_dependency 'rack_session_access'
   gem.add_development_dependency 'cucumber-rails'
 end

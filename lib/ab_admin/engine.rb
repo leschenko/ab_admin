@@ -19,6 +19,7 @@ module AbAdmin
     isolate_namespace AbAdmin
     
     initializer 'ab_admin.setup' do
+
       ActiveSupport.on_load :active_record do
         ActiveRecord::Base.send :include, AbAdmin::CarrierWave::Glue
         ActiveRecord::Base.send :include, AbAdmin::Utils::Mysql
@@ -40,7 +41,7 @@ module AbAdmin
         ActionView::Base.send :include, AbAdmin::Views::Helpers
         ActionView::Base.send :include, AbAdmin::Views::AdminHelpers
       end
-    end
 
+    end
   end
 end
