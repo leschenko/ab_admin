@@ -49,6 +49,10 @@ module AbAdmin
     autoload :UrlForRoutes, 'ab_admin/views/url_for_routes'
   end
 
+  module Generators
+    autoload :ResourceGenerator, 'generators/ab_admin/resource/resource_generator'
+  end
+
   mattr_accessor :flash_keys
   @@flash_keys = [:notice, :error]
 

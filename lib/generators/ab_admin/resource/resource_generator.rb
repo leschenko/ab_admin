@@ -2,64 +2,63 @@
 module AbAdmin
   module Generators
     class ResourceGenerator < Rails::Generators::NamedBase
+      include Rails::Generators::ResourceHelpers
+
       desc 'Generates AbAdmin_resource for model'
 
-      argument :model_name, :type => :string, :required => true
-      #class_option :engine, :type => :string, :description => 'Template engine', :aliases => '-e'
-      class_option :no_form, :type => :boolean, :default => false, :description => 'Don\'t create form template' #, :aliases => '-r'
-      class_option :no_table, :type => :boolean, :default => false, :description => 'Don\'t create table template'
-      class_option :no_search_form, :type => :boolean, :default => false, :description => 'Don\'t create search_form template'
+      source_root File.expand_path('../templates', __FILE__)
+      check_class_collision :suffix => 'Controller', :prefix => 'Admin::'
 
-      hook_for :template_engine
-      hook_for :helper
+      class_option :handler, :default => 'slim', :desc => 'Template engine to be invoked (haml or slim).', :aliases => '-e'
+      class_option :skip_form, :type => :boolean, :default => false, :description => 'Don\'t create form template' #, :aliases => '-r'
+      class_option :skip_table, :type => :boolean, :default => false, :description => 'Don\'t create table template'
+      class_option :skip_search_form, :type => :boolean, :default => false, :description => 'Don\'t create search_form template'
+
+      hook_for :helper, :in => :rails do |instance, helper|
+        instance.invoke helper, ["admin/#{instance.send(:plural_name)}"]
+      end
 
       def create_controller_files
-        template 'controller.erb', File.join('app/controllers/admin', "#{controller_file_name}_controller.rb")
-        template 'helper.rb', File.join('app/helpers/admin', "#{controller_file_name}_helper.rb")
+        template 'controller.erb', File.join('app/controllers/admin', "#{file_name}_controller.rb")
       end
 
-      def create_views_files
-        template("form.#{engine}.erb", "app/views/admin/#{controller_file_name}/_form.html.#{engine}") unless options.no_form?
-        template("table.#{engine}.erb", "app/views/admin/#{controller_file_name}/_table.html.#{engine}") unless options.no_table?
-        template("search_form.#{engine}.erb", "app/views/admin/#{controller_file_name}/_search_form.html.#{engine}") unless options.no_search_form?
+      def add_routes
         say "add to config/routes.rb\n  resources(:#{controller_file_name}) { post :batch, :on => :collection }"
-        say "add to layouts/_navigation.html.#{engine}\n  = model_admin_menu_link(#{model_class.name})"
+        #say "add to layouts/_navigation.html.#{template_engine}\n  = model_admin_menu_link(#{model_class.name})"
       end
 
-      def engine
-        @engine ||= begin
-          engine = options.engine.presence || Rails.application.config.app_generators.options[:rails][:template_engine].to_s
-          if %w(haml slim).include?(engine)
-            engine
-          else
-            say_status 'error', "No available template engine '#{engine}' in generator", :red
-            exit false
-          end
+      def create_view_files
+        empty_directory File.join('app/views', controller_file_path)
+        available_views.each do |view|
+          next if options.send("skip_#{view.sub(/^_/, '')}?")
+          template "#{view}.#{options[:handler]}.erb", File.join('app/views/admin', controller_file_path, view_filename_with_extensions(view))
         end
       end
 
-      def model_key
-        @model_key ||= model_class.model_name.i18n_key.to_s
-      end
-
-      def model_class
-        @model_class ||= model_name.camelcase.constantize
-      end
-
       def model
-        @model ||= model_class.new
+        @model ||= class_name.constantize
       end
 
-      def controller_class_name
-        @controller_class_name ||= model_class.model_name.plural.camelize
+      protected
+
+      def view_filename_with_extensions(name)
+        [name, :html, options[:handler]].compact.join('.')
       end
 
-      def controller_file_name
-        @controller_file_name ||= model_class.model_name.plural
+      def available_views
+        %w(_form _table _search_form)
       end
+
+      def model_instance
+        @model_instance ||= model.new
+      end
+
+      #def singular_name
+      #
+      #end
 
       def translated_columns
-        @translated_columns ||= model_class.translated_attribute_names if model_class.respond_to?(:translated_attribute_names)
+        @translated_columns ||= model.translated_attribute_names if model.respond_to?(:translated_attribute_names)
         @translated_columns ||= []
       end
 

@@ -35,7 +35,6 @@ gem 'gon'
 gem 'i18n-js'
 gem 'ruby-progressbar'
 
-
 group :assets do
   gem 'sass-rails'
   gem 'coffee-rails'
