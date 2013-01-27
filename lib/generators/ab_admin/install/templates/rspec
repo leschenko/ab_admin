@@ -1,0 +1,7 @@
+--format Fuubar
+--color
+--drb
+#--profile
+#--tag ~performance
+#--order random
+#-t ~@js

@@ -31,11 +31,11 @@ module AbAdmin
         order_col, order_mode = order_str.split
         quoted_order_col = self.class.quote_column(order_col)
         if prev
-          query[:q]['s'] = ["#{order_col} #{predicates[order_mode]}", "id desc"]
+          query[:q]['s'] = ["#{order_col} #{predicates[order_mode]}", 'id desc']
           predicate = order_mode == 'desc' ? '>' : '<'
           id_predicate = '<'
         else
-          query[:q]['s'] = ["#{order_col} #{order_mode}", "id"]
+          query[:q]['s'] = ["#{order_col} #{order_mode}", 'id']
           predicate = order_mode == 'desc' ? '<' : '>'
           id_predicate = '>'
         end

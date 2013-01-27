@@ -40,6 +40,7 @@ module AbAdmin
       ActiveSupport.on_load :action_view do
         ActionView::Base.send :include, AbAdmin::Views::Helpers
         ActionView::Base.send :include, AbAdmin::Views::AdminHelpers
+        ActionView::Base.send :include, AbAdmin::Views::AdminNavigationHelpers
       end
 
     end

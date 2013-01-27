@@ -44,6 +44,7 @@ module AbAdmin
   module Views
     autoload :Helpers, 'ab_admin/views/helpers'
     autoload :AdminHelpers, 'ab_admin/views/admin_helpers'
+    autoload :AdminNavigationHelpers, 'ab_admin/views/admin_navigation_helpers'
     autoload :FormBuilder, 'ab_admin/views/form_builder'
     autoload :SearchFormBuilder, 'ab_admin/views/search_form_builder'
     autoload :UrlForRoutes, 'ab_admin/views/url_for_routes'
@@ -51,6 +52,7 @@ module AbAdmin
 
   module Generators
     autoload :ResourceGenerator, 'generators/ab_admin/resource/resource_generator'
+    autoload :InstallGenerator, 'generators/ab_admin/install/install_generator'
   end
 
   mattr_accessor :flash_keys

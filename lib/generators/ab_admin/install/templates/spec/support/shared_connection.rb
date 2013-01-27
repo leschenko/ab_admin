@@ -4,7 +4,6 @@ class ActiveRecord::Base
 
   def self.connection
     @@shared_connection || ConnectionPool::Wrapper.new(:size => 1) { retrieve_connection }
-    #@@shared_connection || retrieve_connection  end
   end
 end
 

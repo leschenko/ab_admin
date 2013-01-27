@@ -6,10 +6,10 @@ class UserState
   end
 
   define_enum do |builder|
-    builder.member :pending, :object => new("pending")
-    builder.member :active, :object => new("active")
-    builder.member :suspended, :object => new("suspended")
-    builder.member :deleted, :object => new("deleted")
+    builder.member :pending, :object => new('pending')
+    builder.member :active, :object => new('active')
+    builder.member :suspended, :object => new('suspended')
+    builder.member :deleted, :object => new('deleted')
   end
 
   attr_reader :code

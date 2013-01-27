@@ -23,10 +23,10 @@ set -e
 # Feel free to change any of the following variables for your app:
 rvm_trust_rvmrcs_flag=1
 PATH=/usr/local/rvm/bin:$PATH
-APP_ROOT=/var/www/<%= app_name %>
+APP_ROOT=<%= app_path %>
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 ENV=production
-CMD="$APP_ROOT/bin/unicorn -D -E $ENV -c $APP_ROOT/config/unicorn.conf.rb"
+CMD="$APP_ROOT/bin/unicorn -D -E $ENV -c $APP_ROOT/config/unicorn_config.rb"
 
 old_pid="$PID.oldbin"
 
