@@ -34,6 +34,7 @@ gem 'russian'
 gem 'gon'
 gem 'i18n-js'
 gem 'ruby-progressbar'
+gem 'ckeditor'
 
 group :assets do
   gem 'sass-rails'

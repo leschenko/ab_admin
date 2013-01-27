@@ -1,0 +1,28 @@
+/ruby:
+/  structures = cached_by_class(Structure, 'search_filter') do
+/    select_nested_set(Structure.includes(:translations).reorder('rgt DESC')).delete_if{|i| i[1] == @structure.id }
+/  end
+- load '/private/var/www/hub/ab_admin/lib/ab_admin/views/form_builder.rb'
+
+= admin_form_for @structure do |f|
+  = f.locale_tabs do |l|
+    = f.input :title, :locale => l
+    = f.input :redirect_url, :locale => l
+
+  = f.input :slug
+  /- if @structure.moveable?
+    /= f.input :parent_id, :collection => structures, :input_html => {:class => 'do_chosen'}
+    /= f.input :parent_id, :as => :tree_select, :input_html => {:class => 'do_chosen'}
+  = f.input :kind, :collection => StructureType.all
+  = f.input :position, :collection => PositionType.all, :include_blank => false
+
+  = f.input :is_visible
+
+  /= input_set t('admin.pictures') do
+    = f.attach_file_field :picture, :file_max_size => 2
+
+  /= input_set t('admin.keywords') do
+    = render 'admin/headers/form', :f => f
+
+  = f.hidden_field :fileupload_guid if f.object.new_record?
+  = f.save_buttons

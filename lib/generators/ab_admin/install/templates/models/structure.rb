@@ -7,7 +7,7 @@ class Structure < ActiveRecord::Base
 
   has_one :picture, :as => :assetable, :dependent => :destroy
 
-  #fileuploads :picture
+  fileuploads :picture
   translates :title, :redirect_url
 
   include AbAdmin::Concerns::AdminAddition

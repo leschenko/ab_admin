@@ -11,26 +11,31 @@ module AbAdmin
 
       delegate :concat, :content_tag, :link_to, :link_to_function, :dom_id, :render, :to => :template
 
+      map_type :color, :to => ::AbAdmin::Views::Inputs::ColorInput
+      map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::ColorInput
+      map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
+      #map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
+
       def input(attribute_name, options = {}, &block)
-        options[:input_html] ||= {}
-        case options[:as]
+        #options[:input_html] ||= {}
+        #case options[:as]
           #when :text
           #  options[:input_html].reverse_merge!({:size => '40x3'})
-          when :ckeditor
-            unless template.instance_variable_get(:@ckeditor_init)
-              #concat template.javascript_include_tag("/assets/ckeditor/init")
-              concat template.javascript_include_tag("/javascripts/ckeditor/init")
-              template.instance_variable_set(:@ckeditor_init, true)
-            end
-            options[:input_html].reverse_merge!({:width => 800, :height => 200, :toolbar => 'Easy'})
-          when :editor
-            options[:input_html] ||= {}
-            options[:input_html][:class] = "#{options[:input_html][:class]} do_wysihtml5"
-            options[:as] = :text
-          when :tree_select
-            options[:collection] ||= @template.nested_set_options(object.class) { |i| "#{'–' * i.depth} #{i.title}" }.delete_if { |i| i[1] == object.id }
-            options[:as] = :select
-        end
+          #when :ckeditor
+          #  unless template.instance_variable_get(:@ckeditor_init)
+          #    #concat template.javascript_include_tag("/assets/ckeditor/init")
+          #    concat template.javascript_include_tag("/javascripts/ckeditor/init")
+          #    template.instance_variable_set(:@ckeditor_init, true)
+          #  end
+          #  options[:input_html].reverse_merge!({:width => 800, :height => 200, :toolbar => 'Easy'})
+          #when :editor
+          #  options[:input_html] ||= {}
+          #  options[:input_html][:class] = "#{options[:input_html][:class]} do_wysihtml5"
+          #  options[:as] = :text
+          #when :tree_select
+          #  options[:collection] ||= @template.nested_set_options(object.class) { |i| "#{'–' * i.depth} #{i.title}" }.delete_if { |i| i[1] == object.id }
+          #  options[:as] = :select
+        #end
         attribute_name = "#{attribute_name}_#{options[:locale]}" unless options[:locale].blank?
 
         super(attribute_name, options, &block)

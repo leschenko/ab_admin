@@ -25,7 +25,16 @@ module AbAdmin
 
       module ClassMethods
         def move_to(index, id)
-          update_all(["sort_order = ?", index], ["id = ?", id.to_i])
+          update_all(['sort_order = ?', index], ['id = ?', id.to_i])
+        end
+
+        def ext_list
+          return unless uploaders[:data]
+          uploaders[:data].new.extension_white_list
+        end
+
+        def clean!
+          where(:created_at.lt => 1.week.ago).where('assetable_id IS NULL OR assetable_id = 0').destroy_all
         end
       end
 
@@ -34,7 +43,7 @@ module AbAdmin
       end
 
       def format_created_at
-        I18n.l(created_at, :format => "%d.%m.%Y %H:%M")
+        I18n.l(created_at, :format => '%d.%m.%Y %H:%M')
       end
 
       def as_json(options = nil)
@@ -57,12 +66,8 @@ module AbAdmin
       end
 
       def main!
-        self.class.update_all('is_main=0', ["assetable_type=? AND assetable_id=? AND type=?", assetable_type, assetable_id, type])
+        self.class.update_all('is_main=0', ['assetable_type=? AND assetable_id=? AND type=?', assetable_type, assetable_id, type])
         update_column(:is_main, true) and self
-      end
-
-      def self.clean!
-        Asset.where(:created_at.lt => 1.week.ago).where('assetable_id IS NULL OR assetable_id = 0').destroy_all
       end
 
       def full_url(*args)

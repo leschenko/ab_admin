@@ -49,6 +49,13 @@ module AbAdmin
     autoload :FormBuilder, 'ab_admin/views/form_builder'
     autoload :SearchFormBuilder, 'ab_admin/views/search_form_builder'
     autoload :UrlForRoutes, 'ab_admin/views/url_for_routes'
+
+    module Inputs
+      autoload :CkeditorInput, 'ab_admin/views/inputs/ckeditor_input'
+      autoload :ColorInput, 'ab_admin/views/inputs/color_input'
+      autoload :EditorInput, 'ab_admin/views/inputs/editor_input'
+      autoload :TreeSelectInput, 'ab_admin/views/inputs/tree_select_input'
+    end
   end
 
   module Generators
