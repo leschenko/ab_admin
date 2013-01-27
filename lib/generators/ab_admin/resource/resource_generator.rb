@@ -19,7 +19,7 @@ module AbAdmin
       end
 
       def create_controller_files
-        template 'controller.erb', File.join('app/controllers/admin', "#{file_name}_controller.rb")
+        template 'controller.erb', File.join('app/controllers/admin', "#{controller_file_name}_controller.rb")
       end
 
       def add_routes

@@ -1,5 +1,5 @@
 notification :growl
-ignore /vendor/, /public/, /lib/, /etc/
+ignore /vendor/, /public/, /etc/
 
 group :rspec do
   guard 'rspec', :all_on_start => false, :all_after_pass => false do
@@ -14,6 +14,7 @@ group :rspec do
     watch(%r{^spec/support/(.+)\.rb$}) { "spec" }
     watch('config/routes.rb') { "spec/routing" }
     watch('app/controllers/application_controller.rb') { "spec/controllers" }
+    watch(%r{lib/generators/ab_admin/.+/(.+)\.rb}) { |m| "spec/generators/#{m[1]}_spec.rb" }
 
     # Capybara request specs
     watch(%r{^app/views/(.+)/.*\.(slim|erb|haml)$}) { |m| "spec/features/#{m[1]}_spec.rb" }

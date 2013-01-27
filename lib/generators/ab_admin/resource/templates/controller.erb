@@ -1,4 +1,4 @@
-class Admin::<%= class_name %>Controller < Admin::BaseController
+class Admin::<%= controller_class_name %>Controller < Admin::BaseController
 <% if model.respond_to?(:acts_as_nested_set_options) -%>
   include TheSortableTreeController::ReversedRebuild
 
