@@ -7,7 +7,8 @@ header.navbar
         span.icon-bar
       a.brand[href=root_path]= AbAdmin.site_name
       .nav-collapse.in.collapse style=("max-height: 626px;")
-        - cache ['admin_nav', controller_name, action_name, current_user.user_role_id] do
+        = AdminMenu.render(self)
+        /- cache ['admin_nav', controller_name, action_name, current_user.user_role_id] do
           ul.nav
             - [].each do |m|
               = model_admin_menu_link(m)

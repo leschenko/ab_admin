@@ -6,6 +6,7 @@ require 'ab_admin/engine'
 module AbAdmin
   autoload :Utils, 'ab_admin/utils'
   autoload :Devise, 'ab_admin/devise'
+  autoload :MenuBuilder, 'ab_admin/menu_builder'
 
   module CarrierWave
     autoload :Glue, 'ab_admin/carrierwave/glue'
@@ -75,6 +76,7 @@ module AbAdmin
   def self.setup
     yield self
   end
+
 end
 
 
