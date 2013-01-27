@@ -1,0 +1,34 @@
+<%
+  def presenter_by_col(attribute)
+    type = model.columns_hash[attribute.to_s].type
+    return 'item.user.try(:name)' if [:user_id, :user].include?(attribute.to_sym)
+    case type
+      when :date, :datetime, :time
+        "pretty_data item.#{attribute}"
+      when :boolean
+        "color_bool item.#{attribute}"
+      else
+        "item.#{attribute}"
+    end
+  end
+
+%>
+%table.table.table-striped.index_table#list
+  %thead
+    %tr.pjax_links
+      = batch_action_toggle
+<% attrs = model_instance.attributes.keys.without(*(translated_columns + %w(updated_at)).map(&:to_s)) -%>
+<% attrs.each do |attribute| -%>
+      %th= sort_link(@search, :<%= attribute -%>)
+<% end -%>
+      %th=t 'admin.table.actions'
+  %tbody
+    - collection.each do |item|
+      %tr
+        = batch_action_item(item)
+        %td= id_link(item)
+<% attrs.without('id').each do |attribute| -%>
+        %td= <%= presenter_by_col(attribute) %>
+<% end -%>
+        %td.actions= item_index_actions(item)
+

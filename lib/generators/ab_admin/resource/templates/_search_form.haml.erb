@@ -1,0 +1,35 @@
+<%
+   def input_by_col(key, col)
+     case col.type
+       when :integer
+         if key.to_s =~ /_id$/
+           if model.reflect_on_association(key.sub(/_id$/, '').to_sym)
+             "= f.input :#{key.sub(/_id$/, '')}"
+           else
+             if key.to_s =~ /_type/
+               "= f.input :#{key}, :collection => #{key.sub(/_type.*/, '').camelize}Type.all"
+             else
+               "= f.input :#{key}"
+             end
+           end
+         else
+           "= f.input :#{key}"
+         end
+       when :string
+         "= f.input :#{key}"
+       when :boolean
+         "= f.input :#{key}"
+       when :text
+         nil
+       else
+         "= f.input :#{key}"
+     end
+   end
+-%>
+<% translated_columns.each do |col| -%>
+<% next if [:description].include?(col.to_sym) -%>
+= f.input :translations_<%= col -%>, :label => ha(:<%= col -%>)
+<% end -%>
+<% model.columns_hash.except('id', 'slug').each do |key, col| -%>
+<%= input_by_col(key, col) %>
+<% end -%>
