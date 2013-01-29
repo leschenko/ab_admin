@@ -1,4 +1,4 @@
 ol.sortable_tree.nested_set data-max_levels=5 data-url=url_for(:action => :rebuild)
   = admin_tree resource_class.build_tree(collection)
 
-= init_js(%[$('ol.sortable_tree').sortableTree()])
+= init_js('$("ol.sortable_tree").sortableTree()')
