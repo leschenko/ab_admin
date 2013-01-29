@@ -32,6 +32,20 @@ module AbAdmin
           end
           roots
         end
+
+        def nested_opts(records, mover=nil)
+          res = []
+          records.each do |r|
+            next if mover && mover.id == r.id
+            res << ["#{'–' * r.depth} #{r.name}", r.id]
+          end
+          res
+        end
+      end
+
+      def nested_opts(collection=nil)
+        collection ||= self.class.all
+        self.class.nested_opts(collection, self)
       end
 
       def tree_children(tree)
@@ -40,15 +54,6 @@ module AbAdmin
         self.cached_children.each do |r|
           r.tree_children(tree)
         end
-      end
-
-      def self.nested_opts(records, mover=nil)
-        res = []
-        records.each do |r|
-          next if mover && mover.id == r.id
-          res << ["#{'–' * r.depth} #{r.name}", r.id]
-        end
-        res
       end
 
       def deep_parent
