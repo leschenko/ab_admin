@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in ab_admin.gemspec
 gemspec
 
 gem 'mysql2'
@@ -16,9 +15,8 @@ gem 'rack-pjax'
 gem 'ransack'
 gem 'has_scope'
 gem 'friendly_id'
-gem 'galetahub-enum_field'
+gem 'galetahub-enum_field', :require => 'enum_field'
 gem 'awesome_nested_set'
-gem 'the_sortable_tree', '~> 1.8.0'
 gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
 gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => '586ccbd'
 
@@ -35,6 +33,7 @@ gem 'gon'
 gem 'i18n-js'
 gem 'ruby-progressbar'
 gem 'ckeditor'
+gem 'quiet_assets'
 
 group :assets do
   gem 'sass-rails'
@@ -61,5 +60,3 @@ group :test do
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false
 end
-
-#gem 'thin', :group => :development

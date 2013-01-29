@@ -9,3 +9,4 @@ if Object.const_defined?('AbAdmin')
 end
 
 I18n.available_locales = Globalize.available_locales = [:ru, :en]
+

@@ -3,6 +3,10 @@ module AbAdmin
   module Views
     module Helpers
 
+      def init_js(js)
+        %Q[<script type='text/javascript'>$(function(){#{js}})</script>].html_safe
+      end
+
       def render_title
         @page_title || I18n.t("page.title")
       end

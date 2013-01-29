@@ -26,6 +26,7 @@ module AbAdmin
   module Controllers
     autoload :Callbacks, 'ab_admin/controllers/callbacks'
     autoload :HeadOptions, 'ab_admin/controllers/head_options'
+    autoload :Tree, 'ab_admin/controllers/tree'
   end
 
   module Mailers

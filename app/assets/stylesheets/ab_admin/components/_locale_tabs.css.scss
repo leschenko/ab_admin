@@ -9,16 +9,16 @@
       a.ico_#{$lang} {
           background-position: 10px center;
           background-repeat: no-repeat;
-          background-image: url(/images/admin/flags/flag_#{$lang}_nonact.gif);
+          background-image: image-url("admin/flags/flag_#{$lang}_nonact.gif");
           background-color: white;
       }
       &.active a.ico_#{$lang} {
-          background-image: url(/images/admin/flags/flag_#{$lang}.gif);
+          background-image: image-url("admin/flags/flag_#{$lang}.gif");
       }
     }
 
     .t_locale_#{$lang} {
-      background: url(/images/admin/flags/b_#{$lang}.png) 10px center no-repeat;
+      background: image-url("admin/flags/b_#{$lang}.png") 10px center no-repeat;
     }
     ##{$lang} {
       .t_locale_#{$lang} {

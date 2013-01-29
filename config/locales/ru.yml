@@ -230,7 +230,18 @@ ru:
       modified_by: "Редактировал(а)"
       title: "История"
       type: "Тип"
-  admin_js: 
+    structure:
+      kind:
+        group: "Группа страницек"
+        main: "Главная"
+        posts: "Журнал"
+        redirect: "Перенаправление"
+        static_page: "Текстовая страница"
+      position:
+        bottom: "Снизу"
+        default: "По умолчанию"
+        menu: "Меню"
+  admin_js:
     add_link: "Создать?"
     button_description: "Описание"
     button_name_add: "Добавить"

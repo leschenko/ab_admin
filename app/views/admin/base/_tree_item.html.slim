@@ -1,0 +1,10 @@
+li data-id=r.id
+  .tree-item_wrap
+    = icon('move')
+    a.tree-item_link href=resource_path(r) = r.name
+    .controls
+      a.btn.btn-info href=resource_path(r) = icon('info-sign', true)
+      a.btn.btn-primary href=edit_resource_path(r) = icon('pencil', true)
+      a.btn.btn-danger href=resource_path(r) data-confirm=t('admin.delete_confirmation') data-method="delete" = icon('trash', true)
+  - if child_tree
+    ol.nested_set= child_tree

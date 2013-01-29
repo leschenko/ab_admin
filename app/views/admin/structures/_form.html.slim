@@ -2,6 +2,7 @@
 /  structures = cached_by_class(Structure, 'search_filter') do
 /    select_nested_set(Structure.includes(:translations).reorder('rgt DESC')).delete_if{|i| i[1] == @structure.id }
 /  end
+- load '/private/var/www/hub/ab_admin/lib/ab_admin/views/inputs/tree_select_input.rb'
 - load '/private/var/www/hub/ab_admin/lib/ab_admin/views/form_builder.rb'
 
 = admin_form_for @structure do |f|
@@ -10,9 +11,9 @@
     = f.input :redirect_url, :locale => l
 
   = f.input :slug
-  /- if @structure.moveable?
+  - if @structure.moveable?
     /= f.input :parent_id, :collection => structures, :input_html => {:class => 'do_chosen'}
-    /= f.input :parent_id, :as => :tree_select, :input_html => {:class => 'do_chosen'}
+    = f.input :parent_id, :as => :tree_select, :input_html => {:class => 'do_chosen'}
   = f.input :kind, :collection => StructureType.all
   = f.input :position, :collection => PositionType.all, :include_blank => false
 

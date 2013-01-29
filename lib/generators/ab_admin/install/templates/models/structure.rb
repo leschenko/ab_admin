@@ -14,10 +14,11 @@ class Structure < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
-  after_create proc { @move_to_end = true }
-  after_save :move_to_end
+  #after_create proc { @move_to_end = true }
+  #after_save :move_to_end
 
-  default_scope reversed_nested_set.includes(:translations)
+  default_scope nested_set.includes(:translations)
+  #default_scope reversed_nested_set.includes(:translations)
 
   alias_attribute :name, :title
 
@@ -37,11 +38,11 @@ class Structure < ActiveRecord::Base
     slug.blank? && new_record?
   end
 
-  def move_to_end
-    return unless @move_to_end
-    target = siblings.first
-    move_to_left_of(target.id) if target
-  end
+  #def move_to_end
+  #  return unless @move_to_end
+  #  target = siblings.first
+  #  move_to_left_of(target.id) if target
+  #end
 
 end
 

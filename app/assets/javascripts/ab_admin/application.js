@@ -12,6 +12,8 @@
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales/ru
 //= require chosen
+//= require jquery.ui.nestedSortable
+//= require ab_admin/components/sortable_tree
 
 //= require_directory ./core
 //= require_directory ./inputs

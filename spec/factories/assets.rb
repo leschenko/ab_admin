@@ -23,7 +23,7 @@
 FactoryGirl.define do
   factory :asset_avatar, :class => Avatar do
     #include ActionDispatch::TestProcess
-    data File.open('spec/factories/files/rails.png')
+    data File.open(File.expand_path('../files/rails.png', __FILE__))
     association :assetable, :factory => :default_user
 
     before(:create) do |instance|
@@ -32,7 +32,7 @@ FactoryGirl.define do
   end
 
   factory :asset_avatar_big, :class => Avatar do
-    data File.open('spec/factories/files/silicon_valley.jpg')
+    data File.open(File.expand_path('../files/silicon_valley.jpg', __FILE__))
     association :assetable, :factory => :default_user
 
     before(:create) do |instance|

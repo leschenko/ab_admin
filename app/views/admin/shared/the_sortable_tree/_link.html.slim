@@ -1,8 +1,0 @@
-- title     = node.send opts[:title]
-- handle    = content_tag :i, '', :class => :handle
-- css_class = node.respond_to?(:is_visible) ? ('un_visible' unless node.is_visible) : nil
-- link      = link_to(title, node_path(node), :title => title, :"data-id" => "search", :class => css_class)
-- controls  = render(:partial  =>  "#{opts[:path]}/controls", :locals  =>  { :node => node, :opts => opts })
-- controls  = content_tag(:b, controls, :class => :controls)
-- element   = handle + controls + link
-div  class=("link#{' root' if root}" ) = element

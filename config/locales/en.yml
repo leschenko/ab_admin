@@ -231,7 +231,18 @@ en:
       modified_by: Edited (a)
       title: Story
       type: Type
-  admin_js: 
+    structure:
+      kind:
+        group: "Group"
+        main: "Main"
+        posts: "Blog"
+        redirect: "Redirect"
+        static_page: "Static page"
+      position:
+        bottom: "Bottom"
+        default: "Default"
+        menu: "Menu"
+  admin_js:
     add_link: Create?
     button_description: Description
     button_name_add: Add

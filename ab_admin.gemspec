@@ -31,7 +31,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'galetahub-enum_field'
   gem.add_dependency 'awesome_nested_set'
   # to remove
-  gem.add_dependency 'the_sortable_tree', '~> 1.8.0'
   gem.add_dependency 'carrierwave'
   gem.add_dependency 'mini_magick'
   gem.add_dependency 'jquery-rails'

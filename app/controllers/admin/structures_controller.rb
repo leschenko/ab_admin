@@ -1,5 +1,5 @@
 class Admin::StructuresController < Admin::BaseController
-  include TheSortableTreeController::ReversedRebuild
+  include AbAdmin::Controllers::Tree
 
   load_and_authorize_resource
 
