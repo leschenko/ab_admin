@@ -324,7 +324,7 @@ en:
   will_paginate: 
     next_label: "Next. →"
     page_gap: ...
-    pagination_info: Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} only
+    pagination_info: Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} total
     previous_label: "← Prev."
 
   errors:
