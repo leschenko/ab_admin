@@ -1,6 +1,6 @@
 class Product < ActiveRecord::Base
   attr_accessible :is_visible, :price, :sku, :collection_id
-  attr_accessible :name_en, :description_en, :name_ru, :description_ru
+  attr_accessible :name, :description, :name_en, :description_en, :name_ru, :description_ru
 
   belongs_to :collection
 
@@ -12,5 +12,9 @@ class Product < ActiveRecord::Base
 
   scope :visible, where(:is_visible => true)
   scope :un_visible, where(:is_visible => false)
+
+  include AbAdmin::Concerns::AdminAddition
+
+  alias_attribute :title, :name
 
 end

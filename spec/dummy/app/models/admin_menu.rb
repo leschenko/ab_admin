@@ -1,5 +1,5 @@
-class AdminMenu
-  AbAdmin::MenuBuilder.draw do
+class AdminMenu < AbAdmin::MenuBuilder
+  draw do
     model User
     group 'System' do
       model Structure
@@ -10,9 +10,5 @@ class AdminMenu
     group 'Admin', :if => :admin? do
       link 'for admin', 'dummy_path'
     end
-  end
-
-  def self.render(template)
-    AbAdmin::MenuBuilder.menu.render(template)
   end
 end

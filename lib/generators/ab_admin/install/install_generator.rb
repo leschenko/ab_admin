@@ -44,7 +44,7 @@ module AbAdmin
         log :autoload_paths, 'models/defaults'
         sentinel = /\.autoload_paths\s+\+=\s+\%W\(\#\{config\.root\}\/extras\)\s*$/
 
-        code = 'config.autoload_paths += %W(#{config.root}/app/models/defaults)'
+        code = 'config.autoload_paths += %W(#{config.root}/app/models/defaults #{config.root}/app/models/ab_admin)'
 
         in_root do
           inject_into_file 'config/application.rb', "    #{code}\n", {:after => sentinel, :verbose => false}

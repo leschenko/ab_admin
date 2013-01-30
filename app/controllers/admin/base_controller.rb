@@ -65,11 +65,6 @@ class Admin::BaseController < ::InheritedResources::Base
     item.send(batch_action)
   end
   
-  def search
-    collection
-    render :index
-  end
-
   protected
 
   def self.inherited(base)

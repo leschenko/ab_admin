@@ -23,10 +23,9 @@ module AbAdmin
   end
 
   class MenuBuilder < BaseMenuGroup
-    class_attribute :menu
 
     def self.draw(options={}, &block)
-      self.menu = new(options, &block)
+      AbAdmin.menu = new(options, &block)
     end
 
     def initialize(options, &block)
@@ -37,15 +36,20 @@ module AbAdmin
 
     def render(template)
       <<-HTML.html_safe
-          <ul class="nav">#{render_nested(template)}</ul>
+        <ul class="nav">#{render_nested(template)}</ul>
       HTML
     end
+
+    def self.render(template)
+      AbAdmin.menu.render(template)
+    end
+
   end
 
   class MenuGroup < BaseMenuGroup
     def initialize(title, options, &block)
       @menu_tree = []
-      @title = title
+      @title = title.is_a?(Symbol) ? I18n.t(title, :scope => [:admin, :navigation]) : title
       @options = options
       instance_eval &block if block_given?
     end
@@ -67,7 +71,7 @@ module AbAdmin
     include ::AbAdmin::Utils::EvalHelpers
 
     def initialize(title, path, options)
-      @title = title
+      @title = title.is_a?(Symbol) ? I18n.t(title, :scope => [:admin, :navigation]) : title
       @path = path
       @options = options
     end

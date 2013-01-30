@@ -80,16 +80,17 @@ class Hash
     end
   end
 
-  def set_keys(value, *hash_keys)
-    hash_keys.each_with_index do |k, i|
-      if hash_keys[i+1]
-        return self[k].set_keys(value, *hash_keys[1..-1])
-      else
-        self[k] = Hash.convert_hash_to_ordered_hash(value)
-        return self
-      end
-    end
-  end
+  # store_multi
+  #def set_keys(value, *hash_keys)
+  #  hash_keys.each_with_index do |k, i|
+  #    if hash_keys[i+1]
+  #      return self[k].set_keys(value, *hash_keys[1..-1])
+  #    else
+  #      self[k] = Hash.convert_hash_to_ordered_hash(value)
+  #      return self
+  #    end
+  #  end
+  #end
 
   def val(*array)
     if array.empty?
@@ -107,11 +108,23 @@ class Hash
     end
   end
 
-  def hash_revert
-    r = Hash.new { |h, k| h[k] = [] }
-    each { |k, v| r[v] << k }
-    r
+  def store_multi(value, *keys)
+    key = keys.shift
+    self[key] ||= {}
+    if keys.empty?
+      self[key] = value
+    else
+      self[key] = self[key].store_multi(value, *keys)
+    end
+    self
   end
+
+  # invert
+  #def hash_revert
+  #  r = Hash.new { |h, k| h[k] = [] }
+  #  each { |k, v| r[v] << k }
+  #  r
+  #end
 
   def no_blank
     reject { |k, v| v.blank? }

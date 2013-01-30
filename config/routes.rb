@@ -18,6 +18,23 @@ Rails.application.routes.draw do
       post :rotate, :main, :crop, :on => :member
       post :sort, :on => :collection
     end
+
+    controller 'manager' do
+      scope ':model_name' do
+        get '/', :to => :index, :as => 'index'
+        post '/', :to => :create, :as => 'create'
+        get '/new', :to => :new, :as => 'new'
+        post '/batch', :to => :batch, :as => 'batch'
+
+        scope ':id' do
+          get '/', :to => :show, :as => 'show'
+          get '/edit', :to => :edit, :as => 'edit'
+          put '/', :to => :update, :as => 'update'
+          delete '/', :to => :destroy, :as => 'destroy'
+        end
+      end
+    end
+
   end
 
 end

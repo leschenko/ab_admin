@@ -41,6 +41,16 @@ module AbAdmin
         super(attribute_name, options, &block)
       end
 
+      def link_to_add_assoc(assoc, options={})
+        model = @object.class.reflect_on_association(assoc).klass
+        title = [@template.icon('plus', true), I18n.t('admin.add'), model.model_name.human].join(' ').html_safe
+        link_to_add title, assoc, :class => "btn btn-primary #{options[:class]}"
+      end
+
+      def link_to_remove_assoc
+        link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), :class => 'btn btn-danger btn-mini pull-right'
+      end
+
       def locale_tabs(options={}, &block)
         loc_html = {}
         Globalize.available_locales.each do |l|

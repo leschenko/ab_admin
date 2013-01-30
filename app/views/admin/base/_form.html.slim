@@ -1,7 +1,12 @@
 = admin_form_for resource do |f|
   /= f.input :bg_color, :as => :color
-  - resource.class.content_columns.each do |column|
-    = f.input column.name.to_sym
+  - resource_class.content_columns.map{|c| c.name.to_sym }.without(:created_at, :updated_at).each do |column|
+    = f.input column
+
+  - if resource_class.translates?
+    = f.locale_tabs do |l|
+      - resource_class.translated_attribute_names.each do |column|
+        = f.input column, :locale => l, :as => (:editor if column == :description)
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
 

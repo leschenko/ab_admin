@@ -27,6 +27,7 @@ module AbAdmin
     autoload :Callbacks, 'ab_admin/controllers/callbacks'
     autoload :HeadOptions, 'ab_admin/controllers/head_options'
     autoload :Tree, 'ab_admin/controllers/tree'
+    autoload :CanCanManagerResource, 'ab_admin/controllers/can_can_manager_resource'
   end
 
   module Mailers
@@ -63,6 +64,8 @@ module AbAdmin
     autoload :ResourceGenerator, 'generators/ab_admin/resource/resource_generator'
     autoload :InstallGenerator, 'generators/ab_admin/install/install_generator'
   end
+
+  mattr_accessor :menu
 
   mattr_accessor :flash_keys
   @@flash_keys = [:notice, :error]

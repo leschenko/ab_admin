@@ -9,6 +9,9 @@ module AbAdmin
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
         options[:html]['data-id'] = object.id
+        if controller_name == 'manager'
+          options[:url] ||= object.new_record? ? collection_path : resource_path
+        end
         if options.delete(:nested)
           simple_nested_form_for([:admin, object].flatten, *(args << options), &block)
         else

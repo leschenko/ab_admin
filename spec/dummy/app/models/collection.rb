@@ -1,6 +1,6 @@
 class Collection < ActiveRecord::Base
   attr_accessible :is_visible, :products_count
-  attr_accessible :name_en, :description_en, :name_ru, :description_ru
+  attr_accessible :name, :description, :name_en, :description_en, :name_ru, :description_ru
 
   has_many :products
 

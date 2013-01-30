@@ -1,4 +1,3 @@
-@wip
 Feature: Table view
   Background:
     Given I am logged in as "test@example.com"
