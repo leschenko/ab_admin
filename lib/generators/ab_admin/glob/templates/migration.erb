@@ -1,0 +1,13 @@
+class <%= migration_class_name %> < ActiveRecord::Migration
+  def up
+    <%- models.each do |m| -%>
+    <%= m.name %>.create_translation_table! <%= model_attrs[m.name] %>
+    <%- end -%>
+  end
+
+  def down
+    <%- models.each do |m| -%>
+    <%= m.name %>.drop_translation_table!
+    <%- end -%>
+  end
+end
