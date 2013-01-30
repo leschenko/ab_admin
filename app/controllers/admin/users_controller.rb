@@ -1,8 +1,6 @@
 class Admin::UsersController < Admin::BaseController
   load_and_authorize_resource
 
-  has_scope :social
-
   def activate
     resource.confirm! unless resource.confirmed?
     resource.unsuspend!

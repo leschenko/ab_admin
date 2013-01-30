@@ -54,6 +54,11 @@ Given /^I am logged in$/ do
   login_as @me
 end
 
+Given /^I am logged in as "(.*)"$/ do |email|
+  @me = FactoryGirl.create(:admin_user, valid_user.merge(:email => email))
+  login_as @me
+end
+
 When /^I sign out$/ do
   visit '/users/sign_out'
 end

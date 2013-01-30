@@ -204,7 +204,7 @@ en:
       visible: Published
     search: 
       cancel: Clean
-      submit: Refine
+      submit: Filter
       title: Search
     set_main: Make the main image
     show: 

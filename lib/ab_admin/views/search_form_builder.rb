@@ -36,7 +36,9 @@ module AbAdmin
       def string_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, :class => 'controls') do
           param = "#{attr}_cont"
-          text_field_tag("q[#{param}]", params[:q][param], options[:input_html] || {})
+          options[:input_html] ||= {}
+          options[:input_html][:id] = "q_#{attr}"
+          text_field_tag("q[#{param}]", params[:q][param], options[:input_html])
         end
       end
 
