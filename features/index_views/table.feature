@@ -18,3 +18,4 @@ Feature: Table view
     And I press "Filter"
     Then I should see "bob@example.com"
     And I should not see "alex@example.com"
+
