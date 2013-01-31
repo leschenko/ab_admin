@@ -54,7 +54,7 @@ module AbAdmin
           when String, Integer
             val
           else
-            val.respond_to?(:title) ? val.title : val
+            AbAdmin.display_name(val)
         end
       end
 

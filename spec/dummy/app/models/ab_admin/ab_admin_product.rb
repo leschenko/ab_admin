@@ -1,3 +1,17 @@
+class AbAdminProduct < AbAdmin::AbstractResource
+  table do
+    field :sku
+    field :name, :sortable => :id
+    field :created_at
+  end
+
+  search do
+    field :id
+    field :sku
+    field :name
+  end
+end
+
 #class AbAdminProduct < AbAdmin::AbstractResource
 #
 #  index_view :table

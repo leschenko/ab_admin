@@ -23,15 +23,14 @@ module AbAdmin
   end
 
   class MenuBuilder < BaseMenuGroup
+    include Singleton
 
-    def self.draw(options={}, &block)
-      AbAdmin.menu = new(options, &block)
+    def self.draw(&block)
+      instance.instance_eval &block if block_given?
     end
 
-    def initialize(options, &block)
+    def initialize
       @menu_tree = []
-      @options = options.delete(:options)
-      instance_eval &block if block_given?
     end
 
     def render(template)
@@ -41,9 +40,8 @@ module AbAdmin
     end
 
     def self.render(template)
-      AbAdmin.menu.render(template)
+      instance.render(template)
     end
-
   end
 
   class MenuGroup < BaseMenuGroup

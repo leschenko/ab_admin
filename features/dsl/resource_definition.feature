@@ -12,20 +12,19 @@ Feature: Dsl resource definition
     Given a resource configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        list do
+        table do
           field :id
           field :sku
           field :name
+        end
 
-          search do
-            field :id
-            field :sku
-            field :name
-          end
+        search do
+          field :id
+          field :sku
+          field :name
         end
       end
       """
     When I am on the admin products page
     Then I should see list of products
     And I see search form with "Id,Sku,Name" filters
-

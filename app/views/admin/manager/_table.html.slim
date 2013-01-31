@@ -1,0 +1,20 @@
+table.table.table-striped.index_table#list
+  thead
+    tr.pjax_links
+      = batch_action_toggle
+      th= sort_link(@search, :id)
+      - manager.table.fields.each do |field|
+        th
+          - if field.options[:sortable]
+            = sort_link @search, field.name, :column => (field.options[:sortable].is_a?(TrueClass) ? field.name : field.options[:sortable])
+          - else
+            = field.name.is_a?(Symbol) ? ha(field.name) : field.name
+      th=t 'admin.table.actions'
+  tbody
+    - collection.each do |item|
+      tr
+        = batch_action_item(item)
+        td= id_link(item)
+        - manager.table.fields.each do |field|
+          td= pretty_data call_method_or_proc_on(item, field.data)
+        td.actions= item_index_actions(item)

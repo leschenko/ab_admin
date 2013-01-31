@@ -1,18 +1,25 @@
+#require 'active_support/dependencies'
+load 'ab_admin/abstract_resource.rb'
+load '/private/var/www/hub/ab_admin/lib/ab_admin/config/base.rb'
+load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_navigation_helpers.rb'
+
 class ::Admin::ManagerController < ::Admin::BaseController
-  prepend_before_filter :manager_model
+  prepend_before_filter :manager
 
   load_and_authorize_resource
 
   #has_scope :visible
   #has_scope :un_visible
 
+  helper_method :manager
+
   protected
 
-  def manager_model
-    @manager_model ||= begin
-      "AbAdmin#{resource_class.name}".constantize
-    rescue NameError
-      raise ActionController::RoutingError.new("AbAdmin manager_model #{params[:model_name]} not found")
+  def manager
+    @manager ||= begin
+      "AbAdmin#{resource_class.name}".constantize.instance
+    #rescue NameError
+    #  raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found")
     end
   end
 

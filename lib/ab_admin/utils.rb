@@ -94,5 +94,15 @@ module AbAdmin
         doc.to_html
       end
     end
+
+    @@display_name_methods_cache = {}
+    def display_name_method_for(resource)
+      @@display_name_methods_cache[resource.class.name] ||= AbAdmin.display_name_methods.find { |method| resource.respond_to? method }
+    end
+
+    def display_name(resource)
+      resource.send(display_name_method_for(resource))
+    end
+
   end
 end

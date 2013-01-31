@@ -7,6 +7,14 @@ module AbAdmin
   autoload :Utils, 'ab_admin/utils'
   autoload :Devise, 'ab_admin/devise'
   autoload :MenuBuilder, 'ab_admin/menu_builder'
+  autoload :AbstractResource, 'ab_admin/abstract_resource'
+
+  module Config
+    autoload :Table, 'ab_admin/config/base'
+    autoload :Search, 'ab_admin/config/base'
+    autoload :BaseBlock, 'ab_admin/config/base'
+    autoload :Field, 'ab_admin/config/base'
+  end
 
   module CarrierWave
     autoload :Glue, 'ab_admin/carrierwave/glue'
@@ -81,6 +89,9 @@ module AbAdmin
 
   mattr_accessor :image_types
   @@image_types = %w(image/jpeg image/png image/gif image/jpg image/pjpeg image/tiff image/x-png)
+
+  mattr_accessor :display_name_methods
+  @@display_name_methods = [:title, :name, :full_name]
 
   extend Utils
 

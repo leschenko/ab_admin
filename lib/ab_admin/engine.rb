@@ -26,9 +26,13 @@ module AbAdmin
       end
 
       ActiveSupport.on_load :action_view do
-        ActionView::Base.send :include, AbAdmin::Views::Helpers
-        ActionView::Base.send :include, AbAdmin::Views::AdminHelpers
-        ActionView::Base.send :include, AbAdmin::Views::AdminNavigationHelpers
+        #ActionView::Base.send :include, AbAdmin::Views::Helpers
+        #ActionView::Base.send :include, AbAdmin::Views::AdminHelpers
+        #ActionView::Base.send :include, AbAdmin::Views::AdminNavigationHelpers
+        # need override ransack helpers
+        ActionController::Base.helper AbAdmin::Views::Helpers
+        ActionController::Base.helper AbAdmin::Views::AdminHelpers
+        ActionController::Base.helper AbAdmin::Views::AdminNavigationHelpers
       end
 
     end

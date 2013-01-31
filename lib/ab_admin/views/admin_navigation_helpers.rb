@@ -14,15 +14,15 @@ module AbAdmin
       end
 
       def sort_link(search, attribute, *args)
+        options = args.first.is_a?(Hash) ? args.shift.dup : {}
         search_params = params[:q] || {}.with_indifferent_access
-        attr_name = attribute.to_s
+        attr_name = (options.delete(:column) || attribute).to_s
         name = resource_class.han(attribute)
 
         if existing_sort = search.sorts.detect { |s| s.name == attr_name }
           prev_attr, prev_dir = existing_sort.name, existing_sort.dir
         end
 
-        options = args.first.is_a?(Hash) ? args.shift.dup : {}
         default_order = options.delete :default_order
         current_dir = prev_attr == attr_name ? prev_dir : nil
 
