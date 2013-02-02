@@ -18,6 +18,9 @@ module NavigationHelpers
       when /edit profile page/
         "/admin/users/#{@me.id}/edit"
 
+      when /admin products page/
+        '/admin/products'
+
       else
         begin
           page_name =~ /the (.*) page/

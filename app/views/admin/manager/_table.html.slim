@@ -6,7 +6,11 @@ table.table.table-striped.index_table#list
       - manager.table.fields.each do |field|
         th
           - if field.options[:sortable]
-            = sort_link @search, field.name, :column => (field.options[:sortable].is_a?(TrueClass) ? field.name : field.options[:sortable])
+            - if field.options[:sortable].is_a?(TrueClass)
+              = sort_link @search, field.name
+            - else
+              - opts = field.options[:sortable].is_a?(Hash) ? field.options[:sortable] : {:column => field.options[:sortable]}
+              = sort_link @search, field.name, opts
           - else
             = field.name.is_a?(Symbol) ? ha(field.name) : field.name
       th=t 'admin.table.actions'
