@@ -1,6 +1,9 @@
-generate dummy with rake task
+- generate dummy with rake task
 simple_form bootstrap
 devise
-i18n-js
++i18n-js
 
 route to resource gen
+default form render
+gen mkdir log tmp/pids tmp/sockets
+fix pickers
