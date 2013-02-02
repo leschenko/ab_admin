@@ -33,6 +33,7 @@ module AbAdmin
         ActionController::Base.helper AbAdmin::Views::Helpers
         ActionController::Base.helper AbAdmin::Views::AdminHelpers
         ActionController::Base.helper AbAdmin::Views::AdminNavigationHelpers
+        ActionController::Base.helper AbAdmin::Views::ManagerHelpers
       end
 
     end

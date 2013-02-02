@@ -5,7 +5,7 @@ module AbAdmin
       class_attribute :field_defaults, :instance_writer => false
       self.field_defaults = {}
 
-      def initialize(options, &block)
+      def initialize(options={}, &block)
         @fields = []
         @options = options
         instance_eval(&block) if block_given?

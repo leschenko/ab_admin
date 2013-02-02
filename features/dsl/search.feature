@@ -38,3 +38,4 @@ Feature: Search
     And I press "Filter"
     Then I should see "dc_1"
     And I should not see "t-12"
+

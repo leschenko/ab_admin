@@ -12,13 +12,9 @@ class ::Admin::ManagerController < ::Admin::BaseController
   #has_scope :visible
   #has_scope :un_visible
 
-  helper_method :manager, :export_builder
+  helper_method :manager
 
   protected
-
-  def export_builder
-    manager.export || ::AbAdmin::Config::Export.default_for_model(resource_class)
-  end
 
   def manager
     @manager ||= begin
