@@ -2,6 +2,7 @@
 load 'ab_admin/abstract_resource.rb'
 load '/private/var/www/hub/ab_admin/lib/ab_admin/config/base.rb'
 load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_navigation_helpers.rb'
+load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_helpers.rb'
 
 class ::Admin::ManagerController < ::Admin::BaseController
   prepend_before_filter :manager
@@ -11,9 +12,13 @@ class ::Admin::ManagerController < ::Admin::BaseController
   #has_scope :visible
   #has_scope :un_visible
 
-  helper_method :manager
+  helper_method :manager, :export_builder
 
   protected
+
+  def export_builder
+    manager.export || ::AbAdmin::Config::Export.default_for_model(resource_class)
+  end
 
   def manager
     @manager ||= begin

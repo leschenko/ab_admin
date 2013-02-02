@@ -12,7 +12,7 @@ module AbAdmin
   module Config
     autoload :Table, 'ab_admin/config/base'
     autoload :Search, 'ab_admin/config/base'
-    autoload :BaseBlock, 'ab_admin/config/base'
+    autoload :BaseBuilder, 'ab_admin/config/base'
     autoload :Field, 'ab_admin/config/base'
   end
 

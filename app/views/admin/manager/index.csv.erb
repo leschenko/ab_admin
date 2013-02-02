@@ -1,0 +1,8 @@
+<%= require 'csv'
+    ::CSV.generate(:col_sep => export_builder.options[:column_separator] || ',') do |csv|
+      csv << export_builder.fields.map(&:name)
+      collection.each do |item|
+        csv << export_builder.fields.map { |column| pretty_data call_method_or_proc_on(item, column.data) }
+      end
+    end.html_safe
+%>

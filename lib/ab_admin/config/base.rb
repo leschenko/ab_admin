@@ -1,6 +1,6 @@
 module AbAdmin
   module Config
-    class BaseBlock
+    class BaseBuilder
       attr_reader :options, :fields
       class_attribute :field_defaults, :instance_writer => false
       self.field_defaults = {}
@@ -14,13 +14,26 @@ module AbAdmin
       def field(name, options={}, &block)
         @fields << Field.new(name, options.reverse_merge!(field_defaults), block)
       end
+
+      def self.default_for_model(model)
+        new.tap do |builder|
+          builder.field(:id)
+          model.content_columns.each do |column|
+            builder.field(column.name.to_sym)
+          end
+        end
+      end
     end
 
-    class Table < BaseBlock
+    class Table < BaseBuilder
       self.field_defaults = {:sortable => true}
     end
 
-    class Search < BaseBlock
+    class Search < BaseBuilder
+
+    end
+
+    class Export < BaseBuilder
 
     end
 

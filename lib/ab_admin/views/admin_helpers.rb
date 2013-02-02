@@ -60,6 +60,23 @@ module AbAdmin
         end
       end
 
+      def pretty_data(object)
+        case object
+          when String, Integer
+            object
+          when TrueClass
+            '+'
+          when FalseClass
+            '-'
+          when Date, DateTime, Time, ActiveSupport::TimeWithZone
+            I18n.l(object, :format => :long)
+          when NilClass
+            ''
+          else
+            AbAdmin.safe_display_name(object)
+        end
+      end
+
       def item_image_link(item, options={})
         options.reverse_merge!(:url => resource_path(item), :assoc => :picture)
         image = item.send(options[:assoc])
