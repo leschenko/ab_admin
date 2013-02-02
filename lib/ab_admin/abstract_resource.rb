@@ -4,7 +4,7 @@ module AbAdmin
 
     include Singleton
 
-    attr_accessor :table, :search, :export
+    attr_accessor :table, :search, :export, :form
 
     class << self
       def table(options={}, &block)
@@ -17,6 +17,10 @@ module AbAdmin
 
       def export(options={}, &block)
         instance.export = ::AbAdmin::Config::Export.new(options, &block)
+      end
+
+      def form(options={}, &block)
+        instance.form = ::AbAdmin::Config::Form.new(options, &block)
       end
     end
 

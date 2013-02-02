@@ -16,6 +16,7 @@ window.initPopover = ->
   $('a[rel=popover]').popover({trigger: 'hover'})
 
 window.initChosen = ->
+  return if gon.test
   chosen_options =
     allow_single_deselect: true
     no_results_text: I18n.t('admin_js.no_results')
@@ -40,6 +41,7 @@ window.initTooltip = ->
     placement: 'right'
 
 window.initEditor = ->
+  return if gon.test
   $('form .do_wysihtml5').each ->
     $el = $(this)
     return if $el.hasClass('wysihtml5_done')

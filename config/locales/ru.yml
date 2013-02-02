@@ -90,7 +90,6 @@ ru:
       title_content: "Комментариев (%{count})"
     delete: "Удалить"
     delete_confirmation: "Вы уверены, что хотите удалить это?"
-    details: "Подробнее"
     empty: "Пусто"
     exit: "Выход"
     fileupload: 
@@ -106,7 +105,9 @@ ru:
       save_and_edit: "Сохранить и продолжить редактирование"
       save_and_edit_next: "Сохранить и след."
       save_and_edit_prev: "Сохранить и пред."
-    gender: 
+      details: "Подробнее"
+      base: "Основное"
+    gender:
       female: "Женский"
       male: "Мужской"
     geo_autocomplete: "Введите адрес"

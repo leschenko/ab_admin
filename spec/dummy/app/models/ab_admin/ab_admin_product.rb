@@ -1,11 +1,12 @@
 class AbAdminProduct < AbAdmin::AbstractResource
-  #table do
-  #  field :sku
-  #  field :name, :sortable => {:column => :id, :default_order => 'desc'}
-  #  field :is_visible
-  #  field :collection
-  #  field :created_at
-  #end
+  table do
+    field :sku
+    field(:picture) { |item| item_image_link(item) }
+    field :name, :sortable => {:column => :id, :default_order => 'desc'}
+    field :is_visible
+    field :collection
+    field :created_at
+  end
 
   search do
     field :sku
@@ -22,6 +23,20 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :collection
     field :created_at
   end
+
+  form do
+    group :base do
+      field :sku
+      field :price
+    end
+    field :is_visible
+    field :collection, :as => :association
+    locale_tabs do
+      field :name
+      field :description
+    end
+  end
+
 end
 
 #class AbAdminProduct < AbAdmin::AbstractResource

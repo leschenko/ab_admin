@@ -91,7 +91,6 @@ en:
       title_content: Comments (%{count})
     delete: Remove
     delete_confirmation: Are you sure you want to delete this?
-    details: More
     empty: Empty
     exit: Output
     fileupload: 
@@ -107,7 +106,9 @@ en:
       save_and_edit: Save and continue editing
       save_and_edit_next: Save and track.
       save_and_edit_prev: Save and before.
-    gender: 
+      details: More
+      base: Base
+    gender:
       female: Female
       male: Male
     geo_autocomplete: Enter the address

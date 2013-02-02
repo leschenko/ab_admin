@@ -15,6 +15,7 @@ module AbAdmin
       map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::ColorInput
       map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
       map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
+      map_type :association, :to => ::AbAdmin::Views::Inputs::AssociationInput
 
       def input(attribute_name, options = {}, &block)
         #options[:input_html] ||= {}

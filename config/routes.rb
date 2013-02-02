@@ -9,7 +9,7 @@ Rails.application.routes.draw do
       resource :static_page
     end
 
-    resources(:users) do
+    resources :users do
       post :batch, :on => :collection
       post :activate, :suspend, :send_welcome, :on => :member
     end

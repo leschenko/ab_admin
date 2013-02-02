@@ -44,6 +44,10 @@ class ::Admin::ManagerController < ::Admin::BaseController
     admin_index_path(options.merge(:model_name => resource_collection_name))
   end
 
+  def collection_url(options={})
+    admin_index_url(options.merge(:model_name => resource_collection_name))
+  end
+
   def new_resource_path(options={})
     admin_new_path(options.merge(:model_name => resource_collection_name))
   end

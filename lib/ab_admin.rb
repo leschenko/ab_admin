@@ -12,7 +12,10 @@ module AbAdmin
   module Config
     autoload :Table, 'ab_admin/config/base'
     autoload :Search, 'ab_admin/config/base'
+    autoload :Export, 'ab_admin/config/base'
+    autoload :Form, 'ab_admin/config/base'
     autoload :BaseBuilder, 'ab_admin/config/base'
+    autoload :FieldGroup, 'ab_admin/config/base'
     autoload :Field, 'ab_admin/config/base'
   end
 
@@ -66,6 +69,7 @@ module AbAdmin
       autoload :ColorInput, 'ab_admin/views/inputs/color_input'
       autoload :EditorInput, 'ab_admin/views/inputs/editor_input'
       autoload :TreeSelectInput, 'ab_admin/views/inputs/tree_select_input'
+      autoload :AssociationInput, 'ab_admin/views/inputs/association_input'
     end
   end
 

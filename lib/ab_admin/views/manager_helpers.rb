@@ -15,6 +15,10 @@ module AbAdmin
         manager.search ||= ::AbAdmin::Config::Search.default_for_model(resource_class)
       end
 
+      def form_builder
+        manager.form ||= ::AbAdmin::Config::Form.default_for_model(resource_class, :skip => [:created_at, :updated_at])
+      end
+
     end
   end
 end

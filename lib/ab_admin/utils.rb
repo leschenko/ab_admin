@@ -101,6 +101,7 @@ module AbAdmin
     end
 
     def display_name(resource)
+      STDERR.puts resource
       resource.send(display_name_method_for(resource))
     end
 

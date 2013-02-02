@@ -5,7 +5,7 @@ $ ->
     window.viewType = 'form'
 
   $(document).on 'admin:init', (e) ->
-    return unless e.view == 'list'
+    return unless window.viewType == 'list'
     clonePagination()
     initPopover()
     initTooltip()
@@ -20,23 +20,23 @@ $ ->
 
 
   $(document).on 'admin:init', (e) ->
-    return unless e.viewType == 'form'
+    return unless window.viewType == 'form'
     window.resource_id = $('form.simple_form').data('id')
-    $('form .region_ac').regionAc()
     initEditor()
     inputSetToggle()
 
-    new NestedFieldsAdder
-      region_ac: true
-      callback: ->
-        initPickers()
-        initChosen()
-        initEditor()
+#    $('form .region_ac').regionAc()
+#    new NestedFieldsAdder
+#      region_ac: true
+#      callback: ->
+#        initPickers()
+#        initChosen()
+#        initEditor()
 
 
   $(document).on 'pjax:end', ->
-    $(document).trigger({type: 'admin:init', view: window.viewType, pjax: true})
-  $(document).trigger({type: 'admin:init', view: window.viewType})
+    $(document).trigger({type: 'admin:init', pjax: true})
+  $(document).trigger({type: 'admin:init'})
 
 
   initChosen()

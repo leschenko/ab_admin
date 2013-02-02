@@ -110,6 +110,10 @@ When /^(?:|I )press "([^"]*)"$/ do |button|
   click_button(button)
 end
 
+When /^(?:|I )submit form$/ do
+  first('form button[type="submit"]').click
+end
+
 Then /^the select "([^"]*)" should have following options:$/ do |field, options|
   options = options.transpose.raw
   if options.size > 1

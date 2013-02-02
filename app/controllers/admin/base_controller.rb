@@ -216,6 +216,7 @@ class Admin::BaseController < ::InheritedResources::Base
     I18n.locale = Rails.application.config.i18n.default_locale
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
+    gon.test = Rails.env.test?
   end
 
   def moderator?

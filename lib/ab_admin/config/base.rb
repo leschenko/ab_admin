@@ -12,14 +12,16 @@ module AbAdmin
       end
 
       def field(name, options={}, &block)
-        @fields << Field.new(name, options.reverse_merge!(field_defaults), block)
+        @fields << Field.new(name, options.reverse_merge!(field_defaults), &block)
       end
 
-      def self.default_for_model(model)
+      def self.default_for_model(model, options={})
         new.tap do |builder|
           builder.field(:id)
           model.content_columns.each do |column|
-            builder.field(column.name.to_sym)
+            column_name = column.name.to_sym
+            next if options[:skip].try(:include?, column_name)
+            builder.field(column_name)
           end
         end
       end
@@ -37,13 +39,42 @@ module AbAdmin
 
     end
 
+    class Form < BaseBuilder
+      def group(name=nil, options={}, &block)
+        options[:title] = name || :base
+        @fields << FieldGroup.new(options, &block)
+      end
+
+      def locale_tabs(options={}, &block)
+        @fields << FieldGroup.new(options.update(:localized => true), &block)
+      end
+    end
+
+    class FieldGroup < BaseBuilder
+      def title
+        options[:title].is_a?(Symbol) ? I18n.t(options[:title], :scope => [:admin, :form]) : options[:title]
+      end
+
+      def localized?
+        options[:localized]
+      end
+
+      def group?
+        true
+      end
+    end
+
     class Field
       attr_reader :name, :options, :data
 
-      def initialize(name, options={}, block=nil)
+      def initialize(name, options={}, &block)
         @name = name
         @options = options
-        @data = block || name.to_sym
+        @data = block_given? ? block : name.to_sym
+      end
+
+      def group?
+        false
       end
     end
 

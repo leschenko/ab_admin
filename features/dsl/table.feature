@@ -1,4 +1,4 @@
-@dsl
+@dsl @wip
 Feature: Resource table view
 
   Background:
