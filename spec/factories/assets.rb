@@ -39,4 +39,14 @@ FactoryGirl.define do
       instance.data_content_type ||= 'image/jpg'
     end
   end
+
+  factory :picture do
+    data File.open(File.expand_path('../files/rails.png', __FILE__))
+    association :assetable, :factory => :structure
+    is_main true
+
+    before(:create) do |instance|
+      instance.data_content_type ||= 'image/jpg'
+    end
+  end
 end

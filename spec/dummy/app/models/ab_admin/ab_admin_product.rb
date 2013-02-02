@@ -1,14 +1,18 @@
 class AbAdminProduct < AbAdmin::AbstractResource
   table do
     field :sku
-    field :name, :sortable => :id
+    field :name, :sortable => false
+    field :is_visible
+    field :collection
     field :created_at
   end
 
   search do
-    field :id
     field :sku
     field :name
+    field :is_visible
+    field :collection
+    field :created_at
   end
 end
 

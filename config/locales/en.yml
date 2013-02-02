@@ -271,7 +271,7 @@ en:
     address: Address
     country: Country
     country_id: Country
-    created_at: Date of creation
+    created_at: Created at
     description: Description
     footmarks_count: ""
     is_visible: Display
@@ -284,7 +284,7 @@ en:
     reviews_count: ""
     synonyms: Synonyms
     title: Name
-    updated_at: Date of change
+    updated_at: Updated at
     user: User
     user_id: User
   attrs: 

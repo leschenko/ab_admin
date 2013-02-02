@@ -20,5 +20,5 @@ table.table.table-striped.index_table#list
         = batch_action_item(item)
         td= id_link(item)
         - manager.table.fields.each do |field|
-          td= pretty_data call_method_or_proc_on(item, field.data)
+          td= admin_pretty_data call_method_or_proc_on(item, field.data)
         td.actions= item_index_actions(item)

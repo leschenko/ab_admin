@@ -13,15 +13,15 @@ module AbAdmin
       end
 
       def select_field(attr, options={})
-        label(attr, options[:label] || @object.klass.han(attr)) + content_tag(:div, :class => 'controls') do
-          param = "#{attr}#{'_id' if options[:assoc]}_eq"
+        label(attr, options[:label]) + content_tag(:div, :class => 'controls') do
+          param = "#{options[:value_attr] || attr}_eq"
           options[:collection] ||= []
           if options[:collection].first.try(:respond_to?, :id)
             opts = options_from_collection_for_select(options[:collection], :id, :title, params[:q][param])
           else
             opts = options_for_select(options[:collection], params[:q][param])
           end
-          select_tag("q[#{param}]", opts, (options[:html_options] || {}).merge(:include_blank => true, :class => 'do_chosen'))
+          select_tag("q[#{param}]", opts, (options[:html_options] || {}).merge(:include_blank => true, :class => 'do_chosen', :id => "q_#{attr}"))
         end
       end
 
@@ -29,13 +29,13 @@ module AbAdmin
         label(attr, options[:label]) + content_tag(:div, :class => 'controls') do
           gt_param, lt_param = "#{attr}_gteq", "#{attr}_lteq"
           text_field_tag("q[#{gt_param}]", params[:q][gt_param], :class => 'input-small datepicker', :autocomplete => 'off') + ' - ' +
-          text_field_tag("q[#{lt_param}]", params[:q][lt_param], :class => 'input-small datepicker', :autocomplete => 'off')
+          text_field_tag("q[#{lt_param}]", params[:q][lt_param], :class => 'input-small datepicker', :autocomplete => 'off', :id => "q_#{attr}")
         end
       end
 
       def string_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, :class => 'controls') do
-          param = "#{attr}_cont"
+          param = "#{options[:value_attr] || attr}_cont"
           options[:input_html] ||= {}
           options[:input_html][:id] = "q_#{attr}"
           text_field_tag("q[#{param}]", params[:q][param], options[:input_html])
@@ -60,7 +60,7 @@ module AbAdmin
         content_tag(:div, :class => 'pull-left') do
           param = "#{attr}_eq"
           content_tag(:label, :class => 'checkbox inline') do
-            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, :class => 'inline') + I18n.t('simple_form.yes')
+            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, :class => 'inline', :id => "q_#{attr}") + I18n.t('simple_form.yes')
           end +
           content_tag(:label, :class => 'checkbox inline') do
             check_box_tag("q[#{param}]", 0, params[:q][param] && params[:q][param].to_i == 0, :class => 'inline') + I18n.t('simple_form.no')
@@ -72,6 +72,11 @@ module AbAdmin
         hidden_field_tag("q[#{attr}_eq]", options.delete(:value), options)
       end
 
+      def label(attr, text=nil, options={})
+        text ||= @object.klass.han(attr)
+        super(attr, text, options)
+      end
+
       def filed_type(attr, options={})
         return options.delete(:as).to_sym if options[:as]
         return :string if attr =~ /^translations_/
@@ -80,13 +85,13 @@ module AbAdmin
 
         if input_type
           return :select if options[:collection]
-        else
-          assoc = @object.klass.reflect_on_association(attr.to_sym)
-          if assoc
-            options[:collection] ||= assoc.klass.limit(500)
-            options[:assoc] = true
-            return :select
-          end
+        elsif @object.klass.translates? && @object.klass.translated?(attr)
+          options[:value_attr] = "translations_#{attr}"
+          return :string
+        elsif assoc = @object.klass.reflect_on_association(attr.to_sym)
+          options[:collection] ||= assoc.klass.limit(500)
+          options[:value_attr] = "#{attr}_id"
+          return :select
         end
 
         case input_type

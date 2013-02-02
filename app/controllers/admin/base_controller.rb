@@ -57,7 +57,6 @@ class Admin::BaseController < ::InheritedResources::Base
       flash[:success] = I18n.t('admin.batch_actions.status', :count => count, :action => I18n.t("admin.actions.batch_#{batch_action}.title"))
     else
       raise CanCan::AccessDenied
-      #flash[:failure] = 'You don\'t have permissions to perform this action'
     end
     redirect_to :back
   end

@@ -55,3 +55,29 @@ end
 Then /^I should not see elements? kind of (.+)$/ do |locator|
   page.should_not have_css(selector_for(locator))
 end
+
+def have_ordered_list(lines)
+  lines = lines.collect { |line| line.to_s.gsub(/\s+/, ' ') }.collect(&:strip).reject(&:blank?)
+  pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
+  pattern = Regexp.compile(pattern)
+  page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
+end
+
+# Checks that these strings are rendered in the given order in a single line or in multiple lines
+#
+# Example:
+#
+#       Then I should see in this order:
+#         | Alpha Group |
+#         | Augsburg    |
+#         | Berlin      |
+#         | Beta Group  |
+#
+Then /^I should see in this order:?$/ do |text|
+  if text.is_a?(String)
+    lines = text.split(/\n/)
+  else
+    lines = text.raw.flatten
+  end
+  have_ordered_list(lines)
+end

@@ -11,4 +11,6 @@ class Collection < ActiveRecord::Base
 
   scope :visible, where(:is_visible => true)
   scope :un_visible, where(:is_visible => false)
+
+  alias_attribute :title, :name
 end

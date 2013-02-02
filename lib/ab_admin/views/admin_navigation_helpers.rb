@@ -193,10 +193,12 @@ module AbAdmin
 
       def admin_record_link(record, action, options={})
         return unless record
-        record_title = options.delete(:title) || record.title
-        url_options = {:controller => record.class.model_name.plural, :action => action, :id => record.id}
+        record_title = options.delete(:title) || AbAdmin.display_name(record)
+        #url_options = {:controller => record.class.model_name.plural, :action => action, :id => record.id}
+        action_url_part = action == :show ? '' : "/#{action}"
+        url = "/admin/#{record.class.model_name.plural}/#{record.id}#{action_url_part}"
         html_options = options.delete(:html_options) || {}
-        link_to record_title, url_options, html_options
+        link_to record_title, url, html_options
       end
 
     end

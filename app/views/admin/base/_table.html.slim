@@ -12,5 +12,5 @@ table.table.table-striped.index_table#list
         = batch_action_item(item)
         td= id_link(item)
         - resource_class.content_columns.map(&:name).without('updated_at').each do |col|
-          td= pretty_data item[col]
+          td= admin_pretty_data item[col]
         td.actions= item_index_actions(item)

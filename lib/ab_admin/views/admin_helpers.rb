@@ -43,28 +43,30 @@ module AbAdmin
         "<i class='icon-#{name} #{'icon-white' if white}'></i> ".html_safe
       end
 
-      def pretty_data(val)
-        case val
-          when TrueClass
-            '+'
-          when FalseClass #, NilClass
-            '-'
-          when Date, DateTime, Time, ActiveSupport::TimeWithZone
-            I18n.l(val, :format => :long)
+      def admin_pretty_data(object)
+        case object
           when String, Integer
-            val
+            object
+          when TrueClass, FalseClass
+            color_bool(object)
+          when Date, DateTime, Time, ActiveSupport::TimeWithZone
+            I18n.l(object, :format => :long)
           when NilClass
             ''
+          when ActiveRecord::Base
+            admin_show_link(object)
           else
-            AbAdmin.safe_display_name(val)
+            AbAdmin.safe_display_name(object)
         end
       end
 
-      def item_image_link(item, url, assoc=:photo, version=:thumb)
-        image = item.send(assoc)
+      def item_image_link(item, options={})
+        options.reverse_merge!(:url => resource_path(item), :assoc => :picture)
+        image = item.send(options[:assoc])
         return nil unless image
+        version = options[:version] || image.class.thumb_size
         popover_data = {:content => "<img src='#{image.url}'></img>", :title => item.name}
-        link_to image_tag(image.url(version)), url, :data => popover_data, :rel => 'popover'
+        link_to image_tag(image.url(version)), options[:url], :data => popover_data, :rel => 'popover'
       end
 
       def item_image(item, assoc=:photo, size=:thumb)
