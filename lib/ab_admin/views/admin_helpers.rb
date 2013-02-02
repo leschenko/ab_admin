@@ -53,8 +53,10 @@ module AbAdmin
             I18n.l(val, :format => :long)
           when String, Integer
             val
+          when NilClass
+            ''
           else
-            AbAdmin.display_name(val)
+            AbAdmin.safe_display_name(val)
         end
       end
 

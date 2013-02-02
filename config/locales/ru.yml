@@ -64,7 +64,13 @@ ru:
           password: Новый пароль
           password_confirmation: Новый пароль еще раз
     avatar: "Аватар"
-    batch_actions: "Действия"
+    batch_actions:
+      title: "Действия"
+      status:
+        zero: "%{action} - 0 записей"
+        one: "%{action} - %{count} запись"
+        few: "%{action} - %{count} записи"
+        many: "%{action} - %{count} записей"
     cache_clear: "Очистить кэш"
     cant_be_deleted: "Удаление невозможно"
     choose: "Выберите %{attr}"
@@ -326,6 +332,7 @@ ru:
     next_label: "След. &#8594;"
     page_gap: "&hellip;"
     pagination_info: "Показано <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
+    pagination_info_empty: "0 всего"
     previous_label: "&#8592; Пред."
 
   errors:

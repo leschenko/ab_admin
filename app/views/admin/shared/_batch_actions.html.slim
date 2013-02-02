@@ -3,7 +3,7 @@
     - if settings[:batch]
       .btn-group
         a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
-          = t 'admin.batch_actions'
+          = t 'admin.batch_actions.title'
           span.caret
         ul.dropdown-menu
           - resource_class.batch_actions.each do |action|

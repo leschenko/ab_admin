@@ -65,7 +65,13 @@ en:
           password_confirmation: Confirm your new password
 
     avatar: Picture
-    batch_actions: Activity
+    batch_actions:
+      title: "Action"
+      status:
+        zero: "%{action} - 0 records"
+        one: "%{action} - %{count} record"
+        few: "%{action} - %{count} records"
+        many: "%{action} - %{count} records"
     cache_clear: Clear cache
     cant_be_deleted: Can not delete
     choose: Select %{attr}
@@ -325,6 +331,7 @@ en:
     next_label: "Next. →"
     page_gap: ...
     pagination_info: Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} total
+    pagination_info_empty: "0 total"
     previous_label: "← Prev."
 
   errors:

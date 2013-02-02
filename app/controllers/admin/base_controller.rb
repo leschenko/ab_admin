@@ -54,9 +54,10 @@ class Admin::BaseController < ::InheritedResources::Base
     batch_action = resource_class.batch_action(params[:batch_action])
     if collection.all?{|item| can?(batch_action, item) }
       count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
-      flash[:success] = "#{count} #{batch_action}"
+      flash[:success] = I18n.t('admin.batch_actions.status', :count => count, :action => I18n.t("admin.actions.batch_#{batch_action}.title"))
     else
-      flash[:failure] = 'You don\'t have permissions to perform this action'
+      raise CanCan::AccessDenied
+      #flash[:failure] = 'You don\'t have permissions to perform this action'
     end
     redirect_to :back
   end

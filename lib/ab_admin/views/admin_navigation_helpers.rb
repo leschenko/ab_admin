@@ -132,9 +132,13 @@ module AbAdmin
 
       def pagination_info(c)
         offset = c.offset
-        per_page = (params[:per_page] || resource_class.per_page).to_i
         total_entries = c.total_entries
-        t('will_paginate.pagination_info', :from => offset + 1, :to => [offset + per_page, total_entries].min, :count => total_entries).html_safe
+        if total_entries.zero?
+          t('will_paginate.pagination_info_empty')
+        else
+          per_page = (params[:per_page] || resource_class.per_page).to_i
+          t('will_paginate.pagination_info', :from => offset + 1, :to => [offset + per_page, total_entries].min, :count => total_entries).html_safe
+        end
       end
 
       def item_index_actions(item)
