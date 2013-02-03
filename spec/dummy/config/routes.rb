@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
 
-  mount Ckeditor::Engine => '/ckeditor'
-
   root :to => 'welcome#index'
+
+  resources :products
 
   devise_for :users, ::AbAdmin::Devise.config
 
+  mount Ckeditor::Engine => '/ckeditor'
 end

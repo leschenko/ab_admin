@@ -101,7 +101,6 @@ module AbAdmin
     end
 
     def display_name(resource)
-      STDERR.puts resource
       resource.send(display_name_method_for(resource))
     end
 
@@ -109,5 +108,23 @@ module AbAdmin
       return unless display_name_method_for(resource)
       resource.send(display_name_method_for(resource))
     end
+
+    def pretty_data(object)
+      case object
+        when String, Integer
+          object
+        when TrueClass
+          '+'
+        when FalseClass
+          '-'
+        when Date, DateTime, Time, ActiveSupport::TimeWithZone
+          I18n.l(object, :format => :long)
+        when NilClass
+          ''
+        else
+          AbAdmin.safe_display_name(object)
+      end
+    end
+
   end
 end

@@ -18,17 +18,25 @@ class Admin::BaseController < ::InheritedResources::Base
   helper_method :button_scopes, :collection_action?, :action_items, :index_actions, :csv_builder,
                 :preview_resource_path, :get_subject, :settings, :with_sidebar?
 
+  respond_to :json, :only => [:index]
+
   rescue_from CanCan::AccessDenied do |exception|
     redirect_to admin_root_path, :alert => exception.message
   end
 
   def index
     super do |format|
-      format.csv do
-        headers['Content-Type'] = 'text/csv; charset=utf-8'
-        headers['Content-Disposition'] = %{attachment; filename="#{csv_filename}"}
-      end
       format.js { render collection }
+      format.csv do
+        doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
+        send_data(doc.render, :filename => doc.filename, :type => Mime::CSV, :disposition => 'attachment')
+      end
+      if defined?(Mime::XLSX)
+        format.xls do
+          doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
+          send_data(doc.render, :filename => doc.filename, :type => Mime::XLSX, :disposition => 'attachment')
+        end
+      end
     end
   end
 
@@ -66,6 +74,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
   
   protected
+
+  def export_options
+    {:column_names => csv_builder.columns.map(&:name), :column_data => csv_builder.columns.map(&:data), :column_separator => csv_builder.column_separator}
+  end
 
   def self.inherited(base)
     super

@@ -9,6 +9,14 @@ module AbAdmin
   autoload :MenuBuilder, 'ab_admin/menu_builder'
   autoload :AbstractResource, 'ab_admin/abstract_resource'
 
+  module Utils
+    autoload :XlsDocument, 'ab_admin/utils/xls_document'
+    autoload :CsvDocument, 'ab_admin/utils/csv_document'
+    autoload :EvalHelpers, 'ab_admin/utils/eval_helpers'
+    autoload :Mysql, 'ab_admin/utils/mysql'
+    autoload :Logger, 'ab_admin/utils/logger'
+  end
+
   module Config
     autoload :Table, 'ab_admin/config/base'
     autoload :Search, 'ab_admin/config/base'

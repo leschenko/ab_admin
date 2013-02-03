@@ -34,6 +34,7 @@ gem 'i18n-js'
 gem 'ruby-progressbar'
 gem 'ckeditor'
 gem 'quiet_assets'
+gem 'ruby2xlsx'
 
 group :assets do
   gem 'sass-rails'

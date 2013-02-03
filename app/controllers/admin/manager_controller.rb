@@ -5,6 +5,8 @@ load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_navigation_helpers.
 load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_helpers.rb'
 
 class ::Admin::ManagerController < ::Admin::BaseController
+  include AbAdmin::Utils::EvalHelpers
+
   prepend_before_filter :manager
 
   load_and_authorize_resource
@@ -12,9 +14,15 @@ class ::Admin::ManagerController < ::Admin::BaseController
   #has_scope :visible
   #has_scope :un_visible
 
+
   helper_method :manager, :admin_partial_name
 
+
   protected
+
+  def export_options
+    manager.export.render_options
+  end
 
   def manager
     @manager ||= begin
@@ -30,6 +38,11 @@ class ::Admin::ManagerController < ::Admin::BaseController
     rescue NameError
       raise ActionController::RoutingError.new("AbAdmin model #{params[:model_name]} not found")
     end
+  end
+
+  def preview_resource_path(item)
+    return unless manager.preview_path
+    manager.preview_path.is_a?(Proc) ? manager.preview_path.bind(self).call(item) : send(manager.preview_path, item)
   end
 
   def admin_partial_name(builder)

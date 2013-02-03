@@ -1,4 +1,7 @@
 class AbAdminProduct < AbAdmin::AbstractResource
+  preview_path :product_path
+  #preview_path { |product| product_path(product) }
+
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }
@@ -19,6 +22,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   export do
     field :sku
     field :name
+    field(:price) { "$#{price}" }
     field :is_visible
     field :collection
     field :created_at

@@ -69,3 +69,13 @@ Feature: Resource table view
       """
     And I am on the admin products page
     Then I should not see "Created at" link
+
+  Scenario: Disabled index view
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        index false
+      end
+      """
+    And I am on the admin products page
+    Then I should not see "Created at" link

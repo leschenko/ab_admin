@@ -7,14 +7,12 @@ Feature: Export
       | sku  | price | name  |
       | t-12 | 234   | Table |
       | dc_1 | 12    | Chair |
-
-  Scenario: Search form fields
-    Given a configuration of:
-      """
+    And a configuration of:
+    """
       class AbAdminProduct < AbAdmin::AbstractResource
         export do
           field :sku
-          field :price
+          field(:price) { |item| "$#{item.price}" }
           field :name
           field :is_visible
           field :collection
@@ -22,8 +20,23 @@ Feature: Export
         end
       end
       """
+
+  Scenario: Search form fields
     When I am on the admin products page
     And I follow "export_csv"
     Then should see "t-12"
+    And should see "$234"
+    And should see "Chair"
+
+  Scenario: Search form fields
+    When I am on the admin products page
+    And I follow "export_json"
+    Then should see "t-12"
     And should see "234"
     And should see "Chair"
+
+  Scenario: Search form fields
+    When I am on the admin products page
+    And I follow "export_xls"
+    Then I should not see an error
+

@@ -15,7 +15,8 @@
       - active = params[opts[:as]]
       a.btn[href=(url_for(opts[:as] => (active ? nil : 1))) class=('active' if active)]= t "admin.scopes.#{name}"
   .btn-group.downloads
-    = link_to params.merge(:format => :csv), :id => 'export_csv' do
-      = icon('list-alt') + 'csv'
+    = icon('download-alt')
+    - %w(csv xls json).each do |format|
+      = link_to format, params.merge(:format => format), :id => "export_#{format}"
   a.btn.pull-right#columns_hider_show[href="#columns_hider" data-toggle='modal']= t 'admin.columns_hider.button'
 

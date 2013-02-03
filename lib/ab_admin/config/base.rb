@@ -39,7 +39,9 @@ module AbAdmin
     end
 
     class Export < BaseBuilder
-
+      def render_options
+        {:column_names => fields.map(&:name), :column_data => fields.map(&:data), :column_separator => options[:column_separator]}
+      end
     end
 
     class Form < BaseBuilder

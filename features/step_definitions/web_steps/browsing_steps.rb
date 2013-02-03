@@ -80,3 +80,11 @@ Then /^I should see in this order:?$/ do |text|
   end
   have_ordered_list(lines)
 end
+
+Then /^I should see an error$/ do
+  (400 .. 599).should include(page.status_code)
+end
+
+Then /^I should not see an error$/ do
+  (200..399).should include(page.status_code)
+end

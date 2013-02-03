@@ -4,7 +4,7 @@ module AbAdmin
 
     include Singleton
 
-    attr_accessor :table, :search, :export, :form
+    attr_accessor :table, :search, :export, :form, :preview_path
 
     class << self
       def table(options={}, &block)
@@ -21,6 +21,10 @@ module AbAdmin
 
       def form(options={}, &block)
         instance.form = ::AbAdmin::Config::Form.new(options, &block)
+      end
+
+      def preview_path(value=nil, &block)
+        instance.preview_path = block_given? ? block : value
       end
     end
 
