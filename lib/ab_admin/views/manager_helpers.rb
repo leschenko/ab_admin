@@ -18,7 +18,6 @@ module AbAdmin
       def form_builder
         manager.form ||= ::AbAdmin::Config::Form.default_for_model(resource_class, :skip => [:created_at, :updated_at])
       end
-
     end
   end
 end

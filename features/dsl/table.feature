@@ -1,4 +1,4 @@
-@dsl @wip
+@dsl
 Feature: Resource table view
 
   Background:
@@ -9,7 +9,7 @@ Feature: Resource table view
       | dc_1 | 12    | Chair |
 
   Scenario: Table columns
-    Given a resource configuration of:
+    Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
@@ -22,7 +22,7 @@ Feature: Resource table view
     Then I should see list of products
 
   Scenario: Columns data formatting
-    Given a resource configuration of:
+    Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
@@ -39,7 +39,7 @@ Feature: Resource table view
     Then I should see pretty formatted products
 
   Scenario Outline: Sortable columns
-    Given a resource configuration of:
+    Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
@@ -59,7 +59,7 @@ Feature: Resource table view
     | Name   | :name, :sortable => {:column => :price, :default_order => 'desc'} | price desc |
 
   Scenario: Disabled sortable column
-    Given a resource configuration of:
+    Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do

@@ -1,17 +1,20 @@
-= admin_form_for resource do |f|
-  - form_builder.fields.each do |node|
-    - if node.group?
-      - if node.localized?
-        = f.locale_tabs do |l|
-          - node.fields.each do |field|
-            = f.input field.name, :locale => l, :as => (:editor if field.name.to_s =~ /description|content|body/)
+- if tmpl = admin_partial_name(form_builder)
+  = render tmpl
+- else
+  = admin_form_for resource do |f|
+    - form_builder.fields.each do |node|
+      - if node.group?
+        - if node.localized?
+          = f.locale_tabs do |l|
+            - node.fields.each do |field|
+              = f.input field.name, :locale => l, :as => (:editor if field.name.to_s =~ /description|content|body/)
+        - else
+          = input_set node.title, node.options do
+            - node.fields.each do |field|
+              = f.input field.name, field.options
       - else
-        = input_set node.title, node.options do
-          - node.fields.each do |field|
-            = f.input field.name, field.options
-    - else
-      = f.input node.name, node.options
+        = f.input node.name, node.options
 
-  = f.hidden_field :fileupload_guid if f.object.new_record?
+    = f.hidden_field :fileupload_guid if f.object.new_record?
 
-  = f.save_buttons
+    = f.save_buttons

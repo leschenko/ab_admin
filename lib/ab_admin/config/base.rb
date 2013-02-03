@@ -2,12 +2,14 @@ module AbAdmin
   module Config
     class BaseBuilder
       attr_reader :options, :fields
-      class_attribute :field_defaults, :instance_writer => false
+      attr_accessor :partial
+      class_attribute :field_defaults, :partial_name, :instance_writer => false
       self.field_defaults = {}
 
       def initialize(options={}, &block)
         @fields = []
         @options = options
+        @partial = options[:partial]
         instance_eval(&block) if block_given?
       end
 
@@ -29,10 +31,11 @@ module AbAdmin
 
     class Table < BaseBuilder
       self.field_defaults = {:sortable => true}
+      self.partial_name = 'table'
     end
 
     class Search < BaseBuilder
-
+      self.partial_name = 'search_form'
     end
 
     class Export < BaseBuilder
@@ -40,6 +43,8 @@ module AbAdmin
     end
 
     class Form < BaseBuilder
+      self.partial_name = 'form'
+
       def group(name=nil, options={}, &block)
         options[:title] = name || :base
         @fields << FieldGroup.new(options, &block)

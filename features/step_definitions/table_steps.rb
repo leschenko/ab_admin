@@ -10,10 +10,6 @@ Then /^I should see list of users$/ do
   end
 end
 
-Given /^a resource configuration of:$/ do |config|
-  eval config
-end
-
 Then /^I see search form with "(.*?)" filter$/ do |filter|
   within '#search_form' do
     page.should have_field(filter)

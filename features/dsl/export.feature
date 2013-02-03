@@ -9,7 +9,7 @@ Feature: Export
       | dc_1 | 12    | Chair |
 
   Scenario: Search form fields
-    Given a resource configuration of:
+    Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         export do

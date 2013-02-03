@@ -12,7 +12,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   #has_scope :visible
   #has_scope :un_visible
 
-  helper_method :manager
+  helper_method :manager, :admin_partial_name
 
   protected
 
@@ -30,6 +30,10 @@ class ::Admin::ManagerController < ::Admin::BaseController
     rescue NameError
       raise ActionController::RoutingError.new("AbAdmin model #{params[:model_name]} not found")
     end
+  end
+
+  def admin_partial_name(builder)
+    builder.partial ||= template_exists?(builder.partial_name, "admin/#{resource_collection_name}", true)
   end
 
   def resource_collection_name
