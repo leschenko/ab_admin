@@ -2,6 +2,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   preview_path :product_path
   #preview_path { |product| product_path(product) }
 
+  #actions :except => :index
+
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }

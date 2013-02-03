@@ -26,9 +26,13 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def manager
     @manager ||= begin
-      "AbAdmin#{resource_class.name}".constantize.instance
-    #rescue NameError
-    #  raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found")
+      manager_instance = "AbAdmin#{resource_class.name}".constantize.instance
+      unless manager_instance.allow_action?(action_name)
+        raise ActionController::RoutingError.new("AbAdmin action #{action_name} for #{resource_class.name} not found")
+      end
+      manager_instance
+    rescue NameError
+      raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found")
     end
   end
 

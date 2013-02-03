@@ -53,9 +53,9 @@ Feature: Resource table view
     Then I should see products ordered by "<ordering>"
 
   Examples:
-    | column | config                                                          | ordering |
-    | Sku    | :sku                                                            | sku      |
-    | Name   | :name, :sortable => :id                                         | id       |
+    | column | config                                                            | ordering   |
+    | Sku    | :sku                                                              | sku        |
+    | Name   | :name, :sortable => :id                                           | id         |
     | Name   | :name, :sortable => {:column => :price, :default_order => 'desc'} | price desc |
 
   Scenario: Disabled sortable column

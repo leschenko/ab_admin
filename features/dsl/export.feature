@@ -21,21 +21,21 @@ Feature: Export
       end
       """
 
-  Scenario: Search form fields
+  Scenario: Export to csv format
     When I am on the admin products page
     And I follow "export_csv"
     Then should see "t-12"
     And should see "$234"
     And should see "Chair"
 
-  Scenario: Search form fields
+  Scenario: Export to json format
     When I am on the admin products page
     And I follow "export_json"
     Then should see "t-12"
     And should see "234"
     And should see "Chair"
 
-  Scenario: Search form fields
+  Scenario: Export to xls format
     When I am on the admin products page
     And I follow "export_xls"
     Then I should not see an error
