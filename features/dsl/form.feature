@@ -1,4 +1,4 @@
-@dsl
+@dsl @wip
 Feature: Form
 
   Background:
@@ -24,14 +24,35 @@ Feature: Form
       """
     When I am on the new admin product page
     And I fill in the following:
-      | Sku                    | t-1          |
+      | Sku                    | sofa         |
       | Price                  | 567          |
       | Display (checkbox)     | check        |
       | product_name_en        | Sofa         |
       | product_description_en | Product desc |
     And I submit form
     Then I should be on the admin products page
-    And I should see "Sofa"
+    And I should see "sofa"
+
+  Scenario: Rendering default resource form template
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+      end
+      """
+    And "app/views/admin/products/_form.html.slim" contains:
+      """
+      = admin_form_for @product do |f|
+        = input_set 'My custom fields' do
+          = f.input :sku, :label => 'Identifier'
+
+        = f.save_buttons
+      """
+    When I am on the new admin product page
+#    And show me the page
+    And I fill in "Identifier" with "pid-1"
+    And I submit form
+    Then I should be on the admin products page
+    And I should see "pid-1"
 
   Scenario: Rendering custom form template
     Given a configuration of:
@@ -54,22 +75,4 @@ Feature: Form
     Then I should be on the admin products page
     And I should see "pid-1"
 
-  Scenario: Rendering default resource form template
-    Given a configuration of:
-      """
-      class AbAdminProduct < AbAdmin::AbstractResource
-      end
-      """
-    And "app/views/admin/products/_form.html.slim" contains:
-      """
-      = admin_form_for @product do |f|
-        = input_set 'My custom fields' do
-          = f.input :sku, :label => 'Identifier'
 
-        = f.save_buttons
-      """
-    When I am on the new admin product page
-    And I fill in "Identifier" with "pid-1"
-    And I submit form
-    Then I should be on the admin products page
-    And I should see "pid-1"

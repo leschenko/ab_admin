@@ -6,7 +6,11 @@ module AbAdmin
 
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
-    attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings
+    attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings, :batch_action_list
+
+    def initialize
+      @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
+    end
 
     class << self
       def table(options={}, &block)
@@ -43,13 +47,20 @@ module AbAdmin
       def settings(value)
         instance.custom_settings = value
       end
+
+      def batch_action(name, options={}, &block)
+        if !options
+          instance.batch_action_list.reject!{|a| a.name == name }
+        else
+          instance.batch_action_list << AbAdmin::Config::BatchAction.new(name, options, &block)
+        end
+      end
     end
 
     def allow_action?(action)
       return true unless actions
       actions.include?(action.to_sym)
     end
-
   end
 
 end

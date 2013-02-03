@@ -12,15 +12,24 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   load_and_authorize_resource
 
-  delegate :settings, :to => :manager
-
   #has_scope :visible
   #has_scope :un_visible
 
   helper_method :manager, :admin_partial_name
 
-
   protected
+
+  def apply_batch_action(item, batch_action)
+    call_method_or_proc_on item, manager.batch_action_list.detect{|a| a.name == batch_action }.data, :exec => false
+  end
+
+  def allow_batch_action?(batch_action)
+    manager.batch_action_list.detect { |a| a.name == batch_action }
+  end
+
+  def batch_action_list
+    manager.batch_action_list
+  end
 
   def settings
     manager.settings ||= super.merge(manager.custom_settings || {})
@@ -56,7 +65,12 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def admin_partial_name(builder)
-    builder.partial ||= template_exists?(builder.partial_name, "admin/#{resource_collection_name}", true)
+    builder.partial ||= begin
+      #if template_exists?(builder.partial_name, "admin/#{resource_collection_name}", true)
+      if Dir[Rails.root.join("app/views/admin/#{resource_collection_name}/_#{builder.partial_name}.html.*")].present?
+        "admin/#{resource_collection_name}/#{builder.partial_name}"
+      end
+    end
   end
 
   def resource_collection_name

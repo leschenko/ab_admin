@@ -8,13 +8,13 @@ en:
         link: Activate
       batch_destroy: 
         confirmation: Are you sure you want to delete the selected records?
-        link: Delete Selected
+        link: Delete selected
         title: Multi-removal
       batch_publish: 
         link: Publish selected
         title: Multi-publication
       batch_un_publish: 
-        link: Remove from selected publications
+        link: Unpublish selected
         title: Multi-hiding
       create: 
         link: Create

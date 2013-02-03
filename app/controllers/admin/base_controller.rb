@@ -9,14 +9,15 @@ class Admin::BaseController < ::InheritedResources::Base
   before_filter :authenticate_user!, :require_moderator
   before_filter :add_breadcrumbs, :set_title, :set_user_vars, :unless => :xhr?
 
-  class_attribute :csv_builder
+  class_attribute :csv_builder, :batch_action_list, :instance_reader => false, :instance_writer => false
+  self.batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
 
   has_scope :ids, :type => :array
 
   helper_method :admin?, :moderator?
 
   helper_method :button_scopes, :collection_action?, :action_items, :index_actions, :csv_builder,
-                :preview_resource_path, :get_subject, :settings, :with_sidebar?
+                :preview_resource_path, :get_subject, :settings, :with_sidebar?, :batch_action_list
 
   respond_to :json, :only => [:index]
 
@@ -59,8 +60,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def batch
     raise 'No ids specified for batch action' unless params[:ids].present?
-    batch_action = resource_class.batch_action(params[:batch_action])
-    if collection.all?{|item| can?(batch_action, item) }
+    batch_action = params[:batch_action].to_sym
+    if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
       flash[:success] = I18n.t('admin.batch_actions.status', :count => count, :action => I18n.t("admin.actions.batch_#{batch_action}.title"))
     else
@@ -72,8 +73,16 @@ class Admin::BaseController < ::InheritedResources::Base
   def apply_batch_action(item, batch_action)
     item.send(batch_action)
   end
-  
+
+  def allow_batch_action?(batch_action)
+    resource_class.batch_actions.include?(batch_action)
+  end
+
   protected
+
+  def batch_action_list
+    self.class.batch_action_list
+  end
 
   def export_options
     {:column_names => csv_builder.columns.map(&:name), :column_data => csv_builder.columns.map(&:data), :column_separator => csv_builder.column_separator}

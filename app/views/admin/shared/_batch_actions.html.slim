@@ -6,10 +6,9 @@
           = t 'admin.batch_actions.title'
           span.caret
         ul.dropdown-menu
-          - resource_class.batch_actions.each do |action|
+          - batch_action_list.each do |batch_action|
             li
-              a.batch_action_link href='#' data-action=action data-confirm=((t('admin.delete_confirmation') if action.to_s == 'destroy')) 
-                = t "admin.actions.batch_#{action}.link"
+              a.batch_action_link[href='#' data-action=batch_action.name data-confirm=batch_action.confirm]= batch_action.title
   .btn-group.pjax_links
     - button_scopes.each do |name, opts|
       - active = params[opts[:as]]

@@ -13,16 +13,6 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
-      module ClassMethods
-        def batch_action(action)
-          if batch_actions.include?(action.to_sym)
-            action.to_sym
-          else
-            raise "No such batch action #{action} on model #{self.name}"
-          end
-        end
-      end
-
       def next_prev_by_url(scope, url, prev=false)
         predicates = {'>' => '<', '<' => '>', 'desc' => 'asc', 'asc' => 'desc'}
         query = Rack::Utils.parse_nested_query(URI.parse(url).query).symbolize_keys

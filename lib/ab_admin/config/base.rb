@@ -85,5 +85,20 @@ module AbAdmin
       end
     end
 
+    class BatchAction
+      attr_reader :name, :options, :data, :title
+
+      def initialize(name, options={}, &block)
+        @name = name
+        @options = options
+        @title = options[:title] || I18n.t("admin.actions.batch_#{name}.link")
+        @data = block_given? ? block : name.to_sym
+      end
+
+      def confirm
+        options[:confirm]
+      end
+    end
+
   end
 end

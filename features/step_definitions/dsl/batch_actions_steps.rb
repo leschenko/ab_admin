@@ -14,9 +14,14 @@ end
 
 When /^I choose batch action "(.*?)"$/ do |action|
   find('.batch_actions .dropdown-toggle').click
-  find('.dropdown-menu a', :text => 'Delete Selected').click
+  find('.dropdown-menu a', :text => action).click
 end
 
 Then /^I should see (\d+) item in the list$/ do |n|
   all('#list tbody tr').count.should == n.to_i
 end
+
+Then /^I should see (\d+) published item in the list$/ do |n|
+  all('#list .badge-success').count.should == n.to_i
+end
+

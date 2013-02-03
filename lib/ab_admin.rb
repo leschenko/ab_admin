@@ -25,6 +25,7 @@ module AbAdmin
     autoload :BaseBuilder, 'ab_admin/config/base'
     autoload :FieldGroup, 'ab_admin/config/base'
     autoload :Field, 'ab_admin/config/base'
+    autoload :BatchAction, 'ab_admin/config/base'
   end
 
   module CarrierWave

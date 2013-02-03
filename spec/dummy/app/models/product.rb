@@ -17,4 +17,12 @@ class Product < ActiveRecord::Base
 
   alias_attribute :title, :name
 
+  def publish!
+    update_column(:is_visible, true)
+  end
+
+  def un_publish!
+    update_column(:is_visible, false)
+  end
+
 end

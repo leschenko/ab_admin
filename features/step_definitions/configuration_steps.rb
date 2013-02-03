@@ -44,6 +44,7 @@ After do
 end
 
 Given /^a configuration of:$/ do |config|
+  AbAdmin::AbstractResource.descendants.each { |c| Object.send(:remove_const, c.name.to_sym) rescue false }
   eval config
 end
 

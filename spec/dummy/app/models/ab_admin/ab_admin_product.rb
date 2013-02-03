@@ -6,6 +6,10 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   settings :search => false#, :batch => false
 
+  #batch_action(:un_publish) { |item| item.un_publish! }
+  #batch_action :destroy, false
+  #batch_action :un_publish!, :confirm => 'Un Publish?'
+
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }
