@@ -1,4 +1,4 @@
-@dsl @wip
+@dsl
 Feature: Form
 
   Background:
@@ -48,7 +48,6 @@ Feature: Form
         = f.save_buttons
       """
     When I am on the new admin product page
-#    And show me the page
     And I fill in "Identifier" with "pid-1"
     And I submit form
     Then I should be on the admin products page
