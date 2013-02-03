@@ -6,7 +6,7 @@ module AbAdmin
 
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
-    attr_accessor :table, :search, :export, :form, :preview_path, :actions
+    attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings
 
     class << self
       def table(options={}, &block)
@@ -38,6 +38,10 @@ module AbAdmin
             actions_to_keep
           end
         end.map(&:to_sym)
+      end
+
+      def settings(value)
+        instance.custom_settings = value
       end
     end
 

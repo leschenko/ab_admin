@@ -95,10 +95,6 @@ class Admin::BaseController < ::InheritedResources::Base
     self.csv_builder = ::AbAdmin::Utils::CSVBuilder.new(options, &block)
   end
 
-  def csv_filename
-    "#{resource_collection_name.to_s.gsub('_', '-')}-#{Time.now.strftime("%Y-%m-%d")}.csv"
-  end
-
   def csv_builder
     self.class.csv_builder ||= ::AbAdmin::Utils::CSVBuilder.default_for_resource(resource_class)
   end
@@ -226,6 +222,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def set_user_vars
     I18n.locale = Rails.application.config.i18n.default_locale
+    gon.locale = I18n.locale
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
     gon.test = Rails.env.test?

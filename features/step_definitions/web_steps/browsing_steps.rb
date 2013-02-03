@@ -12,10 +12,15 @@ When /^(?:|I )follow "([^"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^(?:|I )click "([^"]*)"$/ do |link|
+  click_link(link)
+end
+
 ### THEN ###
 Then /^I should be redirected to (.+)$/ do |page|
-  puts 'TODO: make this done'
-  step "I should be on #{page}"
+  patiently do
+    current_path.should == path_to(page_name)
+  end
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|

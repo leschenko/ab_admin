@@ -15,8 +15,8 @@
 //= require jquery.ui.nestedSortable
 //= require ab_admin/components/sortable_tree
 
-//= require_directory ./core
-//= require_directory ./inputs
+//= require ab_admin/core/init
+//= require ab_admin/inputs/datetime_input
 
 //q= require fileupload/fileuploader.js
 //q= require fileupload/fileuploader-input.js

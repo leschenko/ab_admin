@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         post '/', :to => :create, :as => 'create'
         get '/new', :to => :new, :as => 'new'
         post '/batch', :to => :batch, :as => 'batch'
+        post '/rebuild', :to => :rebuild, :as => 'rebuild'
 
         scope ':id' do
           get '/', :to => :show, :as => 'show'

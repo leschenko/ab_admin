@@ -6,19 +6,25 @@ load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_helpers.rb'
 
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers
+  include AbAdmin::Controllers::Tree
 
   prepend_before_filter :manager
 
   load_and_authorize_resource
 
+  delegate :settings, :to => :manager
+
   #has_scope :visible
   #has_scope :un_visible
-
 
   helper_method :manager, :admin_partial_name
 
 
   protected
+
+  def settings
+    manager.settings ||= super.merge(manager.custom_settings || {})
+  end
 
   def export_options
     manager.export.render_options

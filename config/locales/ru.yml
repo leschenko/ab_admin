@@ -71,6 +71,7 @@ ru:
         one: "%{action} - %{count} запись"
         few: "%{action} - %{count} записи"
         many: "%{action} - %{count} записей"
+        other: "%{action} - %{count} записей"
     cache_clear: "Очистить кэш"
     cant_be_deleted: "Удаление невозможно"
     choose: "Выберите %{attr}"

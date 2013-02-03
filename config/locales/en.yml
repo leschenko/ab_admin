@@ -72,6 +72,7 @@ en:
         one: "%{action} - %{count} record"
         few: "%{action} - %{count} records"
         many: "%{action} - %{count} records"
+        other: "%{action} - %{count} records"
     cache_clear: Clear cache
     cant_be_deleted: Can not delete
     choose: Select %{attr}

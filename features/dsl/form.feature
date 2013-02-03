@@ -1,10 +1,10 @@
 @dsl
-Feature: Export
+Feature: Form
 
   Background:
     Given I am logged in
 
-  Scenario: Search form fields
+  Scenario: Form fields
     Given a configuration of:
     """
       class AbAdminProduct < AbAdmin::AbstractResource

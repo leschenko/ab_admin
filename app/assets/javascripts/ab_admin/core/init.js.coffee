@@ -1,3 +1,12 @@
+#= require ab_admin/core/utils
+#= require ab_admin/core/ui_utils
+#= require ab_admin/core/pjax
+#= require ab_admin/core/confirmation
+#= require ab_admin/core/batch_actions
+#= require ab_admin/core/search_form
+#= require ab_admin/core/pagination
+#= require ab_admin/core/columns_hider
+
 $ ->
   if $('#list')[0]
     window.viewType = 'list'

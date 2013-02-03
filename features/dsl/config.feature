@@ -1,4 +1,4 @@
-@dsl @wip
+@dsl
 Feature: Configuring resource options
 
   Background:

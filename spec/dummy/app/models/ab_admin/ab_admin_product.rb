@@ -4,6 +4,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   #actions :except => :index
 
+  settings :search => false#, :batch => false
+
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }
