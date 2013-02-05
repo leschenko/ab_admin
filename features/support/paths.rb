@@ -24,6 +24,12 @@ module NavigationHelpers
       when /new admin product page/
         '/admin/products/new'
 
+      when /edit admin product page/
+        "/admin/products/#{@product.id}/edit"
+
+      when /show admin product page/
+        "/admin/products/#{@product.id}"
+
       else
         begin
           page_name =~ /the (.*) page/

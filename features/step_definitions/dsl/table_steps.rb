@@ -1,5 +1,5 @@
 Given /^a product with sku "(.*?)"$/ do |sku|
-  FactoryGirl.create(:product, :sku => sku)
+  @product = FactoryGirl.create(:product, :sku => sku)
 end
 
 Given /^products exists with attributes:$/ do |products|

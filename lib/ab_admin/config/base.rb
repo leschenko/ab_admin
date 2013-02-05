@@ -100,5 +100,17 @@ module AbAdmin
       end
     end
 
+    class ActionItem
+      include AbAdmin::Config::OptionalDisplay
+
+      attr_reader :options, :data
+
+      def initialize(options={}, &block)
+        raise 'Can not create action item without a block' unless block_given?
+        @options = options
+        @data = block
+        normalize_display_options!
+      end
+    end
   end
 end

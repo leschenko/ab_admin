@@ -126,14 +126,10 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def action_items
     case action_name.to_sym
-      when :new, :create
-        [:new]
       when :show
         resource_action_items - [:show]
       when :edit, :update
         resource_action_items - [:edit]
-      when :index
-        [:new]
       else
         [:new]
     end

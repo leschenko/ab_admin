@@ -91,6 +91,8 @@ module AbAdmin
             if preview_resource_path(resource)
               link_to t('admin.actions.preview.link'), preview_resource_path(resource), :class => 'btn btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
             end
+          when AbAdmin::Config::ActionItem
+            instance_exec(&action.data) if action.for_context?(self)
           else
             meth = "#{resource_instance_name}_action_link"
             send(meth, action) if respond_to? meth
