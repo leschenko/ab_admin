@@ -1,14 +1,6 @@
-Given /^structures tree exists:$/ do |table|
-  @structures = table.hashes
-  @structures.each do |attrs|
-    parent = Structure.joins(:translations).where("structure_translations.title='#{attrs['parent_name']}'").first
-    FactoryGirl.create(:structure_page, :title => attrs['title'], :parent => parent)
-  end
-end
-
-Then /^I should see structures tree$/ do
+Then /^I should see \w+ tree$/ do
   within 'ol.sortable_tree' do
-    @structures.each do |attrs|
+    @tree.each do |attrs|
       page.should have_link(attrs['title'])
       if attrs['parent_name'].present?
         find_link(attrs['title']).first(:xpath, './/../../../../div/a', :text => attrs['parent_name']).should_not be_nil

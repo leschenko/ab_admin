@@ -1,4 +1,4 @@
-class AbAdminProduct < AbAdmin::AbstractResource
+class AbAdminStructure < AbAdmin::AbstractResource
   #preview_path :product_path
   #preview_path { |product| product_path(product) }
 

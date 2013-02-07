@@ -1,5 +1,5 @@
 @dsl
-Feature: Resource table view
+Feature: Table index view
 
   Background:
     Given I am logged in
