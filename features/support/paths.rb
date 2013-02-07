@@ -18,9 +18,6 @@ module NavigationHelpers
       when /edit profile page/
         "/admin/users/#{@me.id}/edit"
 
-      when /admin products page/
-        '/admin/products'
-
       when /new admin product page/
         '/admin/products/new'
 
@@ -29,6 +26,9 @@ module NavigationHelpers
 
       when /show admin product page/
         "/admin/products/#{@product.id}"
+
+      when /admin (\w+) page/
+        "/admin/#{$1}"
 
       else
         begin

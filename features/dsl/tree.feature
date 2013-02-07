@@ -11,7 +11,6 @@ Feature: Sortable tree index view
       | _2_     |             |
       | _2-1_   | _2_         |
       | _2-1-1_ | _2-1_       |
-    And I am on the admin structures page
 
   Scenario: Structure tree
     Given a configuration of:
@@ -20,4 +19,5 @@ Feature: Sortable tree index view
         settings :index_view => 'tree'
       end
       """
+    And I am on the admin catalogues page
     Then I should see catalogues tree
