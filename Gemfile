@@ -61,3 +61,8 @@ group :test do
   gem 'rb-fsevent', :require => false
   gem 'growl', :require => false
 end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end

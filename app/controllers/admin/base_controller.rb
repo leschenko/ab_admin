@@ -16,8 +16,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :admin?, :moderator?
 
-  helper_method :button_scopes, :collection_action?, :action_items, :index_actions, :csv_builder,
-                :preview_resource_path, :get_subject, :settings, :with_sidebar?, :batch_action_list
+  helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :csv_builder,
+                :preview_resource_path, :get_subject, :settings, :batch_action_list
 
   respond_to :json, :only => [:index]
 
@@ -121,36 +121,26 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {:index_view => 'table', :sidebar => true, :well => true, :search => true, :batch => true}
+    {:index_view => 'table', :sidebar => collection_action?, :well => (collection_action? || action_name == 'show'), :search => true, :batch => true}
   end
 
   def action_items
     case action_name.to_sym
       when :show
-        resource_action_items - [:show]
+        [:new, :edit, :destroy, :preview]
       when :edit, :update
-        resource_action_items - [:edit]
+        [:new, :destroy, :preview]
       else
         [:new]
     end
   end
 
   def resource_action_items
-    links = [:new, :edit, :show, :destroy]
-    links << :preview if preview_resource_path(resource)
-    links
-  end
-
-  def index_actions
     [:edit, :destroy, :show, :preview]
   end
 
   def collection_action?
-    %w(index search batch).include?(action_name)
-  end
-
-  def with_sidebar?
-    collection_action? && settings[:sidebar]
+    %w(index search batch rebuild).include?(action_name)
   end
 
   def button_scopes

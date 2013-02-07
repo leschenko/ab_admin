@@ -8,16 +8,13 @@ namespace :assets do
 
     raise "Cannot find a constant with the #{name} specified in the argument string" if klass.nil?
 
-    pbar = ProgressBar.create(:title => name, :total => klass.count, :format => '%a |%b>>%i| %p%% %t')
+    pbar = ProgressBar.create(:title => name, :total => klass.count, :format => '%c of %C - %a %e |%b>>%i| %p%% %t')
     pbar.progress_mark = '='
-
-    index = 0
 
     klass.find_each do |item|
       begin
         item.data.recreate_versions!
-        index += 1
-        pbar.progress = index
+        pbar.increment
       rescue => e
         puts "ERROR recreate_versions for #{name} - #{item.id}: #{e.message}"
       end

@@ -4,6 +4,8 @@ load '/private/var/www/hub/ab_admin/lib/ab_admin/config/base.rb'
 load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_navigation_helpers.rb'
 load '/private/var/www/hub/ab_admin/lib/ab_admin/views/admin_helpers.rb'
 
+
+
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers
   include AbAdmin::Controllers::Tree
@@ -19,8 +21,12 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   protected
 
+  def resource_action_items
+    manager.resource_action_items
+  end
+
   def action_items
-    super + manager.action_items_for(action_name)
+    manager.default_action_items_for(action_name.to_sym, params[:id].present?) + manager.action_items_for(action_name.to_sym)
   end
 
   def apply_batch_action(item, batch_action)

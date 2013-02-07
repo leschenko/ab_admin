@@ -10,10 +10,15 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #batch_action :destroy, false
   #batch_action :un_publish!, :confirm => 'Un Publish?'
 
+  action_item :destroy, false
   action_item :only => :show do
     link_to 'Main page', '/', :class => 'btn'
   end
 
+  #resource_action_items :show, :edit
+  #resource_action_item do
+  #  link_to icon('arrow-down'), '/', :class => 'btn'
+  #end
 
   table do
     field :sku

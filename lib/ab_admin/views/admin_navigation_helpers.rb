@@ -66,10 +66,11 @@ module AbAdmin
             item_link_to_can? :show, item, icon('info-sign', true), resource_path(item),
                               :class => 'btn btn-info', :title => t('admin.actions.show.link')
           when :preview
-            if preview_resource_path(item)
-              link_to icon('eye-open', true), preview_resource_path(item),
-                      :class => 'btn btn-small btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
+            if path = preview_resource_path(item)
+              link_to icon('eye-open', true), path, :class => 'btn btn-small btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
             end
+          when AbAdmin::Config::ActionItem
+            instance_exec(&action.data) if action.for_context?(self)
           else
             meth = "#{resource_instance_name}_short_action_link"
             send(meth, action, item) if respond_to? meth
@@ -88,8 +89,8 @@ module AbAdmin
           when :show
             link_to_can? :show, t('admin.actions.show.link'), resource_path, :class => 'btn btn-info'
           when :preview
-            if preview_resource_path(resource)
-              link_to t('admin.actions.preview.link'), preview_resource_path(resource), :class => 'btn btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
+            if path = preview_resource_path(resource)
+              link_to t('admin.actions.preview.link'), path, :class => 'btn btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
             end
           when AbAdmin::Config::ActionItem
             instance_exec(&action.data) if action.for_context?(self)
@@ -144,7 +145,7 @@ module AbAdmin
       end
 
       def item_index_actions(item)
-        index_actions.map do |act|
+        resource_action_items.map do |act|
           short_action_link(act, item)
         end.join(' ').html_safe
       end

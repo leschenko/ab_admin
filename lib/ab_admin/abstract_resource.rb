@@ -4,15 +4,18 @@ module AbAdmin
 
     include Singleton
 
-    ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
+    ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
     attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings,
-                  :batch_action_list, :action_items
+                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items
 
     def initialize
+      @actions = ACTIONS
       @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
       @action_items = []
-      @action_items_for ={}
+      @disabled_action_items = []
+      @default_action_items_for = {}
+      @action_items_for = {}
     end
 
     class << self
@@ -59,8 +62,21 @@ module AbAdmin
         end
       end
 
-      def action_item(options={}, &block)
-        instance.action_items << AbAdmin::Config::ActionItem.new(options, &block)
+      def action_item(*args, &block)
+        options = args.extract_options!
+        if block_given?
+          instance.action_items << AbAdmin::Config::ActionItem.new(options, &block)
+        elsif args[1].is_a?(FalseClass)
+          instance.disabled_action_items << args[0]
+        end
+      end
+
+      def resource_action_items(*actions)
+        instance.resource_action_items = actions + instance.resource_action_items.find_all { |a| a.is_a?(AbAdmin::Config::ActionItem) }
+      end
+
+      def resource_action_item(options={}, &block)
+        instance.resource_action_items << AbAdmin::Config::ActionItem.new(options, &block)
       end
     end
 
@@ -72,6 +88,19 @@ module AbAdmin
     def action_items_for(action)
       @action_items_for[action] ||= action_items.find_all{|i| i.for_action?(action) }
     end
+
+    def default_action_items_for(action, for_resource)
+      @default_action_items_for[action] ||= begin
+        base = [:new]
+        base += [:edit, :show, :destroy, :preview] if for_resource
+        @actions & (base - @disabled_action_items)
+      end
+    end
+
+    def resource_action_items
+      @resource_action_items ||= [:edit, :show, :destroy, :preview]
+    end
+
   end
 
 end
