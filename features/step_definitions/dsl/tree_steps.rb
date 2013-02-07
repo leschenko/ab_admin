@@ -1,3 +1,11 @@
+Given /^catalogues tree exists:$/ do |table|
+  @tree = table.hashes
+  @tree.each do |attrs|
+    parent = Catalogue.where(:name => attrs['parent_name']).first
+    FactoryGirl.create(:catalogue, :name => attrs['title'], :parent => parent)
+  end
+end
+
 Then /^I should see \w+ tree$/ do
   within 'ol.sortable_tree' do
     @tree.each do |attrs|
@@ -8,6 +16,9 @@ Then /^I should see \w+ tree$/ do
     end
   end
 end
+
+
+
 
 # buggy drug & drop in selenium
 When /^I drag "(.*?)" to "(.*?)"$/ do |node_name, parent_name|

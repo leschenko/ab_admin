@@ -19,7 +19,7 @@ module AbAdmin
 
       def self.default_for_model(model, options={})
         new.tap do |builder|
-          builder.field(:id)
+          builder.field(:id) unless options[:skip].try(:include?, :id)
           model.content_columns.each do |column|
             column_name = column.name.to_sym
             next if options[:skip].try(:include?, column_name)

@@ -15,6 +15,7 @@
       - else
         = f.input node.name, node.options
 
-    = f.hidden_field :fileupload_guid if f.object.new_record?
+    - if f.object.respond_to?(:fileupload_guid) && f.object.new_record?
+      = f.hidden_field :fileupload_guid
 
     = f.save_buttons
