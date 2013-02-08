@@ -17,7 +17,7 @@ table.table.table-bordered.table-striped
   thead
     tr
       th = t 'admin.locators.key'
-      th = locale_file[:locale]
+      th = locale_file.locale
       th = I18n.default_locale
     tr
       - 3.times do
@@ -25,11 +25,11 @@ table.table.table-bordered.table-striped
           input.filter_field type='text' placeholder=t('admin.locators.filter')
   = form_tag(admin_locators_path, :method => :put) do
     tbody#locale_data
-      = hidden_field_tag 'edit_locale_name', locale_file[:locale]
+      = hidden_field_tag 'edit_locale_name', locale_file.locale
       = hidden_field_tag 'main_locale_name', I18n.default_locale
-      = hidden_field_tag 'filename', locale_file[:filename]
+      = hidden_field_tag 'filename', locale_file.filename
 
-      - locale_file[:data].each do |keys, value|
+      - locale_file.data.each do |keys, value|
         tr class=(value.blank? ? 'error' : 'ready')
           td.locale_keys
             div== keys.join(' > ')

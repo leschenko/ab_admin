@@ -20,20 +20,22 @@ class ::Admin::LocatorsController < ::Admin::BaseController
     end
   end
 
-  #def prepare
-  #  @i18n_back = Utils::I18none::Translator.prepare_from_env
-  #  if @i18n_back.message
-  #    flash[:error] = @i18n_back.message
-  #  else
-  #    flash[:notice] = I18n.t('flash.admin.locators.prepared')
-  #  end
-  #  redirect_to collection_path
-  #end
+  def prepare
+    result = Locator.instance.prepare_files
+    if !result
+      flash[:error] = 'Failed to prepare locale files'
+    elsif result[:message]
+      flash[:error] = result[:message]
+    else
+      flash[:notice] = I18n.t('flash.admin.locators.prepared')
+    end
+    redirect_to admin_locators_path
+  end
 
   def reload
     I18n.reload!
     flash[:notice] = I18n.t('flash.admin.locators.restart')
-    redirect_to collection_path
+    redirect_to admin_locators_path
   end
 
   protected
