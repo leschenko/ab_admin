@@ -48,9 +48,9 @@ class Locator
         path = File.join(main_file.dir, main_file.filename.sub(locale_replace_regexp, locale.to_s))
         if File.exists?(path)
           file = self.class.prepare_data(path)
-          self.class.save(path, {locale => clean_locale_hash.deep_add(file.data)})
+          self.class.save(path, {locale.to_s => clean_locale_hash.deep_add(file.data)})
         else
-          self.class.save(path, {locale => clean_locale_hash})
+          self.class.save(path, {locale.to_s => clean_locale_hash})
           message = 'Reload application to pick up new locale files'
         end
       end
