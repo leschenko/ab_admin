@@ -9,5 +9,7 @@ gen mkdir log tmp/pids tmp/sockets
 fix pickers
 form has_many has_one
 
-clean settings table
-settings reloading
++clean settings table
+settings and locales reloading
+fileupload
+structure to dsl
