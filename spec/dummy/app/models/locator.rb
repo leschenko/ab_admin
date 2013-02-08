@@ -26,7 +26,7 @@ class Locator
   def self.prepare_data(path)
     data = YAML.load_file(path)
     locale = data.keys.first
-    OpenStruct.new({:locale => locale.to_sym, :data => flat_hash(data[locale]),
+    OpenStruct.new({:locale => locale.to_sym, :data => data[locale], :flat_data => flat_hash(data[locale]),
                     :filename => File.basename(path), :path => path, :dir => File.dirname(path)})
   end
 
@@ -45,7 +45,7 @@ class Locator
     main_locale_files.each do |main_file|
       I18n.available_locales.each do |locale|
         clean_locale_hash = main_file.data.deep_clear_values
-        path = File.join(main_file.dir, main_file.filename.sub(locale_replace_regexp, locale))
+        path = File.join(main_file.dir, main_file.filename.sub(locale_replace_regexp, locale.to_s))
         if File.exists?(path)
           file = self.class.prepare_data(path)
           self.class.save(path, clean_locale_hash.deep_add(file.data))

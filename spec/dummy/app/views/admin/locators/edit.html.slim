@@ -29,7 +29,7 @@ table.table.table-bordered.table-striped
       = hidden_field_tag 'main_locale_name', I18n.default_locale
       = hidden_field_tag 'filename', locale_file.filename
 
-      - locale_file.data.each do |keys, value|
+      - locale_file.flat_data.each do |keys, value|
         tr class=(value.blank? ? 'error' : 'ready')
           td.locale_keys
             div== keys.join(' > ')
