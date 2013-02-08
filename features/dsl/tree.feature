@@ -1,4 +1,4 @@
-@dsl @wip
+@dsl
 Feature: Sortable tree index view
 
   Background:
@@ -12,7 +12,7 @@ Feature: Sortable tree index view
       | _2-1_   | _2_         |
       | _2-1-1_ | _2-1_       |
 
-  Scenario: Structure tree
+  Scenario: Index view as tree
     Given a configuration of:
       """
       class AbAdminCatalogue < AbAdmin::AbstractResource
@@ -21,3 +21,17 @@ Feature: Sortable tree index view
       """
     And I am on the admin catalogues page
     Then I should see catalogues tree
+
+  Scenario: Custom node view
+    Given a configuration of:
+      """
+      class AbAdminCatalogue < AbAdmin::AbstractResource
+        settings :index_view => 'tree'
+
+        tree do |node|
+          link_to "Custom node title", root_path, :class => 'tree-item_link'
+        end
+      end
+      """
+    And I am on the admin catalogues page
+    Then I should see "Custom node title"

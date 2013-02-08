@@ -17,7 +17,7 @@ class Admin::BaseController < ::InheritedResources::Base
   helper_method :admin?, :moderator?
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :csv_builder,
-                :preview_resource_path, :get_subject, :settings, :batch_action_list
+                :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer
 
   respond_to :json, :only => [:index]
 
@@ -164,6 +164,10 @@ class Admin::BaseController < ::InheritedResources::Base
     if params[:id]
       @breadcrumbs << {:name => AbAdmin.display_name(resource), :url => resource_path}
     end
+  end
+
+  def tree_node_renderer
+    @tree_node_renderer ||= lambda { |r| link_to r.name, resource_path(r), :class => 'tree-item_link' }
   end
 
   def search_collection

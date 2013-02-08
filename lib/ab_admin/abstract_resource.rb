@@ -7,7 +7,7 @@ module AbAdmin
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
     attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings,
-                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items
+                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer
 
     def initialize
       @actions = ACTIONS
@@ -77,6 +77,10 @@ module AbAdmin
 
       def resource_action_item(options={}, &block)
         instance.resource_action_items << AbAdmin::Config::ActionItem.new(options, &block)
+      end
+
+      def tree(&block)
+        instance.tree_node_renderer = block
       end
     end
 

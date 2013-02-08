@@ -27,6 +27,9 @@ module NavigationHelpers
       when /show admin product page/
         "/admin/products/#{@product.id}"
 
+      when /the edit admin settings page/
+        '/admin/settings/edit'
+
       when /admin (\w+) page/
         "/admin/#{$1}"
 

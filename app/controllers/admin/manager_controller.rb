@@ -21,6 +21,10 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   protected
 
+  def tree_node_renderer
+    manager.tree_node_renderer || super
+  end
+
   def resource_action_items
     manager.resource_action_items
   end
