@@ -44,6 +44,7 @@ class Locator
 
     main_locale_files.each do |main_file|
       I18n.available_locales.each do |locale|
+        next if locale == I18n.default_locale
         clean_locale_hash = main_file.data.deep_clear_values
         path = File.join(main_file.dir, main_file.filename.sub(locale_replace_regexp, locale.to_s))
         if File.exists?(path)
