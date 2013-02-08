@@ -1,19 +1,14 @@
+require 'ya2yaml'
+
 class Locator
   extend ActiveModel::Naming
   include Singleton
 
   attr_accessor :files, :data
 
-  LOCALE_REGEXP = Regexp.new(I18n.available_locales.join('|'))
-
   def initialize
     @data = {}
-    @files = find_files
-  end
-
-  def find_files
-    path = Rails.root.join('config', 'locales')
-    Dir["#{path}/*.yml"]
+    @files = Dir[Rails.root.join('config', 'locales', '*.yml')]
   end
 
   def all
@@ -23,10 +18,16 @@ class Locator
     @data
   end
 
+  def self.save(path, data)
+    File.open(path, 'w') do |file|
+      file.write data.ya2yaml
+    end
+  end
+
   def self.prepare_data(path)
     data = YAML.load_file(path)
     locale = data.keys.first
-    {:locale => locale, :data => flat_hash(data[locale])}
+    {:locale => locale, :data => flat_hash(data[locale]), :filename => File.basename(path)}
   end
 
   def self.flat_hash(hash, k = [])

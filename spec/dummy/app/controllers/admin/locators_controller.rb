@@ -10,17 +10,16 @@ class ::Admin::LocatorsController < ::Admin::BaseController
     @locale_hash = YAML.load_file(@file)
   end
 
+  def update
+    if Locator.save(@file, {params[:edit_locale_name] => params[:locale]})
+      flash[:notice] = I18n.t('flash.admin.locators.updated')
+      redirect_to admin_locators_path
+    else
+      flash[:error] = I18n.t('flash.admin.locators.update_error')
+      redirect_to edit_admin_locators_path(:filename => params[:filename])
+    end
+  end
 
-  #def update
-  #  if @i18n_back.set_by_file(params[:id].to_i, params[:locale_hash])
-  #    flash[:notice] = I18n.t('flash.admin.locators.updated')
-  #    redirect_to admin_locators_path
-  #  else
-  #    flash[:error] = I18n.t('flash.admin.locators.update_error')
-  #    redirect_to edit_admin_locator_path(:id => params[:id])
-  #  end
-  #end
-  #
   #def prepare
   #  @i18n_back = Utils::I18none::Translator.prepare_from_env
   #  if @i18n_back.message

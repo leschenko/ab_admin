@@ -1,58 +1,9 @@
-//.nested_inputs {
-//  margin-left: 15px;
-//  clear: both;
-//}
-//
-//.nested_inputs .block {
-//  float: left;
-//  height: 40px;
-//}
-//
-//.nested_inputs .textarea_wrap {
-//  float: left;
-//}
-//
-//.nested_inputs .nested_inputs .nested_inputs .nested_inputs .nested_inputs {
-//  margin-left: 0;
-//}
-//
-//.nested_inputs label {
-//  width: 80px;
-//  text-align: left;
-//  margin: 0;
-//  display: inline-block;
-//  vertical-align: top;
-//  font-size: 12px;
-//  height: 14px;
-//  white-space: nowrap;
-//}
-//
-//.nested_inputs textarea {
-//  font-size: 13px;
-//  width: 100%;
-//}
-//
-//.locale_wrapper {
-//  width: 50%;
-//  float: left;
-//}
-//
-//#edit_locale a.delete {
-//  display: block;
-//  font-size: 10px
-//}
-//
-//.locale_wrapper .block {
-//  display: inline-block;
-//  overflow: hidden;
-//  vertical-align: top;
-//  width: 130px;
-//}
 #controller_locators {
   textarea {
     min-width: 450px;
   }
-  form > table {
+  table {
+    margin-top: 15px;
     max-width: 1220px;
     width: auto;
     thead input {
@@ -60,7 +11,6 @@
     }
   }
   #translate_incomplete {
-    //display: inline-block;
     margin-left: 100px;
   }
   .auto_translate {

@@ -12,23 +12,23 @@
 
   button#translate_incomplete.btn.btn-danger.pull-left type="button" = t 'admin.locators.translate_incomplete'
 
-br
 - locale_file = Locator.prepare_data(@file)
-= form_tag(admin_locators_path, :method => :put) do
-  = hidden_field_tag 'edit_locale_name', locale_file[:locale]
-  = hidden_field_tag 'main_locale_name', I18n.default_locale
-  = hidden_field_tag 'filename', @file
-  table.table.table-bordered.table-striped
-    thead
-      tr
-        th = t 'admin.locators.key'
-        th = locale_file[:locale]
-        th = I18n.default_locale
-      tr
-        - 3.times do
-          th
-            input type='text' placeholder=t('admin.locators.filter')
+table.table.table-bordered.table-striped
+  thead
+    tr
+      th = t 'admin.locators.key'
+      th = locale_file[:locale]
+      th = I18n.default_locale
+    tr
+      - 3.times do
+        th
+          input.filter_field type='text' placeholder=t('admin.locators.filter')
+  = form_tag(admin_locators_path, :method => :put) do
     tbody#locale_data
+      = hidden_field_tag 'edit_locale_name', locale_file[:locale]
+      = hidden_field_tag 'main_locale_name', I18n.default_locale
+      = hidden_field_tag 'filename', locale_file[:filename]
+
       - locale_file[:data].each do |keys, value|
         tr class=(value.blank? ? 'error' : 'ready')
           td.locale_keys
@@ -36,7 +36,8 @@ br
             .btn.btn-mini.btn-inverse.auto_translate.pull-right google translate
           td = text_area_tag 'locale' + keys.map{|k| "[#{k}]" }.join, value
           td = text_area_tag 'fake', t(keys.join('.')), :disabled => true
-
-  = submit_tag t('admin.form.save'), :class => 'btn btn-primary'
+    tbody
+      tr
+        td colspan=3 = submit_tag t('admin.form.save'), :class => 'btn btn-primary'
 
 = init_js('new Locator()')

@@ -8,6 +8,7 @@ require 'inherited_resources'
 require 'i18n/core_ext/kernel/surpress_warnings'
 
 ActiveSupport::XmlMini.backend = 'Nokogiri'
+YAML::ENGINE.yamler='psych'
 InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.flash_keys
 Responders::FlashResponder.namespace_lookup = true
 

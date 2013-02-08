@@ -30,3 +30,10 @@ class window.Locator
       $input_to = $cont.find('textarea:enabled')
       $input_from = $cont.find('textarea:disabled')
       window.google_t($input_from.val(), $input_to, self.from_locale, self.to_locale)
+
+    $('.filter_field').change ->
+      $el = $(this)
+      ind = $el.closest('th').index() + 1
+      text = $el.val().replace(/'/, '\'')
+      $('#locale_data tr').hide()
+      $("#locale_data td:nth-child(#{ind}):contains('#{text}')").parent().show()
