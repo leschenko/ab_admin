@@ -1,0 +1,7 @@
+---
+mailer:
+  from: no-reply@test.com
+  reply_to: info@test.com
+  subject_prefix: "[Dummy] "
+else:
+  domain: "dummy.test.com"

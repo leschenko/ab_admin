@@ -2,8 +2,12 @@
 simple_form bootstrap
 devise
 +i18n-js
++default form render
 
 route to resource gen
-default form render
 gen mkdir log tmp/pids tmp/sockets
 fix pickers
+form has_many has_one
+
+clean settings table
+settings reloading

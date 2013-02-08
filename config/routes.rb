@@ -19,6 +19,10 @@ Rails.application.routes.draw do
       post :sort, :on => :collection
     end
 
+    resource :settings, :only => [:edit, :update] do
+      post :cache_clear, :on => :collection
+    end
+
     controller 'manager' do
       scope ':model_name' do
         get '/', :to => :index, :as => 'index'

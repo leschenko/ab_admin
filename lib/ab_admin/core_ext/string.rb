@@ -15,6 +15,10 @@ class String
     self =~ /^[-+]?[0-9]*$/
   end
 
+  def is_number?
+    true if Float(self) rescue false
+  end
+
   def to_utc
     begin
       Time.zone.parse(self).utc

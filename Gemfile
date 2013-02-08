@@ -11,6 +11,7 @@ gem 'devise-encryptable'
 gem 'cancan'
 gem 'inherited_resources', '~> 1.3.0'
 gem 'rack-pjax'
+gem 'configatron'
 
 gem 'ransack'
 gem 'has_scope'

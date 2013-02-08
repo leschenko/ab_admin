@@ -1,0 +1,26 @@
+= form_tag collection_path, :method => :put, :class => 'form-horizontal' do |f|
+  tabbable.tabs-left
+    ul.nav.nav-tabs
+      - collection.each_key do |key|
+        li
+          a href="#settings_#{key}" data-toggle='tab' = t(key, :scope => [:admin, :settings, :keys], :default => key.to_s.humanize)
+    .tab-content
+      - collection.each do |root_key, nested|
+        .tab-pane id="settings_#{root_key}"
+          - nested.each do |key, value|
+            .control-group
+              label.control-label= t(key, :scope => [:admin, :settings, :keys], :default => key.to_s.humanize)
+              .controls
+                - if [true, false].include?(value)
+                  = check_box "settings[#{root_key}]", key, {:checked => value}, 'true', 'false'
+                - elsif value.is_a?(Numeric)
+                  = number_field_tag "settings[#{root_key}][#{key}]", value, :step => 'any'
+                - else
+                  = text_field_tag "settings[#{root_key}][#{key}]", value, :class => 'input-xlarge'
+
+  br
+  br
+  =' submit_tag(t("admin.form.save"), :class => 'btn btn-primary')
+  =' link_to t('admin.cache_clear'), cache_clear_admin_settings_path, :class => 'btn btn-danger', :method => :post, :remote => true
+
+= init_js('$("form ul.nav-tabs li:first, form .tab-pane:first").addClass("active")')

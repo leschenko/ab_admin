@@ -40,6 +40,7 @@ class Ability
 
   def admin
     can :manage, :all
+    #cannot :edit, Settings
 
     cannot :destroy, User, :id => @user.id
   end

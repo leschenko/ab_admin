@@ -1,0 +1,9 @@
+--- 
+custom:
+  integer: 12
+  bool: true
+  string: asd
+mailer:
+  from: no-reply@test.com
+  reply_to: info@test.com
+  subject_prefix: "[Dummy] "
