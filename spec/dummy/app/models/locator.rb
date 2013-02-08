@@ -5,6 +5,10 @@ class Locator
   extend ActiveModel::Naming
   include Singleton
 
+  Kernel.suppress_warnings do
+    Ya2YAML::REX_BOOL = /y|Y|Yes|YES|n|N|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF/ if defined? Ya2YAML
+  end
+
   attr_accessor :files, :data
 
   def initialize
@@ -19,7 +23,7 @@ class Locator
 
   def self.save(path, data)
     File.open(path, 'w') do |file|
-      file.write data.ya2yaml
+      file.write data.ya2yaml.gsub(/^(\s+)(yes|no):/, '\1"\2":')
     end
   end
 
