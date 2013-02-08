@@ -53,7 +53,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
   end
 
   def find_files
-    @files = Locator.instance.files
+    @files = Locator.find_files
   end
 
   def find_file

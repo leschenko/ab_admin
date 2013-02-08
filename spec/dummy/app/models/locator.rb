@@ -13,12 +13,16 @@ class Locator
 
   def initialize
     @data = {}
-    @files = Dir[Rails.root.join('config', 'locales', '*.yml')]
+    @files = self.class.find_files
   end
 
   def all
     @paths.each { |path| @data.deep_merge!(YAML.load_file(path)) }
     @data
+  end
+
+  def self.find_files
+    Dir[Rails.root.join('config', 'locales', '*.yml')]
   end
 
   def self.save(path, data)

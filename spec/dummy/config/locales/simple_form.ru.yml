@@ -1,0 +1,10 @@
+--- 
+ru: 
+  simple_form: 
+    error_notification: 
+      default_message: ""
+    "no": ""
+    required: 
+      mark: ""
+      text: ""
+    "yes": ""
