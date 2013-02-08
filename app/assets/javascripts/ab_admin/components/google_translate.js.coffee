@@ -20,7 +20,7 @@ window.translate = (text, element, from, to) ->
 window.google_t = (text, element, from, to) ->
   return '' unless $.trim(text)
   opts = {q: text, from: from, to: to}
-  $.post "/translate", opts, ((data) =>
+  $.post '/admin/translate', opts, ((data) =>
     element.ck_val $.unescape(data.text).replace(/%\s{/g, ' %{')), 'json'
 
 # get value of text field or CKEDITOR area

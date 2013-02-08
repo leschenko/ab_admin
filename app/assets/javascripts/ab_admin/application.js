@@ -14,7 +14,8 @@
 //= require chosen
 //= require jquery.ui.nestedSortable
 //= require ab_admin/components/sortable_tree
-//= require ab_admin/components/settings_editor
+//= require ab_admin/components/google_translate
+//= require ab_admin/components/locator
 
 //= require ab_admin/core/init
 //= require ab_admin/inputs/datetime_input

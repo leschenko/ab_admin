@@ -134,6 +134,12 @@ ru:
       restart: "Обновить локализацию"
       title: "Редактирование локализации"
       update_file: "Обновить файл"
+      all_terms: "Все"
+      incomplete: "Пустые"
+      complete: "Готовые"
+      key: "Ключ"
+      filter: "введите текст для фильтрации"
+      translate_incomplete: "Перевести все пустые (google)"
     main_image: "Сделать главным"
     max_size: "Макс разм."
     navigation: 

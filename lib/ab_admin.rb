@@ -84,6 +84,11 @@ module AbAdmin
     end
   end
 
+  module I18nTools
+    autoload :TranslateApp, 'ab_admin/i18n_tools/translate_app'
+    autoload :GoogleTranslate, 'ab_admin/i18n_tools/google_translate'
+  end
+
   module Generators
     autoload :ResourceGenerator, 'generators/ab_admin/resource/resource_generator'
     autoload :InstallGenerator, 'generators/ab_admin/install/install_generator'

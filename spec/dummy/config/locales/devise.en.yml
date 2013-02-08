@@ -3,6 +3,8 @@
 en:
   errors:
     messages:
+      asd: ""
+      dsa: " "
       expired: "has expired, please request a new one"
       not_found: "not found"
       already_confirmed: "was already confirmed, please try signing in"

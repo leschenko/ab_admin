@@ -135,6 +135,8 @@ en:
       restart: Update localization
       title: Edit location
       update_file: Update File
+      filter: "type text to filter"
+      translate_incomplete: "Translate all incomplete (google)"
     main_image: Set Main
     max_size: Max posted.
     navigation: 

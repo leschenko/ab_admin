@@ -113,6 +113,24 @@ label.control-label.label-reset {
   text-align: left;
 }
 
+.table tbody {
+  tr.success > td {
+    background-color: #dff0d8;
+  }
+
+  tr.error > td {
+    background-color: #f2dede;
+  }
+
+  tr.warning > td {
+    background-color: #fcf8e3;
+  }
+
+  tr.info > td {
+    background-color: #d9edf7;
+  }
+}
+
 // utility
 .over {
   overflow: visible !important;

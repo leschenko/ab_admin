@@ -23,6 +23,12 @@ Rails.application.routes.draw do
       post :cache_clear, :on => :collection
     end
 
+    resource :locators do
+      post :prepare, :reload, :on => :collection
+    end
+
+    post 'translate' => AbAdmin::I18nTools::TranslateApp
+
     controller 'manager' do
       scope ':model_name' do
         get '/', :to => :index, :as => 'index'

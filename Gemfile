@@ -36,6 +36,7 @@ gem 'ruby-progressbar'
 gem 'ckeditor'
 gem 'quiet_assets'
 gem 'ruby2xlsx'
+gem 'rest-client'
 
 group :assets do
   gem 'sass-rails'
