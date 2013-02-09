@@ -29,6 +29,7 @@ describe AbAdmin::Generators::InstallGenerator do
   it 'should copy_models' do
     assert_directory 'app/models/defaults'
     assert_directory 'app/uploaders'
+    assert_file 'app/models/admin_menu.rb'
   end
 
   it 'should copy_specs' do

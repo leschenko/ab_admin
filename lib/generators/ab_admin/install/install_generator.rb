@@ -33,6 +33,7 @@ module AbAdmin
       # copy models
       def copy_models
         directory 'models', 'app/models/defaults'
+        copy_file 'config/admin_menu.rb', 'app/models/admin_menu.rb'
       end
 
       # Add devise routes
