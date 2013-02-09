@@ -6,6 +6,7 @@
 //= require jquery.ui.nestedSortable
 //= require jquery_nested_form
 //= require bootstrap
+//= require ab_admin/bootstrap-tab-multi
 //= require ab_admin/bootstrap-datepicker/core
 //= require ab_admin/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
 //= require ab_admin/bootstrap-timepicker
