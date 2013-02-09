@@ -1,4 +1,4 @@
-@locator @wip
+@locator
 Feature: Locale files editor
   In order to change site localization
   As an admin

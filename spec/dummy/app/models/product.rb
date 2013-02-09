@@ -1,6 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :is_visible, :price, :sku, :collection_id
-  attr_accessible :name, :description, :name_en, :description_en, :name_ru, :description_ru
+  attr_accessible :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom
 
   belongs_to :collection
 
@@ -9,6 +8,7 @@ class Product < ActiveRecord::Base
 
   fileuploads :picture, :pictures
   translates :name, :description
+  attr_accessible *all_translated_attribute_names
 
   scope :visible, where(:is_visible => true)
   scope :un_visible, where(:is_visible => false)

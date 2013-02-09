@@ -4,12 +4,12 @@ devise
 +i18n-js
 +default form render
 +clean settings table
++fileupload
++fix pickers
 -structure to dsl
 
 route to resource gen
 gen mkdir log tmp/pids tmp/sockets
-fix pickers
 form has_many has_one
 
 settings and locales reloading
-fileupload

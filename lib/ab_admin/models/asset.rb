@@ -13,8 +13,9 @@ module AbAdmin
 
         delegate :url, :original_filename, :to => :data
 
-        class_attribute :thumb_size
+        class_attribute :thumb_size, :max_size
         self.thumb_size = :thumb
+        self.max_size = 2
 
         before_save :reprocess
 

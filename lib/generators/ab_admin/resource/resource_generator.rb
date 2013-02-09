@@ -23,8 +23,23 @@ module AbAdmin
       end
 
       def add_routes
-        say "add to config/routes.rb\n  resources(:#{controller_file_name}) { post :batch, :on => :collection }"
-        #say "add to layouts/_navigation.html.#{template_engine}\n  = model_admin_menu_link(#{model_class.name})"
+        routing_code = "resources(:#{controller_file_name}) { post :batch, :on => :collection }"
+        log :route, routing_code
+        sentinel = /namespace :admin do$/
+
+        in_root do
+          inject_into_file 'config/routes.rb', "\n    #{routing_code}\n", {:after => sentinel, :verbose => false}
+        end
+      end
+
+      def add_menu
+        menu_code = "model #{model.name}"
+        log :menu, menu_code
+        sentinel = /draw do$/
+
+        in_root do
+          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {:after => sentinel, :verbose => false}
+        end
       end
 
       def create_view_files
@@ -52,10 +67,6 @@ module AbAdmin
       def model_instance
         @model_instance ||= model.new
       end
-
-      #def singular_name
-      #
-      #end
 
       def translated_columns
         @translated_columns ||= model.translated_attribute_names if model.respond_to?(:translated_attribute_names)

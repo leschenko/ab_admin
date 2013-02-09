@@ -22,6 +22,17 @@ module AbAdmin
           options[:input_html][:class] = "#{options[:input_html][:class]} do_chosen"
         end
 
+        case options[:as]
+          when :uploader
+            title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
+            return template.input_set(title) { attach_file_field(attribute_name, options = {}) }
+          when :map
+            title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
+            prefix = options[:prefix] || object.class.model_name.singular
+            data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
+            return template.input_set(title) { data_fields + geo_input(prefix) }
+        end
+
         attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
 
         super(attribute_name, options, &block)
@@ -37,7 +48,7 @@ module AbAdmin
         link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), :class => 'btn btn-danger btn-mini pull-right'
       end
 
-      def locale_tabs(options={}, &block)
+      def locale_tabs(&block)
         loc_html = {}
         Globalize.available_locales.each do |l|
           loc_html[l] = template.capture { block.call(l) }
@@ -49,13 +60,26 @@ module AbAdmin
         template.render 'admin/shared/save_buttons'
       end
 
-      def attach_file_field(attribute_name, options = {}, &block)
+      def geo_input(prefix, &block)
+        template.content_tag :div, :class => 'geo_input' do
+          ''.tap do |out|
+            out << template.javascript_include_tag("//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}")
+            out << template.label_tag(:geo_autocomplete, I18n.t('admin.geo_autocomplete'))
+            out << template.text_field_tag("#{prefix}_geo_autocomplete")
+            out.concat(capture(&block)) if block_given?
+            out << template.content_tag(:div, '', :class => 'admin_map', :id => "#{prefix}_map")
+            out << template.init_js("initGeoInput(#{prefix.inspect})")
+          end.html_safe
+        end
+      end
+
+      def attach_file_field(attribute_name, options = {})
         value = options.delete(:value) if options.key?(:value)
         value ||= object.fileupload_asset(attribute_name)
 
         element_guid = object.fileupload_guid
         element_id = template.dom_id(object, [attribute_name, element_guid].join('_'))
-        max_size = options[:file_max_size] || object.class.max_size
+        max_size = options[:file_max_size] || Array(value).first.class.max_size
         script_options = (options.delete(:script) || {}).stringify_keys
 
         params = {

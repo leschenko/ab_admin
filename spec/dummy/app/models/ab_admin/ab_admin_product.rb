@@ -57,6 +57,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :name
       field :description
     end
+    field :picture, :as => :uploader
+    field :map, :as => :map
   end
 
 end

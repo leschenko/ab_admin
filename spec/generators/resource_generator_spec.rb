@@ -8,10 +8,20 @@ describe AbAdmin::Generators::ResourceGenerator do
 
   before(:all) do
     prepare_destination
+
+    dir = File.expand_path('../../', __FILE__)
+    FileUtils.mkdir_p(File.join(dir, 'tmp/config'))
+    FileUtils.copy_file(File.join(dir, 'dummy/config/routes.rb'), File.join(dir, 'tmp/config', 'routes.rb'))
+    FileUtils.mkdir_p(File.join(dir, 'tmp/app/models'))
+    FileUtils.copy_file(File.join(dir, 'dummy/app/models/admin_menu.rb'), File.join(dir, 'tmp/app/models', 'admin_menu.rb'))
+
     run_generator
   end
 
   it 'creates a admin resource' do
+    assert_file 'config/routes.rb', /resources\(:headers\) { post :batch, :on => :collection }/
+    assert_file 'app/models/admin_menu.rb', /model Header/
+
     assert_file 'app/controllers/admin/headers_controller.rb', /HeadersController/
 
     assert_file 'app/views/admin/headers/_form.html.slim',
