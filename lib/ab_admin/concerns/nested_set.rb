@@ -37,7 +37,7 @@ module AbAdmin
           res = []
           records.each do |r|
             next if mover && mover.id == r.id
-            res << ["#{'–' * r.depth} #{r.name}", r.id]
+            res << ["#{'–' * r.depth} #{AbAdmin.display_name(r)}", r.id]
           end
           res
         end

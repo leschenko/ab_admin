@@ -167,7 +167,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def tree_node_renderer
-    @tree_node_renderer ||= lambda { |r| link_to r.name, resource_path(r), :class => 'tree-item_link' }
+    @tree_node_renderer ||= lambda { |r| link_to AbAdmin.display_name(r), resource_path(r), :class => 'tree-item_link' }
   end
 
   def search_collection

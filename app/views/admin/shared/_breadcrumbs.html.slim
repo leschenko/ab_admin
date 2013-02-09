@@ -3,5 +3,5 @@
     - @breadcrumbs[0..-2].each do |crumb|
       li
       	= link_to crumb[:name], crumb[:url], crumb[:options]
-      	span.divider
+      	span.divider &nbsp;/&nbsp;
     li.active= link_to @breadcrumbs.last[:name], @breadcrumbs.last[:url], @breadcrumbs.last[:options]

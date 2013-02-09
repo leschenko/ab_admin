@@ -9,10 +9,8 @@ module AbAdmin
       include ActionView::Helpers::TagHelper
       include NestedForm::BuilderMixin
 
-      delegate :concat, :content_tag, :link_to, :link_to_function, :dom_id, :render, :to => :template
-
       map_type :color, :to => ::AbAdmin::Views::Inputs::ColorInput
-      map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::ColorInput
+      map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::CkeditorInput
       map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
       map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
       map_type :association, :to => ::AbAdmin::Views::Inputs::AssociationInput
@@ -55,7 +53,7 @@ module AbAdmin
         value ||= object.fileupload_asset(attribute_name)
 
         element_guid = object.fileupload_guid
-        element_id = dom_id(object, [attribute_name, element_guid].join('_'))
+        element_id = template.dom_id(object, [attribute_name, element_guid].join('_'))
         max_size = options[:file_max_size] || object.class.max_size
         script_options = (options.delete(:script) || {}).stringify_keys
 

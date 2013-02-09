@@ -1,0 +1,6 @@
+= admin_form_for [@structure, @static_page], :url => admin_structure_static_page_path(@structure.id) do |f|
+  = f.locale_tabs do |l|
+    = f.input :title, :locale => l
+    = f.input :content, :locale => l, :as => :ckeditor
+
+  = f.save_buttons

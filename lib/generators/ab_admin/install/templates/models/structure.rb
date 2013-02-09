@@ -1,8 +1,6 @@
 class Structure < ActiveRecord::Base
   include AbAdmin::Models::Structure
 
-  self.per_page = 1000
-
   attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible,
                   :structure_type, :position_type, :slug, :parent
 
@@ -10,22 +8,13 @@ class Structure < ActiveRecord::Base
 
   fileuploads :picture
   translates :title, :redirect_url
+  attr_accessible *all_translated_attribute_names
 
   include AbAdmin::Concerns::AdminAddition
   extend FriendlyId
   friendly_id :title, :use => :slugged
 
   default_scope nested_set.includes(:translations)
-
-  def og_tags
-    res = {
-        'og:title' => title,
-        'og:type' => 'activity',
-        'og:description' => header.try(:description)
-    }
-    res['og:image'] = picture.full_url(:content) if picture
-    res
-  end
 
   def should_generate_new_friendly_id?
     slug.blank? && new_record?

@@ -11,5 +11,6 @@ class StaticPage < ActiveRecord::Base
   enumerated_attribute :static_page_type, :id_attribute => :kind
 
   translates :title, :content
+  attr_accessible *all_translated_attribute_names
 
 end

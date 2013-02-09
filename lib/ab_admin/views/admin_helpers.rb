@@ -8,7 +8,7 @@ module AbAdmin
         options[:html] ||= {}
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
-        options[:html]['data-id'] = object.id
+        options[:html]['data-id'] = Array(object).last.id
         if controller_name == 'manager'
           options[:url] ||= object.new_record? ? collection_path : resource_path
         end
