@@ -1,0 +1,9 @@
+<script id="fileupload_tmpl" type="text/x-jquery-tmpl" xmlns="http://www.w3.org/1999/html">
+  <div class="asset ill" data-id="${id}" id="asset_${id}">
+    <%= link_to '', '/admin/assets/${id}', :title => t('admin.delete'), :remote => true, :method => :delete,
+                :data => {:confirm => t('admin.delete_confirmation')}, :class => 'fileupload-cancel del' %>
+    <a href="${url}" class="fileupload-file fancybox" rel='fancybox'>
+      <img src="${thumb_url}" title="${filename}">
+    </a>
+  </div>
+</script>

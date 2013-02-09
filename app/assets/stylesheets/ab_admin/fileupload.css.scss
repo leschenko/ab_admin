@@ -1,0 +1,120 @@
+.gray-blocks {
+  overflow: hidden;
+  margin-top: 10px;
+  .fileupload-file img {
+    width: 80px;
+  }
+  .bg-bl {
+    background: #d1e6dc;
+    overflow: hidden;
+  }
+  .gr-title {
+    display: block;
+    color: #5b6569;
+    font-size: 1.1em;
+    padding: 20px 20px 15px 20px;
+  }
+  .galery {
+    display: block;
+    overflow: hidden;
+    .ill {
+      z-index: 3;
+      display: block;
+      float: left;
+      overflow: hidden;
+      width: 80px;
+      height: 80px;
+      margin-right: 1px;
+      margin-bottom: 1px;
+      position: relative;
+      .del {
+        display: block;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background: image_url("admin/transp_cross.png") no-repeat left top;
+        width: 17px;
+        height: 17px;
+        cursor: pointer;
+        z-index: 1;
+        img {
+          width: 17px;
+          height: 17px;
+        }
+      }
+      .main_img {
+        cursor: pointer;
+        display: block;
+        height: 17px;
+        width: 17px;
+        text-indent: -2000px;
+        position: absolute;
+        padding: 0 0 0 20px;
+        left: 0;
+        top: 0;
+        z-index: 1;
+      }
+
+      //checkbox on pic
+      .main_img {
+        background: image_url("main_pic.png") no-repeat;
+      }
+    }
+  }
+  .ill-bl {
+    display: block;
+    overflow: hidden;
+    padding: 0px 20px 0px 20px;
+    border-bottom: solid 1px #e7faed;
+    position: relative;
+    .r-ill {
+      margin-left: -90px;
+      width: 100%;
+      float: right;
+      .r-ill-data {
+        margin-left: 90px;
+      }
+    }
+    .l-ill {
+      float: left;
+      width: 80px;
+      overflow: hidden;
+    }
+    .file-name {
+      color: #5b6569;
+      font-size: 0.9em;
+      font-weight: bold;
+      display: block;
+    }
+    .del {
+      display: block;
+      position: absolute;
+      right: 20px;
+      top: 0px;
+      width: 13px;
+      height: 13px;
+      overflow: hidden;
+    }
+  }
+}
+
+.file-types {
+  display: block;
+  overflow: hidden;
+  padding: 5px 20px;
+}
+
+.file-types .type-info {
+  display: block;
+  float: right;
+  color: #5b6569;
+  font-size: 0.9em;
+}
+.fileupload.file_asset_type {
+  .fileupload-list .asset {
+    width: auto !important;
+    height: auto !important;
+    float: none;
+    margin-bottom: 10px;
+  }
+}

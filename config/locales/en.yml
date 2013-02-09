@@ -101,12 +101,12 @@ en:
       drop_here: Drag and drop files here
       max_size: Max size
     form: 
-      cancel: Cancellation
+      cancel: Cancel
       save: Save
       save_and_add_another: Save and add new
       save_and_edit: Save and continue editing
-      save_and_edit_next: Save and track.
-      save_and_edit_prev: Save and before.
+      save_and_edit_next: Save and next.
+      save_and_edit_prev: Save and prev.
       details: More
       base: Base
     gender:

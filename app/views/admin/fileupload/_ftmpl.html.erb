@@ -1,0 +1,7 @@
+<script id="fileupload_ftmpl" type="text/x-jquery-tmpl" xmlns="http://www.w3.org/1999/html">
+  <div class="asset" id="asset_${id}">
+    <a href="${url}" target="_blank">${original_name}</a>
+    <a href="/admin/assets/${id}" class="del btn btn-danger btn-mini"
+       data-confirm="<%= t('admin.delete_confirmation') %>" data-method="delete" data-remote="true" rel="nofollow"><%= t('admin.delete') %></a>
+  </div>
+</script>

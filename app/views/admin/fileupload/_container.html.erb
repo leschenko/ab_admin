@@ -1,0 +1,28 @@
+<%= content_tag(:div, :class => "fileupload #{multiple ? 'many_assets' : 'one_asset'} #{asset_render_template}_asset_type",
+                :id => element_id, :data => container_data) do %>
+  <div class="gray-blocks">
+    <div>
+      <div class="fileupload-drop-area"><span><%= t('admin.fileupload.drop_here') %></span></div>
+
+      <div class="fileupload-list <%= 'ill-bl galery' unless asset_render_template == 'file' %>">
+        <%= render :partial => "admin/fileupload/#{asset_render_template}", :collection => assets %>
+      </div>
+      <div class="file-types">
+        <span class="fileupload-button">
+          <button type="button" class="btn btn-primary"><%= t("admin.fileupload.button#{'s' if multiple}") %></button>
+        </span>
+        <div class="type-info">
+          <span><%= file_title %>. <%= t('admin.fileupload.max_size') %>:</span><strong><%= file_max_size %> MB</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(document).ready(function () {
+    var upl = new qq.FileUploaderInput(<%= raw script_options %>);
+    upl._setupDragDrop();
+    new AdminAssets('<%= element_id %>', '<%= sort_admin_assets_path(:klass => asset_klass) %>', <%= multiple ? 'true' : 'false' %>);
+  });
+</script>

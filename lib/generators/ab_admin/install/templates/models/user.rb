@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   include AbAdmin::Concerns::AdminAddition
   include AbAdmin::Models::User
 
+  fileuploads :avatar
+
   def init
     set_default_role
     self.trust_state ||= ::UserState.pending.id
