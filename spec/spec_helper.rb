@@ -28,7 +28,7 @@ ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = 'example.com'
 
 ActiveRecord::Migrator.migrate File.expand_path('../dummy/db/migrate/', __FILE__)
-#ActiveRecord::Migrator.migrate File.expand_path('../../db/migrate/', __FILE__)
+ActiveRecord::Migrator.migrate File.expand_path('../../db/migrate/', __FILE__)
 
 Rails.backtrace_cleaner.remove_silencers!
 

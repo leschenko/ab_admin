@@ -65,8 +65,8 @@ describe User do
     end
 
     it '#title' do
-      @inactive.title.should == @inactive.email
-      @user.title.should == @user.full_name
+      @inactive.name.should == @inactive.email
+      @user.name.should == @user.full_name
     end
 
     it '#full_name' do
