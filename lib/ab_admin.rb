@@ -84,6 +84,7 @@ module AbAdmin
       autoload :EditorInput, 'ab_admin/views/inputs/editor_input'
       autoload :TreeSelectInput, 'ab_admin/views/inputs/tree_select_input'
       autoload :AssociationInput, 'ab_admin/views/inputs/association_input'
+      autoload :DateTimeInput, 'ab_admin/views/inputs/date_time_input'
     end
   end
 

@@ -14,6 +14,7 @@ module AbAdmin
       map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
       map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
       map_type :association, :to => ::AbAdmin::Views::Inputs::AssociationInput
+      map_type :date, :time, :datetime, :to => ::AbAdmin::Views::Inputs::DateTimeInput
 
       def input(attribute_name, options = {}, &block)
         if options[:fancy]
