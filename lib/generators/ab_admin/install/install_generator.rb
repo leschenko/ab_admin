@@ -28,6 +28,7 @@ module AbAdmin
         template('config/nginx.conf', 'config/nginx.conf')
         template('scripts/unicorn.sh', 'scripts/unicorn.sh')
         copy_file('config/unicorn_config.rb', 'config/unicorn_config.rb')
+        copy_file 'gitignore', '.gitignore'
       end
 
       # copy models
@@ -54,7 +55,7 @@ module AbAdmin
 
       def copy_specs
         directory 'spec', 'spec'
-        copy_file('rspec', '.rspec')
+        copy_file 'rspec', '.rspec'
       end
 
       protected

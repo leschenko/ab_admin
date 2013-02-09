@@ -20,6 +20,10 @@ The installer creates an initializer used for configuring defaults used by AbAdm
 
 To generate admin resource for model, run:
 
+    $ rails generate ab_admin:model [MyModelName]
+
+To generate full admin resource (controller, views, helper) for model, run:
+
     $ rails generate ab_admin:resource [MyModelName]
 
 

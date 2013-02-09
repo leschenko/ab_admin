@@ -20,8 +20,8 @@ describe AbAdmin::Generators::InstallGenerator do
   #end
 
   it 'should copy_configurations' do
-    ['config/initializers/ab_admin.rb', 'config/database.yml', 'db/seeds.rb', 'config/i18n-js.yml',
-     'config/logrotate-config', 'config/nginx.conf', 'scripts/unicorn.sh', 'config/unicorn_config.rb'].each do |file|
+    ['config/initializers/ab_admin.rb', 'config/database.yml', 'db/seeds.rb', 'config/i18n-js.yml', 'config/logrotate-config',
+     'config/nginx.conf', 'scripts/unicorn.sh', 'config/unicorn_config.rb', '.gitignore'].each do |file|
       assert_file file
     end
   end

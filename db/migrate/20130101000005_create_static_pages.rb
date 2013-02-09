@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateStaticPages < ActiveRecord::Migration
   def self.up
     create_table :static_pages do |t|

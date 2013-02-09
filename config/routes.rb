@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
   namespace :admin do
     root :to => 'dashboards#index'
-    resources :dashboards, :only => :index
+    get 'dashboards', :as => 'dashboards'
 
     resources :structures do
       post :rebuild, :on => :collection

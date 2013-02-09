@@ -8,26 +8,6 @@ header.navbar
       a.brand[href=root_path]= AbAdmin.site_name
       .nav-collapse.in.collapse style=("max-height: 626px;")
         = AdminMenu.render(self)
-        /- cache ['admin_nav', controller_name, action_name, current_user.user_role_id] do
-          ul.nav
-            - [].each do |m|
-              = model_admin_menu_link(m)
-            li.dropdown
-              a.dropdown-toggle data-toggle="dropdown" href="#" 
-                = t 'admin.navigation.catalogues'
-                b.caret
-              ul.dropdown-menu
-                - [].each do |m|
-                  = model_admin_menu_link(m)
-                /= admin_menu_link(t('admin.navigation.cabinet_meta_tags'), 'cabinet_meta_tags')
-            - if admin?
-              li.dropdown
-                a.dropdown-toggle data-toggle="dropdown" href="#" 
-                  = t 'admin.navigation.system'
-                  b.caret
-                ul.dropdown-menu
-                  - [].each do |m|
-                    = model_admin_menu_link(m)
 
         .btn-group.pull-right
           a.btn.dropdown-toggle data-toggle="dropdown" href="#" 

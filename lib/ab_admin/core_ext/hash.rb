@@ -32,17 +32,6 @@ class Hash
     self
   end
 
-  def deep_set_key_values
-    self.each_key do |key|
-      if self[key].is_a?(Hash)
-        self[key] = self[key].deep_set_key_values
-      else
-        self[key] = key.to_s
-      end
-    end
-    self
-  end
-
   def clear_values
     result = {}
     self.each_key do |key|
@@ -80,18 +69,6 @@ class Hash
     end
   end
 
-  # store_multi
-  #def set_keys(value, *hash_keys)
-  #  hash_keys.each_with_index do |k, i|
-  #    if hash_keys[i+1]
-  #      return self[k].set_keys(value, *hash_keys[1..-1])
-  #    else
-  #      self[k] = Hash.convert_hash_to_ordered_hash(value)
-  #      return self
-  #    end
-  #  end
-  #end
-
   def val(*array)
     if array.empty?
       self
@@ -119,16 +96,27 @@ class Hash
     self
   end
 
+  def no_blank
+    reject { |k, v| v.blank? }
+  end
+
+  #def deep_set_key_values
+  #  self.each_key do |key|
+  #    if self[key].is_a?(Hash)
+  #      self[key] = self[key].deep_set_key_values
+  #    else
+  #      self[key] = key.to_s
+  #    end
+  #  end
+  #  self
+  #end
+
   # invert
   #def hash_revert
   #  r = Hash.new { |h, k| h[k] = [] }
   #  each { |k, v| r[v] << k }
   #  r
   #end
-
-  def no_blank
-    reject { |k, v| v.blank? }
-  end
 
   #def set_keys_eval(value, *hash_keys)
   #  self.instance_eval("self['#{hash_keys.join("']['")}']=%q[#{Hash.convert_hash_to_ordered_hash(value)}]")

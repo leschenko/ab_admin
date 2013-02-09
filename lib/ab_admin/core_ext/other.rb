@@ -1,17 +1,3 @@
-module ActiveSupport
-  class OrderedHash < ::Hash
-    def to_yaml(opts = {})
-      YAML::quick_emit(self, opts) do |out|
-        out.map(nil, to_yaml_style) do |map|
-          each do |k, v|
-            map.add(k, v)
-          end
-        end
-      end
-    end
-  end
-end
-
 class NilClass
   def val(*args)
     self
@@ -51,6 +37,20 @@ class Date
     self.to_date == ::Date.tomorrow
   end
 end
+
+#module ActiveSupport
+#  class OrderedHash < ::Hash
+#    def to_yaml(opts = {})
+#      YAML::quick_emit(self, opts) do |out|
+#        out.map(nil, to_yaml_style) do |map|
+#          each do |k, v|
+#            map.add(k, v)
+#          end
+#        end
+#      end
+#    end
+#  end
+#end
 
 #class Numeric
 #  # round a given number to the nearest step

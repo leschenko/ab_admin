@@ -1,8 +1,7 @@
-# -*- encoding : utf-8 -*-
 class CreateStructures < ActiveRecord::Migration
   def self.up
     create_table :structures do |t|
-      t.string :slug, :null => false, :limit => 50
+      t.string :slug, :null => false
       t.integer :kind, :limit => 1, :default => 1
       t.integer :position, :limit => 2, :default => 1
       t.references :user

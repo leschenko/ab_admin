@@ -22,9 +22,6 @@ BCrypt::Engine::DEFAULT_COST = 1
 
 require File.join(SPEC_PATH, 'support/shared_connection')
 
-#require File.join(SPEC_PATH, 'support/custom_capybara_matchers')
-#World(CustomCapybaraMatchers)
-
 include Warden::Test::Helpers
 Warden.test_mode!
 DatabaseCleaner.clean_with(:truncation)

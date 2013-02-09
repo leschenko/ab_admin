@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateAssets < ActiveRecord::Migration
   def self.up
     create_table :assets do |t|
@@ -7,8 +6,8 @@ class CreateAssets < ActiveRecord::Migration
       t.integer :data_file_size
       
       t.integer :assetable_id, :null => false
-		  t.string  :assetable_type, :limit => 25, :null => false
-      t.string  :type, :limit => 25
+		  t.string  :assetable_type, :limit => 30, :null => false
+      t.string  :type, :limit => 30
       t.string  :guid, :limit => 10
 
       t.integer :locale, :limit => 1, :default => 0

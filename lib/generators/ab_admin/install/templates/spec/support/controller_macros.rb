@@ -1,4 +1,3 @@
-# encoding: utf-8
 module ControllerMacros
   def login_admin
     before(:all) do

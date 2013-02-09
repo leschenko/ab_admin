@@ -2,12 +2,7 @@
 module AbAdmin
   module Controllers
     module HeadOptions
-      # Inclusion hook to make #current_user and #logged_in?
-      # available as ActionView helper methods.
-      #def self.included(base)
-      #  base.send :helper_method, :head_options if base.respond_to? :helper_method
-      #end
-      
+
       def head_options(record, options = {})
         return if record.nil?
         
@@ -37,6 +32,7 @@ module AbAdmin
         end
         @page_description = [I18n.t("page.prefix"), @page_description].compact.join(' - ')
       end
+
     end
   end
 end

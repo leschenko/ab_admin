@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class CreateHeaders < ActiveRecord::Migration
   def self.up
     create_table :headers do |t|

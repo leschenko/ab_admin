@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class Admin::AssetsController < ApplicationController
   before_filter :find_klass, :only => [:create, :sort]
   before_filter :find_asset, :only => [:destroy, :main, :rotate, :crop]

@@ -1,7 +1,5 @@
 class ::Admin::LocatorsController < ::Admin::BaseController
-  authorize_resource #:class => Locator
-
-  #defaults #:resource_class => Locator
+  authorize_resource
 
   before_filter :find_files, :only => [:show, :edit, :update]
   before_filter :find_file, :only => [:edit, :update]

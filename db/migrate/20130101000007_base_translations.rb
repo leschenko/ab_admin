@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class BaseTranslations < ActiveRecord::Migration
   def self.up
     StaticPage.create_translation_table! :title => :string, :content => :text

@@ -13,3 +13,4 @@ gen mkdir log tmp/pids tmp/sockets
 form has_many has_one
 
 settings and locales reloading
+generate dummy settings
