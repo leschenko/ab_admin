@@ -33,3 +33,11 @@ After do
   Warden.test_reset!
 end
 
+Before '@locator' do
+  FileUtils.cp_r Rails.root.join('config', 'locales'), Rails.root.join('tmp')
+end
+
+After '@locator' do
+  FileUtils.rm_rf Rails.root.join('config', 'locales')
+  FileUtils.cp_r Rails.root.join('tmp/locales'), Rails.root.join('config')
+end
