@@ -8,9 +8,9 @@ require 'inherited_resources'
 require 'i18n/core_ext/kernel/surpress_warnings'
 
 ActiveSupport::XmlMini.backend = 'Nokogiri'
-YAML::ENGINE.yamler='psych'
 InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.flash_keys
 Responders::FlashResponder.namespace_lookup = true
+YAML::ENGINE.yamler='psych'
 
 Time::DATE_FORMATS[:api] = "%d.%m.%Y"
 Time::DATE_FORMATS[:compare] = '%Y%m%d%H%M'
@@ -18,7 +18,8 @@ Time::DATE_FORMATS[:compare_date] = Date::DATE_FORMATS[:compare_date] = '%Y%m%d'
 
 Kernel.suppress_warnings do
   ActionView::Base::InstanceTag::DEFAULT_TEXT_AREA_OPTIONS = {'cols' => 93, 'rows' => 5}
-  Russian::LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e|%-d)(.*)(%B)/
+  Russian::LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e|%-d)(.*)(%B)/ if defined? Russian
+  Ya2YAML::REX_BOOL = /y|Y|Yes|YES|n|N|No|NO|true|True|TRUE|false|False|FALSE|on|On|ON|off|Off|OFF/ if defined? Ya2YAML
 end
 
 if defined?(Sunrise::FileUpload)

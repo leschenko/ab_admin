@@ -6,11 +6,5 @@ class AdminMenu < AbAdmin::MenuBuilder
       model Locator
       model Settings, :url => edit_admin_settings_path
     end
-    group 'Moderator', :if => proc { moderator? } do
-      link 'for moderator', 'dummy_path'
-    end
-    group 'Admin', :if => :admin? do
-      link 'for admin', 'dummy_path'
-    end
   end
 end

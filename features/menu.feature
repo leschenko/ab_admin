@@ -1,3 +1,4 @@
+@wip
 Feature: Admin menu
 
   Background:
@@ -12,6 +13,7 @@ Feature: Admin menu
         model User
         group :system do
           model Structure
+          model Settings, :url => edit_admin_settings_path
         end
         group 'Moderator', :if => proc { moderator? } do
           link 'for moderator', 'dummy_path'
@@ -22,7 +24,8 @@ Feature: Admin menu
       end
       """
     When I am on the dashboard page
-    Then I should see menu item for "User"
+    Then I should see menu item for "User" with path "/admin/users"
+    Then I should see menu item for "Settings" with path "/admin/settings/edit"
     And I should see group "System" with menu item for "Structure"
     And I should see group "Moderator" with menu item for "for moderator"
     And I should see group "Admin" with menu item for "for admin"

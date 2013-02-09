@@ -1,6 +1,7 @@
 module AbAdmin
 
   class BaseMenuGroup
+    include Rails.application.routes.url_helpers
     include ::AbAdmin::Utils::EvalHelpers
 
     def link(title, path, options={})
@@ -9,7 +10,7 @@ module AbAdmin
 
     def model(model, options={})
       title = model.model_name.human(:count => 9)
-      path = "/admin/#{model.model_name.plural}"
+      path = options[:url] || "/admin/#{model.model_name.plural}"
       @menu_tree << MenuItem.new(title, path, options)
     end
 

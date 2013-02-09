@@ -2,8 +2,8 @@ Given /^a menu configuration of:$/ do |config|
   eval config
 end
 
-Then /^I should see menu item for "(.*?)"$/ do |name|
-  page.should have_css('header.navbar li a', :text => name)
+Then /^I should see menu item for "(.*?)" with path "(.*?)"$/ do |name, path|
+  page.should have_css("header.navbar li a[href='#{path}']", :text => name)
 end
 
 Then /^I should see group "(.*?)" with menu item for "(.*?)"$/ do |group, name|

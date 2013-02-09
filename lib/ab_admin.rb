@@ -64,6 +64,7 @@ module AbAdmin
     autoload :Header, 'ab_admin/models/header'
     autoload :Structure, 'ab_admin/models/structure'
     autoload :TypeModel, 'ab_admin/models/type_model'
+    autoload :Locator, 'ab_admin/models/locator'
   end
 
   module Views
