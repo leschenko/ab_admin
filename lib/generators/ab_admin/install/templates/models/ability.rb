@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class Ability
   include CanCan::Ability
 
@@ -40,7 +39,6 @@ class Ability
 
   def admin
     can :manage, :all
-    #cannot :edit, Settings
 
     cannot :destroy, User, :id => @user.id
   end

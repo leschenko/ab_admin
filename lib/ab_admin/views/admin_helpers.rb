@@ -23,6 +23,15 @@ module AbAdmin
         {:width => 930, :height => 200, :toolbar => 'VeryEasy', :namespace => ''}.update(options)
       end
 
+      def admin_tree_item(item)
+        render 'tree_item', :item => item, :child_tree => admin_tree(item.cached_children)
+      end
+
+      def admin_tree(items)
+        return if items.blank?
+        items.map { |item| admin_tree_item(item) }.join.html_safe
+      end
+
       def layout_css
         css = []
         css << 'content_with_sidebar' if settings[:sidebar]

@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class UserState
   include EnumField::DefineEnum
   def initialize(code)

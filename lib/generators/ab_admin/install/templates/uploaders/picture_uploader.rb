@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class PictureUploader < AbAdmin::CarrierWave::BaseUploader
   
   process :quality => 90

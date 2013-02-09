@@ -5,6 +5,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :login
       t.integer :user_role_id, :limit => 1, :default => 1
       t.integer :trust_state, :limit => 1, :default => 1
+      t.integer :gender, :limit => 1, :default => 1
       t.string :first_name
       t.string :last_name
       t.string :patronymic
@@ -12,7 +13,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :skype
       t.string :web_site
       t.string :address
-      t.datetime :birthday
+      t.date :birthday
 
       t.string :time_zone
       t.string :locale, :limit => 10

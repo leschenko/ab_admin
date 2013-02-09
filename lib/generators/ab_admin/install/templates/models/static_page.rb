@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 class StaticPage < ActiveRecord::Base
   attr_accessible :structure_id, :title, :content, :kind, :is_visible
 
@@ -14,18 +13,3 @@ class StaticPage < ActiveRecord::Base
   translates :title, :content
 
 end
-
-# == Schema Information
-#
-# Table name: static_pages
-#
-#  id           :integer          not null, primary key
-#  structure_id :integer          not null
-#  user_id      :integer
-#  is_visible   :boolean          default(TRUE), not null
-#  delta        :boolean          default(TRUE), not null
-#  created_at   :datetime         not null
-#  updated_at   :datetime         not null
-#  import_id    :integer
-#
-

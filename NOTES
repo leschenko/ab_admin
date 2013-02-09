@@ -3,13 +3,13 @@ simple_form bootstrap
 devise
 +i18n-js
 +default form render
++clean settings table
+-structure to dsl
 
 route to resource gen
 gen mkdir log tmp/pids tmp/sockets
 fix pickers
 form has_many has_one
 
-+clean settings table
 settings and locales reloading
 fileupload
-structure to dsl

@@ -14,7 +14,7 @@ class Admin::UsersController < Admin::BaseController
 
   private
 
-  def index_actions
+  def resource_action_items
     [:edit, :destroy, :show, :preview, :activate, :suspend]
   end
 

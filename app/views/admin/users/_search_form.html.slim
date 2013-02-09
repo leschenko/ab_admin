@@ -1,0 +1,17 @@
+= f.input :email
+= f.input :first_name
+= f.input :last_name
+= f.input :patronymic
+= f.input :phone
+= f.input :skype
+= f.input :web_site
+= f.input :address
+
+= f.input :user_role_id, :collection => UserRoleType.all
+= f.input :trust_state, :collection => UserState.all
+
+= f.input :gender, :collection => GenderType.all
+= f.input :locale, :collection => Globalize.available_locales
+
+= f.input :updated_at
+= f.input :created_at
