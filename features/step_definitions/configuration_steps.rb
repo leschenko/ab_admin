@@ -48,6 +48,11 @@ Given /^a configuration of:$/ do |config|
   eval config
 end
 
+Given /^"([^"]*)" should contain:$/ do |filename, contents|
+  filepath = Rails.root + filename
+  File.read(filepath).strip.should == contents.strip
+end
+
 Given /^"([^"]*)" contains:$/ do |filename, contents|
   require 'fileutils'
   filepath = Rails.root + filename

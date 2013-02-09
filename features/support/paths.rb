@@ -30,6 +30,9 @@ module NavigationHelpers
       when /the edit admin settings page/
         '/admin/settings/edit'
 
+      when /the admin locators page/
+        '/admin/locators'
+
       when /admin (\w+) page/
         "/admin/#{$1}"
 

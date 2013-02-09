@@ -27,7 +27,7 @@ class Locator
 
   def self.save(path, data)
     File.open(path, 'w') do |file|
-      file.write data.ya2yaml.gsub(/^(\s+)(yes|no):/, '\1"\2":')
+      file.write data.ya2yaml.sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
     end
   end
 
