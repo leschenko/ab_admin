@@ -102,6 +102,7 @@ module AbAdmin
     autoload :ResourceGenerator, 'generators/ab_admin/resource/resource_generator'
     autoload :InstallGenerator, 'generators/ab_admin/install/install_generator'
     autoload :ModelGenerator, 'generators/ab_admin/model/model_generator'
+    autoload :CkeditorAssetsGenerator, 'generators/ab_admin/ckeditor_assets/ckeditor_assets_generator'
   end
 
   mattr_accessor :menu

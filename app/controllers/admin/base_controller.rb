@@ -127,7 +127,7 @@ class Admin::BaseController < ::InheritedResources::Base
       when :show
         [:new, :edit, :destroy, :preview]
       when :edit, :update
-        [:new, :destroy, :preview]
+        [:new, :show, :destroy, :preview]
       else
         [:new]
     end
