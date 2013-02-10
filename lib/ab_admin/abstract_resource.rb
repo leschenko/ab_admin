@@ -1,6 +1,6 @@
 module AbAdmin
   class AbstractResource
-    unloadable
+    #unloadable
 
     include Singleton
 

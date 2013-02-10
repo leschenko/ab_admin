@@ -1,4 +1,4 @@
-load 'ab_admin/abstract_resource.rb'
+#load 'ab_admin/abstract_resource.rb'
 
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers
