@@ -39,11 +39,11 @@ gem 'nested_form', '0.2.2'
 gem 'cache_digests'
 gem 'ruby2xlsx'
 
-#gem 'globalize3', :path => '/var/www/gems/globalize3'
 gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => 'bcdf5eb'
 gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
 
-gem 'ab_admin', :path => '/var/www/hub/ab_admin'
+#gem 'ab_admin', :path => '/var/www/hub/ab_admin'
+gem 'ab_admin', :git => 'git://github.com/leschenko/ab_admin.git'
 
 gem 'turbo-sprockets-rails3', :group => :assets
 
