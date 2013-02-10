@@ -37,6 +37,7 @@ gem 'gon'
 gem 'i18n-js'
 gem 'nested_form', '0.2.2'
 gem 'cache_digests'
+gem 'ruby2xlsx'
 
 gem 'globalize3', :path => '/var/www/gems/globalize3'
 #gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => '586ccbd'

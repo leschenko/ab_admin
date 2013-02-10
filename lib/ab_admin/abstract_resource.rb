@@ -16,6 +16,13 @@ module AbAdmin
       @disabled_action_items = []
       @default_action_items_for = {}
       @action_items_for = {}
+      @model = self.class.name.sub('AbAdmin', '').safe_constantize
+      add_admin_addition_to_model
+    end
+
+    def add_admin_addition_to_model
+      return unless @model
+      @model.send(:include, AbAdmin::Concerns::AdminAddition) unless @model.included_modules.include?(AbAdmin::Concerns::AdminAddition)
     end
 
     class << self
@@ -82,6 +89,10 @@ module AbAdmin
       def tree(&block)
         instance.tree_node_renderer = block
       end
+    end
+
+    def export
+      @export ||= ::AbAdmin::Config::Export.default_for_model(@model)
     end
 
     def allow_action?(action)
