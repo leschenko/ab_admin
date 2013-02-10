@@ -108,7 +108,7 @@ module AbAdmin
       @default_action_items_for[action] ||= begin
         base = [:new]
         base += [:edit, :show, :destroy, :preview] if for_resource
-        @actions & (base - @disabled_action_items)
+        (base - [action] - @disabled_action_items) & @actions
       end
     end
 

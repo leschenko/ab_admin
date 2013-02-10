@@ -1,89 +1,103 @@
 # init gems list
 gem 'slim'
 gem 'rails-i18n'
-gem 'dalli'
-gem 'exception_notification'
-gem 'redis-actionpack'
 
 gem 'devise'
 gem 'devise-encryptable'
 gem 'cancan', '~> 1.6.7'
 
 gem 'ransack'
-gem 'has_scope'
 gem 'awesome_nested_set'
 gem 'galetahub-enum_field', '~> 0.2.0', :require => 'enum_field'
-gem 'activevalidators', '~> 1.9.0'
 gem 'friendly_id'
-gem 'squeel'
 
 gem 'configatron'
 gem 'inherited_resources', '~> 1.3.0'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'ya2yaml'
 gem 'multi_json'
 gem 'ruby-progressbar'
-gem 'ya2yaml'
 
 gem 'rack-pjax'
 gem 'simple_form'
 gem 'bootstrap-sass', '2.0.4'
-gem 'ckeditor'
 gem 'will_paginate', '>= 3.0.3'
 gem 'bootstrap-wysihtml5-rails'
 gem 'will_paginate-bootstrap'
-gem 'russian'
 gem 'gon'
 gem 'i18n-js'
-gem 'nested_form', '0.2.2'
-gem 'cache_digests'
-gem 'ruby2xlsx'
 
 gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => 'bcdf5eb'
 gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
-
-#gem 'ab_admin', :path => '/var/www/hub/ab_admin'
-gem 'ab_admin', :git => 'git://github.com/leschenko/ab_admin.git'
-
 gem 'turbo-sprockets-rails3', :group => :assets
+gem 'ab_admin', :path => '/var/www/hub/ab_admin'
+#gem 'ab_admin', :git => 'git://github.com/leschenko/ab_admin.git'
 
-gem_group :development, :test do
-  gem 'rspec-rails'
-  gem 'cucumber-rails', :require => false
+ckeditor = yes?('Install ckeditor?')
 
-  gem 'factory_girl_rails'
-  gem 'quiet_assets'
-  gem 'forgery'
-
-  gem 'guard-rspec'
-  gem 'guard-spork'
-  gem 'guard-cucumber'
-  gem 'rb-fsevent', :require => false
-  gem 'growl'
+if ckeditor
+  gem 'ckeditor'
 end
 
-gem_group :development do
-  gem 'pry-rails'
-  gem 'pry-doc'
-  gem 'slim-rails'
-  gem 'thin', :require => false
-  gem 'annotate'
-  gem 'letter_opener'
-  gem 'better_errors'
-  gem 'binding_of_caller'
+gem_adds = yes?('Add additional gems (mostly dev and testing tools)?')
+
+if gem_adds
+  # non dependency gems
+  gem 'dalli'
+  gem 'exception_notification'
+  gem 'redis-actionpack'
+  gem 'ruby2xlsx'
+  gem 'cache_digests'
+  gem 'russian'
+  gem 'activevalidators', '~> 1.9.0'
+  gem 'nested_form', '0.2.2'
+  gem 'has_scope'
+  gem 'squeel'
+
+  group :development, :test do
+    gem 'rspec-rails'
+    gem 'cucumber-rails', :require => false
+
+    gem 'factory_girl_rails'
+    gem 'quiet_assets'
+    gem 'forgery'
+
+    gem 'guard-rspec'
+    gem 'guard-spork'
+    gem 'guard-cucumber'
+    gem 'rb-fsevent', :require => false
+    gem 'growl'
+  end
+
+  group :development do
+    gem 'pry-rails'
+    gem 'pry-doc'
+    gem 'slim-rails'
+    gem 'thin', :require => false
+    gem 'annotate'
+    gem 'letter_opener'
+    gem 'better_errors'
+    gem 'binding_of_caller'
+  end
+
+  group :test do
+    gem 'spork', '1.0.0rc3'
+    gem 'database_cleaner'
+    gem 'shoulda-matchers'
+    gem 'fuubar'
+    gem 'capybara'
+    gem 'connection_pool'
+  end
+
+  group :staging, :production do
+    gem 'unicorn', :require => false
+  end
 end
 
-gem_group :test do
-  gem 'spork', '1.0.0rc3'
-  gem 'database_cleaner'
-  gem 'shoulda-matchers'
-  gem 'fuubar'
-  gem 'capybara'
-  gem 'connection_pool'
-end
-
-gem_group :staging, :production do
-  gem 'unicorn', :require => false
+# copy ckeditor assets to public/javascripts
+if ckeditor && yes?('Copy ckeditor assets?')
+  generate('ab_admin:ckeditor_assets')
 end
 
 # run bundle install
@@ -97,7 +111,9 @@ end
 
 # run default generators
 generate('devise:install')
-generate('ckeditor:install', '--orm=active_record', '--backend=carrierwave')
+if ckeditor
+  generate('ckeditor:install', '--orm=active_record', '--backend=carrierwave')
+end
 generate('simple_form:install', '--bootstrap')
 generate('ab_admin:install')
 
@@ -120,11 +136,8 @@ if yes?('Run db:seed?')
 end
 
 # run db seed
-if yes?('Export i18n js locales?')
+if gem_adds && yes?('Export i18n js locales?')
   rake('i18n:js:export')
 end
 
-# create && migrate database
-if yes?('Copy ckeditor assets?')
-  generate('ab_admin:ckeditor_assets')
-end
+remove_file 'public/index.html'

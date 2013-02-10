@@ -37,7 +37,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def settings
-    manager.settings ||= super.merge(manager.custom_settings || {})
+    super.merge(manager.custom_settings || {})
   end
 
   def export_options

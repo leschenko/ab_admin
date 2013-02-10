@@ -6,7 +6,7 @@ module AbAdmin
     class FormBuilder < ::SimpleForm::FormBuilder
       include ActionView::Helpers::JavaScriptHelper
       include ActionView::Helpers::TagHelper
-      include NestedForm::BuilderMixin
+      include NestedForm::BuilderMixin if defined? NestedForm
 
       map_type :color, :to => ::AbAdmin::Views::Inputs::ColorInput
       map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::CkeditorInput

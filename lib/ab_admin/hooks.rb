@@ -2,8 +2,6 @@ Dir["#{File.dirname(__FILE__)}/hooks/*.rb"].sort.each do |path|
   require "ab_admin/hooks/#{File.basename(path, '.rb')}"
 end
 
-require 'russian'
-require 'inherited_resources'
 require 'i18n/core_ext/kernel/surpress_warnings'
 
 ActiveSupport::XmlMini.backend = 'Nokogiri'

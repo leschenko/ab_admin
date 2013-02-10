@@ -42,7 +42,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   export do
     field :sku
     field :name
-    field(:price) { "$#{price}" }
+    field(:price) { |item| "$#{item.price}" }
     field :is_visible
     field :collection
     field :created_at
