@@ -9,9 +9,9 @@ require 'i18n/core_ext/kernel/surpress_warnings'
 ActiveSupport::XmlMini.backend = 'Nokogiri'
 InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.flash_keys
 Responders::FlashResponder.namespace_lookup = true
-YAML::ENGINE.yamler='psych'
+YAML::ENGINE.yamler = 'psych'
 
-Time::DATE_FORMATS[:api] = "%d.%m.%Y"
+Time::DATE_FORMATS[:api] = '%d.%m.%Y'
 Time::DATE_FORMATS[:compare] = '%Y%m%d%H%M'
 Time::DATE_FORMATS[:compare_date] = Date::DATE_FORMATS[:compare_date] = '%Y%m%d'
 

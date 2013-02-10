@@ -3,4 +3,5 @@ mailer:
   reply_to: info@<%= app_name %>.com
   subject_prefix: "[YourSite] "
 else:
+  google_api_key: "your google translate API key"
   domain: "<%= app_name %>.com"
