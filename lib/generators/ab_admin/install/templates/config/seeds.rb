@@ -2,7 +2,7 @@
 
 def insert_user
   User.truncate!
-  password = Rails.env.production? ? Devise.friendly_token : (1..6).to_a.join
+  password = Rails.env.production? ? Devise.friendly_token : (1..8).to_a.join
 
   admin = User.new do |u|
     u.email = 'test@test.com'

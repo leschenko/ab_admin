@@ -1,4 +1,9 @@
 # encoding: utf-8
+require 'inherited_resources'
+require 'rack-pjax'
+require 'has_scope'
+require 'cancan'
+
 require 'ab_admin/version'
 require 'ab_admin/core_ext'
 require 'ab_admin/engine'

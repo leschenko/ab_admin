@@ -16,14 +16,13 @@ describe AbAdmin::Generators::InstallGenerator do
     run_generator
   end
 
-  #it 'should copy_views' do
-  #end
-
   it 'should copy_configurations' do
-    ['config/initializers/ab_admin.rb', 'config/database.yml', 'db/seeds.rb', 'config/i18n-js.yml', 'config/logrotate-config',
-     'config/nginx.conf', 'scripts/unicorn.sh', 'config/unicorn_config.rb', '.gitignore'].each do |file|
+    ['config/initializers/ab_admin.rb', 'config/database.yml.sample', 'db/seeds.rb', 'config/i18n-js.yml', 'config/logrotate-config',
+     'config/nginx.conf', 'scripts/unicorn.sh', 'config/unicorn_config.rb', 'config/settings/settings.yml', 'config/settings/settings.local.yml',
+     '.gitignore'].each do |file|
       assert_file file
     end
+    #puts File.read(File.join(destination_root, 'config/initializers/ab_admin.rb'))
   end
 
   it 'should copy_models' do
@@ -32,10 +31,18 @@ describe AbAdmin::Generators::InstallGenerator do
     assert_file 'app/models/admin_menu.rb'
   end
 
+  it 'should copy_helpers' do
+    assert_file 'app/helpers/admin/structures_helper.rb'
+  end
+
   it 'should copy_specs' do
     assert_directory 'spec'
     assert_file 'spec/spec_helper.rb'
     assert_file '.rspec'
+  end
+
+  it 'should add_routes' do
+    assert_file 'config/routes.rb', /devise_for :users, ::AbAdmin::Devise\.config/, /root :to/
   end
 
 end

@@ -17,9 +17,9 @@ module AbAdmin
       end
 
       def copy_configurations
-        copy_file('config/ab_admin.rb', 'config/initializers/ab_admin.rb')
+        template('config/ab_admin.rb.erb', 'config/initializers/ab_admin.rb')
 
-        template('config/database.yml', 'config/database.yml')
+        template('config/database.yml', 'config/database.yml.sample')
         copy_file('config/seeds.rb', 'db/seeds.rb')
 
         copy_file('config/i18n-js.yml', 'config/i18n-js.yml')
@@ -27,6 +27,8 @@ module AbAdmin
         template('config/logrotate-config', 'config/logrotate-config')
         template('config/nginx.conf', 'config/nginx.conf')
         template('scripts/unicorn.sh', 'scripts/unicorn.sh')
+        template('config/settings.yml', 'config/settings/settings.yml')
+        template('config/settings.yml', 'config/settings/settings.local.yml')
         copy_file('config/unicorn_config.rb', 'config/unicorn_config.rb')
         copy_file 'gitignore', '.gitignore'
       end
@@ -37,9 +39,15 @@ module AbAdmin
         copy_file 'config/admin_menu.rb', 'app/models/admin_menu.rb'
       end
 
+      # copy helpers
+      def copy_helpers
+        copy_file 'helpers/structures_helper.rb', 'app/helpers/admin/structures_helper.rb'
+      end
+
       # Add devise routes
       def add_routes
         route 'devise_for :users, ::AbAdmin::Devise.config'
+        route %[root :to => redirect('/users/sign_in')]
       end
 
       def autoload_paths

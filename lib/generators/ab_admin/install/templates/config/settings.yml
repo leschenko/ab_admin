@@ -1,0 +1,6 @@
+mailer:
+  from: no-reply@<%= app_name %>.com
+  reply_to: info@<%= app_name %>.com
+  subject_prefix: "[YourSite] "
+else:
+  domain: "<%= app_name %>.com"

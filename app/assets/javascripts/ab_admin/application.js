@@ -19,36 +19,7 @@
 //= require ab_admin/components/locator
 //= require ab_admin/components/admin_assets
 //= require ab_admin/components/gmaps
-//q= require ab_admin/components/admin_comments
 
 //= require ab_admin/core/init
 //= require ab_admin/inputs/datetime_input
 
-//q= require fileupload/fileuploader.js
-//q= require fileupload/fileuploader-input.js
-//q= require manage-fileuploader.js
-//q= require jquery.tmpl.min
-//q= require jquery.fancybox.pack
-//q= require jquery.tokeninput
-//q= require handlebars.min
-//q= require jquery.autocomplete
-
-//q= require ab_admin/components/utils
-//q= require ab_admin/components/ui_utils
-//q= require ab_admin/components/datetime_input
-//q= require ab_admin/components/batch_actions
-//q= require ab_admin/components/pjax
-//q= require ab_admin/components/search_form
-//q= require ab_admin/components/main_image
-//q= require ab_admin/components/init_assets
-//q= require ab_admin/components/google_translate
-//q= require ab_admin/components/locator
-//q= require ab_admin/components/tokens
-//q= require ab_admin/components/confirmation
-//q= require ab_admin/components/admin_comments
-//q= require ab_admin/components/gmaps
-//q= require ab_admin/components/columns_hider
-//q= require ab_admin/components/nested_filelds_adder
-//q= require ab_admin/components/init_ui
-//q= require ab_admin/components/region_ac
-//q= require ab_admin/components/pagination

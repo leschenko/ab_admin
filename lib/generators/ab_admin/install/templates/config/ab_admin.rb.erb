@@ -1,8 +1,11 @@
 require 'ab_admin/hooks'
 require 'enum_field'
 
+I18n.available_locales = Globalize.available_locales = [:ru, :en]
+
 if Object.const_defined?('AbAdmin')
   AbAdmin.setup do |config|
+    config.site_name = '<%= app_const_base.titleize %>'
     # Flash keys
     #config.flash_keys = [ :success, :failure ]
   end

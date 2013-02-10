@@ -12,8 +12,17 @@ module AbAdmin
 
       def initialize
         @data = {}
-        @editable_path = Rails.root.join('config', 'settings', "#{Rails.env}.local.yml")
+        @editable_path = find_editable_path
         @paths = find_paths
+      end
+
+      def find_editable_path
+        edited_settings_paths = [
+            Rails.root.join('config', 'settings', "#{Rails.env}.local.yml"),
+            Rails.root.join('config', 'settings', 'settings.local.yml')
+        ]
+        path = edited_settings_paths.detect { |path| File.exists?(path) }
+        path or raise("Create settings file for editing: #{edited_settings_paths.join(' or ')}")
       end
 
       def find_paths

@@ -22,4 +22,10 @@ class User < ActiveRecord::Base
     self.time_zone ||= 'Kiev'
   end
 
+  def password_required?
+    return true if password.present?
+    return false if persisted? && password.blank?
+    super
+  end
+
 end
