@@ -20,6 +20,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #  link_to icon('arrow-down'), '/', :class => 'btn'
   #end
 
+  settings :comments => true
+
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }

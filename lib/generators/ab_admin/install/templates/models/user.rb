@@ -5,11 +5,10 @@ class User < ActiveRecord::Base
 
   attr_accessible :password, :password_confirmation, :email, :remember_me,
                   :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
-                  :time_zone, :locale, :bg_color
+                  :time_zone, :locale, :bg_color, :gender
 
 
   attr_accessible :user_role_id, :trust_state, :as => :admin
-
 
   include AbAdmin::Concerns::AdminAddition
   include AbAdmin::Models::User

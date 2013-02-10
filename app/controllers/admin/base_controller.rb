@@ -21,9 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   respond_to :json, :only => [:index]
 
-  rescue_from CanCan::AccessDenied do |exception|
-    redirect_to admin_root_path, :alert => exception.message
-  end
+  rescue_from ::CanCan::AccessDenied, :with => :render_unauthorized
 
   def index
     super do |format|
@@ -272,6 +270,15 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def get_subject
     params[:id] ? resource : resource_class
+  end
+
+  def render_unauthorized(exception)
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}, user: #{current_user.try(:id)}"
+
+    respond_to do |format|
+      format.html { redirect_to (moderator? ? admin_root_path : root_path), :alert => exception.message }
+      format.any { head :unauthorized }
+    end
   end
 
 end

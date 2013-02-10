@@ -19,3 +19,6 @@
       = f.hidden_field :fileupload_guid
 
     = f.save_buttons
+
+  - if settings[:comments]
+    = admin_comments

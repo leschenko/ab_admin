@@ -27,6 +27,8 @@ Rails.application.routes.draw do
       post :prepare, :reload, :on => :collection
     end
 
+    resources :admin_comments
+
     post 'translate' => AbAdmin::I18nTools::TranslateApp
 
     controller 'manager' do

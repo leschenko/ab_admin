@@ -1,0 +1,5 @@
+= admin_form_for AdminComment.new, :remote => true do |f|
+  = f.input_field :resource_type, :as => :hidden, :value => resource.class.name
+  = f.input_field :resource_id, :as => :hidden, :value => resource.id
+  = f.input_field :body, :size => '80x4', :required => true
+  = f.button :submit, t('admin.comments.add'), :title => t('admin.comments.add'), :id => 'submit_admin_comments_form', :class => 'btn btn-primary'

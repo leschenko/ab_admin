@@ -17,6 +17,8 @@ class Product < ActiveRecord::Base
 
   alias_attribute :title, :name
 
+  validates :sku, :presence => true
+
   def publish!
     update_column(:is_visible, true)
   end

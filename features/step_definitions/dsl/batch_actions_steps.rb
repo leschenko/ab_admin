@@ -1,5 +1,5 @@
-Given /^(\d+) products exists$/ do |n|
-  n.to_i.times{ FactoryGirl.create(:product) }
+Given /^(\d+) products? exists$/ do |n|
+  n.to_i.times{ @product = FactoryGirl.create(:product) }
 end
 
 When /^I check (\d+) products in the list$/ do |n|

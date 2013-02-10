@@ -1,0 +1,4 @@
+<% if resource.persisted? %>
+  $('#admin_comments').append('<%= render :partial => 'comment', :object => resource %>');
+  $('#new_admin_comment')[0].reset();
+<% end %>

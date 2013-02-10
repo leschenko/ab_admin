@@ -8,7 +8,7 @@ module AbAdmin
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
         options[:html]['data-id'] = Array(object).last.id
-        if controller_name == 'manager'
+        if controller_name == 'manager' && resource_class == Array(object).last.class
           options[:url] ||= object.new_record? ? collection_path : resource_path
         end
         if options.delete(:nested)

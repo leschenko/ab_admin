@@ -9,12 +9,10 @@ class window.AdminComments
     $('#submit_admin_comments_form').click (e) =>
       e.preventDefault()
       if @form[0].checkValidity()
-        $.post @form.attr('action'), @form.serialize(), ((data) =>
-          $('#product_is_notify').prop('checked', true)
-          @render(data)), 'json'
+        $.post @form.attr('action'), @form.serialize(), ((data) => @render(data)), 'json'
 
     $('.del_admin_comment').live 'click', ->
-      $(@).closest('.admin_comment').hide()
+      $(this).closest('.admin_comment').hide()
 
   render: (comment) ->
     @container.append(@template(comment))

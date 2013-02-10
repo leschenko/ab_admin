@@ -1,3 +1,5 @@
+load 'ab_admin/abstract_resource.rb'
+
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers
   include AbAdmin::Controllers::Tree
@@ -49,8 +51,8 @@ class ::Admin::ManagerController < ::Admin::BaseController
         raise ActionController::RoutingError.new("AbAdmin action #{action_name} for #{resource_class.name} not found")
       end
       manager_instance
-    rescue NameError
-      raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found")
+    #rescue NameError
+    #  raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found")
     end
   end
 

@@ -1,19 +1,9 @@
-.comments_block {
-  form {
-    margin-bottom: 0;
-  }
-  .del_admin_comment {
-    margin-left: 50px;
-    float: right;
-  }
-  input[type='submit'] {
+.admin_comments {
+  form input[type="submit"] {
     display: block;
-    margin-top: 15px;
+    margin-top: 10px;
   }
-  .admin_comment_date {
-    color: gray;
-  }
-  #admin_comments {
-    max-width: 500px;
+  .admin_comment-meta > * {
+    margin-right: 10px;
   }
 }

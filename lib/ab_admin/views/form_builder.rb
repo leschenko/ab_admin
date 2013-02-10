@@ -75,10 +75,11 @@ module AbAdmin
       def attach_file_field(attribute_name, options = {})
         value = options.delete(:value) if options.key?(:value)
         value ||= object.fileupload_asset(attribute_name)
+        asset_klass = object.reflections[attribute_name].try(:klass)
 
         element_guid = object.fileupload_guid
         element_id = template.dom_id(object, [attribute_name, element_guid].join('_'))
-        max_size = options[:file_max_size] || Array(value).first.class.max_size
+        max_size = options[:file_max_size] || asset_klass.try(:max_size)
         script_options = (options.delete(:script) || {}).stringify_keys
 
         params = {
@@ -89,8 +90,8 @@ module AbAdmin
         }.merge(script_options.delete(:params) || {})
 
         script_options['action'] ||= '/sunrise/fileupload?' + Rack::Utils.build_query(params)
-        if !script_options['allowedExtensions'] && object.reflections[attribute_name]
-          script_options['allowedExtensions'] = object.reflections[attribute_name].klass.ext_list
+        if !script_options['allowedExtensions'] && asset_klass
+          script_options['allowedExtensions'] = asset_klass.ext_list
         end
         if options[:template_id]
           script_options['template_id'] = options[:template_id]
