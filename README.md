@@ -28,7 +28,7 @@ To generate admin resource for model, run:
 rails generate ab_admin:model [MyModelName]
 ```
 
-It generate class in `app/models/ab_admin` directory like this:
+Admin resource is just a class in `app/models/ab_admin` directory like this:
 
 ```ruby
 class AbAdminProduct < AbAdmin::AbstractResource
@@ -79,7 +79,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
 end
 ```
 
-To generate full rails resource (controller, views, helper) for model, run:
+To generate full admin resource (controller, views, helper) for model, run:
 
 ```bash
 rails generate ab_admin:resource [MyModelName]
