@@ -110,10 +110,10 @@ if yes?('Create database?')
 end
 
 # run default generators
-generate('devise:install')
 if ckeditor
   generate('ckeditor:install', '--orm=active_record', '--backend=carrierwave')
 end
+generate('devise:install')
 generate('simple_form:install', '--bootstrap')
 generate('ab_admin:install')
 
@@ -141,3 +141,5 @@ if gem_adds && yes?('Export i18n js locales?')
 end
 
 remove_file 'public/index.html'
+
+

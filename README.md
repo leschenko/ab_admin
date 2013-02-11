@@ -2,30 +2,88 @@
 
 Simple and real-life tested Rails::Engine admin interface based on slim, bootstrap, inherited_resources, simple_form, device, cancan.
 
-## Getting Started
+## Installation
 
-Add this line to your application's Gemfile:
+To build a new Rails application with AbAdmin, run:
 
-    gem 'ab_admin'
+```bash
+$ rails new [MyAppName] -m https://raw.github.com/leschenko/ab_admin/master/lib/generators/template.rb
+```
 
-And then execute:
+Or add [list of gems](https://gist.github.com/leschenko/752aaa0f03323aa8c6b3) to an existing application
 
-    $ bundle
+Run generators
 
-Run generator
+```bash
+rails generate devise:install
+rails generate simple_form:install --bootstrap
+rails generate ab_admin:install
+```
 
-    $ rails generate ab_admin:install
-
-The installer creates an initializer used for configuring defaults used by AbAdmin.
+## Usage
 
 To generate admin resource for model, run:
 
-    $ rails generate ab_admin:model [MyModelName]
+```bash
+rails generate ab_admin:model [MyModelName]
+```
 
-To generate full admin resource (controller, views, helper) for model, run:
+It generate class in `app/models/ab_admin` directory like this:
 
-    $ rails generate ab_admin:resource [MyModelName]
+```ruby
+class AbAdminProduct < AbAdmin::AbstractResource
+  preview_path :product_path
 
+  settings :comments => true
+
+  table do
+    field :sku
+    field(:picture) { |item| item_image_link(item) }
+    field :name, :sortable => {:column => :id, :default_order => 'desc'}
+    field :is_visible
+    field :collection
+    field :created_at
+  end
+
+  search do
+    field :sku
+    field :name
+    field :is_visible
+    field :collection
+    field :created_at
+  end
+
+  export do
+    field :sku
+    field :name
+    field(:price) { |item| "$#{item.price}" }
+    field :is_visible
+    field :collection
+    field :created_at
+  end
+
+  form do
+    group :base do
+      field :sku
+      field :price
+    end
+    field :is_visible
+    field :collection, :as => :association
+    locale_tabs do
+      field :name
+      field :description
+    end
+    field :picture, :as => :uploader
+    field :map, :as => :map
+  end
+end
+```
+
+To generate full rails resource (controller, views, helper) for model, run:
+
+```bash
+rails generate ab_admin:resource [MyModelName]
+```
 
 ## Contributing
 
