@@ -55,7 +55,7 @@ if gem_adds
   gem 'has_scope'
   gem 'squeel'
 
-  group :development, :test do
+  gem_group :development, :test do
     gem 'rspec-rails'
     gem 'cucumber-rails', :require => false
 
@@ -70,7 +70,7 @@ if gem_adds
     gem 'growl'
   end
 
-  group :development do
+  gem_group :development do
     gem 'pry-rails'
     gem 'pry-doc'
     gem 'slim-rails'
@@ -81,7 +81,7 @@ if gem_adds
     gem 'binding_of_caller'
   end
 
-  group :test do
+  gem_group :test do
     gem 'spork', '1.0.0rc3'
     gem 'database_cleaner'
     gem 'shoulda-matchers'
@@ -90,7 +90,7 @@ if gem_adds
     gem 'connection_pool'
   end
 
-  group :staging, :production do
+  gem_group :staging, :production do
     gem 'unicorn', :require => false
   end
 end
