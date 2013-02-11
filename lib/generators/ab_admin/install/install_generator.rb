@@ -41,7 +41,7 @@ module AbAdmin
 
       # copy helpers
       def copy_helpers
-        copy_file 'helpers/structures_helper.rb', 'app/helpers/admin/structures_helper.rb'
+        copy_file 'helpers/admin/structures_helper.rb', 'app/helpers/admin/structures_helper.rb'
       end
 
       # Add devise routes

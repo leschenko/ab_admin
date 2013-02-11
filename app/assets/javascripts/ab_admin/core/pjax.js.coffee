@@ -12,15 +12,16 @@ $ ->
       event.preventDefault()
       window.location = $(this).data('href')
 
-  $('.pjax-form').live 'submit', (event) ->
-    $el = $(this)
-    if $.support.pjax
-      event.preventDefault()
-      $.pjax
-        type: $el.attr('method')
-        container: $el.data('pjax-container') || '[data-pjax-container]'
-        url: this.action + (if (this.action.indexOf('?') != -1) then '&' else '?') + $el.serialize()
-        timeout: 50000
+  unless gon.test
+    $('.pjax-form').live 'submit', (event) ->
+      $el = $(this)
+      if $.support.pjax
+        event.preventDefault()
+        $.pjax
+          type: $el.attr('method')
+          container: $el.data('pjax-container') || '[data-pjax-container]'
+          url: this.action + (if (this.action.indexOf('?') != -1) then '&' else '?') + $el.serialize()
+          timeout: 50000
 
   $(document)
     .on 'pjax:start', ->
