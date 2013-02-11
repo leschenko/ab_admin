@@ -95,11 +95,6 @@ if gem_adds
   end
 end
 
-# copy ckeditor assets to public/javascripts
-if ckeditor && yes?('Copy ckeditor assets?')
-  generate('ab_admin:ckeditor_assets')
-end
-
 # run bundle install
 run('bundle install --binstubs')
 #run('bundle install --path=vendor/bundle --binstubs')
@@ -133,6 +128,11 @@ end
 # run db seed
 if yes?('Run db:seed?')
   rake('db:seed')
+end
+
+# copy ckeditor assets to public/javascripts
+if ckeditor && yes?('Copy ckeditor assets?')
+  generate('ab_admin:ckeditor_assets')
 end
 
 # run db seed
