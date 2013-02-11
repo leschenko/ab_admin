@@ -39,7 +39,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'bootstrap-sass', '~> 2.0.4'
   gem.add_dependency 'bootstrap-wysihtml5-rails'
   gem.add_dependency 'will_paginate'
-  gem.add_dependency 'will_paginate-bootstrap'
+  gem.add_dependency 'will_paginate-bootstrap', '0.2.1'
   gem.add_dependency 'nested_form', '~> 0.2.2'
   gem.add_dependency 'simple_form'
   gem.add_dependency 'gon'
