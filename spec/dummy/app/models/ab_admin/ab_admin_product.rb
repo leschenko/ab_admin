@@ -20,7 +20,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #  link_to icon('arrow-down'), '/', :class => 'btn'
   #end
 
-  settings :comments => true
+  #settings :comments => true
+  settings :list_form => true
 
   table do
     field :sku
@@ -59,8 +60,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :name
       field :description
     end
-    field :picture, :as => :uploader
-    field :map, :as => :map
+    #field :picture, :as => :uploader
+    #field :map, :as => :map
   end
 
 end

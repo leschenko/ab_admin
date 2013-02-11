@@ -19,6 +19,6 @@ input type='hidden' name='return_to' value=return_to
     - if can? :edit, resource
       button.btn.btn-info type="submit" name="_add_edit" data-disable-with=t('admin.form.save_and_edit')
         = t('admin.form.save_and_edit')
-    a.btn href=(return_to || collection_path)
+    a.btn.form_cancel href=(return_to || collection_path)
       = icon('remove')
       = t('admin.form.cancel')

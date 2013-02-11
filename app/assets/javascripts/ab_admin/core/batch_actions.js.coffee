@@ -11,9 +11,12 @@ $ ->
     submitBatch = (el) ->
       if $("#list [name='ids[]']:checked")[0]
         $el = $(el)
+        ids = $("#list [name='ids[]']:checked").map(-> $(this).val()).get()
         action = $el.data('action')
         $('#batch_action').val(action)
-        $('#batch_action_form').submit()
+        $form = $('#batch_action_form')
+        $form.append("<input type='checkbox' name='ids[]' checked='1' value='#{id}'/>") for id in ids
+        $form.submit()
 
     $('#list tbody tr').live 'click', (e) ->
       return true unless _.include(['TR', 'TD'], e.target.tagName)

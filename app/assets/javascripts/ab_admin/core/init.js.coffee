@@ -19,20 +19,47 @@ $ ->
     initPopover()
     initTooltip()
 
-    $('#list tbody tr').dblclick (e) ->
-      e.preventDefault()
-      $el = $(this)
-      window.location.href = $el.find('td a.resource_id_link').prop('href')
-
     $('.per_page').click ->
       $.cookie('pp', $(this).data('val'))
+
+    $('#list').on 'click', '.form_cancel', (e) ->
+      e.preventDefault()
+      $(this).closest('tr').remove()
 
 
   $(document).on 'admin:init', (e) ->
     return unless window.viewType == 'form'
     window.resource_id = $('form.simple_form').data('id')
+    $(document).trigger('admin:form_init')
+
+
+  $(document).on 'admin:form_init', (e) ->
+    focusInput()
     initEditor()
     inputSetToggle()
+
+  $(document).on 'pjax:end', ->
+    $(document).trigger({type: 'admin:init', pjax: true})
+  $(document).trigger({type: 'admin:init'})
+
+  $(document).on 'dblclick', '#list tbody tr', (e) ->
+    e.preventDefault()
+    $el = $(this)
+    $el.find('td a.resource_id_link').click()
+
+
+  initChosen()
+  #  initAcFileds()
+  if window.gon?.bg_color
+    $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
+
+  if window.gon?.hotkeys
+    $(document).bind 'keydown.alt_n', -> $('a.new_resource:first').click()
+    $(document).bind 'keydown.alt_left', -> $('a[rel^="prev"]:first').click()
+    $(document).bind 'keydown.alt_right', -> $('a[rel="next"]:first').click()
+    $(document).bind 'keydown.alt_s', -> $('#search_form').submit()
+
+
 
 #    $('form .region_ac').regionAc()
 #    new NestedFieldsAdder
@@ -41,14 +68,3 @@ $ ->
 #        initPickers()
 #        initChosen()
 #        initEditor()
-
-
-  $(document).on 'pjax:end', ->
-    $(document).trigger({type: 'admin:init', pjax: true})
-  $(document).trigger({type: 'admin:init'})
-
-
-  initChosen()
-  #  initAcFileds()
-  if window.gon?.bg_color
-    $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")

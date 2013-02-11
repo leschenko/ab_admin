@@ -1,0 +1,6 @@
+<%
+  form_wrap_id = dom_id(resource_class.new, 'list_edit')
+  html = render('table', :collection => [resource])[/<tr id[^>]+>.*<\/tr>/].html_safe
+%>
+$('#<%= form_wrap_id %>').remove();
+$('#list tbody').prepend('<%= j html %>');

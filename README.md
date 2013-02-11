@@ -7,10 +7,10 @@ Simple and real-life tested Rails::Engine admin interface based on slim, bootstr
 To build a new Rails application with AbAdmin, run:
 
 ```bash
-$ rails new [MyAppName] -m https://raw.github.com/leschenko/ab_admin/master/lib/generators/template.rb
+rails new [MyAppName] -m https://raw.github.com/leschenko/ab_admin/master/lib/generators/template.rb
 ```
 
-Or add [list of gems](https://gist.github.com/leschenko/752aaa0f03323aa8c6b3) to an existing application and run generators
+Or add [list of gems](https://gist.github.com/leschenko/752aaa0f03323aa8c6b3) to an existing application and run generators:
 
 ```bash
 rails generate devise:install

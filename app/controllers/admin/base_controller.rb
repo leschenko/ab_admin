@@ -42,6 +42,8 @@ class Admin::BaseController < ::InheritedResources::Base
   def create
     create! do |success, failure|
       success.html { redirect_to redirect_to_on_success }
+      success.js { render :layout => false }
+      failure.js { render :new, :layout => false }
     end
   end
 
@@ -49,11 +51,25 @@ class Admin::BaseController < ::InheritedResources::Base
     update! do |success, failure|
       success.html { redirect_to redirect_to_on_success }
       failure.html { render :edit }
+      success.js { render :layout => false }
+      failure.js { render :edit, :layout => false }
     end
   end
 
   def destroy
     destroy! { redirect_to_on_success }
+  end
+
+  def edit
+    edit! do |format|
+      format.js { render :layout => false }
+    end
+  end
+
+  def new
+    new! do |format|
+      format.js { render :layout => false }
+    end
   end
 
   def batch
@@ -119,7 +135,8 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {:index_view => 'table', :sidebar => collection_action?, :well => (collection_action? || action_name == 'show'), :search => true, :batch => true}
+    {:index_view => 'table', :sidebar => collection_action?, :well => (collection_action? || action_name == 'show'),
+     :search => true, :batch => true, :hotkeys => true}
   end
 
   def action_items
@@ -223,6 +240,7 @@ class Admin::BaseController < ::InheritedResources::Base
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
     gon.test = Rails.env.test?
+    gon.hotkeys = settings[:hotkeys]
   end
 
   def moderator?

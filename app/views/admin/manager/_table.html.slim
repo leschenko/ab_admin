@@ -19,7 +19,7 @@
         th=t 'admin.table.actions'
     tbody
       - collection.each do |item|
-        tr
+        tr id=dom_id(item, 'list')
           = batch_action_item(item)
           td= id_link(item)
           - table_builder.fields.each do |field|

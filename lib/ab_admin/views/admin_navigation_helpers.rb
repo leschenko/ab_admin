@@ -14,6 +14,7 @@ module AbAdmin
       end
 
       def sort_link(search, attribute, *args)
+        return unless search
         options = args.first.is_a?(Hash) ? args.shift.dup : {}
         search_params = params[:q] || {}.with_indifferent_access
         attr_name = (options.delete(:column) || attribute).to_s
@@ -56,7 +57,7 @@ module AbAdmin
             item_link_to_can? :create, item, t('admin.actions.new.link'), new_resource_path,
                               :class => 'btn btn-primary'
           when :edit
-            item_link_to_can? :update, item, icon('pencil', true), edit_resource_path(item),
+            item_link_to_can? :update, item, icon('pencil', true), edit_resource_path(item), :remote => settings[:list_form],
                               :class => 'btn btn-primary', :title => t('admin.actions.edit.link')
           when :destroy
             item_link_to_can? :destroy, item, icon('trash', true), resource_path(item, :return_to => request.url),
@@ -80,7 +81,7 @@ module AbAdmin
       def action_link(action)
         case action
           when :new
-            link_to_can? :create, t('admin.actions.new.link'), new_resource_path, :class => 'btn btn-primary'
+            link_to_can? :create, t('admin.actions.new.link'), new_resource_path, :class => 'btn btn-primary new_resource', :remote => settings[:list_form]
           when :edit
             link_to_can? :update, t('admin.actions.edit.link'), edit_resource_path, :class => 'btn btn-primary'
           when :destroy
@@ -167,10 +168,11 @@ module AbAdmin
       end
 
       def id_link(item)
+        opts = {:remote => settings[:list_form], :class => 'resource_id_link'}
         if can?(:edit, item)
-          link_to item.id, edit_resource_path(item), :class => 'resource_id_link'
+          link_to item.id, edit_resource_path(item), opts
         elsif can?(:read, item)
-          link_to item.id, resource_path(item), :class => 'resource_id_link'
+          link_to item.id, resource_path(item), opts
         else
           item.id
         end

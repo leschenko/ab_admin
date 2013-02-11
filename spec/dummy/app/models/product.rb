@@ -15,6 +15,8 @@ class Product < ActiveRecord::Base
 
   include AbAdmin::Concerns::AdminAddition
 
+  scope :admin, includes(:translations, :picture)
+
   alias_attribute :title, :name
 
   validates :sku, :presence => true

@@ -72,4 +72,16 @@ table.index_table {
   tr.selected td {
     background: #d9e4ec;
   }
+  .form-actions {
+    position: static;
+    background-color: transparent;
+    border-top: none;
+    margin: 0;
+    .extra_buttons button {
+      display: none;
+    }
+  }
+  form.simple_form {
+    margin: 0;
+  }
 }

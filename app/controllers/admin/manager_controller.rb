@@ -1,4 +1,5 @@
 #load 'ab_admin/abstract_resource.rb'
+load 'ab_admin/views/admin_navigation_helpers.rb'
 
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers

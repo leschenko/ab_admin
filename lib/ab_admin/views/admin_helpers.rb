@@ -4,6 +4,7 @@ module AbAdmin
 
       def admin_form_for(object, *args, &block)
         options = args.extract_options!
+        options[:remote] = true if request.xhr?
         options[:html] ||= {}
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder

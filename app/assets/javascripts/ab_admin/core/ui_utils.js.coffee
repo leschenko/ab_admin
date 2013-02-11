@@ -60,3 +60,6 @@ window.inputSetToggle = ->
 
 window.flash = (type, message) ->
   $('#wrap').prepend $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>")
+
+window.focusInput = ->
+  $('input[type="text"],input[type="string"],select:visible,textarea:visible', $('form.simple_form:first')).get(0)?.focus()
