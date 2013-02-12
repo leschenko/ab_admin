@@ -59,8 +59,6 @@ $ ->
     $(document).bind 'keydown.alt_right', -> $('a[rel="next"]:first').click()
     $(document).bind 'keydown.alt_s', -> $('#search_form').submit()
 
-
-
 #    $('form .region_ac').regionAc()
 #    new NestedFieldsAdder
 #      region_ac: true

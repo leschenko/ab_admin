@@ -23,5 +23,9 @@
           = batch_action_item(item)
           td= id_link(item)
           - table_builder.fields.each do |field|
-            td= admin_pretty_data call_method_or_proc_on(item, field.data)
+            td
+              - if field.options[:editable] && field.data.is_a?(Symbol)
+                = admin_editable item, field.data, field.options[:editable]
+              - else
+                = admin_pretty_data call_method_or_proc_on(item, field.data)
           td.actions= item_index_actions(item)

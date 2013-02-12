@@ -24,7 +24,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   settings :list_form => true
 
   table do
-    field :sku
+    field :sku, :editable => true
     field(:picture) { |item| item_image_link(item) }
     field :name, :sortable => {:column => :id, :default_order => 'desc'}
     field :is_visible

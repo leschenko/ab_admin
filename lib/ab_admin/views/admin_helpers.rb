@@ -19,6 +19,27 @@ module AbAdmin
         end
       end
 
+      def admin_editable(item, attr, options=nil)
+        options = {} unless options.is_a?(Hash)
+        options[:type] ||= case attr.to_s
+                             when /_at$/
+                               'date'
+                             when /^is_/
+                               'select'
+                             when /description|body|content/
+                               'textarea'
+                             else
+                               'text'
+                           end
+        options[:source] ||= {'true' => 'yes', 'false' => 'no'} if options[:type] == 'select'
+        data = {
+            :type => options[:type], :source => options[:source].try(:to_json),
+            :model => resource_class.model_name.singular, :url => resource_path(item),
+            :name => attr, :value => item[attr]
+        }
+        link_to admin_pretty_data(item[attr]), '#', :class => 'editable', :data => data
+      end
+
       def options_for_ckeditor(options = {})
         {:width => 930, :height => 200, :toolbar => 'VeryEasy', :namespace => ''}.update(options)
       end
