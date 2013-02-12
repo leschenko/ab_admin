@@ -93,3 +93,16 @@ end
 Then /^I should not see an error$/ do
   (200..399).should include(page.status_code)
 end
+
+When /^I reload the page$/ do
+  case Capybara::current_driver
+    when :selenium
+      visit page.driver.browser.current_url
+    when :racktest
+      visit [current_path, page.driver.last_request.env['QUERY_STRING']].reject(&:blank?).join('?')
+    when :culerity
+      page.driver.browser.refresh
+    else
+      raise 'unsupported driver, use rack::test or selenium/webdriver'
+  end
+end

@@ -21,7 +21,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #end
 
   #settings :comments => true
-  settings :list_form => true
+  settings :list_edit => true
 
   table do
     field :sku, :editable => true
