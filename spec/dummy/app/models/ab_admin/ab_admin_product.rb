@@ -64,4 +64,9 @@ class AbAdminProduct < AbAdmin::AbstractResource
     #field :map, :as => :map
   end
 
+  show do
+    field :sku
+    field(:price) { |item| "$#{item.price}" }
+  end
+
 end
