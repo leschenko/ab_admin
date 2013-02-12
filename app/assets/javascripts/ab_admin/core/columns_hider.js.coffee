@@ -2,12 +2,16 @@ class window.ColumnsHider
   constructor: ->
     @store_key = 'cols'
     @data_el = $('#columns_hider_data')
-    @data = @getData()
-    @collection_name = $('html').attr('id').replace(/^controller_/, '')
     @column_names = @columnNames()
+    @collection_name = $('html').attr('id').replace(/^controller_/, '')
+    @data = @getData()
+    @initDefaults()
     @initButtons()
     @initHandlers()
     @refreshColumns()
+
+  initDefaults: ->
+    @data
 
   setData: ->
     res = {}
@@ -22,6 +26,10 @@ class window.ColumnsHider
       data[k] = []
       _.each v.split('_'), (el) ->
         data[k].push to_i(el) if el
+    unless data[@collection_name]
+      data[@collection_name] = []
+      for col, i in @column_names
+        data[@collection_name].push(i) if col.disabled
     data
 
   fetchData: ->
@@ -36,15 +44,15 @@ class window.ColumnsHider
 
   initButtons: ->
     @data_el.empty()
-    for name, i in @column_names
+    for col, i in @column_names
       css_class = if _.include(@data[@collection_name], i) then 'active' else ''
-      html = "<button class='btn btn-primary #{css_class}' data-val='#{i}'>#{name}</button>"
+      html = "<button class='btn btn-primary #{css_class}' data-val='#{i}'>#{col.name}</button>"
       @data_el.append(html)
 
   columnNames: ->
     _.map $('#list th'), (el) ->
       $el = $(el)
-      $.trim($el.text().replace(/[▼▲]/g, ''))
+      {disabled: $el.hasClass('hide_cell'), name: $.trim($el.text().replace(/[▼▲]/g, ''))}
 
   initHandlers: ->
     $('#submit_columns_hider').click =>
