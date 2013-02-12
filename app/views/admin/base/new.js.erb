@@ -5,4 +5,4 @@
 $('#<%= form_wrap_id %>').remove();
 $('#list tbody').prepend('<%= j html %>');
 $('#<%= form_wrap_id %> td').attr('colspan', $('#list tr:first th').length);
-$(document).trigger('admin:form_init')
+$('#<%= form_wrap_id %> form').trigger('admin:form_init');

@@ -36,6 +36,7 @@ $ ->
   $(document).on 'admin:form_init', 'form', (e) ->
     focusInput($(this))
     initEditor()
+    initFancySelect()
     inputSetToggle()
 
   $(document).on 'pjax:end', ->
@@ -48,7 +49,7 @@ $ ->
     $el.find('td a.resource_id_link').click()
 
 
-  initChosen()
+  initFancySelect()
   #  initAcFileds()
   if window.gon?.bg_color
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
@@ -64,5 +65,5 @@ $ ->
 #      region_ac: true
 #      callback: ->
 #        initPickers()
-#        initChosen()
+#        initFancySelect()
 #        initEditor()

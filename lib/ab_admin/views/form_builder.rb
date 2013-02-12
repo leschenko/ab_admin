@@ -18,7 +18,7 @@ module AbAdmin
       def input(attribute_name, options = {}, &block)
         if options[:fancy]
           options[:input_html] ||= {}
-          options[:input_html][:class] = "#{options[:input_html][:class]} do_chosen"
+          options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end
 
         case options[:as]

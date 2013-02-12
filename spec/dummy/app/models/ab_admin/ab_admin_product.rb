@@ -36,7 +36,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :sku
     field :name
     field :is_visible
-    field :collection
+    field :collection, :fancy => true
     field :created_at
   end
 
@@ -55,7 +55,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :price
     end
     field :is_visible
-    field :collection, :as => :association
+    field :collection, :as => :association, :fancy => true
     locale_tabs do
       field :name
       field :description

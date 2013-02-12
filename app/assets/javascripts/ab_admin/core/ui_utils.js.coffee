@@ -15,14 +15,19 @@ window.initPopover = ->
   $('.popover').hide()
   $('a[rel=popover]').popover({trigger: 'hover'})
 
-window.initChosen = ->
+window.initFancySelect = ->
   return if gon.test
-  chosen_options =
-    allow_single_deselect: true
-    no_results_text: I18n.t('admin_js.no_results')
-    placeholder_text_single: ' '
-    placeholder_text_multiple: ' '
-  $('form .do_chosen, .without_form.do_chosen, form .do_chosen_multi').chosen(chosen_options)
+  options =
+    formatNoMatches: -> I18n.t('admin_js.no_results')
+    placeholder: ' '
+    width: 'resolve'
+  $('form .fancy_select, .without_form.fancy_select, form .fancy_select_multi').select2(options)
+#  chosen_options =
+#    allow_single_deselect: true
+#    no_results_text: I18n.t('admin_js.no_results')
+#    placeholder_text_single: ' '
+#    placeholder_text_multiple: ' '
+#  $('form .do_chosen, .without_form.do_chosen, form .do_chosen_multi').chosen(chosen_options)
 
 window.initAcFileds = ->
   for el in $('.ac_field')

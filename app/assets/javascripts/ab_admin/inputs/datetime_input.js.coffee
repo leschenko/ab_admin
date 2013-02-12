@@ -20,4 +20,4 @@ $ ->
 
   $('.simple_form').bind "nested:fieldAdded", =>
     initPickers()
-    initChosen()
+    initFancySelect()

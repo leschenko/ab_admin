@@ -21,7 +21,11 @@ module AbAdmin
           else
             opts = options_for_select(options[:collection], params[:q][param])
           end
-          select_tag("q[#{param}]", opts, (options[:html_options] || {}).merge(:include_blank => true, :class => 'do_chosen', :id => "q_#{attr}"))
+          options[:html_options] ||= {}
+          if options[:fancy] || !options.has_key?(:fancy)
+            options[:html_options][:class] = [options[:html_options][:class], 'fancy_select'].join(' ')
+          end
+          select_tag("q[#{param}]", opts, options[:html_options].merge(:include_blank => true, :id => "q_#{attr}"))
         end
       end
 
