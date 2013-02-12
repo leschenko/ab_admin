@@ -14,7 +14,6 @@
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales/ru
 //= require bootstrap-editable-inline
-//q= require chosen
 //= require select2
 //= require jquery.ui.nestedSortable
 //= require ab_admin/components/sortable_tree
