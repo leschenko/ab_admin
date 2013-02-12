@@ -1,8 +1,10 @@
 <%
+  el_id = dom_id(resource, 'list')
   form_wrap_id = dom_id(resource, 'list_edit')
   html = %[<tr id="#{form_wrap_id}" class="warning"><td>#{render('form')}</td></tr>].html_safe
 %>
 $('#<%= form_wrap_id %>').remove();
-$('#<%= dom_id(resource, 'list') %>').after('<%= j html %>');
+$('#<%= el_id %>').after('<%= j html %>');
 $('#<%= form_wrap_id %> td').attr('colspan', $('#list tr:first th').length);
-$(document).trigger('admin:form_init')
+$('#<%= form_wrap_id %> form').trigger('admin:form_init');
+$('#<%= el_id %>').scrollToEl();

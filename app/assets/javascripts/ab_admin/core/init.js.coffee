@@ -33,8 +33,8 @@ $ ->
     $(document).trigger('admin:form_init')
 
 
-  $(document).on 'admin:form_init', (e) ->
-    focusInput()
+  $(document).on 'admin:form_init', 'form', (e) ->
+    focusInput($(this))
     initEditor()
     inputSetToggle()
 

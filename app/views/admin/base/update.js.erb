@@ -4,3 +4,4 @@
 %>
 $('#<%= form_wrap_id %>').remove();
 $('#<%= dom_id(resource, 'list') %>').replaceWith('<%= j html %>');
+$('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl()

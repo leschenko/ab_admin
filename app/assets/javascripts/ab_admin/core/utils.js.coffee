@@ -68,6 +68,9 @@ $.fn.loadSelect = (optionsDataArray) ->
         else
           selectElement.add option, null
 
+$.fn.scrollToEl = ->
+  $('html, body').animate({scrollTop: $(this).offset().top}, 'slow')
+
 $.parseQuery = ->
   window.location.search.replace("?", "").parseQuery()
 
