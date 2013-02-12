@@ -25,6 +25,7 @@ gem 'bootstrap-sass', '2.0.4'
 gem 'will_paginate', '>= 3.0.3'
 gem 'bootstrap-wysihtml5-rails'
 gem 'will_paginate-bootstrap', '0.2.1'
+gem 'bootstrap-x-editable-rails'
 gem 'gon'
 gem 'i18n-js'
 
