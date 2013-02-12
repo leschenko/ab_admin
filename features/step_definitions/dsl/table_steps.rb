@@ -2,9 +2,9 @@ Given /^a product with sku "(.*?)"$/ do |sku|
   @product = FactoryGirl.create(:product, :sku => sku)
 end
 
-Given /^products exists with attributes:$/ do |products|
+Given /^products? exists with attributes:$/ do |products|
   products.hashes.each do |attrs|
-    FactoryGirl.create(:full_product, attrs)
+    @product = FactoryGirl.create(:full_product, attrs)
   end
 end
 

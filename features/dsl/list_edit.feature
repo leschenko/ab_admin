@@ -5,7 +5,7 @@ Feature: Editing records in the list
     Given I am logged in
     And a product with sku "sofa-12"
     And a configuration of:
-    """
+      """
       class AbAdminProduct < AbAdmin::AbstractResource
         settings :list_edit => true
       end

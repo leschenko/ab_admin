@@ -13,6 +13,10 @@ module AbAdmin
       def form_builder
         manager.form ||= ::AbAdmin::Config::Form.default_for_model(resource_class, :skip => [:id, :created_at, :updated_at, :lft, :rgt, :depth])
       end
+
+      def show_builder
+        manager.show ||= ::AbAdmin::Config::Show.default_for_model(resource_class)
+      end
     end
   end
 end

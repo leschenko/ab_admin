@@ -57,6 +57,20 @@ module AbAdmin
       end
     end
 
+    class Show < BaseBuilder
+      self.partial_name = 'show_table'
+
+      def self.default_for_model(model, options={})
+        new.tap do |builder|
+          model.new.attributes.each_key do |attr|
+            column_name = attr.to_sym
+            next if options[:skip].try(:include?, column_name)
+            builder.field(column_name)
+          end
+        end
+      end
+    end
+
     class FieldGroup < BaseBuilder
       def title
         options[:title].is_a?(Symbol) ? I18n.t(options[:title], :scope => [:admin, :form]) : options[:title]

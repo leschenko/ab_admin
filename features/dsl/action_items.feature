@@ -24,7 +24,7 @@ Feature: Actions items
     Then I should see action items:
       | Create | Review | Remove |
 
-    When I am on the show admin product page
+    When I am on the the admin product page
     Then I should see action items:
       | Create | Edit | Remove |
 
@@ -47,7 +47,7 @@ Feature: Actions items
         end
       end
       """
-    When I am on the show admin product page
+    When I am on the the admin product page
     Then I should see an action item to "Main page"
 
   Scenario: Conditional action item
@@ -59,7 +59,7 @@ Feature: Actions items
         end
       end
       """
-    When I am on the show admin product page
+    When I am on the the admin product page
     Then I should see an action item to "Secret link"
 
     When I am on the edit admin product page
@@ -75,5 +75,5 @@ Feature: Actions items
         action_item :destroy, false
       end
       """
-    When I am on the show admin product page
+    When I am on the the admin product page
     Then I should not see an action item to "Remove"

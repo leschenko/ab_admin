@@ -1,0 +1,7 @@
+- if tmpl = admin_partial_name(show_builder)
+  = render tmpl
+- else
+  - show_builder.fields.each do |field|
+    tr
+      td= ha(field.name)
+      td= admin_pretty_data call_method_or_proc_on(resource, field.data)

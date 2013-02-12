@@ -5,7 +5,7 @@ Feature: In place edit
     Given I am logged in
     And a product with sku "sofa-12"
     And a configuration of:
-    """
+      """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
           field :sku, :editable => true

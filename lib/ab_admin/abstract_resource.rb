@@ -6,7 +6,7 @@ module AbAdmin
 
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
-    attr_accessor :table, :search, :export, :form, :preview_path, :actions, :settings, :custom_settings,
+    attr_accessor :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer
 
     def initialize
@@ -40,6 +40,10 @@ module AbAdmin
 
       def form(options={}, &block)
         instance.form = ::AbAdmin::Config::Form.new(options, &block)
+      end
+
+      def show(options={}, &block)
+        instance.show = ::AbAdmin::Config::Show.new(options, &block)
       end
 
       def preview_path(value=nil, &block)
