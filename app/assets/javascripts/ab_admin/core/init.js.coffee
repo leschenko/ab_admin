@@ -45,8 +45,7 @@ $ ->
 
   $(document).on 'dblclick', '#list tbody tr', (e) ->
     e.preventDefault()
-    $el = $(this)
-    $el.find('td a.resource_id_link').click()
+    $(this).find('td a.resource_id_link').toHref()
 
 
   initFancySelect()
@@ -55,9 +54,9 @@ $ ->
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
 
   if window.gon?.hotkeys
-    $(document).bind 'keydown.alt_n', -> $('a.new_resource:first').click()
-    $(document).bind 'keydown.alt_left', -> $('a[rel^="prev"]:first').click()
-    $(document).bind 'keydown.alt_right', -> $('a[rel="next"]:first').click()
+    $(document).bind 'keydown.alt_n', -> $('a.new_resource:first').toHref()
+    $(document).bind 'keydown.alt_left', -> $('a[rel^="prev"]:first').toHref()
+    $(document).bind 'keydown.alt_right', -> $('a[rel="next"]:first').toHref()
     $(document).bind 'keydown.alt_s', -> $('#search_form').submit()
 
 #    $('form .region_ac').regionAc()

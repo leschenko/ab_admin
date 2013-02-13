@@ -21,6 +21,10 @@ module AbAdmin
         scope :with_position, proc {|position_type| where(:position => position_type.id).order('lft DESC') }
       end
 
+      def redirect?
+        kind == StructureType.redirect.id
+      end
+
     end
   end
 end

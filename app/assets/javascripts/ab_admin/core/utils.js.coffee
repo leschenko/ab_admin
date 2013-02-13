@@ -71,6 +71,13 @@ $.fn.loadSelect = (optionsDataArray) ->
 $.fn.scrollToEl = ->
   $('html, body').animate({scrollTop: $(this).offset().top}, 'slow')
 
+$.fn.toHref = ->
+  $el = $(this)
+  if _.isEmpty($el.data())
+    window.location.href = $el.attr('href')
+  else
+    $el.click()
+
 $.parseQuery = ->
   window.location.search.replace("?", "").parseQuery()
 

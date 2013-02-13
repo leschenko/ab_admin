@@ -18,7 +18,7 @@ $ ->
         $form.append("<input type='checkbox' name='ids[]' checked='1' value='#{id}'/>") for id in ids
         $form.submit()
 
-    $('#list tbody tr').live 'click', (e) ->
+    $(document).on 'click', '#list tbody tr', (e) ->
       return true unless _.include(['TR', 'TD'], e.target.tagName)
       e.preventDefault()
       e.stopPropagation()
@@ -26,9 +26,6 @@ $ ->
       $el.closest('tr').toggleClass('active_row')
       $el.find('td:first input').attr 'checked', (i, v) -> !v
 
-    $('.batch_action_link').live
-      click: (e) ->
-        e.preventDefault()
-        submitBatch(this)
-      'confirm:success': ->
-        submitBatch(this)
+    $(document).on 'click confirm:success', '.batch_action_link', (e) ->
+      e.preventDefault()
+      submitBatch(this)

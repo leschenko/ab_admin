@@ -10,6 +10,7 @@ class StaticPage < ActiveRecord::Base
 
   enumerated_attribute :static_page_type, :id_attribute => :kind
 
+  fileuploads :pictures, :attachment_files
   translates :title, :content
   attr_accessible *all_translated_attribute_names
 
