@@ -6,11 +6,6 @@ module AbAdmin
 
       source_root File.expand_path('../templates', __FILE__)
 
-      # copy views
-      def copy_views
-        directory 'views', 'app/views'
-      end
-
       # copy uploaders
       def copy_uploaders
         directory 'uploaders', 'app/uploaders'
