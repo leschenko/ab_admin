@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     post 'translate' => AbAdmin::I18nTools::TranslateApp
 
     controller 'manager' do
-      scope ':model_name' do
+      scope '(/:parent_resource/:parent_id)/:model_name' do
         get '/', :to => :index, :as => 'index'
         post '/', :to => :create, :as => 'create'
         get '/new', :to => :new, :as => 'new'

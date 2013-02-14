@@ -10,6 +10,20 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   protected
 
+  def begin_of_association_chain
+    if params[:parent_resource] && params[:parent_id]
+      find_parent_resource(params[:parent_resource].singularize.to_sym, params[:parent_id])
+    end
+  end
+
+  def find_parent_resource(assoc_name, r_id)
+    parent_config = manager.parent_resources.detect{|conf| conf.name == assoc_name }
+    return unless parent_config
+    assoc = resource_class.reflect_on_association(parent_config.name)
+    return unless assoc
+    @parent = assoc.klass.find(r_id)
+  end
+
   def tree_node_renderer
     manager.tree_node_renderer || super
   end

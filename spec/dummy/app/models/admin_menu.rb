@@ -1,5 +1,7 @@
 class AdminMenu < AbAdmin::MenuBuilder
   draw do
+    model Collection
+
     model User
     group :system do
       model Structure

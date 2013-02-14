@@ -7,7 +7,8 @@ module AbAdmin
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
 
     attr_accessor :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
-                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer
+                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
+                  :parent_resources
 
     def initialize
       @actions = ACTIONS
@@ -16,6 +17,7 @@ module AbAdmin
       @disabled_action_items = []
       @default_action_items_for = {}
       @action_items_for = {}
+      @parent_resources = []
       @model = self.class.name.sub('AbAdmin', '').safe_constantize
       add_admin_addition_to_model
     end
@@ -92,6 +94,10 @@ module AbAdmin
 
       def tree(&block)
         instance.tree_node_renderer = block
+      end
+
+      def belongs_to(name, options={})
+        instance.parent_resources << OpenStruct.new(:name => name, :options => options)
       end
     end
 

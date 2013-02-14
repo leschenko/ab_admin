@@ -27,6 +27,9 @@ module NavigationHelpers
       when /the admin product page/
         "/admin/products/#{@product.id}"
 
+      when /the collection products page/
+        "/admin/collections/#{@collection.id}/products"
+
       when /the edit admin settings page/
         '/admin/settings/edit'
 

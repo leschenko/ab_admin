@@ -23,6 +23,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #settings :comments => true
   settings :list_edit => true
 
+  belongs_to :collection
+
   table do
     field :sku, :editable => true
     field(:picture) { |item| item_image_link(item) }
