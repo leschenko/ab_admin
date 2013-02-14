@@ -96,6 +96,7 @@ module AbAdmin
   module I18nTools
     autoload :TranslateApp, 'ab_admin/i18n_tools/translate_app'
     autoload :GoogleTranslate, 'ab_admin/i18n_tools/google_translate'
+    autoload :ModelTranslator, 'ab_admin/i18n_tools/model_translator'
   end
 
   module Generators
@@ -124,6 +125,9 @@ module AbAdmin
 
   mattr_accessor :display_name_methods
   @@display_name_methods = [:title, :name, :full_name]
+
+  mattr_accessor :translate_models
+  @@translate_models = %w(User Asset Structure StaticPage Header AdminComment)
 
   extend Utils
 

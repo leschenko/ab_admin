@@ -145,6 +145,7 @@ ru:
     navigation: 
       system: "Система"
       users: "Пользователи"
+      dashboard: "Dashboard"
     no_results_text: "Ничего не найдено"
     permissions: 
       actions: 
