@@ -1,8 +1,11 @@
 class window.GeoInput
+  @default_lat = 55.7427928
+  @default_lon = 55.7427928
+
   constructor: (@dom_lat, @dom_lon, @dom_zoom, @options={}) ->
     defaults =
-      lat: 55.7427928
-      lon: 37.61540089999994
+      lat: GeoInput.default_lat
+      lon: GeoInput.default_lon
       zoom: 12
       doom_map: 'admin_map'
       types: ['geocode']

@@ -15,17 +15,24 @@ module AbAdmin
       def select_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, :class => 'controls') do
           param = "#{options[:value_attr] || attr}_eq"
-          options[:collection] ||= []
-          if options[:collection].first.try(:respond_to?, :id)
-            opts = options_from_collection_for_select(options[:collection], :id, :title, params[:q][param])
+
+          if options[:collection].is_a?(Proc)
+            collection = options[:collection].call
           else
-            opts = options_for_select(options[:collection], params[:q][param])
+            collection = options[:collection] || []
           end
+
+          if collection.first.try(:respond_to?, :id)
+            collection.map!{|r| [AbAdmin.display_name(r), r.id] }
+          end
+
           options[:html_options] ||= {}
           if options[:fancy] || !options.has_key?(:fancy)
             options[:html_options][:class] = [options[:html_options][:class], 'fancy_select'].join(' ')
           end
-          select_tag("q[#{param}]", opts, options[:html_options].merge(:include_blank => true, :id => "q_#{attr}"))
+
+          html_options = options[:html_options].merge(:include_blank => true, :id => "q_#{attr}")
+          select_tag("q[#{param}]", options_for_select(collection, params[:q][param]), html_options)
         end
       end
 
