@@ -13,7 +13,7 @@ module Admin::StructuresHelper
       when StructureType.main
         '#'
       when StructureType.redirect
-        edit_admin_structure_path(item)
+        edit_admin_structure_path(structure)
       when StructureType.group
         '#'
       else

@@ -2,7 +2,11 @@
 ru: 
   _no: "Нет"
   _yes: "Да"
-  admin: 
+  activerecord:
+    models:
+      locator: "Переводы"
+      settings: "Настройки"
+  admin:
     actions: 
       activate: 
         link: "Активировать"
@@ -142,7 +146,7 @@ ru:
       translate_incomplete: "Перевести все пустые (google)"
     main_image: "Сделать главным"
     max_size: "Макс разм."
-    navigation: 
+    navigation:
       system: "Система"
       users: "Пользователи"
       dashboard: "Dashboard"

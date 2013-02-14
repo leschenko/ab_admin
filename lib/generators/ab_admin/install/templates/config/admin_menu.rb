@@ -3,8 +3,8 @@ class AdminMenu < AbAdmin::MenuBuilder
     model User
     group :system do
       model Structure
-      model Locator
-      model Settings, :url => edit_admin_settings_path
+      link Locator.model_name.human, '/admin/locators'
+      link Settings.model_name.human, edit_admin_settings_path
     end
   end
 end

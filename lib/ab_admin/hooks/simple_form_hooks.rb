@@ -1,4 +1,4 @@
-require 'simple_form'
+#require 'simple_form'
 
 #module WrappedButton
 #  def wrapped_button(*args, &block)
@@ -17,15 +17,15 @@ require 'simple_form'
 #  end
 #end
 #SimpleForm::FormBuilder.send :include, WrappedButton
-
-::SimpleForm::Inputs::CollectionRadioButtonsInput.class_exec do
-  def item_wrapper_class
-    "radio #{options.delete(:item_wrapper_class)}"
-  end
-end
-
-::SimpleForm::Inputs::CollectionCheckBoxesInput.class_exec do
-  def item_wrapper_class
-    "radio #{options.delete(:item_wrapper_class)}"
-  end
-end
+#
+#::SimpleForm::Inputs::CollectionRadioButtonsInput.class_exec do
+#  def item_wrapper_class
+#    "radio #{options.delete(:item_wrapper_class) || 'inline'}"
+#  end
+#end
+#
+#::SimpleForm::Inputs::CollectionCheckBoxesInput.class_exec do
+#  def item_wrapper_class
+#    "radio #{options.delete(:item_wrapper_class) || 'inline'}"
+#  end
+#end

@@ -3,6 +3,13 @@ module AbAdmin
     module Locator
       extend ActiveSupport::Concern
 
+      included do
+        extend ActiveModel::Naming
+        extend ActiveRecord::Translation
+        class_attribute :base_class
+        self.base_class = self
+      end
+
       module ClassMethods
         def find_files
           Dir[Rails.root.join('config', 'locales', '*.yml')]
