@@ -33,18 +33,19 @@ Rails.application.routes.draw do
 
     controller 'manager' do
       scope '(/:parent_resource/:parent_id)/:model_name' do
-        get '/', :to => :index, :as => 'index'
-        post '/', :to => :create, :as => 'create'
         get '/new', :to => :new, :as => 'new'
         post '/batch', :to => :batch, :as => 'batch'
         post '/rebuild', :to => :rebuild, :as => 'rebuild'
 
         scope ':id' do
-          get '/', :to => :show, :as => 'show'
           get '/edit', :to => :edit, :as => 'edit'
+          get '/', :to => :show, :as => 'show'
           put '/', :to => :update, :as => 'update'
           delete '/', :to => :destroy, :as => 'destroy'
         end
+
+        get '/', :to => :index, :as => 'index'
+        post '/', :to => :create, :as => 'create'
       end
     end
 

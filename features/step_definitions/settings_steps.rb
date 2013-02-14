@@ -3,5 +3,5 @@ Then /^the "(.*?)" setting should be true$/ do |setting|
 end
 
 Then /^the "(.*?)" setting should be equal "(.*?)"$/ do |setting, value|
-  configatron.to_hash.val(*setting.split('.').map(&:to_sym)).should == YAML.load(value)
+  configatron.to_hash.val(*setting.split('.').map(&:to_sym)).should == YAML.load(value.to_s)
 end

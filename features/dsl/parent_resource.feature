@@ -1,4 +1,4 @@
-@dsl @wip
+@dsl
 Feature: Scope view to parent resource
 
   Background:
@@ -10,7 +10,7 @@ Feature: Scope view to parent resource
     And a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        belongs_to :collection
+        belongs_to :collection, :user
       end
       """
     Then I am on the collection products page

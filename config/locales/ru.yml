@@ -274,7 +274,8 @@ ru:
     no_results: "Ничего не найдено"
     search: "Идет поиск..."
     value: "Значение"
-  attributes: 
+  attributes:
+    map: "Местоположение"
     address: "Адрес"
     country: "Страна"
     country_id: "Страна"

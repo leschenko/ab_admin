@@ -96,8 +96,11 @@ module AbAdmin
         instance.tree_node_renderer = block
       end
 
-      def belongs_to(name, options={})
-        instance.parent_resources << OpenStruct.new(:name => name, :options => options)
+      def belongs_to(*args)
+        options = args.extract_options!
+        args.each do |name|
+          instance.parent_resources << OpenStruct.new(:name => name, :options => options)
+        end
       end
     end
 
