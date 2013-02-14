@@ -127,7 +127,7 @@ module AbAdmin
     end
 
     def resource_action_items
-      @resource_action_items ||= [:edit, :show, :destroy, :preview]
+      @resource_action_items ||= [:edit, :show, :destroy, :preview] & @actions
     end
 
   end
