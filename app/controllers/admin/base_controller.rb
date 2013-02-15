@@ -9,14 +9,14 @@ class Admin::BaseController < ::InheritedResources::Base
   before_filter :authenticate_user!, :require_moderator
   before_filter :add_breadcrumbs, :set_title, :set_user_vars, :unless => :xhr?
 
-  class_attribute :csv_builder, :batch_action_list, :instance_reader => false, :instance_writer => false
+  class_attribute :export_builder, :batch_action_list, :instance_reader => false, :instance_writer => false
   self.batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
 
   has_scope :ids, :type => :array
 
   helper_method :admin?, :moderator?
 
-  helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :csv_builder,
+  helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer
 
   respond_to :json, :only => [:index, :update]
@@ -98,10 +98,6 @@ class Admin::BaseController < ::InheritedResources::Base
     self.class.batch_action_list
   end
 
-  def export_options
-    {:column_names => csv_builder.columns.map(&:name), :column_data => csv_builder.columns.map(&:data), :column_separator => csv_builder.column_separator}
-  end
-
   def self.inherited(base)
     super
     base.class_eval do
@@ -114,12 +110,16 @@ class Admin::BaseController < ::InheritedResources::Base
     {:errors => resource.errors.full_messages.map { |m| "<br/> - #{m}" }.join.html_safe}
   end
 
-  def self.csv(options={}, &block)
-    self.csv_builder = ::AbAdmin::Utils::CSVBuilder.new(options, &block)
+  def self.export(options={}, &block)
+    self.export_builder = ::AbAdmin::Config::Export.new(options, &block)
   end
 
-  def csv_builder
-    self.class.csv_builder ||= ::AbAdmin::Utils::CSVBuilder.default_for_resource(resource_class)
+  def export_builder
+    self.class.export_builder ||= ::AbAdmin::Config::Export.default_for_model(resource_class)
+  end
+
+  def export_options
+    export_builder.render_options
   end
 
   def set_title
