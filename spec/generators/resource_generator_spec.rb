@@ -29,7 +29,7 @@ describe AbAdmin::Generators::ResourceGenerator do
     assert_file 'app/views/admin/headers/_table.html.slim',
                 /table/, /collection\.each/, /batch_action_item/, /td/, /item_index_actions/
     assert_file 'app/views/admin/headers/_search_form.html.slim',
-                /f\.input :translations_title, :label => ha\(:title\)/, /f\.input :created_at/
+                /f\.input :title/, /f\.input :created_at/
     assert_file 'app/helpers/admin/headers_helper.rb', /Admin::HeadersHelper/
   end
 
