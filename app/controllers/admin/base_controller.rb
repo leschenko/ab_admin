@@ -171,14 +171,17 @@ class Admin::BaseController < ::InheritedResources::Base
   def add_breadcrumbs
     @breadcrumbs = []
     if parent?
-      @breadcrumbs << {:name => parent_class.model_name.human(:count => 9),
-                       :url => {:action => :index, :controller => "admin/#{parent_class.model_name.plural}"}}
+      @breadcrumbs << {:name => parent_class.model_name.human(:count => 9), :url => parent_collection_path}
       @breadcrumbs << {:name => AbAdmin.display_name(parent), :url => parent_path}
     end
     @breadcrumbs << {:name => resource_class.model_name.human(:count => 9), :url => collection_path}
     if params[:id]
       @breadcrumbs << {:name => AbAdmin.display_name(resource), :url => resource_path}
     end
+  end
+
+  def parent_collection_path
+    {:action => :index, :controller => "admin/#{parent_class.model_name.plural}"}
   end
 
   def tree_node_renderer

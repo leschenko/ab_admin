@@ -19,17 +19,40 @@ class ::Admin::ManagerController < ::Admin::BaseController
   protected
 
   def begin_of_association_chain
-    if params[:parent_resource] && params[:parent_id]
-      find_parent_resource(params[:parent_resource].singularize.to_sym, params[:parent_id])
+    parent
+  end
+
+  def parent
+    return @parent if defined?(@parent)
+    @parent = begin
+      return if !params[:parent_resource] && !params[:parent_id]
+      assoc_name, r_id = params[:parent_resource].singularize.to_sym, params[:parent_id]
+      parent_config = manager.parent_resources.detect { |conf| conf.name == assoc_name }
+      return unless parent_config
+      assoc = resource_class.reflect_on_association(parent_config.name)
+      return unless assoc
+      assoc.klass.find(r_id)
     end
   end
 
-  def find_parent_resource(assoc_name, r_id)
-    parent_config = manager.parent_resources.detect{|conf| conf.name == assoc_name }
-    return unless parent_config
-    assoc = resource_class.reflect_on_association(parent_config.name)
-    return unless assoc
-    @parent = assoc.klass.find(r_id)
+  def parent?
+    !!parent
+  end
+
+  def parent_type
+    parent.class.name.underscore.to_sym
+  end
+
+  def parent_class
+    parent.class
+  end
+
+  def parent_path
+    "/admin/#{parent_class.model_name.plural}/#{parent.id}"
+  end
+
+  def parent_collection_path
+    "/admin/#{parent_class.model_name.plural}"
   end
 
   def tree_node_renderer
@@ -120,12 +143,12 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def edit_resource_path(record=nil, options={})
     record ||= resource
-    admin_edit_path(options.merge(:model_name => resource_collection_name, :id => record.id))
+    admin_edit_path(options.merge(:model_name => record.class.model_name.plural, :id => record.id))
   end
 
   def resource_path(record=nil, options={})
     record ||= resource
-    admin_show_path(options.merge(:model_name => resource_collection_name, :id => record.id))
+    admin_show_path(options.merge(:model_name => record.class.model_name.plural, :id => record.id))
   end
 
   def self.cancan_resource_class
