@@ -4,11 +4,11 @@ module AbAdmin
 
     include Singleton
 
-    ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild] unless self.const_defined?(:ACTIONS)
+    ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action] unless self.const_defined?(:ACTIONS)
 
     attr_accessor :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
-                  :parent_resources
+                  :parent_resources, :custom_actions
 
     def initialize
       @actions = ACTIONS
@@ -18,6 +18,7 @@ module AbAdmin
       @default_action_items_for = {}
       @action_items_for = {}
       @parent_resources = []
+      @custom_actions = []
       @model = self.class.name.sub('AbAdmin', '').safe_constantize
       add_admin_addition_to_model
     end
@@ -102,6 +103,14 @@ module AbAdmin
           instance.parent_resources << OpenStruct.new(:name => name, :options => options)
         end
       end
+
+      def member_action(name, options={}, &block)
+        instance.custom_actions << AbAdmin::Config::CustomAction.new(name, options, &block)
+      end
+
+      def collection_action(name, options={}, &block)
+        instance.custom_actions << AbAdmin::Config::CustomAction.new(name, options.merge(:collection => true), &block)
+      end
     end
 
     def export
@@ -128,6 +137,12 @@ module AbAdmin
 
     def resource_action_items
       @resource_action_items ||= [:edit, :show, :destroy, :preview] & @actions
+    end
+
+    def custom_action_for(name, context)
+      custom_action = @custom_actions.detect { |a| a.name == name.to_sym }
+      raise "No allowed custom action found #{name}" if !custom_action || !custom_action.for_context?(context)
+      custom_action
     end
 
   end

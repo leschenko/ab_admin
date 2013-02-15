@@ -28,7 +28,7 @@
 -%>
 <% translated_columns.each do |col| -%>
 <% next if [:description].include?(col.to_sym) -%>
-= f.input :translations_<%= col -%>, :label => ha(:<%= col -%>)
+= f.input :<%= col %>
 <% end -%>
 <% model.columns_hash.except('id', 'slug').each do |key, col| -%>
 <%= input_by_col(key, col) %>

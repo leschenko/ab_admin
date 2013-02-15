@@ -8,6 +8,14 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   helper_method :manager, :admin_partial_name
 
+  def custom_action
+    custom_action = manager.custom_action_for(params[:custom_action], self)
+    if custom_action.options[:method] && custom_action.options[:method] != request.method_symbol
+      raise ActionController::RoutingError.new("AbAdmin custom action for #{params[:custom_action]} not found")
+    end
+    instance_exec(&custom_action.data)
+  end
+
   protected
 
   def begin_of_association_chain

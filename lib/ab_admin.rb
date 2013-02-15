@@ -24,6 +24,7 @@ module AbAdmin
     autoload :Field, 'ab_admin/config/base'
     autoload :BatchAction, 'ab_admin/config/base'
     autoload :ActionItem, 'ab_admin/config/base'
+    autoload :CustomAction, 'ab_admin/config/base'
     autoload :OptionalDisplay, 'ab_admin/config/optional_display'
   end
 

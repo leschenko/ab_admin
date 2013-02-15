@@ -17,6 +17,15 @@ module AbAdmin
       def show_builder
         manager.show ||= ::AbAdmin::Config::Show.default_for_model(resource_class)
       end
+
+      def action_item_admin_path(name)
+        custom_action = manager.custom_action_for(name, self)
+        if custom_action.collection?
+          admin_collection_action_path(:model_name => resource_collection_name, :custom_action => custom_action.name)
+        else
+          admin_member_action_path(:model_name => resource_collection_name, :id => resource.id, :custom_action => custom_action.name)
+        end
+      end
     end
   end
 end

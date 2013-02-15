@@ -75,6 +75,12 @@ Given /^I add "([^"]*)" to the "([^"]*)" model$/ do |code, model_name|
   ActiveSupport::Dependencies.clear
 end
 
+Given /^I should see routing error when follow "([^"]*)"$/ do |link|
+  expect {
+    click_link(link)
+  }.to raise_error(ActionController::RoutingError)
+end
+
 Given /^I should see routing error on (.+)$/ do |page_name|
   expect {
     visit path_to(page_name)

@@ -36,9 +36,11 @@ Rails.application.routes.draw do
         get '/new', :to => :new, :as => 'new'
         post '/batch', :to => :batch, :as => 'batch'
         post '/rebuild', :to => :rebuild, :as => 'rebuild'
+        match '/custom_action', :to => :custom_action, :as => 'collection_action'
 
         scope ':id' do
           get '/edit', :to => :edit, :as => 'edit'
+          match '/custom_action', :to => :custom_action, :as => 'member_action'
           get '/', :to => :show, :as => 'show'
           put '/', :to => :update, :as => 'update'
           delete '/', :to => :destroy, :as => 'destroy'

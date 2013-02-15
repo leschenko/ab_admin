@@ -126,5 +126,23 @@ module AbAdmin
         normalize_display_options!
       end
     end
+
+    class CustomAction
+      include AbAdmin::Config::OptionalDisplay
+
+      attr_reader :name, :options, :data
+
+      def initialize(name, options={}, &block)
+        raise 'Can not create member action without a block' unless block_given?
+        @name = name
+        @options = options
+        @data = block
+        normalize_display_options!
+      end
+
+      def collection?
+        options[:collection]
+      end
+    end
   end
 end
