@@ -39,9 +39,10 @@ $.fn.ck_val = (v = null) ->
     else
       $el.val()
 
-class GoogleLocaleTabs
+class window.GoogleLocaleTabs
+  @locales = ['ru', 'en', 'it']
   constructor: ->
-    @locales = ['ru', 'en', 'it']
+    @locales = GoogleLocaleTabs.locales
     @limit = 1000
     html = '<div class="t_locales">'
     for l in @locales

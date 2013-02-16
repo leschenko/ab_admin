@@ -3,7 +3,6 @@ class window.GeoInput
   @default_lon = 55.7427928
 
   constructor: (@cont, @options={}) ->
-    log @cont
     @prefix = @cont.attr('id').replace(/_geo_input$/, '')
     defaults =
       lat: GeoInput.default_lat
@@ -101,7 +100,6 @@ class window.GeoInput
 
     @options.geo_ac_options ||= {}
     _.defaults(@options.geo_ac_options, geo_ac_defaults)
-    log @geo_ac_el
     autocomplete = new google.maps.places.Autocomplete(@geo_ac_el[0], @options.geo_ac_options)
     autocomplete.bindTo('bounds', @map)
     google.maps.event.addListener autocomplete, 'place_changed', =>

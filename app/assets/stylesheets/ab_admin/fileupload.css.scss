@@ -2,18 +2,18 @@
   overflow: hidden;
   margin-top: 10px;
   .fileupload-file img {
-    width: 80px;
+    //width: 80px;
   }
-  .bg-bl {
-    background: #d1e6dc;
-    overflow: hidden;
-  }
-  .gr-title {
-    display: block;
-    color: #5b6569;
-    font-size: 1.1em;
-    padding: 20px 20px 15px 20px;
-  }
+  //.bg-bl {
+  //  background: #d1e6dc;
+  //  overflow: hidden;
+  //}
+  //.gr-title {
+  //  display: block;
+  //  color: #5b6569;
+  //  font-size: 1.1em;
+  //  padding: 20px 20px 15px 20px;
+  //}
   .galery {
     display: block;
     overflow: hidden;
@@ -22,8 +22,8 @@
       display: block;
       float: left;
       overflow: hidden;
-      width: 80px;
-      height: 80px;
+      //width: 80px;
+      //height: 80px;
       margin-right: 1px;
       margin-bottom: 1px;
       position: relative;
@@ -57,7 +57,7 @@
 
       //checkbox on pic
       .main_img {
-        background: image_url("main_pic.png") no-repeat;
+        background: image_url("admin/main_pic.png") no-repeat;
       }
     }
   }
@@ -67,19 +67,6 @@
     padding: 0px 20px 0px 20px;
     border-bottom: solid 1px #e7faed;
     position: relative;
-    .r-ill {
-      margin-left: -90px;
-      width: 100%;
-      float: right;
-      .r-ill-data {
-        margin-left: 90px;
-      }
-    }
-    .l-ill {
-      float: left;
-      width: 80px;
-      overflow: hidden;
-    }
     .file-name {
       color: #5b6569;
       font-size: 0.9em;

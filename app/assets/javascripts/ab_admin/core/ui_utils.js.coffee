@@ -89,3 +89,10 @@ window.initFancySelect = ->
           results: data
 
     $el.select2(options)
+
+#    $('#district_location_id').select2("data", {id: 123, text: '123'})
+#    $el.change (data) ->
+#      log data.val
+#    createSearchChoice: (term) ->
+#      log term
+#      {id: 3, text: '123'}
