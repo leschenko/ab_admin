@@ -55,6 +55,7 @@ if gem_adds
   gem 'nested_form', '0.2.2'
   gem 'has_scope'
   gem 'squeel'
+  gem 'fancybox2-rails'
 
   gem_group :development, :test do
     gem 'rspec-rails'

@@ -1,4 +1,4 @@
-<%= content_tag(:div, :class => 'asset ill', :'data-id' => asset.id, :id => "asset_#{asset.id}") do %>
+<%= content_tag(:div, :class => 'asset ill', :id => "asset_#{asset.id}", :data => {:id => asset.id}) do %>
   <%= link_to '', admin_asset_path(asset), :title=>t('admin.delete'), :remote => true, :method => :delete,
               :data => {:confirm => t('admin.delete_confirmation')}, :class => 'del' %>
   <%= link_to image_tag(asset.thumb_url, :title => asset.filename), asset.url, :class => 'fileupload-file fancybox', :rel => 'fancybox' %>

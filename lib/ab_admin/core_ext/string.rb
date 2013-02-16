@@ -55,26 +55,25 @@ class String
     self.tr(keyboard[from], keyboard[to])
   end
 
+  def count_words
+    clean_text.scan(/(\p{Alnum}+([-'.]\p{Alnum}+)*)/u).size
+  end
+
   def words_count
 		frequencies = Hash.new(0)  
 		downcase.scan(/(\w+([-'.]\w+)*)/) { |word, ignore| frequencies[word] += 1 }
-		return frequencies
+		frequencies
 	end
 	
 	def self.randomize(length = 8)
 	  Array.new(length) { (rand(122-97) + 97).chr }.join
   end
 
-end
-
-if Object.const_defined?(:HTMLEntities)
-  require 'htmlentities'
-  class String
-    def clean_text
-      coder = HTMLEntities.new
-      coder.decode(self.no_html)
-    end
+  def clean_text
+    coder = HTMLEntities.new
+    coder.decode(self.no_html)
   end
+
 end
 
 unless ''.respond_to?(:each)
