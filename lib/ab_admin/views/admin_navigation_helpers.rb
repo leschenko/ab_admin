@@ -68,7 +68,7 @@ module AbAdmin
               link_to icon('eye-open', true), path, :class => 'btn btn-small btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
             end
           when AbAdmin::Config::ActionItem
-            instance_exec(&action.data) if action.for_context?(self)
+            instance_exec(item, &action.data) if action.for_context?(self)
           else
             meth = "#{resource_instance_name}_short_action_link"
             send(meth, action, item) if respond_to? meth

@@ -109,7 +109,7 @@ module AbAdmin
 
     def pretty_data(object)
       case object
-        when String, Integer
+        when String, Integer, BigDecimal, Float
           object
         when TrueClass
           '+'
@@ -120,7 +120,7 @@ module AbAdmin
         when NilClass
           ''
         else
-          AbAdmin.safe_display_name(object)
+          AbAdmin.safe_display_name(object) || object
       end
     end
 

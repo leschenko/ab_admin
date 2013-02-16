@@ -60,7 +60,7 @@ module AbAdmin
             ACTIONS - Array(options[:except]).map(&:to_sym)
           else
             actions_to_keep
-          end
+          end << :custom_action
         end.map(&:to_sym)
       end
 

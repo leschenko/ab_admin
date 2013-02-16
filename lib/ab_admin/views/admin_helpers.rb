@@ -75,7 +75,7 @@ module AbAdmin
 
       def admin_pretty_data(object)
         case object
-          when String, Integer
+          when String, Integer, BigDecimal, Float
             object
           when TrueClass, FalseClass
             color_bool(object)
@@ -86,7 +86,7 @@ module AbAdmin
           when ActiveRecord::Base
             admin_show_link(object)
           else
-            AbAdmin.safe_display_name(object)
+            AbAdmin.safe_display_name(object) || object
         end
       end
 

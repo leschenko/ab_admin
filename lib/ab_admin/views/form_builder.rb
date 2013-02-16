@@ -65,7 +65,7 @@ module AbAdmin
             out << template.javascript_include_tag("//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}")
             out << template.label_tag(:geo_autocomplete, I18n.t('admin.geo_autocomplete'))
             out << template.text_field_tag("#{prefix}_geo_autocomplete")
-            out.concat(capture(&block)) if block_given?
+            out.concat(template.capture(&block)) if block_given?
             out << template.content_tag(:div, '', :class => 'admin_map', :id => "#{prefix}_map")
             out << template.init_js("initGeoInput(#{prefix.inspect})")
           end.html_safe
