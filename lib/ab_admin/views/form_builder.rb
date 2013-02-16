@@ -29,7 +29,7 @@ module AbAdmin
             title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
             prefix = options[:prefix] || object.class.model_name.singular
             data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
-            return template.input_set(title) { data_fields + geo_input(prefix) }
+            return template.input_set(title) { data_fields + geo_input(prefix, options[:js_options]) }
         end
 
         attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
@@ -59,17 +59,23 @@ module AbAdmin
         template.render 'admin/shared/save_buttons'
       end
 
-      def geo_input(prefix, &block)
-        template.content_tag :div, :class => 'geo_input' do
-          ''.tap do |out|
-            out << template.javascript_include_tag("//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}")
-            out << template.label_tag(:geo_autocomplete, I18n.t('admin.geo_autocomplete'))
-            out << template.text_field_tag("#{prefix}_geo_autocomplete")
-            out.concat(template.capture(&block)) if block_given?
-            out << template.content_tag(:div, '', :class => 'admin_map', :id => "#{prefix}_map")
-            out << template.init_js("initGeoInput(#{prefix.inspect})")
-          end.html_safe
-        end
+      def geo_input(prefix, js_options={}, &block)
+        input_name = "#{prefix}_geo_ac"
+        js = %Q[$("##{prefix}_geo_input").geoInput(#{js_options.to_json})]
+        input_html = <<-HTML.html_safe
+        <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}" type="text/javascript"></script>
+        <div class="geo_input" id="#{prefix}_geo_input">
+          <div class="control-group">
+            <label class="control-label" for="#{input_name}">#{I18n.t('admin.geo_autocomplete')}</label>
+            <div class="controls">
+              <input type="text" name="#{input_name}" id="#{input_name}" class="geo_ac string">
+            </div>
+          </div>
+          #{template.capture(&block) if block_given?}
+          <div class="controls"><div id="#{prefix}_map" class="admin_map thumbnail"></div></div>
+          #{template.init_js(js)}
+        </div>
+        HTML
       end
 
       def attach_file_field(attribute_name, options = {})

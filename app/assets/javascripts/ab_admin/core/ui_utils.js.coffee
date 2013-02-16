@@ -1,33 +1,9 @@
-window.initGeoInput = (prefix, autocomplete = true) ->
-  opts =
-    prefix: prefix
-    doom_map: "#{prefix}_map"
-    callback: "#{prefix}_geo_callback"
-    map_options:
-      {scrollwheel: false}
-  gmaps = new GeoInput("#{prefix}_lat", "#{prefix}_lon", "#{prefix}_zoom", opts)
-  gmaps.initAutocomplete("#{prefix}_geo_autocomplete") if autocomplete
-
 window.clonePagination = ->
   $('.pagination:first').clone().appendTo($('.batch_actions'))
 
 window.initPopover = ->
   $('.popover').hide()
   $('a[rel=popover]').popover({trigger: 'hover'})
-
-window.initFancySelect = ->
-  return if gon.test
-  options =
-    formatNoMatches: -> I18n.t('admin_js.no_results')
-    placeholder: ' '
-    width: 'resolve'
-  $('form .fancy_select, .without_form.fancy_select, form .fancy_select_multi').select2(options)
-#  chosen_options =
-#    allow_single_deselect: true
-#    no_results_text: I18n.t('admin_js.no_results')
-#    placeholder_text_single: ' '
-#    placeholder_text_multiple: ' '
-#  $('form .do_chosen, .without_form.do_chosen, form .do_chosen_multi').chosen(chosen_options)
 
 window.initAcFileds = ->
   for el in $('.ac_field')
@@ -68,3 +44,48 @@ window.flash = (type, message) ->
 
 window.focusInput = (scope=null) ->
   $('input[type="text"],input[type="string"],select:visible,textarea:visible', scope || $('form.simple_form:first')).get(0)?.focus()
+
+window.initFancySelect = ->
+  return if gon.test
+  defaults =
+    formatNoMatches: ->
+      I18n.t('admin_js.no_results')
+    placeholder: ' '
+    allowClear: true
+
+  $('form .fancy_select, form input.token, .without_form.fancy_select').each ->
+    $el = $(this)
+    options = _.defaults({multiple: $el.data('multi')}, defaults)
+    options.width = $el[0].style.width || 'resolve'
+    if $el.data('class')
+      options.initSelection = (el, callback) ->
+        data = $el.data('pre')
+        if $el.data('multi')
+          data = $el.data('pre')
+        else
+          data = $el.data('pre')[0]
+        callback(data)
+      options.ajax =
+        url: "/admin/autocomplete",
+        data: (term, page) ->
+          cond = {}
+          if $el.data('c')
+            for kind in ['with', 'without']
+              if $el.data('c')[kind]
+                cond[kind] ||= {}
+                for attr, id of $el.data('c')[kind]
+                  cond[kind][attr] = $('#' + id).val()
+
+            for kind in ['with_term', 'without_term']
+              if $el.data('c')[kind]
+                cond[kind] ||= {}
+                for attr, value of $el.data('c')[kind]
+                  cond[kind][attr] = value
+
+          data = {q: term, class: $el.data('class'), token: true}
+          _.extend(data, cond)
+
+        results: (data, page) ->
+          results: data
+
+    $el.select2(options)

@@ -10,24 +10,24 @@ module AbAdmin
       include ::CarrierWave::MiniMagick
       include ::CarrierWave::MimeTypes
       include AbAdmin::Utils::EvalHelpers
-            
+
       storage :file
-      
+
       process :set_content_type
-      
+
       with_options :if => :image? do |img|
         img.process :strip
         img.process :cropper => lambda { |model| model.cropper_geometry }
         img.process :rotate => lambda { |model| model.rotate_degrees }
       end
-      
+
       process :set_model_info
-       
-      # default store assets path 
+
+      # default store assets path
       def store_dir
         "uploads/#{model.class.to_s.underscore}/#{model.id}"
       end
-      
+
       # Strips out all embedded information from the image
       # process :strip
       #
@@ -38,13 +38,13 @@ module AbAdmin
           img
         end
       end
-      
+
       # Reduces the quality of the image to the percentage given
       # process :quality => 85
       #
       def quality(percentage)
         percentage = normalize_param(percentage)
-        
+
         unless percentage.blank?
           manipulate! do |img|
             img.quality(percentage.to_s)
@@ -53,13 +53,13 @@ module AbAdmin
           end
         end
       end
-      
+
       # Rotate image by degress
       # process :rotate => "-90"
       #
       def rotate(degrees = nil)
         degrees = normalize_param(degrees)
-        
+
         unless degrees.blank?
           manipulate! do |img|
             img.rotate(degrees.to_s)
@@ -68,7 +68,7 @@ module AbAdmin
           end
         end
       end
-      
+
       # Crop image by specific coordinates
       # http://www.imagemagick.org/script/command-line-processing.php?ImageMagick=6ddk6c680muj4eu2vr54vdveb7#geometry
       # process :cropper => [size, offset]
@@ -76,7 +76,7 @@ module AbAdmin
       #
       def cropper(*geometry)
         geometry = normalize_param(geometry[0]) if geometry.size == 1
-        
+
         if geometry && geometry.size == 4
           manipulate! do |img|
             img.crop '%ix%i+%i+%i' % geometry
@@ -86,10 +86,10 @@ module AbAdmin
         end
       end
 
-      def watermark(path_to_file)
+      def watermark(path_to_file, gravity='SouthEast')
         manipulate! do |img|
           logo = ::MiniMagick::Image.open(path_to_file)
-          img.composite(logo) { |c| c.gravity 'SouthEast' }
+          img.composite(logo) { |c| c.gravity gravity }
         end
       end
 
@@ -97,31 +97,31 @@ module AbAdmin
         image_name = [model.class.to_s.underscore, version_name].compact.join('_')
         "/assets/defaults/#{image_name}.png"
       end
-      
+
       def image?(new_file = nil)
         (file || new_file).content_type.include? 'image'
       end
-      
+
       def dimensions
         [magick[:width], magick[:height]]
       end
-      
+
       def magick
         #@magick ||= ::MiniMagick::Image.new(current_path)
         ::MiniMagick::Image.new(current_path)
       end
-      
+
       protected
-        
+
         def set_model_info
           model.data_content_type = file.content_type
           model.data_file_size = file.size
-          
+
           if image? && model.has_dimensions?
             model.width, model.height = dimensions
           end
         end
-        
+
         def normalize_param(value)
           if value.is_a?(Proc) || value.is_a?(Method)
             evaluate_method(model, value, file)

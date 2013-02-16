@@ -109,12 +109,12 @@ textarea.do_wysihtml5 {
   font-size: 26px;
 }
 
-.fancy_select {
+.fancy_select, input.token {
   min-width: 220px;
 }
 
 .simple_form {
-  .fancy_select {
+  .fancy_select, input.token {
     min-width: 400px;
   }
 }
