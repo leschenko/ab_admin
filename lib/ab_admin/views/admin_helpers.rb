@@ -55,7 +55,7 @@ module AbAdmin
 
       def layout_css
         css = []
-        css << 'content_with_sidebar' if settings[:sidebar]
+        css << 'content_with_sidebar' if settings[:sidebar] || content_for?(:sidebar)
         css << 'well' if settings[:well]
         css << "#{settings[:index_view]}_view"
         css

@@ -101,9 +101,9 @@ module AbAdmin
           end
         end
 
-        def generate_guid(column=:guid)
+        def generate_token(column=:guid)
           loop do
-            token = Devise.friendly_token
+            token = ::Devise.friendly_token
             break token unless to_adapter.find_first({column => token})
           end
         end
@@ -113,9 +113,9 @@ module AbAdmin
         "#{self.class.model_name.singular}_#{id}"
       end
 
-      def generate_token(column)
+      def generate_token(column=:guid)
         begin
-          self[column] = Devise.friendly_token
+          self[column] = ::Devise.friendly_token
         end while self.class.exists?(column => self[column])
       end
     end

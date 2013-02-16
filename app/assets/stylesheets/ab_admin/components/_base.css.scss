@@ -7,9 +7,12 @@
     float: left;
   }
   .sidebar {
-    width: 220px;
+    width: 260px;
     margin: 0 0 20px -265px;
     float: left;
+    &.well {
+      width: 220px;
+    }
   }
   .content_with_sidebar {
     margin-right: 280px;

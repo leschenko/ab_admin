@@ -54,6 +54,11 @@ module AbAdmin
         %Q[<script type='text/javascript'>$(function(){#{js}})</script>].html_safe
       end
 
+      def image_tag_if(image, options={})
+        return unless image
+        image_tag image, options
+      end
+
       def render_title
         @page_title || I18n.t("page.title")
       end

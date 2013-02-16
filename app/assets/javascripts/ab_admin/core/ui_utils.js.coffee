@@ -55,6 +55,7 @@ window.initFancySelect = ->
 
   $('form .fancy_select, form input.token, .without_form.fancy_select').each ->
     $el = $(this)
+    return if $el.data('select2')
     options = _.defaults({multiple: $el.data('multi')}, defaults)
     options.width = $el[0].style.width || 'resolve'
     if $el.data('class')
