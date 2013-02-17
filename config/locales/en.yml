@@ -100,7 +100,10 @@ en:
       delete: Delete file
       drop_here: Drag and drop files here
       max_size: Max size
-    form: 
+      main_image: Set Main
+      crop: "Crop"
+      rotate: "Rotate"
+    form:
       cancel: Cancel
       save: Save
       save_and_add_another: Save and add new
@@ -137,68 +140,10 @@ en:
       update_file: Update File
       filter: "type text to filter"
       translate_incomplete: "Translate all incomplete (google)"
-    main_image: Set Main
-    max_size: Max posted.
-    navigation: 
+    navigation:
       system: System
       users: Members
     no_results_text: Nothing found
-    permissions: 
-      actions: 
-        create: Create
-        delete: Remove
-        publish: Publish
-        read: Browse
-        update: Edit
-      assocs: 
-        company: company
-      form: 
-        actions: Can
-        add: Add
-        assoc: Through
-        assoc_ids: resource
-        context: "on"
-        destroy: Remove?
-        includes: Related
-        is_own: Only the owner
-        is_visibility: hide unpublished
-        is_work: hide published
-        per_resource: According to one resource
-        resource: Namely
-        resources: Entire resource
-        subject: By Resource
-    perms: 
-      actions: 
-        add_styles: Edit styles
-        create: Create
-        delete: Remove
-        import: Import Manager
-        journalist: Journalist
-        moderator: Moderator
-        publish: Publish
-        publish_social: Publish to Social
-        read: Browse
-        update: Edit
-      assocs: 
-        catalogues: catalogs
-        company: company
-        group: group
-        groups: Group
-      form: 
-        actions: Can
-        add: Add
-        assoc: Through
-        assoc_ids: resource
-        context: "on"
-        destroy: Remove?
-        includes: Related
-        is_own: Only the owner
-        is_visibility: hide unpublished
-        is_work: hide published
-        per_resource: According to one resource
-        resource: Namely
-        resources: Entire resource
-        subject: By Resource
     photo: Main picture
     pictures: Image
     preview: Preview

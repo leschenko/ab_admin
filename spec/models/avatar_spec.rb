@@ -102,11 +102,34 @@ describe Avatar do
     end
   end
 
-  context 'rotate' do
+  context 'renaming', :focus => true do
     before(:each) do
       @avatar = create(:asset_avatar)
-      @avatar.rotate_degrees = '-90'
     end
+
+    it 'rename file' do
+      old_name = @avatar.data_file_name
+      @avatar.rename!
+      @avatar.data_file_name.should_not == old_name
+    end
+
+  end
+
+  context 'rotation', :focus => true do
+    before(:each) do
+      @avatar = create(:asset_avatar)
+    end
+
+    it 'rotate image' do
+      @avatar.data.dimensions.should == [50, 64]
+      @avatar.rotate!
+      @avatar.data.dimensions.should == [64, 50]
+      @avatar.width.should == 64
+      @avatar.height.should == 50
+    end
+  end
+
+  context 'rotate' do
 
     it 'should set property correctly' do
       @avatar.rotate_degrees.should == '-90'
@@ -124,7 +147,7 @@ describe Avatar do
         @avatar.save
       end
 
-      it 'should crop image by specific geometry' do
+      it 'should rotate image by degrees' do
         @avatar.width.should == 64
         @avatar.height.should == 50
         @avatar.data.dimensions.should == [64, 50]

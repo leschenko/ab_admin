@@ -28,6 +28,7 @@ class AbAdminCollection < AbAdmin::AbstractResource
       field :description, :as => :editor
     end
     field :picture, :as => :uploader
+    field :pictures, :as => :uploader
   end
 
 end

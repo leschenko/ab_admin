@@ -1,0 +1,12 @@
+= content_tag :div, :id => element_id, :class => css_class, :data => container_data do
+  .fileupload-drop-area
+    span= t('admin.fileupload.drop_here')
+  .fileupload-list.clearfix= render :partial => "admin/fileupload/#{asset_render_template}", :collection => assets
+  .file-types
+    span.fileupload-button
+      button.btn.btn-primary type="button" = t("admin.fileupload.button#{'s' if multiple}")
+    .type-info
+      span= "#{file_title}. #{t('admin.fileupload.max_size')}:"
+      strong= "#{file_max_size} MB"
+
+= init_js(js)

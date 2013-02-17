@@ -117,32 +117,38 @@ module AbAdmin
         script_options['element'] ||= element_id
         script_options['sizeLimit'] = max_size.megabytes.to_i
 
-        label ||= if object && object.class.respond_to?(:human_attribute_name)
-                    object.class.human_attribute_name(attribute_name)
-                  end
-
         locals = {
-            :element_id => element_id,
-            :file_title => (options[:file_title] || "JPEG, GIF, PNG or TIFF"),
-            :file_max_size => max_size,
-            :label => (label || attribute_name.to_s.humanize),
-            :object => object,
-            :attribute_name => attribute_name,
-            :assets => [value].flatten.delete_if { |v| v.nil? || v.new_record? },
-            :script_options => script_options.inspect.gsub('=>', ':'),
-            :multiple => script_options['multiple'],
-            :asset_klass => params[:klass],
-            :asset_render_template => (options[:asset_render_template] || 'asset'),
-            :container_data => {klass: params[:assetable_type], assoc: params[:method], multiple: script_options['multiple']}
+            element_id: element_id,
+            file_title: (options[:file_title] || "JPEG, GIF, PNG or TIFF"),
+            file_max_size: max_size,
+            assets: [value].flatten.delete_if { |v| v.nil? || v.new_record? },
+            multiple: script_options['multiple'],
+            asset_render_template: (options[:asset_render_template] || 'asset'),
+            container_data: {
+                klass: params[:assetable_type],
+                asset: asset_klass.to_s,
+                assoc: params[:method],
+                multiple: script_options['multiple']
+            }
         }
 
-        if options[:file1]
+        locals[:css_class] = ['fileupload', "#{locals[:asset_render_template]}_asset_type"]
+        locals[:css_class] << (script_options['multiple'] ? 'many_assets' : 'one_asset')
+
+        if options[:file]
           container_tmpl = 'fcontainer'
         elsif options[:container]
           container_tmpl = options[:container]
         else
           container_tmpl = 'container'
         end
+
+        js_opts = [locals[:element_id], template.sort_admin_assets_path(:klass => asset_klass), locals[:multiple]].map(&:inspect).join(', ')
+        locals[:js] = <<-JAVASCRIPT
+          var upl = new qq.FileUploaderInput(#{script_options.to_json});
+          upl._setupDragDrop();
+          new AdminAssets(#{js_opts});
+        JAVASCRIPT
 
         if options[:description]
           opts = [attribute_name, object.class.name, object.id, object.fileupload_guid].map { |i| i.to_s.inspect }.join(', ')

@@ -5,8 +5,9 @@ class Collection < ActiveRecord::Base
   has_many :products
 
   has_one :picture, :as => :assetable, :dependent => :destroy, :conditions => {:is_main => true}
+  has_many :pictures, :as => :assetable, :dependent => :destroy, :conditions => {:is_main => false}
 
-  fileuploads :picture
+  fileuploads :picture, :pictures
   translates :name, :description
 
   scope :visible, where(:is_visible => true)

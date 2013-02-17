@@ -67,7 +67,38 @@ module AbAdmin
 
       def main!
         self.class.update_all('is_main=0', ['assetable_type=? AND assetable_id=? AND type=?', assetable_type, assetable_id, type])
-        update_column(:is_main, true) and self
+        update_column(:is_main, true)
+        refresh_assetable
+        self
+      end
+
+      def rotate!
+        rename!
+        self.rotate_degrees = 90
+        save!
+        refresh_assetable
+        self
+      end
+
+      def rename!
+        rename
+        save!
+      end
+
+      def rename
+        file = data.file
+        path = data.path
+        ext = File.extname(path)
+        new_path = File.join(File.dirname(path), "#{File.basename(path).chomp(ext)}_#{rand(99)}#{ext}")
+        new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
+        data.cache!(new_file)
+      end
+
+      def refresh_assetable
+        return unless assetable.try(:persisted?)
+        assetable.touch
+        assetable.tire.update_index if assetable.respond_to?(:tire)
+        true
       end
 
       def full_url(*args)

@@ -9,4 +9,8 @@ class AvatarUploader < AbAdmin::CarrierWave::BaseUploader
   def extension_white_list
     %w(jpg jpeg gif png)
   end
+
+  #def move_to_cache
+  #  true
+  #end
 end
