@@ -1,4 +1,8 @@
 class Array
+  def add_or_delete(el)
+    include?(el) ? delete(el) : push(el)
+  end
+
   def word_count
     each_with_object({}) do |word, h|
       h[word] ||= 0
