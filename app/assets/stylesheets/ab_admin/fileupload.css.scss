@@ -82,5 +82,7 @@
     color: #999;
     font-size: 18px;
   }
-
+  &.error .help-inline {
+    color: #b94a48;
+  }
 }

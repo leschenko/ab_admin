@@ -2,6 +2,10 @@
 class String
   #LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\)/
   LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\s)/
+  KEYBOARDS = {
+      :en => %{qwertyuiop[]asdfghjkl;'zxcvbnm,./},
+      :ru => %{йцукенгшщзхъфывапролджэячсмитьбю/}
+  }
 
   def lucene_escape
     self.gsub(LUCENE_ESCAPE_REGEX, "\\\\\\1")
@@ -38,21 +42,17 @@ class String
   def tr_lang(from=nil, to=nil)
     return '' if self.blank?
 
-    keyboard = {}
-    keyboard[:en] = %{qwertyuiop[]asdfghjkl;'zxcvbnm,./}
-    keyboard[:ru] = %{йцукенгшщзхъфывапролджэячсмитьбю/}
-
     unless from || to
-      if keyboard[:en].index(self[0])
+      if KEYBOARDS[:en].index(self[0])
         from, to = :en, :ru
-      elsif keyboard[:ru].index(self[0])
+      elsif KEYBOARDS[:ru].index(self[0])
         from, to = :ru, :en
       else
         from, to = :en, :ru
       end
     end
 
-    self.tr(keyboard[from], keyboard[to])
+    self.tr(KEYBOARDS[from], KEYBOARDS[to])
   end
 
   def count_words

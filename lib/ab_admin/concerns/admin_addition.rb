@@ -13,6 +13,33 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
+      module ClassMethods
+        def for_input_token(r, attr='name_ru')
+          {:id => r.id, :text => r[attr]}
+        end
+      end
+
+      def for_input_token
+        {:id => self.id, :text => self.name}
+      end
+
+      def token_data(method, options={})
+        assoc = self.class.reflect_on_association(method)
+        records = self.send(method)
+        data = Array(records).map(&:for_input_token)
+        data = {
+            :pre => data.to_json,
+            :class => assoc.klass.name,
+            :multi => assoc.collection?,
+            :c => options.delete(:c)
+        }
+        if options[:geo_order]
+          singular = self.class.model_name.singular
+          data[:c] ||= {:with => {:lat => "#{singular}_lat", :lon => "#{singular}_lon"}}.to_json
+        end
+        options.reverse_deep_merge!(:class => 'fancy_select', :data => data)
+      end
+
       def next_prev_by_url(scope, url, prev=false)
         predicates = {'>' => '<', '<' => '>', 'desc' => 'asc', 'asc' => 'desc'}
         query = Rack::Utils.parse_nested_query(URI.parse(url).query).symbolize_keys

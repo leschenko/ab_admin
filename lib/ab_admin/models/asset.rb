@@ -51,7 +51,7 @@ module AbAdmin
             :only => [:id, :guid, :assetable_id, :assetable_type, :user_id,
                       :data_file_size, :data_content_type, :is_main, :original_name],
             :root => 'asset',
-            :methods => [:filename, :url, :preview_url, :thumb_url, :width, :height]
+            :methods => [:filename, :url, :thumb_url, :width, :height]
         }.merge(options || {})
 
         super

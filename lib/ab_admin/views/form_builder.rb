@@ -14,6 +14,7 @@ module AbAdmin
       map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
       map_type :association, :to => ::AbAdmin::Views::Inputs::AssociationInput
       map_type :date, :time, :datetime, :to => ::AbAdmin::Views::Inputs::DateTimeInput
+      map_type :token, :to => ::AbAdmin::Views::Inputs::TokenInput
 
       def input(attribute_name, options = {}, &block)
         if options[:fancy]
@@ -118,6 +119,7 @@ module AbAdmin
 
         locals = {
             element_id: element_id,
+            error: error(attribute_name),
             file_title: (options[:file_title] || script_options['allowedExtensions'].join(', ')),
             file_max_size: max_size,
             assets: [value].flatten.delete_if { |v| v.nil? || v.new_record? },
@@ -133,6 +135,8 @@ module AbAdmin
 
         locals[:css_class] = ['fileupload', "#{locals[:asset_render_template]}_asset_type"]
         locals[:css_class] << (script_options['multiple'] ? 'many_assets' : 'one_asset')
+        locals[:css_class] << 'error' if locals[:error]
+
 
         js_opts = [locals[:element_id], template.sort_admin_assets_path(:klass => asset_klass), locals[:multiple]].map(&:inspect).join(', ')
         locals[:js] = <<-JAVASCRIPT

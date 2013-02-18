@@ -22,33 +22,19 @@ class Array
     inject(:+) / size
   end
 
-  def zip_all
-    self[0].zip *self[1..-1]
-  end
-
-  def safe_sd
-    begin
-      self.to_scale.sd
-    rescue
-      0.0
-    end
-  end
-
-  def pearson(b)
-    return 0 if self.size != b.size || !Object.const_defined?("Statsample")
-    Statsample::Bivariate.pearson(self.to_scale, b.to_scale)
-  end
-
-  def pluck!(method, *args)
-    each_index { |x| self[x] = self[x].send method, *args }
-  end
-
-  alias invoke! pluck!
+  #def zip_all
+  #  self[0].zip *self[1..-1]
+  #end
+  #
+  #def pluck!(method, *args)
+  #  each_index { |x| self[x] = self[x].send method, *args }
+  #end
+  #
+  #alias invoke! pluck!
 
   def without(*values)
     copy = self.dup
-    values.flatten.each { |value| copy.delete(value) }
-    copy
+    copy.without!(*values)
   end
 
   def without!(*values)
@@ -80,11 +66,11 @@ class Array
 
 end
 
-module Enumerable
-  def pluck(method, *args)
-    map { |x| x.send method, *args }
-  end
-
-  alias invoke pluck
-end
+#module Enumerable
+#  def pluck(method, *args)
+#    map { |x| x.send method, *args }
+#  end
+#
+#  alias invoke pluck
+#end
 

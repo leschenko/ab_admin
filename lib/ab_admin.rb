@@ -49,6 +49,7 @@ module AbAdmin
     autoload :Utilities, 'ab_admin/concerns/utilities'
     autoload :Headerable, 'ab_admin/concerns/headerable'
     autoload :NestedSet, 'ab_admin/concerns/nested_set'
+    autoload :Validations, 'ab_admin/concerns/validations'
   end
 
   module Controllers
@@ -59,7 +60,6 @@ module AbAdmin
   end
 
   module Mailers
-    autoload :DevelopmentMailInterceptor, 'ab_admin/mailers/development_mail_interceptor'
     autoload :Helpers, 'ab_admin/mailers/helpers'
     autoload :MailAttachHelper, 'ab_admin/mailers/mail_attach_helper'
   end
@@ -91,6 +91,7 @@ module AbAdmin
       autoload :TreeSelectInput, 'ab_admin/views/inputs/tree_select_input'
       autoload :AssociationInput, 'ab_admin/views/inputs/association_input'
       autoload :DateTimeInput, 'ab_admin/views/inputs/date_time_input'
+      autoload :TokenInput, 'ab_admin/views/inputs/token_input'
     end
   end
 

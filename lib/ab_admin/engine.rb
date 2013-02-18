@@ -15,6 +15,7 @@ module AbAdmin
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Utilities
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Silencer
         ActiveRecord::Base.send :extend,  AbAdmin::Concerns::Silencer
+        ActiveRecord::Base.send :include, AbAdmin::Concerns::Validations
       end
 
       ActiveSupport.on_load :action_mailer do
