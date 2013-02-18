@@ -29,6 +29,7 @@ class AbAdminCollection < AbAdmin::AbstractResource
     end
     field :picture, :as => :uploader
     field :pictures, :as => :uploader
+    field :attachment_files, :as => :uploader, :file => true
   end
 
 end

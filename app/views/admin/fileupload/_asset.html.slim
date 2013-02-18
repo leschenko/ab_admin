@@ -1,5 +1,5 @@
 .asset id="asset_#{asset.id}" data-id=asset.id
-  = link_to icon('remove', true), admin_asset_path(asset), remote: true, method: :delete, title: t('admin.delete'), :class => 'del_image', \
+  = link_to icon('remove', true), admin_asset_path(asset), remote: true, method: :delete, title: t('admin.delete'), :class => 'del_asset', \
      data: {confirm: t('admin.delete_confirmation')}
   .main_image title=t('admin.fileupload.main_image') = icon('home', true)
   .crop_image title=t('admin.fileupload.crop') = icon('resize-full', true)

@@ -6,8 +6,9 @@ class Collection < ActiveRecord::Base
 
   has_one :picture, :as => :assetable, :dependent => :destroy, :conditions => {:is_main => true}
   has_many :pictures, :as => :assetable, :dependent => :destroy, :conditions => {:is_main => false}
+  has_many :attachment_files, :as => :assetable, :dependent => :destroy
 
-  fileuploads :picture, :pictures
+  fileuploads :picture, :pictures, :attachment_files
   translates :name, :description
 
   scope :visible, where(:is_visible => true)

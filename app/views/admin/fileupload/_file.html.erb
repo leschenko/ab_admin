@@ -1,5 +1,0 @@
-<%= content_tag(:div, :class => "asset", :id => "asset_#{file.id}") do %>
-  <%= link_to file.original_name, file.url, :target => '_blank' %>
-  <%= link_to t('admin.delete'), admin_asset_path(file), :remote => true, :method => :delete,
-              :data => {:confirm => t('admin.delete_confirmation')}, :class => 'del btn btn-danger btn-mini' %>
-<% end %>

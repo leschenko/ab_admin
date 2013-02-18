@@ -1,5 +1,6 @@
 .fileupload {
   overflow: hidden;
+  position: relative;
   padding-top: 10px;
   padding-left: 10px;
   &.asset_asset_type {
@@ -8,14 +9,15 @@
       overflow: hidden;
       margin: 3px;
       position: relative;
-      .del_image, .main_image, .crop_image, .rotate_image {
+      z-index: 3;
+      .del_asset, .main_image, .crop_image, .rotate_image {
         position: absolute;
         cursor: pointer;
         background: rgba(100, 131, 137, 0.6);
-        z-index: 1;
+        z-index: 4;
         padding: 1px 3px;
       }
-      .del_image {
+      .del_asset {
         right: 0;
         top: 0;
       }
@@ -37,6 +39,16 @@
       display: none;
     }
   }
+  &.file_asset_type {
+    .asset {
+      margin-bottom: 10px;
+      z-index: 2;
+      position: relative;
+      .del_asset {
+        margin-left: 15px;
+      }
+    }
+  }
   .file-name {
     color: #5b6569;
     font-size: 0.9em;
@@ -46,11 +58,29 @@
     overflow: hidden;
     padding-top: 10px;
     padding-left: 5px;
+    z-index: 2;
+  }
+  .fileupload-button {
+    z-index: 3;
   }
 
   .file-types .type-info {
     float: right;
     color: #5b6569;
     font-size: 0.9em;
+    text-transform: uppercase;
   }
+  .fileupload-drop-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 70px;
+    z-index: 1;
+    text-align: center;
+    color: #999;
+    font-size: 18px;
+  }
+
 }

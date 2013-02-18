@@ -33,7 +33,7 @@ class window.AdminAssets
       @initRotate()
 
   initRemove: ->
-    $(document).on "ajax:complete", ".fileupload .del_image", ->
+    $(document).on "ajax:complete", ".fileupload .del_asset", ->
       $(this).closest("div.asset").remove()
 
   initMainImage: ->

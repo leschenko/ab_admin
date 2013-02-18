@@ -21,7 +21,7 @@ module AbAdmin
       end
 
       def human_date
-        I18n.l(created_at, :format => "%d %B %Y")
+        I18n.l(created_at, :format => '%d %B %Y')
       end
 
       def as_json(options={})

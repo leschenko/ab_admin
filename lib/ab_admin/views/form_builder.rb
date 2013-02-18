@@ -24,7 +24,7 @@ module AbAdmin
         case options[:as]
           when :uploader
             title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
-            return template.input_set(title) { attach_file_field(attribute_name, options = {}) }
+            return template.input_set(title) { attach_file_field(attribute_name, options) }
           when :map
             title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
             prefix = options[:prefix] || object.class.model_name.singular
@@ -62,7 +62,7 @@ module AbAdmin
       def geo_input(prefix, js_options={}, &block)
         input_name = "#{prefix}_geo_ac"
         js = %Q[$("##{prefix}_geo_input").geoInput(#{js_options.to_json})]
-        input_html = <<-HTML.html_safe
+        <<-HTML.html_safe
         <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}" type="text/javascript"></script>
         <div class="geo_input" id="#{prefix}_geo_input">
           <div class="control-group">
@@ -106,8 +106,7 @@ module AbAdmin
           script_options['allowedExtensions'] ||= %w(pdf doc docx xls xlsx ppt pptx zip rar csv jpg jpeg gif png)
           script_options['template_id'] = '#fileupload_ftmpl'
           options[:asset_render_template] = 'file'
-        end
-        if options[:video]
+        elsif options[:video]
           script_options['allowedExtensions'] ||= %w(mp4 flv)
           script_options['template_id'] = '#fileupload_vtmpl'
           options[:asset_render_template] = 'video_file'
@@ -119,7 +118,7 @@ module AbAdmin
 
         locals = {
             element_id: element_id,
-            file_title: (options[:file_title] || "JPEG, GIF, PNG or TIFF"),
+            file_title: (options[:file_title] || script_options['allowedExtensions'].join(', ')),
             file_max_size: max_size,
             assets: [value].flatten.delete_if { |v| v.nil? || v.new_record? },
             multiple: script_options['multiple'],
@@ -135,14 +134,6 @@ module AbAdmin
         locals[:css_class] = ['fileupload', "#{locals[:asset_render_template]}_asset_type"]
         locals[:css_class] << (script_options['multiple'] ? 'many_assets' : 'one_asset')
 
-        if options[:file]
-          container_tmpl = 'fcontainer'
-        elsif options[:container]
-          container_tmpl = options[:container]
-        else
-          container_tmpl = 'container'
-        end
-
         js_opts = [locals[:element_id], template.sort_admin_assets_path(:klass => asset_klass), locals[:multiple]].map(&:inspect).join(', ')
         locals[:js] = <<-JAVASCRIPT
           var upl = new qq.FileUploaderInput(#{script_options.to_json});
@@ -155,7 +146,7 @@ module AbAdmin
           template.concat javascript_tag("$(function(){new AssetDescription(#{opts})})")
         end
 
-        template.render(:partial => "admin/fileupload/#{container_tmpl}", :locals => locals)
+        template.render(:partial => "admin/fileupload/#{options[:container] || 'container'}", :locals => locals)
       end
 
       protected

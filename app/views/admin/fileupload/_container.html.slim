@@ -5,8 +5,6 @@
   .file-types
     span.fileupload-button
       button.btn.btn-primary type="button" = t("admin.fileupload.button#{'s' if multiple}")
-    .type-info
-      span= "#{file_title}. #{t('admin.fileupload.max_size')}:"
-      strong= "#{file_max_size} MB"
+    .type-info== "#{file_title}.  #{t('admin.fileupload.max_size')}: <b>#{file_max_size}</b> MB"
 
 = init_js(js)
