@@ -3,7 +3,7 @@ Given /^(\d+) products? exists$/ do |n|
 end
 
 When /^I check (\d+) products in the list$/ do |n|
-  Product.first(n.to_i).pluck(:id).each do |p_id|
+  Product.limit(n.to_i).pluck(:id).each do |p_id|
     check("batch_action_item_#{p_id}")
   end
 end
