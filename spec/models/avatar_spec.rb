@@ -102,7 +102,7 @@ describe Avatar do
     end
   end
 
-  context 'renaming', :focus => true do
+  context 'renaming' do
     before(:each) do
       @avatar = create(:asset_avatar)
     end
@@ -115,7 +115,7 @@ describe Avatar do
 
   end
 
-  context 'rotation', :focus => true do
+  context 'rotation' do
     before(:each) do
       @avatar = create(:asset_avatar)
     end
@@ -129,7 +129,11 @@ describe Avatar do
     end
   end
 
-  context 'rotate' do
+  context 'rotate', :focus => true do
+    before(:each) do
+      @avatar = create(:asset_avatar)
+      @avatar.rotate_degrees = '-90'
+    end
 
     it 'should set property correctly' do
       @avatar.rotate_degrees.should == '-90'
