@@ -38,14 +38,14 @@ describe User do
       @inactive = create(:user)
     end
 
-    it 'search for moderators' do
-      User.moderators.should_not include(@user)
-      User.moderators.should include(@moderator)
+    it 'search for managers' do
+      User.managers.should_not include(@user)
+      User.managers.should include(@moderator)
     end
 
     it 'search for active users' do
       User.active.should include(@user)
-      User.moderators.should_not include(@inactive)
+      User.managers.should_not include(@inactive)
     end
   end
 

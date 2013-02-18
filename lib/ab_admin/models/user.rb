@@ -6,7 +6,7 @@ module AbAdmin
       included do
         has_one :avatar, :as => :assetable, :dependent => :destroy, :autosave => true
 
-        scope :moderators, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
+        scope :managers, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
         scope :active, where(:trust_state => ::UserState.active.id)
         scope :admin, includes(:avatar)
 

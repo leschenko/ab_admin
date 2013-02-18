@@ -1,19 +1,6 @@
-class UserState
-  include EnumField::DefineEnum
-  def initialize(code)
-    @code = code.to_sym
-  end
+class UserState < AbAdmin::Models::TypeModel
+  self.codes = [:pending, :active, :suspended, :deleted]
+  self.i18n_scope = [:admin, :user, :state]
 
-  define_enum do |builder|
-    builder.member :pending, :object => new('pending')
-    builder.member :active, :object => new('active')
-    builder.member :suspended, :object => new('suspended')
-    builder.member :deleted, :object => new('deleted')
-  end
-
-  attr_reader :code
-
-  def title
-    I18n.t(@code, :scope => [:admin, :user, :state])
-  end
+  define_enum_by_codes
 end
