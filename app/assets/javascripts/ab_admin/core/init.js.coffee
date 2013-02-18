@@ -26,18 +26,17 @@ $ ->
       e.preventDefault()
       $(this).closest('tr').remove()
 
-
-  $(document).on 'admin:init', (e) ->
-    return unless window.viewType == 'form'
-    window.resource_id = $('form.simple_form').data('id')
-    $(document).trigger('admin:form_init')
-
-
   $(document).on 'admin:form_init', 'form', (e) ->
     focusInput($(this))
     initEditor()
     initFancySelect()
     inputSetToggle()
+
+  $(document).on 'admin:init', (e) ->
+    return unless window.viewType == 'form'
+    $form = $('form.simple_form')
+    window.resource_id = $form.data('id')
+    $form.trigger('admin:form_init')
 
   $(document).on 'pjax:end', ->
     $(document).trigger({type: 'admin:init', pjax: true})
