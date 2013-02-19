@@ -31,6 +31,8 @@ spec/dummy/public/uploads/
 spec/dummy/vendor/bundle/
 spec/dummy/app/helpers
 spec/dummy/app/assets/javascripts/i18n/translations.js
-
+spec/dummy/public/javascripts/ckeditor
+generators/ab_admin/ckeditor_assets/templates/ckeditor
+spec/factories/files/silicon_valley.jpg
 NOTES
 rerun.txt
