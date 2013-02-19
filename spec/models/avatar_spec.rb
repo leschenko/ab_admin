@@ -26,6 +26,7 @@ describe Avatar do
       @avatar.should_not be_valid
     end
 
+    # wget https://dl.dropbox.com/u/48737256/silicon_valley.jpg -P spec/factories/files
     it 'should not be valid with big size image' do
       @avatar = build(:asset_avatar_big)
       @avatar.should_not be_valid

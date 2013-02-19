@@ -11,7 +11,7 @@ describe AbAdmin::Generators::CkeditorAssetsGenerator do
     run_generator
   end
 
-  it 'creates a admin resource' do
+  it 'creates a admin resource', :focus => true, :slow => true do
     assert_directory 'public/javascripts/ckeditor'
     assert_file 'public/javascripts/ckeditor/init.js', /CKEDITOR/
   end
