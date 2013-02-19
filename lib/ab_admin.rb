@@ -50,6 +50,7 @@ module AbAdmin
     autoload :Headerable, 'ab_admin/concerns/headerable'
     autoload :NestedSet, 'ab_admin/concerns/nested_set'
     autoload :Validations, 'ab_admin/concerns/validations'
+    autoload :Reloadable, 'ab_admin/concerns/reloadable'
   end
 
   module Controllers

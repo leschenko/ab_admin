@@ -3,6 +3,9 @@ require 'configatron'
 class Settings
   include Singleton
   include AbAdmin::Models::Settings
+  include ::AbAdmin::Concerns::Reloadable
+
+  has_reload_check('settings_reload_key', Rails.logger) { Settings.load }
 
   attr_accessor :paths, :data
 

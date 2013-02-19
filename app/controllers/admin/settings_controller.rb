@@ -5,6 +5,7 @@ class ::Admin::SettingsController < ::Admin::BaseController
 
   def update
     Settings.instance.save(params[:settings])
+    Settings.reload_checker.expire
     redirect_to :back
   end
 

@@ -17,20 +17,16 @@ module AbAdmin
         end
 
         @page_title ||= begin
-          view_title = if record.respond_to?(:title)
-            record.title
-          elsif record.respond_to(:name)
-            record.name
-          end
-          
+          view_title = AbAdmin.display_name(record)
+
           page_title = []
 	        page_title << options[:title] if options.key?(:title)
           page_title << view_title
-          page_title << I18n.t("page.title") if options[:append_title]
+          page_title << I18n.t('page.title') if options[:append_title]
 
           page_title.flatten.compact.uniq.join(options[:spliter])
         end
-        @page_description = [I18n.t("page.prefix"), @page_description].compact.join(' - ')
+        @page_description = [I18n.t('page.prefix'), @page_description].compact.join(' - ')
       end
 
     end

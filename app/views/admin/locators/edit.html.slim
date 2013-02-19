@@ -34,7 +34,7 @@ table.table.table-bordered.table-striped
           td.locale_keys
             div== keys.join(' > ')
             .btn.btn-mini.btn-inverse.auto_translate.pull-right google translate
-          td = text_area_tag 'locale' + keys.map{|k| "[#{k}]" }.join, value
+          td = text_area_tag 'locale_hash' + keys.map{|k| "[#{k}]" }.join, value
           td = text_area_tag 'fake', t(keys.join('.')), :disabled => true
     tbody
       tr
