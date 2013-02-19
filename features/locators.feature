@@ -16,7 +16,7 @@ Feature: Locale files editor
 
   Scenario: Locale file editing
     Then I follow "en.test.yml"
-    And I fill in "locale_site_title" with "Great app"
+    And I fill in "locale_hash_site_title" with "Great app"
     And press "Save"
     When "config/locales/en.test.yml" should contain:
       """

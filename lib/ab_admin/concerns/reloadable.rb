@@ -48,7 +48,7 @@ module AbAdmin
         end
 
         def log(msg)
-          @logger.info "[RELOADER] (#{Thread.current.object_id}) #{msg}"
+          @logger.info "[RELOADER] (#{Process.pid}) #{msg}"
         end
       end
     end
