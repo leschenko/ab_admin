@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
     resources :users do
       post :batch, :on => :collection
-      post :activate, :suspend, :send_welcome, :on => :member
+      post :activate, :suspend, :on => :member
     end
 
     resources :assets, :only => [:create, :destroy] do
