@@ -1,7 +1,14 @@
+html, body {
+  height: 100%;
+}
+
 #main {
   position: relative;
   clear: both;
-  margin-bottom: 50px;
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -20px;
   .wrap_content {
     width: 100%;
     float: left;
@@ -29,6 +36,13 @@
   }
 }
 
+#footer {
+  height: 20px;
+  padding: 10px 0;
+  margin-top: 20px;
+  text-align: center;
+}
+
 .tree_view {
   #columns_hider_show {
     display: none;
@@ -42,3 +56,5 @@
   bottom: 20px;
   z-index: 100000;
 }
+
+
