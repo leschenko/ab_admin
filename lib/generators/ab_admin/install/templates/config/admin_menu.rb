@@ -1,5 +1,7 @@
 class AdminMenu < AbAdmin::MenuBuilder
   draw do
+    link :dashboard, '/admin'
+
     model User
     group :system do
       model Structure

@@ -10,7 +10,6 @@ class ::Admin::LocatorsController < ::Admin::BaseController
 
   def update
     if Locator.save(@file, {params[:edit_locale_name] => params[:locale_hash]})
-      Locator.reload_checker.expire
       flash[:notice] = I18n.t('flash.admin.locators.updated')
       redirect_to admin_locators_path
     else
@@ -33,6 +32,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
 
   def reload
     I18n.reload!
+    Locator.reload_checker.expire
     flash[:notice] = I18n.t('flash.admin.locators.restart')
     redirect_to admin_locators_path
   end
