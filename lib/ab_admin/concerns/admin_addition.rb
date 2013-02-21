@@ -20,13 +20,13 @@ module AbAdmin
       end
 
       def for_input_token
-        {:id => self.id, :text => self.name}
+        {:id => id, :text => name}
       end
 
       def token_data(method, options={})
         assoc = self.class.reflect_on_association(method)
-        records = self.send(method)
-        data = Array(records).map(&:for_input_token)
+        records = Array(send(method))
+        data = records.map(&:for_input_token)
         data = {
             :pre => data.to_json,
             :class => assoc.klass.name,
@@ -60,8 +60,8 @@ module AbAdmin
           predicate = order_mode == 'desc' ? '<' : '>'
           id_predicate = '>'
         end
-        sql = "(#{quoted_order_col} #{predicate} :val OR (#{quoted_order_col} = :val AND #{self.class.quote_column('id')} #{id_predicate} #{self.id}))"
-        scope.where(sql, :val => self.send(order_col)).ransack(query[:q]).result(:distinct => true).first
+        sql = "(#{quoted_order_col} #{predicate} :val OR (#{quoted_order_col} = :val AND #{self.class.quote_column('id')} #{id_predicate} #{id}))"
+        scope.where(sql, :val => send(order_col)).ransack(query[:q]).result(:distinct => true).first
       end
 
     end

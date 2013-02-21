@@ -247,6 +247,7 @@ ru:
     user_id: "Пользователь"
     remember_me: "Запомнить"
     password: "Пароль"
+    slug: "Алиас"
   attrs: 
     en: "анг."
     it: "итал."
