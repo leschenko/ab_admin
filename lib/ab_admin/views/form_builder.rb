@@ -140,7 +140,8 @@ module AbAdmin
                 klass: params[:assetable_type],
                 asset: asset_klass.to_s,
                 assoc: params[:method],
-                multiple: script_options['multiple']
+                multiple: script_options['multiple'],
+                crop: options[:crop]
             }
         }
 

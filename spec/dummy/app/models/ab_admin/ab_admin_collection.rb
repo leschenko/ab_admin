@@ -27,7 +27,7 @@ class AbAdminCollection < AbAdmin::AbstractResource
       field :name
       field :description, as: :editor
     end
-    field :picture, as: :uploader
+    field :picture, as: :uploader, crop: true
     field :pictures, as: :uploader
     field :attachment_files, as: :uploader, file: true
   end

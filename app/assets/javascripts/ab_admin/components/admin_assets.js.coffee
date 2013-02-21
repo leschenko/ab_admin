@@ -1,7 +1,7 @@
 #= require ab_admin/fileupload/fileuploader.js
 #= require ab_admin/fileupload/admin-fileuploader.js
 #= require jquery.tmpl.min
-#= require ab_admin/jquery.Jcrop
+#q= require ab_admin/jquery.Jcrop
 #= require ab_admin/components/croppable_image
 
 class window.AdminAssets
@@ -59,7 +59,7 @@ class window.AdminAssets
         $asset.replaceWith $($uploader._options.template_id).tmpl(data.asset)
 
   initCrop: ->
-    if $.fn.Jcrop
+    if @uploader_el.data('crop') && $.fn.Jcrop
       @crop = new CroppableImage(@element_id)
 
   initFancybox: =>
