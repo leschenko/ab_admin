@@ -19,8 +19,8 @@
     = f.input :locale, collection: Globalize.available_locales
     = f.input :bg_color, as: :color
 
-    = f.input :password, input_html: {:autocomplete=>'off'}
-    = f.input :password_confirmation, input_html: {:autocomplete=>'off'}
+    = f.input :password, input_html: {autocomplete: 'off'}
+    = f.input :password_confirmation, input_html: {autocomplete: 'off'}
 
   = input_set t('admin.avatar') do
     = f.attach_file_field :avatar, file_max_size: 2
