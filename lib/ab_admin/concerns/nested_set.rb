@@ -41,6 +41,26 @@ module AbAdmin
           end
           res
         end
+
+        def nested_opts_with_parent(records, mover=nil)
+          res = []
+          parents = []
+          records.each do |r|
+            r.root? ? parents = [] : parents.reject! { |p| p.depth >= r.depth }
+
+            unless mover && mover.id == r.id
+              res << ["#{parents.map { |c| "#{AbAdmin.display_name(c)} - " }.join} <b>#{AbAdmin.display_name(r)}</b>", r.id]
+            end
+
+            parents << r
+          end
+          res
+        end
+      end
+
+      def nested_opts_with_parent(collection=nil)
+        collection ||= self.class.all
+        self.class.nested_opts_with_parent(collection, self)
       end
 
       def nested_opts(collection=nil)

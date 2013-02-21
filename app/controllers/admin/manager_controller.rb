@@ -25,8 +25,8 @@ class ::Admin::ManagerController < ::Admin::BaseController
   def parent
     return @parent if defined?(@parent)
     @parent = begin
-      return if !params[:parent_resource] && !params[:parent_id]
-      assoc_name, r_id = params[:parent_resource].singularize.to_sym, params[:parent_id]
+      return if !params[:parent_resource] && !params[:parent_resource_id]
+      assoc_name, r_id = params[:parent_resource].singularize.to_sym, params[:parent_resource_id]
       parent_config = manager.parent_resources.detect { |conf| conf.name == assoc_name }
       return unless parent_config
       assoc = resource_class.reflect_on_association(parent_config.name)

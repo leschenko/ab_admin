@@ -34,10 +34,14 @@ module AbAdmin
             :c => options.delete(:c)
         }
         if options[:geo_order]
+          data[:c] ||= {}
           singular = self.class.model_name.singular
-          data[:c] ||= {:with => {:lat => "#{singular}_lat", :lon => "#{singular}_lon"}}.to_json
+          data[:c].reverse_deep_merge!({:with => {:lat => "#{singular}_lat", :lon => "#{singular}_lon"}})
         end
-        options.reverse_deep_merge!(:class => 'fancy_select', :data => data)
+        if data[:c] && !data[:c].is_a?(String)
+          data[:c] = data[:c].to_json
+        end
+        options.reverse_deep_merge!(:class => 'fancy_select', :data => data, :value => records.map(&:id).join(','))
       end
 
       def next_prev_by_url(scope, url, prev=false)

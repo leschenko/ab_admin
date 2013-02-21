@@ -5,7 +5,7 @@
 
   = f.input :slug
   - if @structure.moveable?
-    = f.input :parent_id, :as => :tree_select, :input_html => {:class => 'do_chosen'}
+    = f.input :parent_id, :as => :tree_select, :fancy => true
   = f.input :kind, :collection => StructureType.all
   = f.input :position, :collection => PositionType.all, :include_blank => false
 

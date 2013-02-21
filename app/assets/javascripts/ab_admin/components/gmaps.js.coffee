@@ -1,6 +1,6 @@
 class window.GeoInput
-  @default_lat = 55.7427928
-  @default_lon = 55.7427928
+  @default_lat = 55.7541934
+  @default_lon = 37.6184907
 
   constructor: (@cont, @options={}) ->
     @prefix = @cont.attr('id').replace(/_geo_input$/, '')

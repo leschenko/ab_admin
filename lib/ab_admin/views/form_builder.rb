@@ -11,13 +11,11 @@ module AbAdmin
       map_type :color, :to => ::AbAdmin::Views::Inputs::ColorInput
       map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::CkeditorInput
       map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
-      map_type :tree_select, :to => ::AbAdmin::Views::Inputs::TreeSelectInput
-      map_type :association, :to => ::AbAdmin::Views::Inputs::AssociationInput
       map_type :date, :time, :datetime, :to => ::AbAdmin::Views::Inputs::DateTimeInput
       map_type :token, :to => ::AbAdmin::Views::Inputs::TokenInput
 
       def input(attribute_name, options = {}, &block)
-        if options[:fancy]
+        if options[:fancy] || (options[:as] == :select && options[:collection] && options[:collection].size > 10)
           options[:input_html] ||= {}
           options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end
@@ -31,6 +29,20 @@ module AbAdmin
             prefix = options[:prefix] || object.class.model_name.singular
             data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
             return template.input_set(title) { data_fields + geo_input(prefix, options[:js_options]) }
+          when :token
+            options[:label] ||= object.class.han(attribute_name.to_s.sub(/^token_|_id$/, ''))
+          when :association, :tree_select
+            unless options[:reflection]
+              if options[:as] == :tree_select
+                options[:collection] ||= begin
+                  reflection = object.class.reflect_on_association(attribute_name)
+                  records = reflection.klass.all(reflection.options.slice(:conditions, :order))
+                  object.nested_opts_with_parent(records)
+                end
+              end
+              options[:as] = :select
+              return association(attribute_name, options)
+            end
         end
 
         attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
