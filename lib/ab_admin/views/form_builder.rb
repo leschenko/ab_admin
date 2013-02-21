@@ -40,8 +40,7 @@ module AbAdmin
                   reflection.klass.nested_opts_with_parent(records, object)
                 end
               end
-              options[:as] = :select
-              return association(attribute_name, options)
+              return association(attribute_name, options.merge(as: :select))
             end
         end
 
