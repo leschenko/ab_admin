@@ -36,7 +36,7 @@ module AbAdmin
 
       def external_link(raw_link, options={}, &block)
         return unless raw_link.present?
-        options.reverse_merge!(:title => raw_link, :target => '_blank', :rel => 'nofollow')
+        options.reverse_merge!(title: raw_link, target: '_blank', rel: 'nofollow')
         link = raw_link =~ /^http[s]?:\/\// ? raw_link : "http://#{raw_link}"
         if block_given?
           link_to link, options, &block
@@ -88,7 +88,7 @@ module AbAdmin
         if options[:create_div]
           output_buffer << content_tag(:div,
                                        "This website requires <a href='http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash&promoid=BIOW' target='_blank'>Flash player</a> #{flash_version} or higher.",
-                                       :id => id)
+                                       id: id)
         end
 
         js = []

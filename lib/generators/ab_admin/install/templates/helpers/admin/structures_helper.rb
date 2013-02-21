@@ -4,9 +4,9 @@ module Admin::StructuresHelper
     case structure.structure_type
       when StructureType.static_page
         if structure.static_page
-          edit_admin_structure_static_page_path(:structure_id => structure.id)
+          edit_admin_structure_static_page_path(structure_id: structure.id)
         else
-          new_admin_structure_static_page_path(:structure_id => structure.id)
+          new_admin_structure_static_page_path(structure_id: structure.id)
         end
       when StructureType.posts
         '#'

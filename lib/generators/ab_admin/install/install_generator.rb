@@ -42,7 +42,7 @@ module AbAdmin
       # Add devise routes
       def add_routes
         route 'devise_for :users, ::AbAdmin::Devise.config'
-        route %[root :to => redirect('/users/sign_in')]
+        route %[root to: redirect('/users/sign_in')]
       end
 
       def autoload_paths
@@ -52,7 +52,7 @@ module AbAdmin
         code = 'config.autoload_paths += %W(#{config.root}/app/models/defaults #{config.root}/app/models/ab_admin)'
 
         in_root do
-          inject_into_file 'config/application.rb', "    #{code}\n", {:after => sentinel, :verbose => false}
+          inject_into_file 'config/application.rb', "    #{code}\n", {after: sentinel, verbose: false}
         end
       end
 

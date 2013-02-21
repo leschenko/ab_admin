@@ -7,7 +7,7 @@ Feature: Editing records in the list
     And a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        settings :list_edit => true
+        settings list_edit: true
       end
       """
     And I am on the admin products page

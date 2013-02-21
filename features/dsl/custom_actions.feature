@@ -10,10 +10,10 @@ Feature: Custom actions
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         action_item do
-          link_to 'Custom action', action_item_admin_path(:custom), :method => :post
+          link_to 'Custom action', action_item_admin_path(:custom), method: :post
         end
 
-        member_action :custom, :method => :post do
+        member_action :custom, method: :post do
           flash[:notice] = 'Custom action done!'
           redirect_to resource_path
         end
@@ -32,7 +32,7 @@ Feature: Custom actions
           link_to 'Custom action', action_item_admin_path(:custom)
         end
 
-        member_action :custom, :method => :post do
+        member_action :custom, method: :post do
           flash[:notice] = 'Custom action done!'
           redirect_to resource_path
         end
@@ -46,10 +46,10 @@ Feature: Custom actions
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         action_item do
-          link_to 'Custom collection action', action_item_admin_path(:custom_collection), :method => :post
+          link_to 'Custom collection action', action_item_admin_path(:custom_collection), method: :post
         end
 
-        collection_action :custom_collection, :method => :post do
+        collection_action :custom_collection, method: :post do
           flash[:notice] = 'Custom collection action done!'
           redirect_to collection_path
         end

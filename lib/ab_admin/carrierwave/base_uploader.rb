@@ -15,10 +15,10 @@ module AbAdmin
 
       process :set_content_type
 
-      with_options :if => :image? do |img|
+      with_options if: :image? do |img|
         img.process :strip
-        img.process :cropper => lambda { |model| model.cropper_geometry }
-        img.process :rotate => lambda { |model| model.rotate_degrees }
+        img.process cropper: lambda { |model| model.cropper_geometry }
+        img.process rotate: lambda { |model| model.rotate_degrees }
       end
 
       process :set_model_info
@@ -40,7 +40,7 @@ module AbAdmin
       end
 
       # Reduces the quality of the image to the percentage given
-      # process :quality => 85
+      # process quality: 85
       #
       def quality(percentage)
         percentage = normalize_param(percentage)
@@ -55,7 +55,7 @@ module AbAdmin
       end
 
       # Rotate image by degress
-      # process :rotate => "-90"
+      # process rotate: "-90"
       #
       def rotate(degrees = nil)
         degrees = normalize_param(degrees)
@@ -71,8 +71,8 @@ module AbAdmin
 
       # Crop image by specific coordinates
       # http://www.imagemagick.org/script/command-line-processing.php?ImageMagick=6ddk6c680muj4eu2vr54vdveb7#geometry
-      # process :cropper => [size, offset]
-      # process :cropper => [800, 600, 10, 20]
+      # process cropper: [size, offset]
+      # process cropper: [800, 600, 10, 20]
       #
       def cropper(*geometry)
         geometry = normalize_param(geometry[0]) if geometry.size == 1

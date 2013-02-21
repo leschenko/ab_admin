@@ -7,7 +7,7 @@
              "= f.input :#{key.sub(/_id$/, '')}"
            else
              if key.to_s =~ /_type/
-               "= f.input :#{key}, :collection => #{key.sub(/_type.*/, '').camelize}Type.all"
+               "= f.input :#{key}, collection: #{key.sub(/_type.*/, '').camelize}Type.all"
              else
                "= f.input :#{key}"
              end

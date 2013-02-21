@@ -4,20 +4,20 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
-        has_one :avatar, :as => :assetable, :dependent => :destroy, :autosave => true
+        has_one :avatar, as: :assetable, dependent: :destroy, autosave: true
 
-        scope :managers, where(:user_role_id => [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
-        scope :active, where(:trust_state => ::UserState.active.id)
+        scope :managers, where(user_role_id: [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
+        scope :active, where(trust_state: ::UserState.active.id)
         scope :admin, includes(:avatar)
 
         after_initialize :init
         before_validation :generate_login
-        before_validation :set_default_role, :unless => :user_role_id?
+        before_validation :set_default_role, unless: :user_role_id?
 
         validate :check_role
 
-        enumerated_attribute :user_role_type, :id_attribute => :user_role_id, :class => ::UserRoleType
-        enumerated_attribute :trust_state_type, :id_attribute => :trust_state, :class => ::UserState
+        enumerated_attribute :user_role_type, id_attribute: :user_role_id, class: ::UserRoleType
+        enumerated_attribute :trust_state_type, id_attribute: :trust_state, class: ::UserState
       end
 
       def set_default_role
@@ -27,7 +27,7 @@ module AbAdmin
       def generate_password!
         raw_password = Rails.env.test? ? '654321' : Devise.friendly_token[0..7]
         self.password = self.password_confirmation = raw_password
-        self.save(:validate => false)
+        self.save(validate: false)
         raw_password
       end
 

@@ -28,11 +28,11 @@ module AbAdmin
       end
 
       def render
-        ::CSV.generate(:col_sep => @options[:column_separator] || ',') do |csv|
+        ::CSV.generate(col_sep: @options[:column_separator] || ',') do |csv|
           csv << columns_names
 
           each_record do |item|
-            csv << column_data.map { |column| AbAdmin.pretty_data call_method_or_proc_on(item, column, :exec => false) }
+            csv << column_data.map { |column| AbAdmin.pretty_data call_method_or_proc_on(item, column, exec: false) }
           end
         end
       end

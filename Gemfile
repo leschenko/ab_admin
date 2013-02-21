@@ -16,10 +16,10 @@ gem 'configatron'
 gem 'ransack'
 gem 'has_scope'
 gem 'friendly_id'
-gem 'galetahub-enum_field', :require => 'enum_field'
+gem 'galetahub-enum_field', require: 'enum_field'
 gem 'awesome_nested_set'
-gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
-gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => '586ccbd'
+gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968'
+gem 'globalize3', git: 'git://github.com/leschenko/globalize3.git', ref: '586ccbd'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -57,7 +57,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', :require => false
+  gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
@@ -65,8 +65,8 @@ group :test do
   gem 'fuubar'
   gem 'guard-rspec'
   gem 'guard-cucumber'
-  gem 'rb-fsevent', :require => false
-  gem 'growl', :require => false
+  gem 'rb-fsevent', require: false
+  gem 'growl', require: false
 end
 
 group :development do

@@ -35,14 +35,14 @@ Then /^(?:|I )should see \/([^\/]*)\/([imxo])?$/ do |regexp,flags|
   regexp_opts = [regexp,flags].compact
   regexp = Regexp.new(*regexp_opts)
 
-  page.should have_xpath('//*', :text => regexp)
+  page.should have_xpath('//*', text: regexp)
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/([imxo])?$/ do |regexp,flags|
   regexp_opts = [regexp,flags].compact
   regexp = Regexp.new(*regexp_opts)
 
-  page.should have_no_xpath('//*', :text => regexp)
+  page.should have_no_xpath('//*', text: regexp)
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|

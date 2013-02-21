@@ -6,7 +6,7 @@ module AbAdmin
       def head_options(record, options = {})
         return if record.nil?
         
-        options = { :spliter => AbAdmin.title_spliter, :append_title => true }.merge(options)
+        options = { spliter: AbAdmin.title_spliter, append_title: true }.merge(options)
 
         header = options[:header] || (record.respond_to?(:header) ? record.header : nil)
 

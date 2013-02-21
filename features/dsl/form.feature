@@ -14,7 +14,7 @@ Feature: Form
             field :price
           end
           field :is_visible
-          field :collection, :as => :association
+          field :collection, as: :association
           locale_tabs do
             field :name
             field :description
@@ -43,7 +43,7 @@ Feature: Form
       """
       = admin_form_for @product do |f|
         = input_set 'My custom fields' do
-          = f.input :sku, :label => 'Identifier'
+          = f.input :sku, label: 'Identifier'
 
         = f.save_buttons
       """
@@ -57,14 +57,14 @@ Feature: Form
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        form :partial => 'admin/products/form_custom'
+        form partial: 'admin/products/form_custom'
       end
       """
     And "app/views/admin/products/_form_custom.html.slim" contains:
       """
       = admin_form_for @product do |f|
         = input_set 'My custom fields' do
-          = f.input :sku, :label => 'Identifier'
+          = f.input :sku, label: 'Identifier'
 
         = f.save_buttons
       """

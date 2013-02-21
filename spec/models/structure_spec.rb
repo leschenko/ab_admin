@@ -31,7 +31,7 @@ describe Structure do
   context 'acts_as_nested_set' do
     before(:all) do
       @root = create(:structure_main)
-      @structure = create(:structure_page, :parent => @root)
+      @structure = create(:structure_page, parent: @root)
     end
 
     before(:each) do
@@ -56,7 +56,7 @@ describe Structure do
     end
 
     it 'return deep parent' do
-      child = build(:structure_page, :parent => @structure)
+      child = build(:structure_page, parent: @structure)
       child.deep_parent.should == @root
     end
 

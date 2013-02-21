@@ -12,7 +12,7 @@ module AbAdmin
 
     def initialize
       @actions = ACTIONS
-      @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
+      @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
       @action_items = []
       @disabled_action_items = []
       @default_action_items_for = {}
@@ -100,7 +100,7 @@ module AbAdmin
       def belongs_to(*args)
         options = args.extract_options!
         args.each do |name|
-          instance.parent_resources << OpenStruct.new(:name => name, :options => options)
+          instance.parent_resources << OpenStruct.new(name: name, options: options)
         end
       end
 
@@ -109,7 +109,7 @@ module AbAdmin
       end
 
       def collection_action(name, options={}, &block)
-        instance.custom_actions << AbAdmin::Config::CustomAction.new(name, options.merge(:collection => true), &block)
+        instance.custom_actions << AbAdmin::Config::CustomAction.new(name, options.merge(collection: true), &block)
       end
     end
 

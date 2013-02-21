@@ -1,8 +1,8 @@
 class AbAdminCollection < AbAdmin::AbstractResource
 
   table do
-    field :name, :sortable => false
-    field :description, :sortable => false
+    field :name, sortable: false
+    field :description, sortable: false
     field :is_visible
     field :products_count
     field :created_at
@@ -25,11 +25,11 @@ class AbAdminCollection < AbAdmin::AbstractResource
     end
     locale_tabs do
       field :name
-      field :description, :as => :editor
+      field :description, as: :editor
     end
-    field :picture, :as => :uploader
-    field :pictures, :as => :uploader
-    field :attachment_files, :as => :uploader, :file => true
+    field :picture, as: :uploader
+    field :pictures, as: :uploader
+    field :attachment_files, as: :uploader, file: true
   end
 
 end

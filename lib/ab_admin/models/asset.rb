@@ -5,12 +5,12 @@ module AbAdmin
 
       included do
         belongs_to :user
-        belongs_to :assetable, :polymorphic => true
+        belongs_to :assetable, polymorphic: true
 
         # Store options for image manipulation
         attr_reader :cropper_geometry, :rotate_degrees
 
-        delegate :url, :original_filename, :to => :data
+        delegate :url, :original_filename, to: :data
 
         class_attribute :thumb_size, :max_size
         self.thumb_size = :thumb
@@ -43,15 +43,15 @@ module AbAdmin
       end
 
       def format_created_at
-        I18n.l(created_at, :format => '%d.%m.%Y %H:%M')
+        I18n.l(created_at, format: '%d.%m.%Y %H:%M')
       end
 
       def as_json(options = nil)
         options = {
-            :only => [:id, :guid, :assetable_id, :assetable_type, :user_id,
+            only: [:id, :guid, :assetable_id, :assetable_type, :user_id,
                       :data_file_size, :data_content_type, :is_main, :original_name],
-            :root => 'asset',
-            :methods => [:filename, :url, :thumb_url, :width, :height]
+            root: 'asset',
+            methods: [:filename, :url, :thumb_url, :width, :height]
         }.merge(options || {})
 
         super

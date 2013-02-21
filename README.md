@@ -32,12 +32,12 @@ Admin resource is just a class in `app/models/ab_admin` directory like this:
 class AbAdminProduct < AbAdmin::AbstractResource
   preview_path :product_path
 
-  settings :comments => true
+  settings comments: true
 
   table do
     field :sku
     field(:picture) { |item| item_image_link(item) }
-    field :name, :sortable => {:column => :id, :default_order => 'desc'}
+    field :name, sortable: {column: :id, default_order: 'desc'}
     field :is_visible
     field :collection
     field :created_at
@@ -66,13 +66,13 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :price
     end
     field :is_visible
-    field :collection, :as => :association
+    field :collection, as: :association
     locale_tabs do
       field :name
       field :description
     end
-    field :picture, :as => :uploader
-    field :map, :as => :map
+    field :picture, as: :uploader
+    field :map, as: :map
   end
 end
 ```

@@ -4,7 +4,7 @@ class Structure < ActiveRecord::Base
   attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible,
                   :structure_type, :position_type, :slug, :parent
 
-  has_one :picture, :as => :assetable, :dependent => :destroy
+  has_one :picture, as: :assetable, dependent: :destroy
 
   fileuploads :picture
   translates :title, :redirect_url
@@ -12,7 +12,7 @@ class Structure < ActiveRecord::Base
 
   include AbAdmin::Concerns::AdminAddition
   extend FriendlyId
-  friendly_id :title, :use => :slugged
+  friendly_id :title, use: :slugged
 
   default_scope nested_set.includes(:translations)
 

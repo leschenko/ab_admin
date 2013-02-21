@@ -54,7 +54,7 @@ describe User do
       @user = create(:default_user)
       @admin = create(:admin_user)
       @moderator = create(:moderator_user)
-      @inactive = create(:user, :email => 'test@example.com')
+      @inactive = create(:user, email: 'test@example.com')
     end
 
     before :each do

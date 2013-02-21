@@ -14,7 +14,7 @@ end
 
 When /^I choose batch action "(.*?)"$/ do |action|
   find('.batch_actions .dropdown-toggle').click
-  find('.dropdown-menu a', :text => action).click
+  find('.dropdown-menu a', text: action).click
 end
 
 Then /^I should see (\d+) item in the list$/ do |n|

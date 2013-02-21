@@ -24,8 +24,8 @@ module AbAdmin
         def prepare_data(path)
           data = YAML.load_file(path)
           locale = data.keys.first
-          OpenStruct.new({:locale => locale.to_sym, :data => data[locale], :flat_data => flat_hash(data[locale]),
-                          :filename => File.basename(path), :path => path, :dir => File.dirname(path)})
+          OpenStruct.new({locale: locale.to_sym, data: data[locale], flat_data: flat_hash(data[locale]),
+                          filename: File.basename(path), path: path, dir: File.dirname(path)})
         end
 
         def flat_hash(hash, k = [])
@@ -65,7 +65,7 @@ module AbAdmin
             end
           end
         end
-        {:message => message}
+        {message: message}
       end
 
     end

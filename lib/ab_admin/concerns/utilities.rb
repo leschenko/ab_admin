@@ -5,16 +5,16 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
-        delegate :value_to_boolean, :to => ActiveRecord::ConnectionAdapters::Column
+        delegate :value_to_boolean, to: ActiveRecord::ConnectionAdapters::Column
       end
 
       module ClassMethods
         def max_time
-          Rails.cache.fetch("by_class_#{name}", :expires_in => 60) { maximum(:updated_at).to_i }
+          Rails.cache.fetch("by_class_#{name}", expires_in: 60) { maximum(:updated_at).to_i }
         end
 
         def max_time_by_scope(scope)
-          Rails.cache.fetch("by_class_#{name}_#{scope}", :expires_in => 60) { send(scope).maximum(:updated_at).to_i }
+          Rails.cache.fetch("by_class_#{name}_#{scope}", expires_in: 60) { send(scope).maximum(:updated_at).to_i }
         end
 
         def full_truncate

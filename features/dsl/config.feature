@@ -40,5 +40,5 @@ Feature: Configuring resource options
   Examples:
     | config            |
     | :index            |
-    | :except => :new   |
-    | :except => [:new] |
+    | except: :new   |
+    | except: [:new] |

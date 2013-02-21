@@ -19,11 +19,11 @@ FactoryGirl.find_definitions
 Dir[File.join(Rails.root.join('../factories'), '*.rb')].each { |f| load f }
 
 def login_as_admin
-  user = {:email => 'test@example.com', :password => '123456'}
+  user = {email: 'test@example.com', password: '123456'}
   @me = User.find_by_email('test@example.com') || FactoryGirl.create(:admin_user, user)
   visit '/users/sign_in'
-  fill_in 'Email', :with => user[:email]
-  fill_in 'Password', :with => user[:password]
+  fill_in 'Email', with: user[:email]
+  fill_in 'Password', with: user[:password]
   click_button 'Sign in'
   #login_as(@me)
 end
@@ -36,7 +36,7 @@ def build_structures
   {"title" => "node-2-1", "parent_name" => "node-2"},
   {"title" => "node-2-1-1", "parent_name" => "node-2-1"}].each do |attrs|
     parent = Structure.joins(:translations).where("structure_translations.title='#{attrs['parent_name']}'").first
-    FactoryGirl.create(:structure_page, :title => attrs['title'], :parent => parent)
+    FactoryGirl.create(:structure_page, title: attrs['title'], parent: parent)
   end
   visit '/admin/structures'
 end

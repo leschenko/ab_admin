@@ -8,11 +8,11 @@ module AbAdmin
       include ActionView::Helpers::TagHelper
       include NestedForm::BuilderMixin if defined? NestedForm
 
-      map_type :color, :to => ::AbAdmin::Views::Inputs::ColorInput
-      map_type :ckeditor, :to => ::AbAdmin::Views::Inputs::CkeditorInput
-      map_type :editor, :to => ::AbAdmin::Views::Inputs::EditorInput
-      map_type :date, :time, :datetime, :to => ::AbAdmin::Views::Inputs::DateTimeInput
-      map_type :token, :to => ::AbAdmin::Views::Inputs::TokenInput
+      map_type :color, to: ::AbAdmin::Views::Inputs::ColorInput
+      map_type :ckeditor, to: ::AbAdmin::Views::Inputs::CkeditorInput
+      map_type :editor, to: ::AbAdmin::Views::Inputs::EditorInput
+      map_type :date, :time, :datetime, to: ::AbAdmin::Views::Inputs::DateTimeInput
+      map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
 
       def input(attribute_name, options = {}, &block)
         if options[:fancy] || (options[:as] == :select && options[:collection] && options[:collection].size > 10)
@@ -22,10 +22,10 @@ module AbAdmin
 
         case options[:as]
           when :uploader
-            title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
+            title = options[:title] || I18n.t("admin.#{attribute_name}", default: object.class.han(attribute_name))
             return template.input_set(title) { attach_file_field(attribute_name, options) }
           when :map
-            title = options[:title] || I18n.t("admin.#{attribute_name}", :default => object.class.han(attribute_name))
+            title = options[:title] || I18n.t("admin.#{attribute_name}", default: object.class.han(attribute_name))
             prefix = options[:prefix] || object.class.model_name.singular
             data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
             return template.input_set(title) { data_fields + geo_input(prefix, options[:js_options]) }
@@ -53,11 +53,11 @@ module AbAdmin
       def link_to_add_assoc(assoc, options={})
         model = @object.class.reflect_on_association(assoc).klass
         title = [@template.icon('plus', true), I18n.t('admin.add'), model.model_name.human].join(' ').html_safe
-        link_to_add title, assoc, :class => "btn btn-primary #{options[:class]}"
+        link_to_add title, assoc, class: "btn btn-primary #{options[:class]}"
       end
 
       def link_to_remove_assoc
-        link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), :class => 'btn btn-danger btn-mini pull-right'
+        link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), class: 'btn btn-danger btn-mini pull-right'
       end
 
       def locale_tabs(&block)
@@ -65,7 +65,7 @@ module AbAdmin
         Globalize.available_locales.each do |l|
           loc_html[l] = template.capture { block.call(l) }
         end
-        template.render 'admin/shared/locale_tabs', :loc_html => loc_html
+        template.render 'admin/shared/locale_tabs', loc_html: loc_html
       end
 
       def save_buttons
@@ -102,10 +102,10 @@ module AbAdmin
         script_options = (options.delete(:script) || {}).stringify_keys
 
         params = {
-            :method => attribute_name,
-            :assetable_id => object.new_record? ? nil : object.id,
-            :assetable_type => object.class.name,
-            :guid => element_guid
+            method: attribute_name,
+            assetable_id: object.new_record? ? nil : object.id,
+            assetable_type: object.class.name,
+            guid: element_guid
         }.merge(script_options.delete(:params) || {})
 
         script_options['action'] ||= '/sunrise/fileupload?' + Rack::Utils.build_query(params)
@@ -150,7 +150,7 @@ module AbAdmin
         locals[:css_class] << 'error' if locals[:error]
 
 
-        js_opts = [locals[:element_id], template.sort_admin_assets_path(:klass => asset_klass), locals[:multiple]].map(&:inspect).join(', ')
+        js_opts = [locals[:element_id], template.sort_admin_assets_path(klass: asset_klass), locals[:multiple]].map(&:inspect).join(', ')
         locals[:js] = <<-JAVASCRIPT
           var upl = new qq.FileUploaderInput(#{script_options.to_json});
           upl._setupDragDrop();
@@ -162,7 +162,7 @@ module AbAdmin
           template.concat javascript_tag("$(function(){new AssetDescription(#{opts})})")
         end
 
-        template.render(:partial => "admin/fileupload/#{options[:container] || 'container'}", :locals => locals)
+        template.render(partial: "admin/fileupload/#{options[:container] || 'container'}", locals: locals)
       end
 
       protected

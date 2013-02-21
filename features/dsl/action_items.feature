@@ -54,7 +54,7 @@ Feature: Actions items
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        action_item :except => :edit, :if => proc { params[:id].present? } do
+        action_item except: :edit, if: proc { params[:id].present? } do
           link_to 'Secret link', '/'
         end
       end

@@ -55,15 +55,15 @@ Feature: Table index view
   Examples:
     | column | config                                                            | ordering   |
     | Sku    | :sku                                                              | sku        |
-    | Name   | :name, :sortable => :id                                           | id         |
-    | Name   | :name, :sortable => {:column => :price, :default_order => 'desc'} | price desc |
+    | Name   | :name, sortable: :id                                           | id         |
+    | Name   | :name, sortable: {column: :price, default_order: 'desc'} | price desc |
 
   Scenario: Disabled sortable column
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
-          field :created_at, :sortable => false
+          field :created_at, sortable: false
         end
       end
       """

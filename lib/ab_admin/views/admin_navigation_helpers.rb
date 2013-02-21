@@ -36,7 +36,7 @@ module AbAdmin
 
         html_options = args.first.is_a?(Hash) ? args.shift.dup : {}
         html_options[:class] = ['sort_link', current_dir, html_options[:class]].compact.join(' ')
-        options.merge!(:q => search_params.merge(:s => "#{attr_name} #{new_dir}"))
+        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"))
 
         link_to [name, order_indicator_for(current_dir)].join(' ').html_safe, url_for(options), html_options
       end
@@ -54,18 +54,18 @@ module AbAdmin
       def short_action_link(action, item)
         case action
           when :edit
-            item_link_to_can? :update, item, icon('pencil', true), edit_resource_path(item), :remote => settings[:list_edit],
-                              :class => 'btn btn-primary', :title => t('admin.actions.edit.link')
+            item_link_to_can? :update, item, icon('pencil', true), edit_resource_path(item), remote: settings[:list_edit],
+                              class: 'btn btn-primary', title: t('admin.actions.edit.link')
           when :destroy
-            item_link_to_can? :destroy, item, icon('trash', true), resource_path(item, :return_to => request.url),
-                              :method => :delete, :data => {:confirm => t('admin.delete_confirmation')},
-                              :class => 'btn btn-danger', :title => t('admin.actions.destroy.link')
+            item_link_to_can? :destroy, item, icon('trash', true), resource_path(item, return_to: request.url),
+                              method: :delete, data: {confirm: t('admin.delete_confirmation')},
+                              class: 'btn btn-danger', title: t('admin.actions.destroy.link')
           when :show
             item_link_to_can? :show, item, icon('info-sign', true), resource_path(item),
-                              :class => 'btn btn-info', :title => t('admin.actions.show.link')
+                              class: 'btn btn-info', title: t('admin.actions.show.link')
           when :preview
             if path = preview_resource_path(item)
-              link_to icon('eye-open', true), path, :class => 'btn btn-small btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
+              link_to icon('eye-open', true), path, class: 'btn btn-small btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
             end
           when AbAdmin::Config::ActionItem
             instance_exec(item, &action.data) if action.for_context?(self)
@@ -78,17 +78,17 @@ module AbAdmin
       def action_link(action)
         case action
           when :new
-            link_to_can? :create, t('admin.actions.new.link'), new_resource_path, :class => 'btn btn-primary new_resource', :remote => settings[:list_edit]
+            link_to_can? :create, t('admin.actions.new.link'), new_resource_path, class: 'btn btn-primary new_resource', remote: settings[:list_edit]
           when :edit
-            link_to_can? :update, t('admin.actions.edit.link'), edit_resource_path, :class => 'btn btn-primary'
+            link_to_can? :update, t('admin.actions.edit.link'), edit_resource_path, class: 'btn btn-primary'
           when :destroy
-            link_to_can? :destroy, t('admin.actions.destroy.link'), resource_path, :method => :delete, :data => {:confirm => t('admin.delete_confirmation')},
-                         :class => 'btn btn-danger'
+            link_to_can? :destroy, t('admin.actions.destroy.link'), resource_path, method: :delete, data: {confirm: t('admin.delete_confirmation')},
+                         class: 'btn btn-danger'
           when :show
-            link_to_can? :show, t('admin.actions.show.link'), resource_path, :class => 'btn btn-info'
+            link_to_can? :show, t('admin.actions.show.link'), resource_path, class: 'btn btn-info'
           when :preview
             if path = preview_resource_path(resource)
-              link_to t('admin.actions.preview.link'), path, :class => 'btn btn-inverse', :title => t('admin.actions.preview.link'), :target => '_blank'
+              link_to t('admin.actions.preview.link'), path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
             end
           when AbAdmin::Config::ActionItem
             instance_exec(&action.data) if action.for_context?(self)
@@ -113,20 +113,20 @@ module AbAdmin
       end
 
       def model_admin_menu_link(model)
-        content_tag :li, :class => ('active' if controller_name.split('/').last == model.model_name.plural) do
-          link_to model.model_name.human(:count => 9), "/admin/#{model.model_name.plural}"
-          #link_to model.model_name.human(:count => 9), {:action => :index, :controller => "admin/#{model.model_name.plural}"}
+        content_tag :li, class: ('active' if controller_name.split('/').last == model.model_name.plural) do
+          link_to model.model_name.human(count: 9), "/admin/#{model.model_name.plural}"
+          #link_to model.model_name.human(count: 9), {action: :index, controller: "admin/#{model.model_name.plural}"}
         end
       end
 
       def admin_menu_link(name, path)
-        content_tag :li, :class => ('active' if path == request.path_info.split('/')[2]) do
+        content_tag :li, class: ('active' if path == request.path_info.split('/')[2]) do
           link_to name, "/admin/#{path}"
         end
       end
 
       def admin_menu_link_without_model(name, path, path_name)
-        content_tag :li, :class => ('active' if path_name == request.url.split('/').last) do
+        content_tag :li, class: ('active' if path_name == request.url.split('/').last) do
           link_to name, path
         end
       end
@@ -138,7 +138,7 @@ module AbAdmin
           t('will_paginate.pagination_info_empty')
         else
           per_page = (params[:per_page] || resource_class.per_page).to_i
-          t('will_paginate.pagination_info', :from => offset + 1, :to => [offset + per_page, total_entries].min, :count => total_entries).html_safe
+          t('will_paginate.pagination_info', from: offset + 1, to: [offset + per_page, total_entries].min, count: total_entries).html_safe
         end
       end
 
@@ -151,7 +151,7 @@ module AbAdmin
       def batch_action_toggle
         if settings[:batch]
           content_tag :th do
-            check_box_tag '', '', false, :id => nil, :class => 'toggle'
+            check_box_tag '', '', false, id: nil, class: 'toggle'
           end
         end
       end
@@ -159,13 +159,13 @@ module AbAdmin
       def batch_action_item(item)
         if settings[:batch]
           content_tag :td do
-            check_box_tag 'ids[]', item.id, false, :id => "batch_action_item_#{item.id}"
+            check_box_tag 'ids[]', item.id, false, id: "batch_action_item_#{item.id}"
           end
         end
       end
 
       def id_link(item)
-        opts = {:remote => settings[:list_edit], :class => 'resource_id_link'}
+        opts = {remote: settings[:list_edit], class: 'resource_id_link'}
         if can?(:edit, item)
           link_to item.id, edit_resource_path(item), opts
         elsif can?(:read, item)
@@ -196,7 +196,7 @@ module AbAdmin
       def admin_record_link(record, action, options={})
         return unless record
         record_title = options.delete(:title) || AbAdmin.display_name(record)
-        #url_options = {:controller => record.class.model_name.plural, :action => action, :id => record.id}
+        #url_options = {controller: record.class.model_name.plural, action: action, id: record.id}
         action_url_part = action == :show ? '' : "/#{action}"
         url = "/admin/#{record.class.model_name.plural}/#{record.id}#{action_url_part}"
         html_options = options.delete(:html_options) || {}

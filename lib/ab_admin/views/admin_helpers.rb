@@ -33,19 +33,19 @@ module AbAdmin
                            end
         options[:source] ||= {'true' => 'yes', 'false' => 'no'} if options[:type] == 'select'
         data = {
-            :type => options[:type], :source => options[:source].try(:to_json),
-            :model => resource_class.model_name.singular, :url => resource_path(item),
-            :name => attr, :value => item[attr]
+            type: options[:type], source: options[:source].try(:to_json),
+            model: resource_class.model_name.singular, url: resource_path(item),
+            name: attr, value: item[attr]
         }
-        link_to admin_pretty_data(item[attr]).html_safe, '#', :class => 'editable', :data => data
+        link_to admin_pretty_data(item[attr]).html_safe, '#', class: 'editable', data: data
       end
 
       def options_for_ckeditor(options = {})
-        {:width => 930, :height => 200, :toolbar => 'VeryEasy', :namespace => ''}.update(options)
+        {width: 930, height: 200, toolbar: 'VeryEasy', namespace: ''}.update(options)
       end
 
       def admin_tree_item(item)
-        render 'tree_item', :item => item, :child_tree => admin_tree(item.cached_children)
+        render 'tree_item', item: item, child_tree: admin_tree(item.cached_children)
       end
 
       def admin_tree(items)
@@ -80,7 +80,7 @@ module AbAdmin
           when TrueClass, FalseClass
             color_bool(object)
           when Date, DateTime, Time, ActiveSupport::TimeWithZone
-            I18n.l(object, :format => :long)
+            I18n.l(object, format: :long)
           when NilClass
             ''
           when ActiveRecord::Base
@@ -95,22 +95,22 @@ module AbAdmin
       end
 
       def item_image_link(item, options={})
-        options.reverse_merge!(:url => resource_path(item), :assoc => :picture)
+        options.reverse_merge!(url: resource_path(item), assoc: :picture)
         image = item.send(options[:assoc])
         return nil unless image
         version = options[:version] || image.class.thumb_size
-        popover_data = {:content => "<img src='#{image.url}'></img>", :title => item.name}
-        link_to image_tag(image.url(version)), options[:url], :data => popover_data, :rel => 'popover'
+        popover_data = {content: "<img src='#{image.url}'></img>", title: item.name}
+        link_to image_tag(image.url(version)), options[:url], data: popover_data, rel: 'popover'
       end
 
       def item_image(item, assoc=:photo, size=:thumb)
         image_tag_if(item.send(assoc).try(:url, size))
       end
 
-      # input_set 'title', :legend_class => 'do_sort', :label_class => 'label-info' do
+      # input_set 'title', legend_class: 'do_sort', label_class: 'label-info' do
       def input_set(title, options={}, &block)
-        options.reverse_merge!(:class => "inputs well well-small #{options.delete(:legend_class) || 'do_sort'}", :id => options.delete(:legend_id))
-        html = content_tag(:label, title, :class => "input_set label #{options.delete(:label_class)}")
+        options.reverse_merge!(class: "inputs well well-small #{options.delete(:legend_class) || 'do_sort'}", id: options.delete(:legend_id))
+        html = content_tag(:label, title, class: "input_set label #{options.delete(:label_class)}")
         html.concat(capture(&block)) if block_given?
         content_tag(:fieldset, html, options)
       end

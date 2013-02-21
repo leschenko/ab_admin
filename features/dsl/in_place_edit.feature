@@ -8,7 +8,7 @@ Feature: In place edit
       """
       class AbAdminProduct < AbAdmin::AbstractResource
         table do
-          field :sku, :editable => true
+          field :sku, editable: true
           field :name
           field :created_at
         end

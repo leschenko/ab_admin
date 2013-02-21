@@ -10,11 +10,11 @@ module AbAdmin
         return text if from == to
         base = 'https://www.googleapis.com/language/translate/v2'
         params = {
-            :key => configatron.else.retrieve(:google_api_key, ENV['GOOGLE_API_KEY']),
-            :format => 'html',
-            :source => from,
-            :target => to,
-            :q => text
+            key: configatron.else.retrieve(:google_api_key, ENV['GOOGLE_API_KEY']),
+            format: 'html',
+            source: from,
+            target: to,
+            q: text
         }
         response = RestClient.post(base, params, 'X-HTTP-Method-Override' => 'GET')
 

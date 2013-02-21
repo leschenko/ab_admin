@@ -5,7 +5,7 @@ module AbAdmin
 
       attr_reader :code
 
-      class_attribute :codes, :i18n_scope, :instance_writer => false
+      class_attribute :codes, :i18n_scope, instance_writer: false
       self.codes = []
       self.i18n_scope = [:admin, :type_model]
 
@@ -16,13 +16,13 @@ module AbAdmin
       def self.define_enum_by_codes
         define_enum do |builder|
           codes.each do |kind|
-            builder.member kind, :object => new(kind.to_s)
+            builder.member kind, object: new(kind.to_s)
           end
         end
       end
 
       def title
-        I18n.t(@code, :scope => i18n_scope)
+        I18n.t(@code, scope: i18n_scope)
       end
 
       def self.legal?(value)

@@ -9,18 +9,18 @@ module AbAdmin
         scope(:base, scoped) unless respond_to?(:base)
         scope :ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) }
 
-        class_attribute :batch_actions, :instance_writer => false
+        class_attribute :batch_actions, instance_writer: false
         self.batch_actions = [:destroy]
       end
 
       module ClassMethods
         def for_input_token(r, attr='name_ru')
-          {:id => r.id, :text => r[attr]}
+          {id: r.id, text: r[attr]}
         end
       end
 
       def for_input_token
-        {:id => id, :text => name}
+        {id: id, text: name}
       end
 
       def token_data(method, options={})
@@ -28,20 +28,20 @@ module AbAdmin
         records = Array(send(method))
         data = records.map(&:for_input_token)
         data = {
-            :pre => data.to_json,
-            :class => assoc.klass.name,
-            :multi => assoc.collection?,
-            :c => options.delete(:c)
+            pre: data.to_json,
+            class: assoc.klass.name,
+            multi: assoc.collection?,
+            c: options.delete(:c)
         }
         if options[:geo_order]
           data[:c] ||= {}
           singular = self.class.model_name.singular
-          data[:c].reverse_deep_merge!({:with => {:lat => "#{singular}_lat", :lon => "#{singular}_lon"}})
+          data[:c].reverse_deep_merge!({with: {lat: "#{singular}_lat", lon: "#{singular}_lon"}})
         end
         if data[:c] && !data[:c].is_a?(String)
           data[:c] = data[:c].to_json
         end
-        options.reverse_deep_merge!(:class => 'fancy_select', :data => data, :value => records.map(&:id).join(','))
+        options.reverse_deep_merge!(class: 'fancy_select', data: data, value: records.map(&:id).join(','))
       end
 
       def next_prev_by_url(scope, url, prev=false)
@@ -61,7 +61,7 @@ module AbAdmin
           id_predicate = '>'
         end
         sql = "(#{quoted_order_col} #{predicate} :val OR (#{quoted_order_col} = :val AND #{self.class.quote_column('id')} #{id_predicate} #{id}))"
-        scope.where(sql, :val => send(order_col)).ransack(query[:q]).result(:distinct => true).first
+        scope.where(sql, val: send(order_col)).ransack(query[:q]).result(distinct: true).first
       end
 
     end

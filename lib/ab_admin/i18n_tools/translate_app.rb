@@ -5,7 +5,7 @@ module AbAdmin
       def self.call(env)
         if env['warden'].user
           params = Rack::Request.new(env).params
-          body = {:text => AbAdmin::I18nTools::GoogleTranslate.t(params['q'], params['from'], params['to'])}
+          body = {text: AbAdmin::I18nTools::GoogleTranslate.t(params['q'], params['from'], params['to'])}
           [200, {'Content-Type' => 'application/json'}, body.to_json]
         else
           [401, {'Content-Type' => 'application/json'}, '']

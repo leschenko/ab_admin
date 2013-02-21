@@ -1,9 +1,9 @@
 class CreateStaticPages < ActiveRecord::Migration
   def self.up
     create_table :static_pages do |t|
-      t.integer   :structure_id, :null => false
+      t.integer   :structure_id, null: false
       t.references :user
-      t.boolean :is_visible, :default => true, :null => false
+      t.boolean :is_visible, default: true, null: false
 
       t.timestamps
     end

@@ -6,7 +6,7 @@ module AbAdmin
 
       source_root File.expand_path('../templates', __FILE__)
 
-      argument :name, :type => :string, :default => 'fake'
+      argument :name, type: :string, default: 'fake'
 
       def create_migration
         migration_template 'migration.erb', "db/migrate/#{migration_name}.rb"

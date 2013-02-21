@@ -10,8 +10,8 @@ worker_processes 2
 
 working_directory APP_ROOT
 
-listen "#{APP_ROOT}/tmp/sockets/unicorn.sock", :backlog => 64
-listen 8080, :tcp_nopush => true
+listen "#{APP_ROOT}/tmp/sockets/unicorn.sock", backlog: 64
+listen 8080, tcp_nopush: true
 
 timeout 90
 
@@ -43,7 +43,7 @@ end
 after_fork do |server, worker|
   # per-process listener ports for debugging/admin/migrations
   # addr = "127.0.0.1:#{9293 + worker.nr}"
-  # server.listen(addr, :tries => -1, :delay => 5, :tcp_nopush => true)
+  # server.listen(addr, tries: -1, delay: 5, tcp_nopush: true)
 
   defined?(ActiveRecord::Base) and
       ActiveRecord::Base.establish_connection

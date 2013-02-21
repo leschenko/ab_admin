@@ -22,7 +22,7 @@ end
 def insert_structures
   Structure.truncate!
   
-  main_page = Structure.create!({:title => 'Главная страница', :slug => 'main-page', :structure_type => StructureType.main, :parent => nil}, :as => :admin)
+  main_page = Structure.create!({title: 'Главная страница', slug: 'main-page', structure_type: StructureType.main, parent: nil}, as: :admin)
 end
 
 insert_user
@@ -32,13 +32,13 @@ Dir[File.join(Rails.root.join('../factories'), '*.rb')].each { |f| load f }
 def test_structure
   Structure.truncate!
 
-  main_page = Structure.create!({:title => 'Главная страница', :slug => 'main-page', :structure_type => StructureType.main, :parent => nil}, :as => :admin)
+  main_page = Structure.create!({title: 'Главная страница', slug: 'main-page', structure_type: StructureType.main, parent: nil}, as: :admin)
   3.times do |i|
-    parent = FactoryGirl.create(:structure_page, :title => "node #{i}")
+    parent = FactoryGirl.create(:structure_page, title: "node #{i}")
     2.times do |ii|
-      child = FactoryGirl.create(:structure_page, :title => "node #{i} - #{ii}", :parent => parent)
+      child = FactoryGirl.create(:structure_page, title: "node #{i} - #{ii}", parent: parent)
       2.times do |iii|
-        FactoryGirl.create(:structure_page, :title => "node #{i} - #{ii} - #{iii}", :parent => child)
+        FactoryGirl.create(:structure_page, title: "node #{i} - #{ii} - #{iii}", parent: child)
       end
     end
   end

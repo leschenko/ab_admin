@@ -41,7 +41,7 @@ module AbAdmin
 
     def truncate_text(raw_text, size=200)
       text = raw_text.to_s.gsub(/&quot;|&laquo;|&raquo;|&#x27;/, "'").gsub(/&nbsp;/, ' ').gsub(/&mdash;/, '-').no_html.squish
-      text.truncate(size, :separator => ' ')
+      text.truncate(size, separator: ' ')
     end
 
     def l_path(locale=nil)
@@ -71,12 +71,12 @@ module AbAdmin
 
     def js_date_data
       {
-          :formats => I18n.t('date.formats'),
-          :day_names => I18n.t('date.day_names'),
-          :abbr_day_names => I18n.t('date.common_abbr_day_names'),
-          :month_names => I18n.t('date.common_month_names'),
-          :standalone_month_names => I18n.t('date.standalone_month_names'),
-          :abbr_month_names => I18n.t('date.abbr_month_names')
+          formats: I18n.t('date.formats'),
+          day_names: I18n.t('date.day_names'),
+          abbr_day_names: I18n.t('date.common_abbr_day_names'),
+          month_names: I18n.t('date.common_month_names'),
+          standalone_month_names: I18n.t('date.standalone_month_names'),
+          abbr_month_names: I18n.t('date.abbr_month_names')
       }
     end
 
@@ -116,7 +116,7 @@ module AbAdmin
         when FalseClass
           '-'
         when Date, DateTime, Time, ActiveSupport::TimeWithZone
-          I18n.l(object, :format => :long)
+          I18n.l(object, format: :long)
         when NilClass
           ''
         else

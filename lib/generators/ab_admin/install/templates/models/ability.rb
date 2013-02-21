@@ -2,7 +2,7 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    alias_action :destroy, :to => :delete
+    alias_action :destroy, to: :delete
 
     @user = user
 
@@ -33,13 +33,13 @@ class Ability
     default
     can :manage, Dashboard
     can [:read, :create], AdminComment
-    can :destroy, AdminComment, :author_id => @user.id
-    cannot :destroy, User, :id => @user.id
+    can :destroy, AdminComment, author_id: @user.id
+    cannot :destroy, User, id: @user.id
   end
 
   def admin
     can :manage, :all
 
-    cannot :destroy, User, :id => @user.id
+    cannot :destroy, User, id: @user.id
   end
 end

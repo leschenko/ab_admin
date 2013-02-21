@@ -5,9 +5,9 @@ module AbAdmin
 
     def self.config
       {
-        :controllers => {
-            :sessions => 'ab_admin/devise/sessions',
-            :passwords => 'ab_admin/devise/passwords'
+        controllers: {
+            sessions: 'ab_admin/devise/sessions',
+            passwords: 'ab_admin/devise/passwords'
         }
       }
     end

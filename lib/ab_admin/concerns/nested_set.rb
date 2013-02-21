@@ -12,7 +12,7 @@ module AbAdmin
 
         scope :nested_set, order('lft ASC')
         scope :reversed_nested_set, order('lft DESC')
-        scope :with_depth, proc { |level| where(:depth => level) }
+        scope :with_depth, proc { |level| where(depth: level) }
       end
 
       module ClassMethods

@@ -4,7 +4,7 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
-        belongs_to :headerable, :polymorphic => true
+        belongs_to :headerable, polymorphic: true
       end
       
       def empty?

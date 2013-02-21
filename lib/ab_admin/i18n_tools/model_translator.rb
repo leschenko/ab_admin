@@ -18,11 +18,11 @@ module AbAdmin
 
             models_hash = @models.each_with_object({}) do |model, h|
               model_i18n = {
-                  'zero' => model.model_name.human(:count => 0),
-                  'one' => model.model_name.human(:count => 1),
-                  'few' => (model.model_name.human(:count => 2) rescue model.model_name.human(:count => 1)),
-                  'many' => (model.model_name.human(:count => 9) rescue model.model_name.human(:count => 1)),
-                  'other' => (model.model_name.human(:count => 9) rescue model.model_name.human(:count => 1))
+                  'zero' => model.model_name.human(count: 0),
+                  'one' => model.model_name.human(count: 1),
+                  'few' => (model.model_name.human(count: 2) rescue model.model_name.human(count: 1)),
+                  'many' => (model.model_name.human(count: 9) rescue model.model_name.human(count: 1)),
+                  'other' => (model.model_name.human(count: 9) rescue model.model_name.human(count: 1))
               }
               @models_i18n_hash[locale]['activerecord']['models'][model.model_name.i18n_key.to_s]= model_i18n
               attributes = model.columns.map(&:name)
@@ -35,7 +35,7 @@ module AbAdmin
                 end
                 if model.new.respond_to?("#{attr}_#{locale.to_s}".to_sym)
                   @locales.each do |locale_1|
-                    o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{I18n.t(locale_1, :scope => [:attrs])})"
+                    o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{I18n.t(locale_1, scope: [:attrs])})"
                   end
                 end
               end.sort.to_hash
@@ -46,7 +46,7 @@ module AbAdmin
       end
 
       def ha(model, attr, locale)
-        model.human_attribute_name(attr, :locale => locale)
+        model.human_attribute_name(attr, locale: locale)
       end
 
       def write_yaml

@@ -8,7 +8,7 @@ gem 'cancan', '~> 1.6.7'
 
 gem 'ransack'
 gem 'awesome_nested_set'
-gem 'galetahub-enum_field', '~> 0.2.0', :require => 'enum_field'
+gem 'galetahub-enum_field', '~> 0.2.0', require: 'enum_field'
 gem 'friendly_id'
 
 gem 'configatron'
@@ -30,9 +30,9 @@ gem 'bootstrap-x-editable-rails'
 gem 'gon'
 gem 'i18n-js'
 
-gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => 'bcdf5eb'
-gem 'sunrise-file-upload', :git => 'git://github.com/leschenko/sunrise-file-upload.git', :ref => '53da968'
-gem 'turbo-sprockets-rails3', :group => :assets
+gem 'globalize3', git: 'git://github.com/leschenko/globalize3.git', ref: 'bcdf5eb'
+gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968'
+gem 'turbo-sprockets-rails3', group: :assets
 gem 'ab_admin'
 
 ckeditor = yes?('Install ckeditor?')
@@ -59,7 +59,7 @@ if gem_adds
 
   gem_group :development, :test do
     gem 'rspec-rails'
-    gem 'cucumber-rails', :require => false
+    gem 'cucumber-rails', require: false
 
     gem 'factory_girl_rails'
     gem 'quiet_assets'
@@ -68,7 +68,7 @@ if gem_adds
     gem 'guard-rspec'
     gem 'guard-spork'
     gem 'guard-cucumber'
-    gem 'rb-fsevent', :require => false
+    gem 'rb-fsevent', require: false
     gem 'growl'
   end
 
@@ -76,7 +76,7 @@ if gem_adds
     gem 'pry-rails'
     gem 'pry-doc'
     gem 'slim-rails'
-    gem 'thin', :require => false
+    gem 'thin', require: false
     gem 'annotate'
     gem 'letter_opener'
     gem 'better_errors'
@@ -93,7 +93,7 @@ if gem_adds
   end
 
   gem_group :staging, :production do
-    gem 'unicorn', :require => false
+    gem 'unicorn', require: false
   end
 end
 

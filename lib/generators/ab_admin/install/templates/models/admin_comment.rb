@@ -1,8 +1,8 @@
 class AdminComment < ActiveRecord::Base
   attr_accessible :body, :resource_id, :resource_type
 
-  belongs_to :resource, :polymorphic => true
-  belongs_to :author, :class_name => 'User'
+  belongs_to :resource, polymorphic: true
+  belongs_to :author, class_name: 'User'
   belongs_to :user
 
   validates_presence_of :resource
@@ -19,11 +19,11 @@ class AdminComment < ActiveRecord::Base
   end
 
   def self.find_for_resource(resource)
-    where(:resource_type => resource_type(resource), :resource_id => resource.id)
+    where(resource_type: resource_type(resource), resource_id: resource.id)
   end
 
   def for_form
-    {:body => body, :id => id, :author_name => user.try(:name), :author_id => user.try(:id), :created_at => I18n.l(created_at, :format => :long)}
+    {body: body, id: id, author_name: user.try(:name), author_id: user.try(:id), created_at: I18n.l(created_at, format: :long)}
   end
 
 end

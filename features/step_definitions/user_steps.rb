@@ -1,13 +1,13 @@
 # -*- encoding : utf-8 -*-
 ### UTILITY METHODS ###
 def valid_user
-  @user ||= {:email => 'test@example.com', :password => '123456'}
+  @user ||= {email: 'test@example.com', password: '123456'}
 end
 
 def sign_in(user)
   visit new_user_session_path
-  fill_in 'Email', :with => user[:email]
-  fill_in 'Password', :with => user[:password]
+  fill_in 'Email', with: user[:email]
+  fill_in 'Password', with: user[:password]
   click_button 'Sign in'
 end
 
@@ -17,7 +17,7 @@ Given /^I am signed out$/ do
 end
 
 Given /^I do not exist as a user$/ do
-  User.where(:email => valid_user[:email]).first.should be_nil
+  User.where(email: valid_user[:email]).first.should be_nil
 end
 
 Given /^I exist as a user$/ do
@@ -38,7 +38,7 @@ Then /^I should be signed out$/ do
 end
 
 When /^I sign in with a wrong password$/ do
-  sign_in valid_user.merge(:password => 'wrong')
+  sign_in valid_user.merge(password: 'wrong')
 end
 
 Then /^I see a successful sign in message$/ do
@@ -46,7 +46,7 @@ Then /^I see a successful sign in message$/ do
 end
 
 Then /^I should see my name$/ do
-  page.should have_content(User.where(:email => valid_user[:email]).first.try(:name))
+  page.should have_content(User.where(email: valid_user[:email]).first.try(:name))
 end
 
 Given /^I am logged in$/ do
@@ -55,7 +55,7 @@ Given /^I am logged in$/ do
 end
 
 Given /^I am logged in as "(.*)"$/ do |email|
-  @me = FactoryGirl.create(:admin_user, valid_user.merge(:email => email))
+  @me = FactoryGirl.create(:admin_user, valid_user.merge(email: email))
   login_as @me
 end
 

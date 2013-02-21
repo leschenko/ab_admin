@@ -6,11 +6,11 @@ end
 
 class Time
   def formatted_datetime
-    I18n.l(self, :format => "%d.%m.%Y %H:%M")
+    I18n.l(self, format: "%d.%m.%Y %H:%M")
   end
 
   def formatted_date
-    I18n.l(self, :format => "%d.%m.%Y")
+    I18n.l(self, format: "%d.%m.%Y")
   end
 end
 

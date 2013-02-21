@@ -6,7 +6,7 @@ Then /^I should see "(.*?)" comment with author$/ do |comment|
 end
 
 Given /^comment "(.*?)" exists$/ do |comment|
-  AdminComment.create(:resource_id => @product.id, :resource_type => 'Product', :body => comment) do |c|
+  AdminComment.create(resource_id: @product.id, resource_type: 'Product', body: comment) do |c|
     c.author = @me
   end
 end

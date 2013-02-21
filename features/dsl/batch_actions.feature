@@ -57,7 +57,7 @@ Feature: Batch actions
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        batch_action :un_publish!, :title => 'Deativate', :confirm => 'Un Publish?'
+        batch_action :un_publish!, title: 'Deativate', confirm: 'Un Publish?'
       end
       """
     And I am on the admin products page

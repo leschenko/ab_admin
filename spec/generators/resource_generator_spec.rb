@@ -19,7 +19,7 @@ describe AbAdmin::Generators::ResourceGenerator do
   end
 
   it 'creates a admin resource' do
-    assert_file 'config/routes.rb', /resources\(:headers\) { post :batch, :on => :collection }/
+    assert_file 'config/routes.rb', /resources\(:headers\) { post :batch, on: :collection }/
     assert_file 'app/models/admin_menu.rb', /model Header/
 
     assert_file 'app/controllers/admin/headers_controller.rb', /HeadersController/

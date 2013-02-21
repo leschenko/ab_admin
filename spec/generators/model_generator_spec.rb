@@ -24,8 +24,8 @@ describe AbAdmin::Generators::ModelGenerator do
     #puts File.read(File.join(destination_root, 'app/models/ab_admin/ab_admin_product.rb'))
     assert_file 'app/models/admin_menu.rb', /model Product/
 
-    assert_file 'app/models/ab_admin/ab_admin_product.rb', /AbAdminProduct/, /table do/, /field :name, :sortable => false/,
-                /search do/, /locale_tabs do/, /field :picture, :as => :uploader/, /field :map, :as => :map/
+    assert_file 'app/models/ab_admin/ab_admin_product.rb', /AbAdminProduct/, /table do/, /field :name, sortable: false/,
+                /search do/, /locale_tabs do/, /field :picture, as: :uploader/, /field :map, as: :map/
   end
 
 end

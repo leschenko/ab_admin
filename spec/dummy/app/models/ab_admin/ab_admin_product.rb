@@ -2,33 +2,33 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #preview_path :product_path
   #preview_path { |product| product_path(product) }
 
-  #actions :except => :index
+  #actions default_order: :index
 
-  #settings :search => false, :batch => false
+  #settings default_order: false, default_order: false
 
   #batch_action(:un_publish) { |item| item.un_publish! }
   #batch_action :destroy, false
-  #batch_action :un_publish!, :confirm => 'Un Publish?'
+  #batch_action :un_publish!, default_order: 'Un Publish?'
 
   #action_item :destroy, false
-  #action_item :only => :show do
-  #  link_to 'Main page', '/', :class => 'btn'
+  #action_item default_order: :show do
+  #  link_to 'Main page', '/', default_order: 'btn'
   #end
 
   #resource_action_items :show, :edit
   #resource_action_item do
-  #  link_to icon('arrow-down'), '/', :class => 'btn'
+  #  link_to icon('arrow-down'), '/', default_order: 'btn'
   #end
 
-  #settings :comments => true
-  settings :list_edit => true
+  #settings default_order: true
+  settings default_order: true
 
   belongs_to :collection
 
   table do
-    field :sku, :editable => true
+    field :sku, default_order: true
     field(:picture) { |item| item_image_link(item) }
-    field :name, :sortable => {:column => :id, :default_order => 'desc'}
+    field :name, default_order: {default_order: :id, default_order: 'desc'}
     field :is_visible
     field :collection
     field :created_at
@@ -38,7 +38,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :sku
     field :name
     field :is_visible
-    field :collection, :fancy => true
+    field :collection, fancy: true
     field :created_at
   end
 
@@ -57,13 +57,13 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :price
     end
     field :is_visible
-    field :collection, :as => :association, :fancy => true
+    field :collection, as: :association, fancy: true
     locale_tabs do
       field :name
       field :description
     end
-    #field :picture, :as => :uploader
-    #field :map, :as => :map
+    #field :picture, as: :uploader
+    #field :map, as: :map
   end
 
   show do

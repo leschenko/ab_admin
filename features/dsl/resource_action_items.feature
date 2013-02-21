@@ -32,7 +32,7 @@ Feature: Resource action items
     """
       class AbAdminProduct < AbAdmin::AbstractResource
         resource_action_item do
-          link_to icon('arrow-down'), '/', :title => 'Custom'
+          link_to icon('arrow-down'), '/', title: 'Custom'
         end
       end
       """

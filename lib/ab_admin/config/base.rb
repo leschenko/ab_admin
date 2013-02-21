@@ -3,7 +3,7 @@ module AbAdmin
     class BaseBuilder
       attr_reader :options, :fields
       attr_accessor :partial
-      class_attribute :field_defaults, :partial_name, :instance_writer => false
+      class_attribute :field_defaults, :partial_name, instance_writer: false
       self.field_defaults = {}
 
       def initialize(options={}, &block)
@@ -30,7 +30,7 @@ module AbAdmin
     end
 
     class Table < BaseBuilder
-      self.field_defaults = {:sortable => true}
+      self.field_defaults = {sortable: true}
       self.partial_name = 'table'
     end
 
@@ -40,7 +40,7 @@ module AbAdmin
 
     class Export < BaseBuilder
       def render_options
-        {:column_names => fields.map(&:name), :column_data => fields.map(&:data), :column_separator => options[:column_separator]}
+        {column_names: fields.map(&:name), column_data: fields.map(&:data), column_separator: options[:column_separator]}
       end
     end
 
@@ -53,7 +53,7 @@ module AbAdmin
       end
 
       def locale_tabs(options={}, &block)
-        @fields << FieldGroup.new(options.update(:localized => true), &block)
+        @fields << FieldGroup.new(options.update(localized: true), &block)
       end
     end
 
@@ -73,7 +73,7 @@ module AbAdmin
 
     class FieldGroup < BaseBuilder
       def title
-        options[:title].is_a?(Symbol) ? I18n.t(options[:title], :scope => [:admin, :form]) : options[:title]
+        options[:title].is_a?(Symbol) ? I18n.t(options[:title], scope: [:admin, :form]) : options[:title]
       end
 
       def localized?

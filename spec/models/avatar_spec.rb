@@ -130,7 +130,7 @@ describe Avatar do
     end
   end
 
-  context 'rotate', :focus => true do
+  context 'rotate', focus: true do
     before(:each) do
       @avatar = create(:asset_avatar)
       @avatar.rotate_degrees = '-90'

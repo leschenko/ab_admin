@@ -42,15 +42,15 @@ When /^(?:|I )fill in the following:$/ do |fields|
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"$/ do |field, value|
-  fill_in(field, :with => value)
+  fill_in(field, with: value)
 end
 
 When /^(?:|I )fill in "([^"]*)" with:$/ do |field, value|
-  fill_in(field, :with => value)
+  fill_in(field, with: value)
 end
 
 When /^(?:|I )select "([^"]*)" from "([^"]*)"$/ do |value, field|
-  select(value, :from => field)
+  select(value, from: field)
 end
 
 When /^(?:|I )check "([^"]*)"$/ do |field|
@@ -136,7 +136,7 @@ When /^(?:I|i) select following values from "([^"]*)":$/ do |field, values|
   end
 
   values.each do |value|
-    select(value, :from => field)
+    select(value, from: field)
   end
 end
 
@@ -149,7 +149,7 @@ When /^(?:I|i) unselect following values from "([^"]*)":$/ do |field, values|
   end
 
   values.each do |value|
-    unselect(value, :from => field)
+    unselect(value, from: field)
   end
 end
 

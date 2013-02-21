@@ -12,12 +12,12 @@ Feature: Admin menu
         model User
         group :system do
           model Structure
-          model Settings, :url => edit_admin_settings_path
+          model Settings, url: edit_admin_settings_path
         end
-        group 'Moderator', :if => proc { moderator? } do
+        group 'Moderator', if: proc { moderator? } do
           link 'for moderator', 'dummy_path'
         end
-        group 'Admin', :if => :admin? do
+        group 'Admin', if: :admin? do
           link :for_admin, 'dummy_path'
         end
       end

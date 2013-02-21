@@ -6,14 +6,14 @@ module AbAdmin
       desc 'Generates AbAdmin_resource for model'
 
       source_root File.expand_path('../templates', __FILE__)
-      check_class_collision :suffix => 'Controller', :prefix => 'Admin::'
+      check_class_collision suffix: 'Controller', prefix: 'Admin::'
 
-      class_option :handler, :default => 'slim', :desc => 'Template engine to be invoked (haml or slim).', :aliases => '-e'
-      class_option :skip_form, :type => :boolean, :default => false, :description => 'Don\'t create form template' #, :aliases => '-r'
-      class_option :skip_table, :type => :boolean, :default => false, :description => 'Don\'t create table template'
-      class_option :skip_search_form, :type => :boolean, :default => false, :description => 'Don\'t create search_form template'
+      class_option :handler, default: 'slim', desc: 'Template engine to be invoked (haml or slim).', aliases: '-e'
+      class_option :skip_form, type: :boolean, default: false, description: 'Don\'t create form template' #, aliases: '-r'
+      class_option :skip_table, type: :boolean, default: false, description: 'Don\'t create table template'
+      class_option :skip_search_form, type: :boolean, default: false, description: 'Don\'t create search_form template'
 
-      hook_for :helper, :in => :rails do |instance, helper|
+      hook_for :helper, in: :rails do |instance, helper|
         instance.invoke helper, ["admin/#{instance.send(:plural_name)}"]
       end
 
@@ -22,12 +22,12 @@ module AbAdmin
       end
 
       def add_routes
-        routing_code = "resources(:#{controller_file_name}) { post :batch, :on => :collection }"
+        routing_code = "resources(:#{controller_file_name}) { post :batch, on: :collection }"
         log :route, routing_code
         sentinel = /namespace :admin do$/
 
         in_root do
-          inject_into_file 'config/routes.rb', "\n    #{routing_code}\n", {:after => sentinel, :verbose => false}
+          inject_into_file 'config/routes.rb', "\n    #{routing_code}\n", {after: sentinel, verbose: false}
         end
       end
 
@@ -37,7 +37,7 @@ module AbAdmin
         sentinel = /draw do$/
 
         in_root do
-          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {:after => sentinel, :verbose => false}
+          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {after: sentinel, verbose: false}
         end
       end
 

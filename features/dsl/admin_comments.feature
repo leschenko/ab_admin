@@ -9,7 +9,7 @@ Feature: Admin comments
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        settings :comments => true
+        settings comments: true
       end
       """
     And I am on the edit admin product page
@@ -21,7 +21,7 @@ Feature: Admin comments
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
-        settings :comments => true
+        settings comments: true
       end
       """
     And comment "Hello" exists

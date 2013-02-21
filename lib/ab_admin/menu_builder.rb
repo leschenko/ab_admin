@@ -9,7 +9,7 @@ module AbAdmin
     end
 
     def model(model, options={})
-      title = model.model_name.human(:count => 9)
+      title = model.model_name.human(count: 9)
       path = options[:url] || "/admin/#{model.model_name.plural}"
       @menu_tree << MenuItem.new(title, path, options)
     end
@@ -48,7 +48,7 @@ module AbAdmin
   class MenuGroup < BaseMenuGroup
     def initialize(title, options, &block)
       @menu_tree = []
-      @title = title.is_a?(Symbol) ? I18n.t(title, :scope => [:admin, :navigation]) : title
+      @title = title.is_a?(Symbol) ? I18n.t(title, scope: [:admin, :navigation]) : title
       @options = options
       instance_eval &block if block_given?
     end
@@ -70,7 +70,7 @@ module AbAdmin
     include ::AbAdmin::Utils::EvalHelpers
 
     def initialize(title, path, options)
-      @title = title.is_a?(Symbol) ? I18n.t(title, :scope => [:admin, :navigation]) : title
+      @title = title.is_a?(Symbol) ? I18n.t(title, scope: [:admin, :navigation]) : title
       @path = path
       @options = options
     end

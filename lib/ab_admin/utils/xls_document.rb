@@ -22,14 +22,14 @@ module AbAdmin
       end
 
       def render
-        date_format = workbook.add_format(:num_format => 'dd.mm.yyyy')
-        time_format = workbook.add_format(:num_format => 'dd.mm.yyyy HH:MM')
+        date_format = workbook.add_format(num_format: 'dd.mm.yyyy')
+        time_format = workbook.add_format(num_format: 'dd.mm.yyyy HH:MM')
 
         each_with_index do |item, index|
           row = index + 1
 
           column_data.each_with_index do |column, num|
-            value = call_method_or_proc_on(item, column, :exec => false)
+            value = call_method_or_proc_on(item, column, exec: false)
 
             case value
               when Date
@@ -44,7 +44,7 @@ module AbAdmin
           end
         end
 
-        bold = workbook.add_format(:bold => 1)
+        bold = workbook.add_format(bold: 1)
         worksheet.write('A1', columns_names, bold)
 
         super

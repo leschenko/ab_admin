@@ -6,7 +6,7 @@ module AbAdmin
       desc 'Generates AbAdmin dsl resource for model'
 
       source_root File.expand_path('../templates', __FILE__)
-      check_class_collision :prefix => 'AbAdmin'
+      check_class_collision prefix: 'AbAdmin'
 
       def create_resource_file
         template 'resource.erb', File.join('app/models/ab_admin', "ab_admin_#{singular_name}.rb")

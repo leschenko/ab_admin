@@ -21,11 +21,11 @@ module AbAdmin
       end
 
       def human_date
-        I18n.l(created_at, :format => '%d %B %Y')
+        I18n.l(created_at, format: '%d %B %Y')
       end
 
       def as_json(options={})
-        options.reverse_merge!(:methods => [:filename, :url, :preview_url, :thumb_url, :width, :height,
+        options.reverse_merge!(methods: [:filename, :url, :preview_url, :thumb_url, :width, :height,
                                             :file_css_class, :human_filesize, :created_at])
         super
       end
