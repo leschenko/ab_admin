@@ -42,7 +42,7 @@ describe AbAdmin::Generators::InstallGenerator do
   end
 
   it 'should add_routes' do
-    assert_file 'config/routes.rb', /devise_for :users, ::AbAdmin::Devise\.config/, /root :to/
+    assert_file 'config/routes.rb', /devise_for :users, ::AbAdmin::Devise\.config/, /root to:/
   end
 
 end
