@@ -7,7 +7,8 @@
         - if node.localized?
           = f.locale_tabs do |l|
             - node.fields.each do |field|
-              = f.input field.name, locale: l, as: (:editor if field.name.to_s =~ /description|content|body/)
+              - field.options[:as] = :editor if !field.options.key?(:as) && field.name.to_s =~ /description|content|body/
+              = f.input field.name, field.options.merge(locale: l)
         - else
           = input_set node.title, node.options do
             - node.fields.each do |field|
