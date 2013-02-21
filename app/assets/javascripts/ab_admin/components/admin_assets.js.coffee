@@ -1,22 +1,24 @@
 #= require ab_admin/fileupload/fileuploader.js
 #= require ab_admin/fileupload/admin-fileuploader.js
 #= require jquery.tmpl.min
+#= require ab_admin/jquery.Jcrop
+#= require ab_admin/components/croppable_image
 
 class window.AdminAssets
   constructor: (@element_id, @url, @sortable) ->
+    @uploader_api = qq.FileUploader.instances[@element_id]
+    @uploader_el = $("##{@element_id}")
     @initHandlers()
+    @uploader_el.data('AdminAssets', this)
 
   initHandlers: ->
     self = this
-    query = "##{@element_id} .fileupload-list"
+    @query = "##{@element_id} .fileupload-list"
     if @sortable
-      $(".do_sort " + query).sortable
+      $(".do_sort " + @query).sortable
         revert: true
-        start: (e, ui) ->
-          ui.item.addClass "drag_sort"
-
         update: (event, ui) ->
-          data = $(query).sortable("serialize")
+          data = $(self.query).sortable("serialize")
           $.ajax
             url: self.url
             data: data
@@ -24,13 +26,14 @@ class window.AdminAssets
             type: "POST"
 
     if $.fn.fancybox
-      @initFancybox(query)
+      @initFancybox()
 
     unless window.admin_assets_first
       window.admin_assets_first = true
       @initMainImage()
       @initRemove()
       @initRotate()
+    @initCrop()
 
   initRemove: ->
     $(document).on "ajax:complete", ".fileupload .del_asset", ->
@@ -51,20 +54,18 @@ class window.AdminAssets
   initRotate: ->
     $(document).on 'click', '.fileupload .rotate_image', ->
       $asset = $(this).closest('.asset')
+      $uploader = qq.FileUploader.instances[$asset.closest('.fileupload').attr('id')]
       $.post "/admin/assets/#{$asset.data('id')}/rotate", (data) ->
-        $asset.replaceWith $('#fileupload_tmpl').tmpl(data.asset)
+        $asset.replaceWith $($uploader._options.template_id).tmpl(data.asset)
 
-  initFancybox: (query) ->
-    $(query + " a.fancybox").fancybox
-      titleShow: false
-      transitionIn: "none"
-      transitionOut: "none"
-      autoScale: false
-      onStart: (items, index, opts) ->
-        obj = $(items[index]).parent()
-        if obj.hasClass("drag_sort")
-          obj.removeClass "drag_sort"
-          false
+  initCrop: ->
+    if $.fn.Jcrop
+      @crop = new CroppableImage(@element_id)
+
+  initFancybox: =>
+    $(@query + " a.fancybox").fancybox
+      afterShow: => @crop?.fancyboxHandler()
+
 
 #class window.AssetDescription
 #  constructor: (@assoc, @assetable_type, @assetable_id, @guid) ->

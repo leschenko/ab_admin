@@ -50,7 +50,7 @@ class Admin::AssetsController < ApplicationController
   end
 
   def crop
-    render json: @asset.crop!(params[:crop_attrs])
+    render json: @asset.crop!(params[:geometry])
   end
 
   protected

@@ -80,6 +80,14 @@ module AbAdmin
         self
       end
 
+      def crop!(geometry)
+        rename!
+        self.cropper_geometry = geometry
+        save!
+        refresh_assetable
+        self
+      end
+
       def rename!
         rename
         save!

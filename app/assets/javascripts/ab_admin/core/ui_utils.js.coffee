@@ -60,7 +60,6 @@ window.initFancySelect = ->
     options.multiple = $el.data('multi') unless _.isUndefined($el.data('multi'))
     options.width = $el[0].style.width || 'resolve'
     if $el.data('tags')
-      log 'init tags'
       options.tokenSeparators = [","]
       options.tags = $el.data('tags')
     else if $el.data('class')
