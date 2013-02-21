@@ -2,7 +2,7 @@
 #= require ab_admin/fileupload/admin-fileuploader.js
 #= require jquery.tmpl.min
 #q= require ab_admin/jquery.Jcrop
-#= require ab_admin/components/croppable_image
+#q= require ab_admin/components/croppable_image
 
 class window.AdminAssets
   constructor: (@element_id, @url, @sortable) ->
