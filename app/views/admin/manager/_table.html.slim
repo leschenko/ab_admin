@@ -8,7 +8,7 @@
         th= sort_link(@search, :id)
         - table_builder.fields.each do |field|
           th
-            - if field.options[:sortable]
+            - if field.options[:sortable] && !field.options[:image]
               - if field.options[:sortable].is_a?(TrueClass)
                 = sort_link @search, field.name
               - else

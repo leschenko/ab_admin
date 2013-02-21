@@ -102,7 +102,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def resource_class
     @model ||= begin
-      params[:model_name].singularize.classify.constantize
+      params[:model_name].classify.constantize
     rescue NameError => e
       raise ActionController::RoutingError.new("AbAdmin model #{params[:model_name]} not found (#{e.message})")
     end

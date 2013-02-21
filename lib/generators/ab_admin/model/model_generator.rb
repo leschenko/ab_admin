@@ -13,12 +13,14 @@ module AbAdmin
       end
 
       def add_menu
+        menu_path = 'app/models/admin_menu.rb'
+        return if File.read(File.join(@destination_stack.last, menu_path)).match(Regexp.new("[^a-zA-Z]#{model.name}[^a-zA-Z]"))
         menu_code = "model #{model.name}"
         log :menu, menu_code
         sentinel = /draw do$/
 
         in_root do
-          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {after: sentinel, verbose: false}
+          inject_into_file menu_path, "\n    #{menu_code}\n", {after: sentinel, verbose: false}
         end
       end
 
