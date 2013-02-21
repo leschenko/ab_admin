@@ -24,7 +24,7 @@ module WillPaginate
     module Pagination
       def paginate(options)
         options = options.dup
-        pagenum = options.fetch(:page) { raise ArgumentError, ":page parameter required" }
+        pagenum = options.fetch(:page) { raise ArgumentError, ':page parameter required' }
         per_page = options.delete(:per_page) || self.per_page
         total = options.delete(:total_entries)
         large = options.delete(:large)

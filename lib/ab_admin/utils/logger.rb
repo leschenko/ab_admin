@@ -4,7 +4,7 @@ module AbAdmin
 
       class ShortFormatter < ::Logger::Formatter
         def call(severity, time, progname, msg)
-          "[#{time.strftime("%Y-%m-%dT%H:%M:%S")}] #{msg}\n"
+          "[#{time.strftime('%Y-%m-%dT%H:%M:%S')}] #{msg}\n"
         end
       end
 

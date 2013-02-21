@@ -16,13 +16,13 @@ module AbAdmin
 
           if [:date, :datetime].include? input_type
             attr = "#{data_target}_date"
-            html << template.text_field_tag(attr, object.send(attribute_name).try(:strftime, "%d.%m.%Y"), id: attr,
+            html << template.text_field_tag(attr, object.send(attribute_name).try(:strftime, '%d.%m.%Y'), id: attr,
                                             class: 'datepicker input-small', data: {target: data_target})
           end
 
           if [:time, :datetime].include? input_type
             attr = "#{data_target}_time"
-            html << template.text_field(attr, object.send(attribute_name).try(:strftime, "%H:%M"), id: attr,
+            html << template.text_field(attr, object.send(attribute_name).try(:strftime, '%H:%M'), id: attr,
                                         class: 'timepicker input-small', data: {target: data_target})
           end
 
@@ -38,11 +38,11 @@ module AbAdmin
         def value_format
           case input_type
             when :date then
-              "%d.%m.%Y"
+              '%d.%m.%Y'
             when :datetime then
-              "%d.%m.%Y %H:%M"
+              '%d.%m.%Y %H:%M'
             when :time then
-              "%H:%M"
+              '%H:%M'
           end
         end
 

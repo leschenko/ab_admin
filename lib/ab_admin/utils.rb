@@ -11,7 +11,7 @@ module AbAdmin
       end
     end
 
-    def bm(message = "Benchmarking", options = {})
+    def bm(message = 'Benchmarking', options = {})
       result = nil
       ms = Benchmark.ms { result = yield }
       Rails.logger.debug '%s (%.3fms)' % [message, ms]
@@ -40,7 +40,7 @@ module AbAdmin
     end
 
     def truncate_text(raw_text, size=200)
-      text = raw_text.to_s.gsub(/&quot;|&laquo;|&raquo;|&#x27;/, "'").gsub(/&nbsp;/, ' ').gsub(/&mdash;/, '-').no_html.squish
+      text = raw_text.to_s.gsub(/&quot;|&laquo;|&raquo;|&#x27;/, '\'').gsub(/&nbsp;/, ' ').gsub(/&mdash;/, '-').no_html.squish
       text.truncate(size, separator: ' ')
     end
 
@@ -85,7 +85,7 @@ module AbAdmin
 
       def normalize_html(raw_html)
         return '' if raw_html.blank?
-        html = sanitize(raw_html.gsub(/<!--(.*?)-->[\n]?/m, ""))
+        html = sanitize(raw_html.gsub(/<!--(.*?)-->[\n]?/m, ''))
         doc = Nokogiri::HTML.fragment(html)
         #doc.xpath('comment()').each { |c| c.remove }
         doc.search('div').each { |el| el.name = 'p' }

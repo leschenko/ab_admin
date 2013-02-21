@@ -6,7 +6,7 @@ module AbAdmin
     engine_name 'ab_admin'
 
     initializer 'ab_admin.setup' do
-      ::Mime::Type.register "application/vnd.ms-excel", :xls
+      ::Mime::Type.register 'application/vnd.ms-excel', :xls
 
       ActiveSupport.on_load :active_record do
         ActiveRecord::Base.send :include, AbAdmin::CarrierWave::Glue

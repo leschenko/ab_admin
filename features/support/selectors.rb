@@ -8,12 +8,12 @@ module HtmlSelectorsHelpers
   def selector_for(locator)
     case locator
 
-    when "the page"
-      "html > body"
-    when "table's header"
-      "table tbody > tr th"
+    when 'the page'
+      'html > body'
+    when 'table\'s header'
+      'table tbody > tr th'
     when /^paragraphs?$/
-      "p"
+      'p'
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

@@ -2,6 +2,6 @@
 
 FactoryGirl.define do
   factory :catalogue do
-    name "MyString"
+    name 'MyString'
   end
 end

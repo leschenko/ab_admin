@@ -13,7 +13,7 @@ module ToleranceForSeleniumSyncIssues
       rescue => e
         raise e if (Time.now - start_time) >= seconds
         sleep(0.05)
-        raise Capybara::FrozenInTime, "time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead" if Time.now == start_time
+        raise Capybara::FrozenInTime, 'time appears to be frozen, Capybara does not work with libraries which freeze time, consider using time travelling instead' if Time.now == start_time
         retry
       end
     else

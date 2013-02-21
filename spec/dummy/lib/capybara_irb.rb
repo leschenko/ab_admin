@@ -29,12 +29,12 @@ def login_as_admin
 end
 
 def build_structures
-  [{"title" => "node-1", "parent_name" => ""},
-  {"title" => "node-1-1", "parent_name" => "node-1"},
-  {"title" => "node-1-2", "parent_name" => "node-1"},
-  {"title" => "node-2", "parent_name" => ""},
-  {"title" => "node-2-1", "parent_name" => "node-2"},
-  {"title" => "node-2-1-1", "parent_name" => "node-2-1"}].each do |attrs|
+  [{'title' => 'node-1', 'parent_name' => ''},
+  {'title' => 'node-1-1', 'parent_name' => 'node-1'},
+  {'title' => 'node-1-2', 'parent_name' => 'node-1'},
+  {'title' => 'node-2', 'parent_name' => ''},
+  {'title' => 'node-2-1', 'parent_name' => 'node-2'},
+  {'title' => 'node-2-1-1', 'parent_name' => 'node-2-1'}].each do |attrs|
     parent = Structure.joins(:translations).where("structure_translations.title='#{attrs['parent_name']}'").first
     FactoryGirl.create(:structure_page, title: attrs['title'], parent: parent)
   end

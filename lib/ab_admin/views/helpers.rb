@@ -60,15 +60,15 @@ module AbAdmin
       end
 
       def render_title
-        @page_title || I18n.t("page.title")
+        @page_title || I18n.t('page.title')
       end
 
       def render_keywords
-        @page_keywords || I18n.t("page.keywords")
+        @page_keywords || I18n.t('page.keywords')
       end
 
       def render_description
-        @page_description || I18n.t("page.description")
+        @page_description || I18n.t('page.description')
       end
 
       # swf_object
@@ -79,7 +79,7 @@ module AbAdmin
         attributes = options.delete(:attributes) || {}
         flashvars = options.delete(:flashvars) || {}
 
-        attributes[:classid] ||= "clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+        attributes[:classid] ||= 'clsid:D27CDB6E-AE6D-11cf-96B8-444553540000'
         attributes[:id] ||= id
         attributes[:name] ||= id
 

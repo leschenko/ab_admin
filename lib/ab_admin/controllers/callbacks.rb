@@ -55,7 +55,7 @@ module AbAdmin
           when Proc
             instance_exec(*args, &method)
           else
-            raise "Please register with callbacks using a symbol or a block/proc."
+            raise 'Please register with callbacks using a symbol or a block/proc.'
         end
       end
 

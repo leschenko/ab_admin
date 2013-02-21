@@ -21,7 +21,7 @@
 
   br
   br
-  =' submit_tag(t("admin.form.save"), class: 'btn btn-primary')
+  =' submit_tag(t('admin.form.save'), class: 'btn btn-primary')
   =' link_to t('admin.cache_clear'), cache_clear_admin_settings_path, class: 'btn btn-danger', method: :post, remote: true
 
 = init_js('$("form ul.nav-tabs li:first, form .tab-pane:first").addClass("active")')

@@ -3,8 +3,8 @@ class String
   #LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\)/
   LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\s)/
   KEYBOARDS = {
-      en: %{qwertyuiop[]asdfghjkl;'zxcvbnm,./},
-      ru: %{йцукенгшщзхъфывапролджэячсмитьбю/}
+      en: 'qwertyuiop[]asdfghjkl;\'zxcvbnm,./',
+      ru: 'йцукенгшщзхъфывапролджэячсмитьбю/'
   }
 
   def lucene_escape

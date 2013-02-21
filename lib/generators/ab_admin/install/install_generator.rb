@@ -42,7 +42,7 @@ module AbAdmin
       # Add devise routes
       def add_routes
         route 'devise_for :users, ::AbAdmin::Devise.config'
-        route %[root to: redirect('/users/sign_in')]
+        route 'root to: redirect(\'/users/sign_in\')'
       end
 
       def autoload_paths

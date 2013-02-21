@@ -163,7 +163,7 @@ Then /^the following values should be selected in "([^"]*)":$/ do |select_box, v
 
   select_box = find_field(select_box)
   unless select_box['multiple']
-    raise "this is not multiple select box!"
+    raise 'this is not multiple select box!'
   else
     values.each do |value|
 	    select_box.value.should include(value)
@@ -181,7 +181,7 @@ Then /^the following values should not be selected in "([^"]*)":$/ do |select_bo
 
   select_box = find_field(select_box)
   unless select_box['multiple']
-    raise "this is not multiple select box!"
+    raise 'this is not multiple select box!'
   else
     values.each do |value|
 	    select_box.value.should_not include(value)
