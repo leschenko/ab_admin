@@ -19,7 +19,7 @@ table.table.table-striped.index_table#list
         = batch_action_item(item)
         td= id_link(item)
         td= mail_to item.email
-        td= item_image_link(item, :assoc => :avatar)
+        td= item_image_link(item, assoc: :avatar)
         td= item.user_role_type.try(:title)
         td= item.trust_state_type.try(:title)
         td= item.first_name
@@ -30,6 +30,6 @@ table.table.table-striped.index_table#list
         td.actions
           = item_index_actions(item)
           - if item.active_for_authentication?
-            = link_to t('admin.actions.suspend.link'), suspend_admin_user_path(item), :method => :post, :class => 'btn btn-warning'
+            = link_to t('admin.actions.suspend.link'), suspend_admin_user_path(item), method: :post, class: 'btn btn-warning'
           - else
-            = link_to icon('ok', true), activate_admin_user_path(item), :method => :post, :class => 'btn btn-success', :title => t('admin.actions.activate.link')
+            = link_to icon('ok', true), activate_admin_user_path(item), method: :post, class: 'btn btn-success', title: t('admin.actions.activate.link')

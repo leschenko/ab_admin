@@ -1,8 +1,8 @@
 class ::Admin::LocatorsController < ::Admin::BaseController
   authorize_resource
 
-  before_filter :find_files, :only => [:show, :edit, :update]
-  before_filter :find_file, :only => [:edit, :update]
+  before_filter :find_files, only: [:show, :edit, :update]
+  before_filter :find_file, only: [:edit, :update]
 
   def edit
     @locale_hash = YAML.load_file(@file)
@@ -14,7 +14,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
       redirect_to admin_locators_path
     else
       flash[:error] = I18n.t('flash.admin.locators.update_error')
-      redirect_to edit_admin_locators_path(:filename => params[:filename])
+      redirect_to edit_admin_locators_path(filename: params[:filename])
     end
   end
 

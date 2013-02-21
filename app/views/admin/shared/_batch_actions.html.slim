@@ -17,6 +17,6 @@
     = icon('download-alt')
     - %w(csv xls json).each do |format|
       - next if format == 'xls' && !defined?(Mime::XLSX)
-      = link_to format, params.merge(:format => format), :id => "export_#{format}"
+      = link_to format, params.merge(format: format), id: "export_#{format}"
   a.btn.pull-right#columns_hider_show[href="#columns_hider" data-toggle='modal']= t 'admin.columns_hider.button'
 

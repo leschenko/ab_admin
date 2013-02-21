@@ -1,21 +1,21 @@
 = admin_form_for @structure do |f|
   = f.locale_tabs do |l|
-    = f.input :title, :locale => l
-    = f.input :redirect_url, :locale => l
+    = f.input :title, locale: l
+    = f.input :redirect_url, locale: l
 
   = f.input :slug
   - if @structure.moveable?
-    = f.input :parent, :as => :tree_select
-  = f.input :kind, :collection => StructureType.all
-  = f.input :position, :collection => PositionType.all, :include_blank => false
+    = f.input :parent, as: :tree_select
+  = f.input :kind, collection: StructureType.all
+  = f.input :position, collection: PositionType.all, include_blank: false
 
   = f.input :is_visible
 
   = input_set t('admin.pictures') do
-    = f.attach_file_field :picture, :file_max_size => 2
+    = f.attach_file_field :picture, file_max_size: 2
 
   = input_set t('admin.keywords') do
-    = render 'admin/headers/form', :f => f
+    = render 'admin/headers/form', f: f
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
   = f.save_buttons

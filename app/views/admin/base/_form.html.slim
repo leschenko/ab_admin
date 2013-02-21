@@ -5,7 +5,7 @@
   - if resource_class.translates?
     = f.locale_tabs do |l|
       - resource_class.translated_attribute_names.each do |column|
-        = f.input column, :locale => l, :as => (:editor if column == :description)
+        = f.input column, locale: l, as: (:editor if column == :description)
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
 

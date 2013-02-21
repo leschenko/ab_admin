@@ -18,7 +18,7 @@ module AbAdmin
         sentinel = /draw do$/
 
         in_root do
-          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {:after => sentinel, :verbose => false}
+          inject_into_file 'app/models/admin_menu.rb', "\n    #{menu_code}\n", {after: sentinel, verbose: false}
         end
       end
 

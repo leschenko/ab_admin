@@ -1,6 +1,6 @@
 class Admin::AssetsController < ApplicationController
-  before_filter :find_klass, :only => [:create, :sort]
-  before_filter :find_asset, :only => [:destroy, :main, :rotate, :crop]
+  before_filter :find_klass, only: [:create, :sort]
+  before_filter :find_asset, only: [:destroy, :main, :rotate, :crop]
 
   respond_to :html, :xml
 
@@ -18,7 +18,7 @@ class Admin::AssetsController < ApplicationController
 
     respond_with(@asset) do |format|
       format.html { head :ok }
-      format.xml { render :xml => @asset.to_xml }
+      format.xml { render xml: @asset.to_xml }
     end
   end
 
@@ -27,7 +27,7 @@ class Admin::AssetsController < ApplicationController
 
     respond_with(@asset) do |format|
       format.html { head :ok }
-      format.xml { render :xml => @asset.to_xml }
+      format.xml { render xml: @asset.to_xml }
     end
   end
 
@@ -42,26 +42,26 @@ class Admin::AssetsController < ApplicationController
   end
 
   def rotate
-    render :json => @asset.rotate!
+    render json: @asset.rotate!
   end
 
   def main
-    render :json => @asset.main!
+    render json: @asset.main!
   end
 
   def crop
-    render :json => @asset.crop!(params[:crop_attrs])
+    render json: @asset.crop!(params[:crop_attrs])
   end
 
   protected
 
   def find_assets
     assoc = params[:assetable_type].constantize.reflect_on_association(params[:assoc].to_sym)
-    scope = assoc.klass.where(:assetable_type => params[:assetable_type], :is_main => !assoc.collection?)
+    scope = assoc.klass.where(assetable_type: params[:assetable_type], is_main: !assoc.collection?)
     if params[:assetable_id].present?
-      scope.where(:assetable_id => params[:assetable_id])
+      scope.where(assetable_id: params[:assetable_id])
     elsif params[:guid].present?
-      scope.where(:guid => params[:guid])
+      scope.where(guid: params[:guid])
     else
       []
     end

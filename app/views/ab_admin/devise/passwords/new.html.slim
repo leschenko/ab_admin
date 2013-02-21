@@ -1,9 +1,9 @@
-= simple_form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
   h2= t 'admin.auth.passwords.new.title'
   = f.error_notification
   .form-inputs
-    = f.input :email, :required => true
-  = f.button :submit, t('admin.auth.passwords.new.button'), :class => 'btn-primary btn-large'
+    = f.input :email, required: true
+  = f.button :submit, t('admin.auth.passwords.new.button'), class: 'btn-primary btn-large'
   br
   br
   = link_to t('admin.auth.sessions.title'), new_session_path(resource_name)

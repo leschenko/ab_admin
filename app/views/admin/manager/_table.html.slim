@@ -12,7 +12,7 @@
               - if field.options[:sortable].is_a?(TrueClass)
                 = sort_link @search, field.name
               - else
-                - opts = field.options[:sortable].is_a?(Hash) ? field.options[:sortable] : {:column => field.options[:sortable]}
+                - opts = field.options[:sortable].is_a?(Hash) ? field.options[:sortable] : {column: field.options[:sortable]}
                 = sort_link @search, field.name, opts
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
@@ -27,7 +27,7 @@
               - if field.options[:editable] && field.data.is_a?(Symbol)
                 = admin_editable item, field.data, field.options[:editable]
               - elsif field.options[:image]
-                = item_image_link(item, :assoc => field.name)
+                = item_image_link(item, assoc: field.name)
               - else
                 = admin_pretty_data call_method_or_proc_on(item, field.data)
           td.actions= item_index_actions(item)

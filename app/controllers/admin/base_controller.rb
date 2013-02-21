@@ -1,5 +1,5 @@
 class Admin::BaseController < ::InheritedResources::Base
-  use Rack::Pjax, :only => :index
+  use Rack::Pjax, only: :index
 
   layout :set_layout
 
@@ -7,12 +7,12 @@ class Admin::BaseController < ::InheritedResources::Base
   define_admin_callbacks :save, :create
 
   before_filter :authenticate_user!, :require_moderator
-  before_filter :add_breadcrumbs, :set_title, :set_user_vars, :unless => :xhr?
+  before_filter :add_breadcrumbs, :set_title, :set_user_vars, unless: :xhr?
 
-  class_attribute :export_builder, :batch_action_list, :instance_reader => false, :instance_writer => false
-  self.batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, :confirm => I18n.t('admin.delete_confirmation'))]
+  class_attribute :export_builder, :batch_action_list, instance_reader: false, instance_writer: false
+  self.batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
 
-  has_scope :ids, :type => :array
+  has_scope :ids, type: :array
 
   helper_method :admin?, :moderator?
 
@@ -21,19 +21,19 @@ class Admin::BaseController < ::InheritedResources::Base
 
   respond_to :json
 
-  rescue_from ::CanCan::AccessDenied, :with => :render_unauthorized
+  rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
   def index
     super do |format|
       format.js { render collection }
       format.csv do
         doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
-        send_data(doc.render, :filename => doc.filename, :type => Mime::CSV, :disposition => 'attachment')
+        send_data(doc.render, filename: doc.filename, type: Mime::CSV, disposition: 'attachment')
       end
       if defined?(Mime::XLSX)
         format.xls do
           doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
-          send_data(doc.render, :filename => doc.filename, :type => Mime::XLSX, :disposition => 'attachment')
+          send_data(doc.render, filename: doc.filename, type: Mime::XLSX, disposition: 'attachment')
         end
       end
     end
@@ -42,8 +42,8 @@ class Admin::BaseController < ::InheritedResources::Base
   def create
     create! do |success, failure|
       success.html { redirect_to redirect_to_on_success }
-      success.js { render :layout => false }
-      failure.js { render :new, :layout => false }
+      success.js { render layout: false }
+      failure.js { render :new, layout: false }
     end
   end
 
@@ -51,8 +51,8 @@ class Admin::BaseController < ::InheritedResources::Base
     update! do |success, failure|
       success.html { redirect_to redirect_to_on_success }
       failure.html { render :edit }
-      success.js { render :layout => false }
-      failure.js { render :edit, :layout => false }
+      success.js { render layout: false }
+      failure.js { render :edit, layout: false }
     end
   end
 
@@ -62,13 +62,13 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def edit
     edit! do |format|
-      format.js { render :layout => false }
+      format.js { render layout: false }
     end
   end
 
   def new
     new! do |format|
-      format.js { render :layout => false }
+      format.js { render layout: false }
     end
   end
 
@@ -77,7 +77,7 @@ class Admin::BaseController < ::InheritedResources::Base
     batch_action = params[:batch_action].to_sym
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
-      flash[:success] = I18n.t('admin.batch_actions.status', :count => count, :action => I18n.t("admin.actions.batch_#{batch_action}.title"))
+      flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: I18n.t("admin.actions.batch_#{batch_action}.title"))
     else
       raise CanCan::AccessDenied
     end
@@ -107,7 +107,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def interpolation_options
     return {} if collection_action? || resource.errors.empty?
-    {:errors => resource.errors.full_messages.map { |m| "<br/> - #{m}" }.join.html_safe}
+    {errors: resource.errors.full_messages.map { |m| "<br/> - #{m}" }.join.html_safe}
   end
 
   def self.export(options={}, &block)
@@ -123,11 +123,13 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def set_title
-    lookups = [:"admin.#{controller_name}.actions.#{action_name}.title",
-               :"admin.#{controller_name}.actions.#{action_name}",
-               :"admin.actions.#{action_name}.title",
-               :"admin.actions.#{action_name}"]
-    @page_title ||= [resource_class.model_name.human(:count => 1), t(lookups.shift, :default => lookups)].join(' - ')
+    name_for_lookup = params[:custom_action] || action_name
+    lookups = [:"admin.#{controller_name}.actions.#{name_for_lookup}.title",
+               :"admin.#{controller_name}.actions.#{name_for_lookup}",
+               :"admin.actions.#{name_for_lookup}.title",
+               :"admin.actions.#{name_for_lookup}",
+               name_for_lookup]
+    @page_title ||= [resource_class.model_name.human(count: 1), t(lookups.shift, default: lookups)].join(' - ')
   end
 
   def preview_resource_path(item)
@@ -135,8 +137,8 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {:index_view => 'table', :sidebar => collection_action?, :well => (collection_action? || action_name == 'show'),
-     :search => true, :batch => true, :hotkeys => true}
+    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || action_name == 'show'),
+     search: true, batch: true, hotkeys: true}
   end
 
   def action_items
@@ -171,32 +173,32 @@ class Admin::BaseController < ::InheritedResources::Base
   def add_breadcrumbs
     @breadcrumbs = []
     if parent?
-      @breadcrumbs << {:name => parent_class.model_name.human(:count => 9), :url => parent_collection_path}
-      @breadcrumbs << {:name => AbAdmin.display_name(parent), :url => parent_path}
+      @breadcrumbs << {name: parent_class.model_name.human(count: 9), url: parent_collection_path}
+      @breadcrumbs << {name: AbAdmin.display_name(parent), url: parent_path}
     end
-    @breadcrumbs << {:name => resource_class.model_name.human(:count => 9), :url => collection_path}
-    if params[:id]
-      @breadcrumbs << {:name => AbAdmin.display_name(resource), :url => resource_path}
+    @breadcrumbs << {name: resource_class.model_name.human(count: 9), url: collection_path}
+    if params[:id] && resource.persisted?
+      @breadcrumbs << {name: AbAdmin.display_name(resource), url: resource_path}
     end
   end
 
   def parent_collection_path
-    {:action => :index, :controller => "admin/#{parent_class.model_name.plural}"}
+    {action: :index, controller: "admin/#{parent_class.model_name.plural}"}
   end
 
   def tree_node_renderer
-    @tree_node_renderer ||= lambda { |r| link_to AbAdmin.display_name(r), resource_path(r), :class => 'tree-item_link' }
+    @tree_node_renderer ||= lambda { |r| link_to AbAdmin.display_name(r), resource_path(r), class: 'tree-item_link' }
   end
 
   def search_collection
     params[:q] ||= {}
     params[:q][:s] ||= 'id desc'
     @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
-    @search.result(:distinct => true)
+    @search.result(distinct: true)
   end
 
   def collection
-    @collection ||= search_collection.paginate(:page => params[:page], :per_page => per_page, :large => true)
+    @collection ||= search_collection.paginate(page: params[:page], per_page: per_page, large: true)
   end
 
   def per_page
@@ -222,13 +224,13 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def redirect_to_on_success
     if params[:_add_another]
-      new_resource_path(:return_to => params[:return_to])
+      new_resource_path(return_to: params[:return_to])
     elsif params[:_add_edit]
-      edit_resource_path(resource, :return_to => params[:return_to])
+      edit_resource_path(resource, return_to: params[:return_to])
     elsif params[:_add_edit_next] || params[:_add_edit_prev]
       rec = resource.next_prev_by_url(end_of_association_chain.accessible_by(current_ability).unscoped.base, params[:return_to], !!params[:_add_edit_prev])
       if rec
-        edit_resource_path(rec, :return_to => params[:return_to])
+        edit_resource_path(rec, return_to: params[:return_to])
       else
         back_or_collection
       end
@@ -276,7 +278,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def as_role
-    {:as => fetch_role}
+    {as: fetch_role}
   end
 
   def get_role
@@ -298,7 +300,7 @@ class Admin::BaseController < ::InheritedResources::Base
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}, user: #{current_user.try(:id)}"
 
     respond_to do |format|
-      format.html { redirect_to (moderator? ? admin_root_path : root_path), :alert => exception.message }
+      format.html { redirect_to (moderator? ? admin_root_path : root_path), alert: exception.message }
       format.any { head :unauthorized }
     end
   end

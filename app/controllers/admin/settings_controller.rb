@@ -1,7 +1,7 @@
 class ::Admin::SettingsController < ::Admin::BaseController
-  authorize_resource :class => Settings
+  authorize_resource class: Settings
 
-  defaults :resource_class => Settings
+  defaults resource_class: Settings
 
   def update
     Settings.instance.save(params[:settings])
@@ -11,7 +11,7 @@ class ::Admin::SettingsController < ::Admin::BaseController
 
   def cache_clear
     Rails.cache.clear
-    render :nothing => true
+    render nothing: true
   end
 
   private

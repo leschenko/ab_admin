@@ -1,11 +1,11 @@
 class AbAdmin<%= model.name %> < AbAdmin::AbstractResource
 
 <% if model.respond_to?(:acts_as_nested_set_options) -%>
-  settings :index_view => 'tree', :search => false, :batch => false, :well => false
+  settings index_view: 'tree', search: false, batch: false, well: false
 <% else -%>
   table do
 <% index_attrs.without('id', 'updated_at').each do |attr| -%>
-    field :<%= attr -%><%= ', :sortable => false' if translated_columns.include?(attr) %>
+    field :<%= attr -%><%= ', sortable: false' if translated_columns.include?(attr) %>
 <% end -%>
   end
 
@@ -19,22 +19,22 @@ class AbAdmin<%= model.name %> < AbAdmin::AbstractResource
   form do
     group :base do
 <% index_attrs.without('id', 'created_at', 'updated_at', 'lat', 'lon', 'zoom', 'lft', 'rgt', 'depth').without(*translated_columns).each do |attr| -%>
-      field :<%= attr -%><%= ', :sortable => false' if translated_columns.include?(attr) %>
+      field :<%= attr -%>
 <% end -%>
     end
 <% unless translated_columns.empty? -%>
     locale_tabs do
 <% translated_columns.each do |attr| -%>
-      field :<%= attr -%><%= ', :as => :editor' if attr =~ /description|content|body/ %>
+      field :<%= attr -%><%= ', as: :editor' if attr =~ /description|content|body/ %>
 <% end -%>
     end
 <% end -%>
 <% asset_assocs = model.reflect_on_all_associations.find_all { |a| a.options[:as] == :assetable } -%>
 <% asset_assocs.each do |a| -%>
-    field :<%= a.name %>, :as => :uploader
+    field :<%= a.name %>, as: :uploader
 <% end -%>
 <% if (%w(lat lon zoom) - index_attrs).empty? -%>
-    field :map, :as => :map
+    field :map, as: :map
 <% end -%>
   end
 

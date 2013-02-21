@@ -5,11 +5,11 @@ html id="controller_#{controller_name}"
     meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" 
     title= @page_title || 'Ab Admin'
-    = stylesheet_link_tag 'ab_admin/devise', :media => 'all'
+    = stylesheet_link_tag 'ab_admin/devise', media: 'all'
     script(src='//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js')
     = javascript_include_tag 'bootstrap'
     = csrf_meta_tags
   body.container
-    = render('admin/shared/flash', :flash => flash) if flash
+    = render('admin/shared/flash', flash: flash) if flash
     = yield
 

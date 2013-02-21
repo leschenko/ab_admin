@@ -34,6 +34,7 @@ module AbAdmin
         end
 
         def nested_opts(records, mover=nil)
+          mover = nil if mover && !mover.is_a?(self)
           res = []
           records.each do |r|
             next if mover && mover.id == r.id
@@ -43,6 +44,7 @@ module AbAdmin
         end
 
         def nested_opts_with_parent(records, mover=nil)
+          mover = nil if mover && !mover.is_a?(self)
           res = []
           parents = []
           records.each do |r|

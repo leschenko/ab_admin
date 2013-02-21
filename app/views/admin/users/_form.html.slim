@@ -9,21 +9,21 @@
     = f.input :web_site
     = f.input :address
 
-    = f.input :user_role_id, :collection => UserRoleType.all, :include_blank => false, :as => :radio_buttons, :item_wrapper_class => 'inline'
-    = f.input :trust_state, :collection => UserState.all, :include_blank => false, :as => :radio, :as => :radio_buttons, :item_wrapper_class => 'inline'
+    = f.input :user_role_id, collection: UserRoleType.all, include_blank: false, as: :radio_buttons, item_wrapper_class: 'inline'
+    = f.input :trust_state, collection: UserState.all, include_blank: false, as: :radio, as: :radio_buttons, item_wrapper_class: 'inline'
 
     = f.input :birthday
-    = f.input :gender, :collection => GenderType.all, :include_blank => false, :as => :radio_buttons, :item_wrapper_class => 'inline'
+    = f.input :gender, collection: GenderType.all, include_blank: false, as: :radio_buttons, item_wrapper_class: 'inline'
 
-    = f.input :time_zone, :fancy => true, :priority => %w(Moscow Kyiv).map{|t| ActiveSupport::TimeZone[t] }
-    = f.input :locale, :collection => Globalize.available_locales
-    = f.input :bg_color, :as => :color
+    = f.input :time_zone, fancy: true, priority: %w(Moscow Kyiv).map{|t| ActiveSupport::TimeZone[t] }
+    = f.input :locale, collection: Globalize.available_locales
+    = f.input :bg_color, as: :color
 
-    = f.input :password, :input_html => {:autocomplete=>'off'}
-    = f.input :password_confirmation, :input_html => {:autocomplete=>'off'}
+    = f.input :password, input_html: {:autocomplete=>'off'}
+    = f.input :password_confirmation, input_html: {:autocomplete=>'off'}
 
   = input_set t('admin.avatar') do
-    = f.attach_file_field :avatar, :file_max_size => 2
+    = f.attach_file_field :avatar, file_max_size: 2
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
 

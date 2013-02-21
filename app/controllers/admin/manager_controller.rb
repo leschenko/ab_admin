@@ -64,11 +64,12 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def action_items
-    manager.default_action_items_for(action_name.to_sym, params[:id].present?) + manager.action_items_for(action_name.to_sym)
+    for_resource = params[:id].present? && resource.persisted?
+    manager.default_action_items_for(action_name.to_sym, for_resource) + manager.action_items_for(action_name.to_sym)
   end
 
   def apply_batch_action(item, batch_action)
-    call_method_or_proc_on item, manager.batch_action_list.detect{|a| a.name == batch_action }.data, :exec => false
+    call_method_or_proc_on item, manager.batch_action_list.detect{|a| a.name == batch_action }.data, exec: false
   end
 
   def allow_batch_action?(batch_action)
@@ -130,25 +131,25 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def collection_path(options={})
-    admin_index_path(options.merge(:model_name => resource_collection_name))
+    admin_index_path(options.merge(model_name: resource_collection_name))
   end
 
   def collection_url(options={})
-    admin_index_url(options.merge(:model_name => resource_collection_name))
+    admin_index_url(options.merge(model_name: resource_collection_name))
   end
 
   def new_resource_path(options={})
-    admin_new_path(options.merge(:model_name => resource_collection_name))
+    admin_new_path(options.merge(model_name: resource_collection_name))
   end
 
   def edit_resource_path(record=nil, options={})
     record ||= resource
-    admin_edit_path(options.merge(:model_name => record.class.model_name.plural, :id => record.id))
+    admin_edit_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
   end
 
   def resource_path(record=nil, options={})
     record ||= resource
-    admin_show_path(options.merge(:model_name => record.class.model_name.plural, :id => record.id))
+    admin_show_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
   end
 
   def self.cancan_resource_class

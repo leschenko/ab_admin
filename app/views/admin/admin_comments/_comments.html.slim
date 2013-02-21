@@ -1,6 +1,6 @@
 - if resource.persisted?
   - record_comments = AdminComment.find_for_resource(resource)
   .admin_comments.well.well-small
-    label.input_set.label.label-info= t 'admin.comments.title_content', :count => record_comments.length
-    #admin_comments= render :partial => 'admin/admin_comments/comment', :collection => record_comments
+    label.input_set.label.label-info= t 'admin.comments.title_content', count: record_comments.length
+    #admin_comments= render partial: 'admin/admin_comments/comment', collection: record_comments
     = render 'admin/admin_comments/form'

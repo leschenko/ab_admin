@@ -37,7 +37,7 @@ module AbAdmin
                 options[:collection] ||= begin
                   reflection = object.class.reflect_on_association(attribute_name)
                   records = reflection.klass.all(reflection.options.slice(:conditions, :order))
-                  object.nested_opts_with_parent(records)
+                  reflection.klass.nested_opts_with_parent(records, object)
                 end
               end
               options[:as] = :select

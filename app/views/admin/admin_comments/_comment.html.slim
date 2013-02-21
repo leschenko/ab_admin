@@ -1,9 +1,9 @@
 .admin_comment-item id=dom_id(comment)
   .admin_comment-meta
     - if comment.author_id
-      = link_to comment.author_name, admin_user_path(:id => comment.author_id), :target => '_blank'
-    span.muted= l(comment.created_at, :format => :long)
+      = link_to comment.author_name, admin_user_path(id: comment.author_id), target: '_blank'
+    span.muted= l(comment.created_at, format: :long)
     - if can? :destroy, comment
-      = link_to t('admin.delete'), admin_admin_comment_path(comment), :remote => true, :method => :delete, :class => 'btn btn-mini btn-danger'
+      = link_to t('admin.delete'), admin_admin_comment_path(comment), remote: true, method: :delete, class: 'btn btn-mini btn-danger'
   .admin_comment-body
     p= comment.body
