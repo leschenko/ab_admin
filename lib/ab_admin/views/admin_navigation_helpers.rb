@@ -164,9 +164,9 @@ module AbAdmin
         end
       end
 
-      def id_link(item)
+      def id_link(item, edit=true)
         opts = {remote: settings[:list_edit], class: 'resource_id_link'}
-        if can?(:edit, item)
+        if edit && can?(:edit, item)
           link_to item.id, edit_resource_path(item), opts
         elsif can?(:read, item)
           link_to item.id, resource_path(item), opts

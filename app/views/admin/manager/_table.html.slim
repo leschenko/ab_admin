@@ -18,10 +18,11 @@
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
         th=t 'admin.table.actions'
     tbody
+      - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
         tr id=dom_id(item, 'list')
           = batch_action_item(item)
-          td= id_link(item)
+          td= id_link(item, is_edit_link)
           - table_builder.fields.each do |field|
             td
               - if field.options[:editable] && field.data.is_a?(Symbol)

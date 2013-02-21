@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   end
 
   mount Ckeditor::Engine => '/ckeditor'
+  get test_tst: 'asd'
 end
