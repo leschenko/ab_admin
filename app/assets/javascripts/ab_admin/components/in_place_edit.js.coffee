@@ -21,3 +21,4 @@ $(document).on 'admin:init', (e) ->
   return unless window.viewType == 'list'
   $('.editable').editable
     onblur: 'submit'
+    placement: 'bottom'

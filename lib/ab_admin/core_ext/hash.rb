@@ -103,7 +103,7 @@ class Hash
     end
     new_hash
   end
-  
+
   def no_blank
     reject { |k, v| v.blank? }
   end

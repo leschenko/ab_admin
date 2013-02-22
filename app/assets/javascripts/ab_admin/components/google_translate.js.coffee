@@ -11,7 +11,7 @@ window.translate = (text, element, from, to) ->
 
     success: (result) ->
       translated = result.data.translations[0].translatedText
-      element.ck_val $.unescape(translated)
+      element.inputVal $.unescape(translated)
 
     error: (XMLHttpRequest, textStatus, errorThrown) ->
       alert "Error translate " + text + " message " + textStatus
@@ -21,10 +21,10 @@ window.google_t = (text, element, from, to) ->
   return '' unless $.trim(text)
   opts = {q: text, from: from, to: to}
   $.post '/admin/translate', opts, ((data) =>
-    element.ck_val $.unescape(data.text).replace(/%\s{/g, ' %{')), 'json'
+    element.inputVal $.unescape(data.text).replace(/%\s{/g, ' %{')), 'json'
 
 # get value of text field or CKEDITOR area
-$.fn.ck_val = (v = null) ->
+$.fn.inputVal = (v = null) ->
   $el = $(this)
   el_id = $el.attr('id')
   ck_obj = CKEDITOR?.instances[el_id]
@@ -33,6 +33,11 @@ $.fn.ck_val = (v = null) ->
       ck_obj.setData(v)
     else
       ck_obj.getData()
+  else if $el.data('wysihtml5')
+    if v
+      $el.data('wysihtml5').editor.setValue(v, true)
+    else
+      $el.val()
   else
     if v
       $el.val(v)
@@ -68,8 +73,8 @@ class window.GoogleLocaleTabs
               regexp = RegExp("#{to}$")
               el_from_id = $el_to.attr('id').replace(regexp, from)
               $el_from = $("##{el_from_id}")
-              if $el_from.ck_val().length < @limit
-                google_t($el_from.ck_val(), $el_to, from, to)
+              if $el_from.inputVal().length < @limit
+                google_t($el_from.inputVal(), $el_to, from, to)
 
 $ ->
   if $('.locale_tabs')[0]
