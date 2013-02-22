@@ -96,6 +96,14 @@ class Hash
     self
   end
 
+  def downcase_keys
+    new_hash = {}
+    self.each do |k, v|
+      new_hash[k.to_s.downcase] = v
+    end
+    new_hash
+  end
+  
   def no_blank
     reject { |k, v| v.blank? }
   end
