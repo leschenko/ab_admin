@@ -4,9 +4,9 @@
 //= require jquery.cookie
 //= require jquery.pjax
 //= require jquery.ui.nestedSortable
-//= require jquery_nested_form
 //= require jquery.hotkeys
 //= require bootstrap
+//= require ab_admin/jquery_nested_form
 //= require ab_admin/bootstrap-tab-multi
 //= require ab_admin/bootstrap-datepicker/core
 //= require ab_admin/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js

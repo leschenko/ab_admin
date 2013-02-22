@@ -17,9 +17,12 @@ module AbAdmin
       def input(attribute_name, options = {}, &block)
         unless options.key?(:fancy)
           if (!options.key?(:as) || options[:as] == :select) && options[:collection].respond_to?(:size) && options[:collection].size > 10
-            options[:input_html] ||= {}
-            options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
+            options[:fancy] = true
           end
+        end
+        if options[:fancy]
+          options[:input_html] ||= {}
+          options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end
 
         case options[:as]
