@@ -20,7 +20,7 @@ module AbAdmin
       end
 
       def admin_editable(item, attr, options=nil)
-        options ||= {}
+        options = {} unless options.is_a?(Hash)
         options[:type] ||= case attr.to_s
                              when /_at$/
                                'date'
