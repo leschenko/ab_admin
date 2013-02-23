@@ -56,6 +56,7 @@ if gem_adds
   gem 'has_scope'
   gem 'squeel'
   gem 'fancybox2-rails'
+  gem 'rest-client'
 
   gem_group :development, :test do
     gem 'rspec-rails'
