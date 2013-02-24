@@ -43,7 +43,8 @@ window.flash = (type, message) ->
   $('#wrap').prepend $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>")
 
 window.focusInput = (scope=null) ->
-  $('input[type="text"],input[type="string"],select:visible,textarea:visible', scope || $('form.simple_form:first')).get(0)?.focus()
+  scope ||= $('form.simple_form:first')
+  $('input[type="text"],input[type="string"],select:visible,textarea:visible').not('.fancy_select,.datepicker').get(0)?.focus()
 
 window.initFancySelect = ->
   return if gon.test
@@ -52,6 +53,7 @@ window.initFancySelect = ->
       I18n.t('admin_js.no_results')
     placeholder: ' '
     allowClear: true
+    minimumResultsForSearch: 10
 
   $('form .fancy_select, form input.token, .without_form.fancy_select').each ->
     $el = $(this)

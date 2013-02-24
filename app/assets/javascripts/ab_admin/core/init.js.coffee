@@ -48,15 +48,13 @@ $ ->
 
 
   initFancySelect()
+  initNestedFields()
   #  initAcFileds()
+
   if window.gon?.bg_color
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
 
-  if window.gon?.hotkeys
-    $(document).bind 'keydown.alt_n', -> $('a.new_resource:first').toHref()
-    $(document).bind 'keydown.alt_left', -> $('a[rel^="prev"]:first').click()
-    $(document).bind 'keydown.alt_right', -> $('a[rel="next"]:first').click()
-    $(document).bind 'keydown.alt_s', -> $('#search_form').submit()
+  initHotkeys() if window.gon?.hotkeys
 
 #    $('form .region_ac').regionAc()
 #    new NestedFieldsAdder

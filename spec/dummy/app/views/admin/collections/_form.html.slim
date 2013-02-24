@@ -1,0 +1,24 @@
+= admin_form_for resource, nested: true do |f|
+  = f.input :is_visible
+  = f.locale_tabs do |l|
+    = f.input :name, locale: l
+
+  = f.simple_fields_for :products do |product|
+    = product.hidden_field :fileupload_guid
+
+    = product.input :sku
+    = product.input :is_visible
+    = product.input :price
+    = product.association :collection
+
+    = product.locale_tabs do |l|
+      = product.input :name, locale: l
+
+    = input_set t('admin.pictures') do
+      = product.attach_file_field :pictures
+
+    = product.link_to_remove_assoc
+
+  = f.link_to_add_assoc :products
+
+  = f.save_buttons

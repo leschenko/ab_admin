@@ -15,12 +15,7 @@ module AbAdmin
       map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
 
       def input(attribute_name, options = {}, &block)
-        unless options.key?(:fancy)
-          if (!options.key?(:as) || options[:as] == :select) && options[:collection].respond_to?(:size) && options[:collection].size > 10
-            options[:fancy] = true
-          end
-        end
-        if options[:fancy]
+        if options[:fancy] || (!options.key?(:fancy) && ((!options.key?(:as) && options[:collection]) || options[:as] == :select))
           options[:input_html] ||= {}
           options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end

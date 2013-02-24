@@ -1,5 +1,5 @@
-jQuery ($) ->
-  $("form a.add_nested_fields").live "click", ->
+$ ->
+  $(document).on 'click', 'form a.add_nested_fields', ->
     $el = $(this)
     assoc = $el.attr("data-association")
     content = $("#" + assoc + "_fields_blueprint").html()
@@ -18,6 +18,9 @@ jQuery ($) ->
     new_id = (new Date().getTime()).toString().substr(-10, 10)
     content = content.replace(regexp, "new_" + new_id)
 
+    guid = $(content).find('[name$="[fileupload_guid]"]').val()
+    content = content.replace(new RegExp(guid, 'g'), new_id) if guid
+
     if $el.data('container')
       $cont = $($el.data('container'))
       field = $(content).prependTo($cont)
@@ -32,7 +35,7 @@ jQuery ($) ->
 
     false
 
-  $("form a.remove_nested_fields").live "click", ->
+  $(document).on 'click', 'form a.remove_nested_fields', ->
     hidden_field = $(this).prev("input[type=hidden]")[0]
     hidden_field.value = "1" if hidden_field
     $fields = $(this).closest(".fields")
