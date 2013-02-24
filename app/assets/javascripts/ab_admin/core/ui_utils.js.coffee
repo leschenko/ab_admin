@@ -87,7 +87,7 @@ window.initFancySelect = ->
               if $el.data('c')[kind]
                 cond[kind] ||= {}
                 for attr, value of $el.data('c')[kind]
-                  cond[kind][attr] = value
+                  cond[kind.replace(/_term$/, '')][attr] = value
 
           data = {q: term, class: $el.data('class'), token: true}
           _.extend(data, cond)
