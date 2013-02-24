@@ -2,13 +2,16 @@ html, body {
   height: 100%;
 }
 
-#main {
-  position: relative;
-  clear: both;
+#wrap {
   min-height: 100%;
   height: auto !important;
   height: 100%;
-  margin: 0 auto -20px;
+  margin: 0 auto -40px;
+}
+
+#main {
+  position: relative;
+  clear: both;
   .wrap_content {
     width: 100%;
     float: left;
@@ -36,17 +39,8 @@ html, body {
   }
 }
 
-#footer {
-  height: 20px;
-  padding: 10px 50px;
-  margin-top: 20px;
-  text-align: right;
-}
-
-.tree_view {
-  #columns_hider_show {
-    display: none;
-  }
+#push {
+  height: 40px;
 }
 
 #loading {
@@ -57,4 +51,8 @@ html, body {
   z-index: 100000;
 }
 
-
+footer {
+  height: 20px;
+  padding: 10px 50px;
+  text-align: right;
+}

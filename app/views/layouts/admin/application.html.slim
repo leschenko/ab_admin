@@ -14,19 +14,21 @@ html id="controller_#{controller_name}"
     = javascript_include_tag 'ab_admin/application'
     = csrf_meta_tags
     = yield(:head)
-  body id="action_#{action_name}" 
-    #loading.label.label-warning= t 'admin.loading'
-    = render 'layouts/admin/navigation'
-    #main role="main" 
-      .container-fluid
-        #wrap.row-fluid
-          = render('admin/shared/flash', flash: flash) if flash
-          .wrap_content
-            .clearfix[data-pjax-container=true class=layout_css]= yield
-          - if collection_action? && settings[:search]
-            .sidebar.well= render 'search_layout'
-          - elsif content_for? :sidebar
-            = yield :sidebar
-          = yield :bottom
+  body id="action_#{action_name}"
+    #wrap
+      = render 'layouts/admin/navigation'
+      #main role="main"
+        .container-fluid
+          #wrap.row-fluid
+            = render('admin/shared/flash', flash: flash) if flash
+            .wrap_content
+              .clearfix[data-pjax-container=true class=layout_css]= yield
+            - if collection_action? && settings[:search]
+              .sidebar.well= render 'search_layout'
+            - elsif content_for? :sidebar
+              = yield :sidebar
+            = yield :bottom
+      #loading.label.label-warning= t 'admin.loading'
+      #push
     = render 'layouts/admin/footer'
 
