@@ -17,7 +17,7 @@ html id="controller_#{controller_name}"
       = render 'layouts/admin/navigation'
       #main role="main"
         .container-fluid
-          #wrap.row-fluid
+          #container.row-fluid
             = render('admin/shared/flash', flash: flash) if flash
             .wrap_content
               .clearfix[data-pjax-container=true class=layout_css]= yield

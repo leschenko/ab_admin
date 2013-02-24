@@ -39,8 +39,8 @@ window.inputSetToggle = ->
   $('.label.do_toggle').click ->
     $(this).siblings().toggle()
 
-window.flash = (type, message) ->
-  $('#wrap').prepend $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>")
+window.flash = (message, type='notice') ->
+  $('#container').prepend $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>")
 
 window.focusInput = (scope=null) ->
   scope ||= $('form.simple_form:first')
