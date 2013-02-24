@@ -20,7 +20,7 @@ module AbAdmin
         def full_truncate
           destroy_all
           truncate!
-          const_get(:Translation).truncate_table if translates?
+          const_get(:Translation).truncate! if translates?
         end
 
         def all_ids
