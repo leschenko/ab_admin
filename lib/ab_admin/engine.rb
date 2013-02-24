@@ -5,6 +5,10 @@ module AbAdmin
   class Engine < ::Rails::Engine
     engine_name 'ab_admin'
 
+    initializer 'ab_admin.assets_precompile', :group => :all do |app|
+      app.config.assets.precompile += AbAdmin.assets
+    end
+
     initializer 'ab_admin.setup' do
       ::Mime::Type.register 'application/vnd.ms-excel', :xls
 

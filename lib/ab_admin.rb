@@ -130,6 +130,9 @@ module AbAdmin
   mattr_accessor :translate_models
   @@translate_models = %w(User Asset Structure StaticPage Header AdminComment)
 
+  mattr_accessor :assets
+  @@assets = %w(ab_admin/devise.css bootstrap.js)
+
   extend Utils
 
   def self.setup
