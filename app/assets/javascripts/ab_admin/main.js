@@ -1,6 +1,8 @@
 //= require i18n
 //= require i18n/translations
 //= require jquery_ujs
+//= require handlebars.min
+//= require underscore.min
 //= require jquery.cookie
 //= require jquery.pjax
 //= require jquery.ui.nestedSortable
