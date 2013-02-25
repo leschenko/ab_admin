@@ -16,7 +16,7 @@ class String
   end
 
   def is_int?
-    self =~ /^[-+]?[0-9]*$/
+    self =~ /^[-+]?[0-9]+$/
   end
 
   def is_number?

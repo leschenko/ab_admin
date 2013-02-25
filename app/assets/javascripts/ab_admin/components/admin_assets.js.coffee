@@ -45,7 +45,7 @@ class window.AdminAssets
       $curr_cont = $asset.closest('.fileupload')
       $curr_list = $curr_cont.find('.fileupload-list')
       asset_klass = $curr_cont.data('asset')
-      $main_list = $(".fileupload.one_asset[data-asset='#{asset_klass}'] .fileupload-list")
+      $main_list = $(".fileupload.one_asset[data-asset='#{asset_klass}'] .fileupload-list:first")
 
       $.post "/admin/assets/#{$asset.data('id')}/main", ->
         $main_list.find('.asset').appendTo($curr_list)
