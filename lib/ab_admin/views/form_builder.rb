@@ -117,11 +117,11 @@ module AbAdmin
         if options[:file]
           script_options['allowedExtensions'] ||= %w(pdf doc docx xls xlsx ppt pptx zip rar csv jpg jpeg gif png)
           script_options['template_id'] = '#fileupload_ftmpl'
-          options[:asset_render_template] = 'file'
+          options[:asset_template] = 'file'
         elsif options[:video]
           script_options['allowedExtensions'] ||= %w(mp4 flv)
           script_options['template_id'] = '#fileupload_vtmpl'
-          options[:asset_render_template] = 'video_file'
+          options[:asset_template] = 'video_file'
         end
         script_options['allowedExtensions'] ||= %w(jpg jpeg png gif)
         script_options['multiple'] ||= object.fileupload_multiple?(attribute_name)
@@ -135,7 +135,7 @@ module AbAdmin
             file_max_size: max_size,
             assets: [value].flatten.delete_if { |v| v.nil? || v.new_record? },
             multiple: script_options['multiple'],
-            asset_render_template: (options[:asset_render_template] || 'asset'),
+            asset_template: (options[:asset_template] || 'asset'),
             container_data: {
                 klass: params[:assetable_type],
                 asset: asset_klass.to_s,
@@ -145,7 +145,8 @@ module AbAdmin
             }
         }
 
-        locals[:css_class] = ['fileupload', "#{locals[:asset_render_template]}_asset_type"]
+        locals[:css_class] = ['fileupload', "#{locals[:asset_template]}_render_template"]
+        locals[:css_class] << "#{options[:file] ? 'file' : 'image'}_asset_type"
         locals[:css_class] << (script_options['multiple'] ? 'many_assets' : 'one_asset')
         locals[:css_class] << 'error' if locals[:error]
 

@@ -46,6 +46,10 @@ window.focusInput = (scope=null) ->
   scope ||= $('form.simple_form:first')
   $('input[type="text"],input[type="string"],select:visible,textarea:visible').not('.fancy_select,.datepicker').get(0)?.focus()
 
+window.templateStorage = {}
+window.fetchTemplate = (tmpl_id) ->
+  window.templateStorage[tmpl_id] ||= Handlebars.compile($(tmpl_id).html())
+
 window.initFancySelect = ->
   return if gon.test
   defaults =
@@ -65,6 +69,23 @@ window.initFancySelect = ->
       options.tokenSeparators = [","]
       options.tags = $el.data('tags')
     else if $el.data('class')
+      if $el.data('image')
+        options.formatResult = (item) ->
+          html = '<div class="fancy_select-result">'
+          html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
+          html += "<span>#{item.text}</span></div>"
+        options.formatSelection = (item) ->
+          html = '<div class="fancy_select-selection">'
+          html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
+          html += "<span>#{item.text}</span></div>"
+      if $el.data('result')
+        options.formatResult = (item) -> fetchTemplate($el.data('result'))(item)
+      if $el.data('selection')
+        options.formatSelection = (item) -> fetchTemplate($el.data('selection'))(item)
+
+      if $el.data('image') || $el.data('result') || $el.data('selection')
+        options.escapeMarkup = (m) -> m
+
       options.initSelection = (el, callback) ->
         data = $el.data('pre')
         if $el.data('multi')
@@ -85,9 +106,10 @@ window.initFancySelect = ->
 
             for kind in ['with_term', 'without_term']
               if $el.data('c')[kind]
-                cond[kind] ||= {}
+                kind_key = kind.replace(/_term$/, '')
+                cond[kind_key] ||= {}
                 for attr, value of $el.data('c')[kind]
-                  cond[kind.replace(/_term$/, '')][attr] = value
+                  cond[kind_key][attr] = value
 
           data = {q: term, class: $el.data('class'), token: true}
           _.extend(data, cond)

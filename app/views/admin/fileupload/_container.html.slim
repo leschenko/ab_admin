@@ -2,7 +2,7 @@
   = error
   .fileupload-drop-area
     span= t('admin.fileupload.drop_here')
-  .fileupload-list.clearfix= render partial: "admin/fileupload/#{asset_render_template}", collection: assets
+  .fileupload-list.clearfix= render partial: "admin/fileupload/#{asset_template}", collection: assets
   .file-types
     span.fileupload-button
       button.btn.btn-primary type="button" = t("admin.fileupload.button#{'s' if multiple}")
