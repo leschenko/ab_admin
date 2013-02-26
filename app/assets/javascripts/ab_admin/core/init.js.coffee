@@ -37,11 +37,11 @@ $ ->
     initTooltip()
 
   $(document).on 'admin:form_init', 'form', (e) ->
-    log 'form_init'
     focusInput($(this))
     initEditor()
     initFancySelect()
     inputSetToggle()
+    initPickers()
 
   $(document).on 'pjax:end', ->
     $(document).trigger({type: 'admin:init', pjax: true})
