@@ -18,13 +18,14 @@ $ ->
         $form.append("<input type='checkbox' name='ids[]' checked='1' value='#{id}' style='display:none;'/>") for id in ids
         $form.submit()
 
-    $(document).on 'click', '#list tbody tr', (e) ->
+    $(document).on 'click', '#list > tbody > tr', (e) ->
       return true unless _.include(['TR', 'TD'], e.target.tagName)
       e.preventDefault()
       e.stopPropagation()
       $el = $(this)
-      $el.closest('tr').toggleClass('active_row')
-      $el.find('td:first input').attr 'checked', (i, v) -> !v
+      if $(e.target).closest('table').attr('id') == 'list'
+        $el.closest('tr').toggleClass('active_row')
+        $el.find('td:first input').attr 'checked', (i, v) -> !v
 
     $(document).on 'click confirm:success', '.batch_action_link', (e) ->
       e.preventDefault()

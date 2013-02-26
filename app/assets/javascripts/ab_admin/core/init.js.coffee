@@ -37,7 +37,7 @@ $ ->
     initTooltip()
 
   $(document).on 'admin:form_init', 'form', (e) ->
-    focusInput($(this))
+#    focusInput($(this))
     initEditor()
     initFancySelect()
     inputSetToggle()

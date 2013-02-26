@@ -44,7 +44,7 @@ window.flash = (message, type='notice') ->
 
 window.focusInput = (scope=null) ->
   scope ||= $('form.simple_form:first')
-  $('input[type="text"],input[type="string"],select:visible,textarea:visible').not('.fancy_select,.datepicker').get(0)?.focus()
+  $('input[type="text"],input[type="string"],select:visible,textarea:visible', scope).not('.fancy_select,.datepicker').get(0)?.focus()
 
 window.templateStorage = {}
 window.fetchTemplate = (tmpl_id) ->

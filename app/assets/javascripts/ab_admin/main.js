@@ -27,6 +27,6 @@
 //= require ab_admin/components/in_place_edit
 //= require ab_admin/components/init_nested_filelds
 //= require ab_admin/components/hotkeys
+//= require ab_admin/inputs/datetime_input
 
 //= require ab_admin/core/init
-//= require ab_admin/inputs/datetime_input

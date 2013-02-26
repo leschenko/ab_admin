@@ -71,7 +71,7 @@ class window.ColumnsHider
         @hideByIndex(i + 1)
 
   hideByIndex: (i) ->
-    $("#list tr th:nth-child(#{i}), #list tr td:nth-child(#{i})").hide()
+    $("#list > thead > tr > th:nth-child(#{i}), #list > tbody > tr > td:nth-child(#{i})").hide()
 
   showAll: ->
     $("#list tr th, #list tr td").show()
