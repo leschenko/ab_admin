@@ -35,9 +35,9 @@ module AbAdmin
         data = {
             type: options[:type], source: options[:source].try(:to_json),
             model: resource_class.model_name.singular, url: resource_path(item),
-            name: attr, value: item[attr]
+            name: attr, value: options[:value] || item[attr]
         }
-        link_to admin_pretty_data(item[attr]).html_safe, '#', class: 'editable', data: data
+        link_to admin_pretty_data(item[attr].to_s).html_safe, '#', class: 'editable', data: data
       end
 
       def options_for_ckeditor(options = {})
