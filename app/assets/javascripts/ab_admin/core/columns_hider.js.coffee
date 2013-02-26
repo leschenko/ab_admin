@@ -61,7 +61,7 @@ class window.ColumnsHider
       $('#columns_hider').modal('hide')
       @refreshColumns()
       @setData()
-    $(document).on 'pjax:end', =>
+    $(document).on 'pjax:end admin:list_init', =>
       @refreshColumns()
 
   refreshColumns: ->

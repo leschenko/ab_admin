@@ -16,8 +16,8 @@ $ ->
   $(document).on 'admin:init', (e) ->
     return unless window.viewType == 'list'
     clonePagination()
-    initPopover()
-    initTooltip()
+
+    $(document).trigger('admin:list_init')
 
     $('.per_page').click ->
       $.cookie('pp', $(this).data('val'))
@@ -26,17 +26,22 @@ $ ->
       e.preventDefault()
       $(this).closest('tr').remove()
 
-  $(document).on 'admin:form_init', 'form', (e) ->
-    focusInput($(this))
-    initEditor()
-    initFancySelect()
-    inputSetToggle()
-
   $(document).on 'admin:init', (e) ->
     return unless window.viewType == 'form'
     $form = $('form.simple_form')
     window.resource_id = $form.data('id')
     $form.trigger('admin:form_init')
+
+  $(document).on 'admin:list_init', ->
+    initPopover()
+    initTooltip()
+
+  $(document).on 'admin:form_init', 'form', (e) ->
+    log 'form_init'
+    focusInput($(this))
+    initEditor()
+    initFancySelect()
+    inputSetToggle()
 
   $(document).on 'pjax:end', ->
     $(document).trigger({type: 'admin:init', pjax: true})
@@ -45,7 +50,6 @@ $ ->
   $(document).on 'dblclick', '#list tbody tr', (e) ->
     e.preventDefault()
     $(this).find('td a.resource_id_link').toHref()
-
 
   initFancySelect()
   initNestedFields()
