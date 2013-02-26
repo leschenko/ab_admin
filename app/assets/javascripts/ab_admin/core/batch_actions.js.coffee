@@ -15,7 +15,7 @@ $ ->
         action = $el.data('action')
         $('#batch_action').val(action)
         $form = $('#batch_action_form')
-        $form.append("<input type='checkbox' name='ids[]' checked='1' value='#{id}'/>") for id in ids
+        $form.append("<input type='checkbox' name='ids[]' checked='1' value='#{id}' style='display:none;'/>") for id in ids
         $form.submit()
 
     $(document).on 'click', '#list tbody tr', (e) ->

@@ -10,7 +10,6 @@ class Admin::BaseController < ::InheritedResources::Base
   before_filter :add_breadcrumbs, :set_title, :set_user_vars, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, instance_reader: false, instance_writer: false
-  self.batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
 
   has_scope :ids, type: :array
 
@@ -95,7 +94,12 @@ class Admin::BaseController < ::InheritedResources::Base
   protected
 
   def batch_action_list
-    self.class.batch_action_list
+    self.class.batch_action_list ||= begin
+      resource_class.batch_actions.map do |a|
+        opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
+        AbAdmin::Config::BatchAction.new(a, opts)
+      end
+    end
   end
 
   def self.inherited(base)

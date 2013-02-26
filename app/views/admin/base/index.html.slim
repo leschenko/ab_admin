@@ -1,7 +1,7 @@
-- if settings[:index_view] == 'table'
-  = form_tag url_for(action: :batch), id: 'batch_action_form', class: 'pjax-form' do
-    input name='batch_action' id='batch_action' type='hidden'
-    = render 'admin/shared/batch_actions'
+/- if settings[:index_view] == 'table'
+= form_tag url_for(action: :batch), id: 'batch_action_form', class: 'pjax-form' do
+  input name='batch_action' id='batch_action' type='hidden'
+  = render 'admin/shared/batch_actions'
     
 #content= render settings[:index_view]
 .pagination.pull-left
@@ -10,4 +10,4 @@
 .btn-toolbar.pull-right.pjax_links
   .btn-group
     - [50, 100, 500, 1000].each do |c|
-      a.btn.per_page data-val=c href=(url_for(params.merge(per_page: c))) class=(('active' if c == collection.per_page)) = c
+      a.btn.per_page data-val=c href=url_for(params.merge(per_page: c)) class=('active' if c == collection.per_page) = c

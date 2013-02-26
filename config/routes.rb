@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     get 'dashboards', as: 'dashboards'
 
     resources :structures do
-      post :rebuild, on: :collection
+      post :batch, :rebuild, on: :collection
       resource :static_page
     end
 
