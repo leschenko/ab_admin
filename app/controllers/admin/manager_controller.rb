@@ -4,7 +4,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   prepend_before_filter :manager
 
-  #load_and_authorize_resource
+  load_and_authorize_resource
 
   helper_method :manager, :admin_partial_name
 
