@@ -286,8 +286,8 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def get_role
-    return [:admin, :moderator] if admin?
-    return [:moderator] if moderator?
+    return [:default, :moderator, :admin] if admin?
+    return [:default, :moderator] if moderator?
     nil
   end
 
