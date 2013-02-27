@@ -9,7 +9,7 @@ class Admin::BaseController < ::InheritedResources::Base
   before_filter :authenticate_user!, :require_moderator
   before_filter :add_breadcrumbs, :set_title, :set_user_vars, unless: :xhr?
 
-  class_attribute :export_builder, :batch_action_list, instance_reader: false, instance_writer: false
+  class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 
   has_scope :ids, type: :array
 
@@ -165,7 +165,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def button_scopes
-    @@button_scopes ||= begin
+    self.class.button_scopes ||= begin
       res = {}
       self.class.scopes_configuration.except(:ids).each do |k, v|
         res[k] = v if v[:type] == :default
