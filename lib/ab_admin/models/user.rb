@@ -25,7 +25,7 @@ module AbAdmin
       end
 
       def generate_password!
-        raw_password = Rails.env.test? ? '654321' : Devise.friendly_token[0..7]
+        raw_password = Rails.env.test? ? '654321' : ::Devise.friendly_token[0..7]
         self.password = self.password_confirmation = raw_password
         self.save(validate: false)
         raw_password

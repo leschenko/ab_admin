@@ -111,6 +111,14 @@ window.initFancySelect = ->
                 for attr, value of $el.data('c')[kind]
                   cond[kind_key][attr] = value
 
+            for kind in ['with_selector', 'without_selector']
+              if $el.data('c')[kind]
+                kind_key = kind.replace(/_selector$/, '')
+                cond[kind_key] ||= {}
+                for attr, value of $el.data('c')[kind]
+                  selectors = value.split(/\s+/)
+                  cond[kind_key][attr] = $el.closest(selectors[1] || 'html').find(selectors[0]).val()
+
           data = {q: term, class: $el.data('class'), token: true}
           _.extend(data, cond)
 
