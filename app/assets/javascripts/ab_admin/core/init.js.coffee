@@ -53,6 +53,7 @@ $ ->
 
   initFancySelect()
   initNestedFields()
+  initNestedFields()
   #  initAcFileds()
 
   if window.gon?.bg_color

@@ -102,14 +102,15 @@ window.initFancySelect = ->
               if $el.data('c')[kind]
                 cond[kind] ||= {}
                 for attr, id of $el.data('c')[kind]
-                  cond[kind][attr] = $('#' + id).val()
+                  value = $('#' + id).val()
+                  cond[kind][attr] = value if value
 
             for kind in ['with_term', 'without_term']
               if $el.data('c')[kind]
                 kind_key = kind.replace(/_term$/, '')
                 cond[kind_key] ||= {}
                 for attr, value of $el.data('c')[kind]
-                  cond[kind_key][attr] = value
+                  cond[kind_key][attr] = value if value
 
             for kind in ['with_selector', 'without_selector']
               if $el.data('c')[kind]
@@ -117,7 +118,10 @@ window.initFancySelect = ->
                 cond[kind_key] ||= {}
                 for attr, value of $el.data('c')[kind]
                   selectors = value.split(/\s+/)
-                  cond[kind_key][attr] = $el.closest(selectors[1] || 'html').find(selectors[0]).val()
+                  value = $el.closest(selectors[1] || 'html').find(selectors[0]).val()
+                  cond[kind_key][attr] = value if value
+
+            log cond
 
           data = {q: term, class: $el.data('class'), token: true}
           _.extend(data, cond)
