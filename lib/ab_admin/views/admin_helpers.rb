@@ -95,7 +95,8 @@ module AbAdmin
       end
 
       def item_image_link(item, options={})
-        options.reverse_merge!(url: resource_path(item), assoc: :picture)
+        options.reverse_merge!(assoc: :picture)
+        options[:url] ||= resource_path(item)
         image = item.send(options[:assoc])
         return nil unless image
         version = options[:version] || image.class.thumb_size

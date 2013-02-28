@@ -1,5 +1,7 @@
 //= require i18n
 //= require i18n/translations
+//= require jquery/jquery.min
+//= require jquery/jquery-ui.min
 //= require jquery_ujs
 //= require handlebars.min
 //= require underscore.min

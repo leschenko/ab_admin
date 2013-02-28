@@ -6,8 +6,8 @@ html id="controller_#{controller_name}"
     meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" 
     title= @page_title || 'Ab Admin'
     = stylesheet_link_tag 'ab_admin/application', media: 'all'
-    script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
-    script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js')
+    /script(src='//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+    /script(src='//ajax.googleapis.com/ajax/libs/jqueryui/1.8.24/jquery-ui.min.js')
     = include_gon
     = javascript_include_tag 'ab_admin/application'
     = csrf_meta_tags

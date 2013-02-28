@@ -5,7 +5,9 @@
   .fileupload-list.clearfix= render partial: "admin/fileupload/#{asset_template}", collection: assets
   .file-types
     span.fileupload-button
-      button.btn.btn-primary type="button" = t("admin.fileupload.button#{'s' if multiple}")
-    .type-info== "#{file_title}.  #{t('admin.fileupload.max_size')}: <b>#{file_max_size}</b> MB"
+      button.btn type="button" = t("admin.fileupload.button#{'s' if multiple}")
+    .type-info
+      span.file_title== "#{file_title}. "
+      span.file_max_size== "#{t('admin.fileupload.max_size')}: <b>#{file_max_size}</b> MB"
 
 = init_js(js)
