@@ -1,7 +1,7 @@
 <%
   el_id = dom_id(resource, 'list')
   form_wrap_id = dom_id(resource, 'list_edit')
-  html = %[<tr id="#{form_wrap_id}" class="warning"><td>#{render('form')}</td></tr>].html_safe
+  html = %[<tr id="#{form_wrap_id}" class="list_edit warning"><td>#{render('form')}</td></tr>].html_safe
 %>
 $('#<%= form_wrap_id %>').remove();
 $('#<%= el_id %>').after('<%= j html %>');

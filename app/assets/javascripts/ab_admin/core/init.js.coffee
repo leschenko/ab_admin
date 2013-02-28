@@ -22,7 +22,7 @@ $ ->
     $('.per_page').click ->
       $.cookie('pp', $(this).data('val'))
 
-    $('#list').on 'click', '.form_cancel', (e) ->
+    $('#list').on 'click', 'tr.list_edit .form_cancel', (e) ->
       e.preventDefault()
       $(this).closest('tr').remove()
 
