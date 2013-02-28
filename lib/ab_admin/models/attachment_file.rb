@@ -25,8 +25,7 @@ module AbAdmin
       end
 
       def as_json(options={})
-        options.reverse_merge!(methods: [:filename, :url, :preview_url, :thumb_url, :width, :height,
-                                            :file_css_class, :human_filesize, :created_at])
+        options.reverse_merge!(methods: [:filename, :url, :file_css_class, :human_filesize, :created_at])
         super
       end
     end
