@@ -1,11 +1,11 @@
 $ ->
   if $('#list')[0]
-    $("#list input.toggle").live "click", ->
+    $(document).on 'click', '#list input.toggle', ->
       checked = $(this).is(":checked")
       $("#list [name='ids[]']").attr "checked", checked
       $('#list tbody tr').toggleClass('active_row', checked)
 
-    $("#list tbody input").live "click", ->
+    $(document).on 'click', '#list input.batch_check', ->
       $(this).closest('tr').toggleClass('active_row')
 
     submitBatch = (el) ->
@@ -23,7 +23,7 @@ $ ->
       e.preventDefault()
       e.stopPropagation()
       $el = $(this)
-      if $(e.target).closest('table').attr('id') == 'list'
+      unless $(e.target).closest('#list > tbody > tr > td').hasClass('list_adds')
         $el.closest('tr').toggleClass('active_row')
         $el.find('td:first input').attr 'checked', (i, v) -> !v
 
