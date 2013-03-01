@@ -23,9 +23,7 @@ html id="controller_#{controller_name}"
               .clearfix[data-pjax-container=true class=layout_css]= yield
             - if collection_action? && settings[:search]
               .sidebar.well= render 'search_layout'
-            - elsif content_for? :sidebar
-              = yield :sidebar
-            = yield :bottom
+            = yield :sidebar
       #loading.label.label-warning= t 'admin.loading'
       #push
     = render 'layouts/admin/footer'
