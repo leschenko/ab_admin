@@ -101,7 +101,7 @@ module AbAdmin
         return nil unless image
         version = options[:version] || image.class.thumb_size
         popover_data = {content: "<img src='#{image.url}'></img>", title: item.name}
-        link_to image_tag(image.url(version)), options[:url], data: popover_data, rel: 'popover'
+        link_to image_tag(image.url(version)), options[:url], data: popover_data, rel: 'popover', remote: options[:remote]
       end
 
       def item_image(item, assoc=:photo, size=:thumb)
