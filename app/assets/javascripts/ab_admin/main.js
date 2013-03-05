@@ -17,7 +17,7 @@
 //= require ab_admin/bootstrap-timepicker
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales/ru
-//= require bootstrap-editable-inline
+//= require ab_admin/bootstrap-editable-inline
 //= require select2
 //= require fancybox
 //= require jquery.ui.nestedSortable
