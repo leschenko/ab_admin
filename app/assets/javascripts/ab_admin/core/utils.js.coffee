@@ -74,7 +74,7 @@ $.fn.scrollToEl = ->
 $.fn.toHref = ->
   $el = $(this)
   if _.isEmpty($el.data())
-    window.location.href = $el.attr('href')
+    window.location.href = $el.attr('href') if $el.attr('href')
   else
     $el.click()
 
