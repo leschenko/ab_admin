@@ -134,7 +134,7 @@ module AbAdmin
             file_title: (options[:file_title] || script_options['allowedExtensions'].join(', ')),
             file_max_size: max_size,
             assets: [value].flatten.delete_if { |v| v.nil? || v.new_record? },
-            multiple: script_options['multiple'],
+            button_title: options[:button_title] || I18n.t("admin.fileupload.button#{'s' if script_options['multiple']}"),
             asset_template: (options[:asset_template] || 'asset'),
             container_data: {
                 klass: params[:assetable_type],
@@ -151,7 +151,7 @@ module AbAdmin
         locals[:css_class] << 'error' if locals[:error]
 
 
-        js_opts = [locals[:element_id], template.sort_admin_assets_path(klass: asset_klass), locals[:multiple]].map(&:inspect).join(', ')
+        js_opts = [locals[:element_id], template.sort_admin_assets_path(klass: asset_klass), script_options['multiple']].map(&:inspect).join(', ')
         locals[:js] = <<-JAVASCRIPT
           var upl = new qq.FileUploaderInput(#{script_options.to_json});
           upl._setupDragDrop();
