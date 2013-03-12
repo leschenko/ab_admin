@@ -1,5 +1,5 @@
 - if tmpl = admin_partial_name(search_builder)
-  = render tmpl
+  = render tmpl, f: f
 - else
   - search_builder.fields.each do |field|
     = f.input field.data, field.options

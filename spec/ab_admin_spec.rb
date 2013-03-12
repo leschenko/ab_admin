@@ -9,14 +9,14 @@ describe AbAdmin do
     before(:each) do
       AbAdmin.setup do |c|
         c.flash_keys = [:test, :test2]
-        c.title_spliter = ' -> '
+        c.title_splitter = ' -> '
         c.site_name = 'Test'
       end
     end
     
     it 'should store configuration' do
       AbAdmin.flash_keys.should == [:test, :test2]
-      AbAdmin.title_spliter.should == ' -> '
+      AbAdmin.title_splitter.should == ' -> '
       AbAdmin.site_name.should == 'Test'
     end
   end

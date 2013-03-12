@@ -6,7 +6,7 @@ module AbAdmin
       def head_options(record, options = {})
         return if record.nil?
         
-        options = { spliter: AbAdmin.title_spliter, append_title: true }.merge(options)
+        options = { splitter: AbAdmin.title_splitter, append_title: true }.merge(options)
 
         header = options[:header] || (record.respond_to?(:header) ? record.header : nil)
 
@@ -24,7 +24,7 @@ module AbAdmin
           page_title << view_title
           page_title << I18n.t('page.title') if options[:append_title]
 
-          page_title.flatten.compact.uniq.join(options[:spliter])
+          page_title.flatten.compact.uniq.join(options[:splitter])
         end
         @page_description = [I18n.t('page.prefix'), @page_description].compact.join(' - ')
       end

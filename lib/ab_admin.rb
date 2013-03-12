@@ -112,8 +112,8 @@ module AbAdmin
   mattr_accessor :flash_keys
   @@flash_keys = [:notice, :error]
 
-  mattr_accessor :title_spliter
-  @@title_spliter = ' – '
+  mattr_accessor :title_splitter
+  @@title_splitter = ' – '
 
   mattr_accessor :site_name
   @@site_name = 'AbAdmin'
