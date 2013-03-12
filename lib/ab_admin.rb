@@ -116,7 +116,7 @@ module AbAdmin
   @@title_spliter = ' – '
 
   mattr_accessor :site_name
-  @@title_spliter = 'AbAdmin'
+  @@site_name = 'AbAdmin'
 
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
