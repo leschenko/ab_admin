@@ -1,14 +1,13 @@
 .batch_actions.clearfix
-  - cache [I18n.locale, 'admin', resource_class.name, 'batch_actions'] do
-    - if settings[:batch] && settings[:index_view] == 'table'
-      .btn-group
-        a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
-          = t 'admin.batch_actions.title'
-          span.caret
-        ul.dropdown-menu
-          - batch_action_list.each do |batch_action|
-            li
-              a.batch_action_link[href='#' data-action=batch_action.name data-confirm=batch_action.confirm]= batch_action.title
+  - if settings[:batch] && settings[:index_view] =~ /table/
+    .btn-group
+      a.btn.dropdown-toggle data-toggle="dropdown" href="#"
+        = t 'admin.batch_actions.title'
+        span.caret
+      ul.dropdown-menu
+        - batch_action_list.each do |batch_action|
+          li
+            a.batch_action_link[href='#' data-action=batch_action.name data-confirm=batch_action.confirm]= batch_action.title
   .btn-group.pjax_links
     - button_scopes.each do |name, opts|
       - active = params[opts[:as]]
