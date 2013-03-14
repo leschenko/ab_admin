@@ -115,6 +115,7 @@ ru:
       save_and_edit_prev: "Сохранить и пред."
       details: "Подробнее"
       base: "Основное"
+      keywords: 'Мета теги'
     gender:
       female: "Женский"
       male: "Мужской"
