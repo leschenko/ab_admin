@@ -68,8 +68,8 @@ $.fn.loadSelect = (optionsDataArray) ->
         else
           selectElement.add option, null
 
-$.fn.scrollToEl = ->
-  $('html, body').animate({scrollTop: $(this).offset().top}, 'slow')
+$.fn.scrollToEl = (speed='slow') ->
+  $('html, body').animate({scrollTop: $(this).offset().top}, speed)
 
 $.fn.toHref = ->
   $el = $(this)

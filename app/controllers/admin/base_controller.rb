@@ -24,7 +24,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def index
     super do |format|
-      format.js { render collection }
+      format.js { render layout: false }
       format.csv do
         doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
         send_data(doc.render, filename: doc.filename, type: Mime::CSV, disposition: 'attachment')
