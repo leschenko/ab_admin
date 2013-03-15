@@ -48,7 +48,7 @@ class window.GoogleLocaleTabs
   @locales = ['ru', 'en', 'it']
   constructor: ->
     @locales = GoogleLocaleTabs.locales
-    @limit = 1000
+    @limit = 10000
     html = '<div class="t_locales">'
     for l in @locales
       html += "<div class='t_locale t_locale_#{l}'></div>"
