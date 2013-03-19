@@ -3,7 +3,7 @@ $ ->
     $el = $(this)
     assoc = $el.attr("data-association")
     content = $("#" + assoc + "_fields_blueprint").html()
-    context = ($el.closest(".fields").find("input:first").attr("name") or "").replace(new RegExp("[[a-z]+]$"), "")
+    context = ($el.closest('.fields').closestChild('input:not([id$="_destroy"]), textarea, select').eq(0).attr('name') || '').replace(new RegExp('\[[a-z_]+\]$'), '')
     if context
       parent_names = context.match(/[a-z_]+_attributes/g) or []
       parent_ids = context.match(/(new_)?[0-9]+/g) or []
@@ -46,3 +46,21 @@ $ ->
 
     $(this).closest("form").trigger "nested:fieldRemoved"
     false
+
+
+$.fn.closestChild = (selector) ->
+  # breadth first search for the first matched node
+  if selector and selector isnt ""
+    queue = []
+    queue.push this
+    while queue.length > 0
+      node = queue.shift()
+      children = node.children()
+      i = 0
+
+      while i < children.length
+        child = $(children[i])
+        return child  if child.is(selector) #well, we found one
+        queue.push child
+        ++i
+  $() #nothing found
