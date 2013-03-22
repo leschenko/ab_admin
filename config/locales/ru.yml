@@ -109,8 +109,8 @@ ru:
     form:
       cancel: "Отмена"
       save: "Сохранить"
-      save_and_add_another: "Сохранить и добавить новый"
-      save_and_edit: "Сохранить и продолжить редактирование"
+      save_and_add_another: "Сохранить & новый"
+      save_and_edit: "Применить"
       save_and_edit_next: "Сохранить и след."
       save_and_edit_prev: "Сохранить и пред."
       details: "Подробнее"
