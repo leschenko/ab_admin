@@ -3,12 +3,14 @@ module AbAdmin
     module AdminHelpers
 
       def admin_form_for(object, *args, &block)
+        record = Array(object).last
+        record.fallbacks_for_empty_translations = false if record.respond_to?(:fallbacks_for_empty_translations)
         options = args.extract_options!
         options[:remote] = true if request.xhr?
         options[:html] ||= {}
         options[:html][:class] ||= 'form-horizontal'
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
-        options[:html]['data-id'] = Array(object).last.id
+        options[:html]['data-id'] = record.id
         if controller_name == 'manager' && resource_class == Array(object).last.class
           options[:url] ||= object.new_record? ? collection_path : resource_path
         end
