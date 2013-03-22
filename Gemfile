@@ -56,6 +56,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'childprocess', '0.3.6'
   gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'shoulda-matchers'
