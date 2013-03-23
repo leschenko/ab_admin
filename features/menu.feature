@@ -1,9 +1,8 @@
+@wip
 Feature: Admin menu
 
   Background:
     Given I am logged in
-
-  Scenario: Show menu tree
     Given i18n key "admin.navigation.system" with value "System"
     And i18n key "admin.navigation.for_admin" with value "for admin"
     And a menu configuration of:
@@ -22,9 +21,16 @@ Feature: Admin menu
         end
       end
       """
+
+  Scenario: Show menu tree
     When I am on the dashboard page
     Then I should see menu item for "User" with path "/admin/users"
     Then I should see menu item for "Settings" with path "/admin/settings/edit"
     And I should see group "System" with menu item for "Structure"
     And I should see group "Moderator" with menu item for "for moderator"
     And I should see group "Admin" with menu item for "for admin"
+
+  Scenario: Active menu link for current resource
+    When I am on the admin structures page
+    Then menu item for "Structure" should be active
+    And menu item for "User" should not be active

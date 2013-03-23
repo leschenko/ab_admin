@@ -75,10 +75,11 @@ module AbAdmin
       @options = options
     end
 
-    def render(template, active=false)
+    def render(template)
       return if @options[:if] && !call_method_or_proc_on(template, @options[:if])
       return if @options[:unless] && call_method_or_proc_on(template, @options[:unless])
 
+      active = template.request.path.split('/')[2] == @path.split('/')[2]
       <<-HTML.html_safe
           <li class="#{'active' if active}">#{template.link_to @title, @path, @options}</li>
       HTML
