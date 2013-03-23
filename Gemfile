@@ -21,7 +21,7 @@ gem 'friendly_id'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'awesome_nested_set'
 gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968'
-gem 'globalize3', git: 'git://github.com/leschenko/globalize3.git', ref: '586ccbd'
+gem 'globalize3', :git => 'git://github.com/leschenko/globalize3.git', :ref => 'f16ab7f', branch: 'master'
 
 gem 'carrierwave'
 gem 'mini_magick'
