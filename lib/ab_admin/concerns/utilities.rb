@@ -10,11 +10,11 @@ module AbAdmin
 
       module ClassMethods
         def max_time
-          Rails.cache.fetch("by_class_#{name}", expires_in: 60) { maximum(:updated_at).to_i }
+          Rails.cache.fetch("by_class_#{name}", expires_in: 60) { unscoped.maximum(:updated_at).to_i }
         end
 
         def max_time_by_scope(scope)
-          Rails.cache.fetch("by_class_#{name}_#{scope}", expires_in: 60) { send(scope).maximum(:updated_at).to_i }
+          Rails.cache.fetch("by_class_#{name}_#{scope}", expires_in: 60) { unscoped.send(scope).maximum(:updated_at).to_i }
         end
 
         def full_truncate
