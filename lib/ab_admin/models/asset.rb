@@ -46,6 +46,10 @@ module AbAdmin
         I18n.l(created_at, format: '%d.%m.%Y %H:%M')
       end
 
+      def human_name
+        original_name.presence || data_file_name
+      end
+
       def as_json(options = nil)
         options = {
             only: [:id, :guid, :assetable_id, :assetable_type, :user_id,

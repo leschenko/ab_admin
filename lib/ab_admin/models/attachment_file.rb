@@ -12,10 +12,6 @@ module AbAdmin
         MIME::Type.new(data_content_type).try(:sub_type).gsub('.', '_')
       end
 
-      def human_name
-        original_name.presence || data_file_name
-      end
-
       def human_filesize
         number_to_human_size(data_file_size)
       end
