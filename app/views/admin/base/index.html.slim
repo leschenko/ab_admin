@@ -11,3 +11,8 @@
   .btn-group
     - [50, 100, 500, 1000].each do |c|
       a.btn.per_page data-val=c href=url_for(params.merge(per_page: c)) class=('active' if c == collection.per_page) = c
+
+- if pjax? && flash.present?
+  - flash.each do |k, v|
+    = javascript_tag %[flash("#{j v}", "#{k}")]
+
