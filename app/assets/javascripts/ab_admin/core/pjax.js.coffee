@@ -1,22 +1,22 @@
 $ ->
-  $('.pjax, .pagination a, .pjax_links a').live 'click', (event) ->
-    if event.which > 1 || event.metaKey || event.ctrlKey
+  $(document).on 'click', '.pjax, .pagination a, .pjax_links a', (e) ->
+    if e.which > 1 || e.metaKey || e.ctrlKey
       return
     else if $.support.pjax
-      event.preventDefault()
+      e.preventDefault()
       $.pjax
         container: $(this).data('pjax-container') || '[data-pjax-container]'
         url: $(this).data('href') || $(this).attr('href')
         timeout: 50000
     else if $(this).data('href')
-      event.preventDefault()
+      e.preventDefault()
       window.location = $(this).data('href')
 
   unless gon.test
-    $('.pjax-form').live 'submit', (event) ->
+    $(document).on 'submit', '.pjax-form', (e) ->
       $el = $(this)
       if $.support.pjax
-        event.preventDefault()
+        e.preventDefault()
         $.pjax
           type: $el.attr('method')
           container: $el.data('pjax-container') || '[data-pjax-container]'

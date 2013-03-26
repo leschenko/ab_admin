@@ -1,7 +1,7 @@
 = admin_form_for @structure do |f|
   = f.locale_tabs do |l|
     = f.input :title, locale: l
-    = f.input :redirect_url, locale: l
+    = f.input :redirect_url, locale: l, as: :string
 
   = f.input :slug
   - if @structure.moveable?

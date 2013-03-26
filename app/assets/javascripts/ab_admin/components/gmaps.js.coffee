@@ -119,18 +119,15 @@ window.codeLatLng = (lat, lng, callback = null) ->
   latlng = new google.maps.LatLng(lat, lng)
   window.geocoder.geocode {latLng: latlng}, (results, status) ->
     if status is google.maps.GeocoderStatus.OK
-#      log results[1]
       results[1]
       callback(results[1]) if callback
     else
       false
 
 window.codeAddress = (address, callback = null) ->
-#  log address
   window.geocoder ||= new google.maps.Geocoder()
   window.geocoder.geocode {address: address}, (results, status) ->
     if status is google.maps.GeocoderStatus.OK
-#      log results
       callback(_.first(results)) if callback
     else
       false
@@ -139,38 +136,3 @@ window.getPlaceComponent = (place, component) ->
   res = _.filter place.address_components, (el) ->
     _.include(el.types, component)
   res[0]
-
-
-
-#  typesByPrefix: ->
-#    if _.include(['region', 'district', 'sub_district'], @options.prefix)
-#      ['(regions)']
-#    else if _.include(['location'], @options.prefix)
-#      ['(cities)']
-#    else
-#      ['geocode']
-
-#  initAutocompleteCustom: (dom_input='geo_autocomplete') ->
-#    input = document.getElementById(dom_input)
-#    opts =
-#      types: ['geocode']
-##      componentRestrictions: {country: 'ru'}
-#    autocomplete = new google.maps.places.Autocomplete(input, opts)
-#    autocomplete.bindTo('bounds', @map)
-#    google.maps.event.addListener autocomplete, 'place_changed', =>
-#      place = autocomplete.getPlace()
-#      @callback.call(this, place) if @callback
-#      return unless place.geometry
-#      pos = place.geometry.location
-#      if place.geometry.viewport
-#        @map.fitBounds(place.geometry.viewport)
-#      else
-#        @map.setCenter(pos)
-#        @map.setZoom(17)
-#
-#      @marker.setPosition(pos)
-#      @setInputs(pos)
-#
-#    $('#'+ dom_input).live "keypress", (e) ->
-#      e.preventDefault() if e.keyCode == 13
-

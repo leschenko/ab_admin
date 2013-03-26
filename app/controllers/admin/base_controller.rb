@@ -106,6 +106,7 @@ class Admin::BaseController < ::InheritedResources::Base
     super
     base.class_eval do
       before_create :bind_current_user
+      before_save :bind_current_updater
     end
   end
 
@@ -215,7 +216,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def set_layout
-    request.headers['X-PJAX'] ? false : 'admin/application'
+    pjax? ? false : 'admin/application'
+  end
+
+  def pjax?
+    request.headers['X-PJAX']
   end
 
   def back_or_collection
@@ -272,6 +277,10 @@ class Admin::BaseController < ::InheritedResources::Base
     resource.user_id = current_user.id if resource.respond_to?(:user_id)
   end
 
+  def bind_current_updater(*args)
+    resource.updater_id = current_user.id if resource.respond_to?(:updater_id)
+  end
+
   def xhr?
     request.xhr?
   end
@@ -303,9 +312,12 @@ class Admin::BaseController < ::InheritedResources::Base
   def render_unauthorized(exception)
     Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}, user: #{current_user.try(:id)}"
 
-    respond_to do |format|
-      format.html { redirect_to (moderator? ? admin_root_path : root_path), alert: exception.message }
-      format.any { head :unauthorized }
+    if pjax?
+      render partial: 'admin/shared/flash', locals: {flash: {alert: exception.message}}
+    elsif request.format.try(:html?)
+      redirect_to (moderator? ? admin_root_path : root_path), alert: exception.message
+    else
+      head :unauthorized
     end
   end
 
