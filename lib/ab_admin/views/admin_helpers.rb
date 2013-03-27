@@ -23,6 +23,7 @@ module AbAdmin
 
       def admin_editable(item, attr, options=nil)
         options = {} unless options.is_a?(Hash)
+        options[:type] ||= 'select' if options[:source]
         options[:type] ||= case attr.to_s
                              when /_at$/
                                'date'
@@ -35,11 +36,15 @@ module AbAdmin
                            end
         options[:source] ||= {'true' => 'yes', 'false' => 'no'} if options[:type] == 'select'
         data = {
-            type: options[:type], source: options[:source].try(:to_json),
-            model: resource_class.model_name.singular, url: resource_path(item),
-            name: attr, value: options[:value] || item[attr]
+            type: options[:type],
+            source: options[:source].try(:to_json),
+            model: resource_class.model_name.singular,
+            url: resource_path(item),
+            name: attr,
+            value: options[:value] || item[attr],
+            title: options[:title] || item[attr]
         }
-        link_to admin_pretty_data(item[attr].to_s).html_safe, '#', class: 'editable', data: data
+        link_to admin_pretty_data(data[:title].to_s).html_safe, '#', class: 'editable', data: data
       end
 
       def options_for_ckeditor(options = {})
