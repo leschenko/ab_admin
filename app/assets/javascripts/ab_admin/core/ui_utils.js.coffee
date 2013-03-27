@@ -3,7 +3,7 @@ window.clonePagination = ->
 
 window.initPopover = ->
   $('.popover').hide()
-  $('a[rel=popover]').popover({trigger: 'hover'})
+  $('a[rel=popover]').popover({trigger: 'hover', html: true})
 
 window.initAcFileds = ->
   for el in $('.ac_field')
