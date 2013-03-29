@@ -107,7 +107,7 @@ module AbAdmin
         image = item.send(options[:assoc])
         return nil unless image
         version = options[:version] || image.class.thumb_size
-        popover_data = {content: "<img class='image_link_popover popover_#{options[:assoc]}' src='#{image.url}'></img>", title: item.name}
+        popover_data = {content: "<img class='image_link_popover popover_#{options[:assoc]}' src='#{image.url}'></img>", title: AbAdmin.display_name(item)}
         link_to image_tag(image.url(version)), options[:url], data: popover_data, rel: 'popover', remote: options[:remote]
       end
 
