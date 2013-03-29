@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class String
-  #LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\)/
-  LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\s)/
+  LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\)/
+  #LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\s)/
   KEYBOARDS = {
       en: 'qwertyuiop[]asdfghjkl;\'zxcvbnm,./',
       ru: 'йцукенгшщзхъфывапролджэячсмитьбю/'

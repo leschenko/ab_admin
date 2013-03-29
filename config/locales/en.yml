@@ -205,6 +205,7 @@ en:
       title: Story
       type: Type
   admin_js:
+    empty: Empty
     add_link: Create?
     button_description: Description
     button_name_add: Add

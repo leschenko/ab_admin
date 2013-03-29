@@ -1,0 +1,3 @@
+<% flash.each do |k, v| %>
+  flash("<%= j v %>", "<%= k %>");
+<% end unless flash.empty? %>

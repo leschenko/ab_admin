@@ -207,6 +207,7 @@ ru:
         default: "По умолчанию"
         menu: "Меню"
   admin_js:
+    empty: Пусто
     add_link: "Создать?"
     button_description: "Описание"
     button_name_add: "Добавить"

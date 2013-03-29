@@ -22,3 +22,4 @@ $(document).on 'admin:init', (e) ->
   $('.editable').editable
     onblur: 'submit'
     placement: 'bottom'
+    emptytext: I18n.t('admin_js.empty')

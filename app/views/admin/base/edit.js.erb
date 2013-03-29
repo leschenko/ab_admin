@@ -8,3 +8,5 @@ $('#<%= el_id %>').after('<%= j html %>');
 $('#<%= form_wrap_id %> td').attr('colspan', $('#list tr:first th').length);
 $('#<%= el_id %>').scrollToEl();
 $('#<%= form_wrap_id %> form').trigger('admin:form_init');
+
+<%= render 'admin/shared/flash', flash: flash %>
