@@ -110,7 +110,7 @@ module AbAdmin
       end
 
       def check_role
-        errors.add(:user_role_id, :invalid) unless ::UserRoleType.legal?(user_role_id)
+        errors.add(:user_role_id, :invalid) unless ::UserRoleType.valid?(user_role_id)
       end
 
     end

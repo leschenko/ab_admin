@@ -26,7 +26,17 @@ module AbAdmin
       end
 
       def self.legal?(value)
+        ActiveSupport::Deprecation.warn('legal? id deprecated, use valid? instead')
         all.map(&:id).include?(value)
+      end
+
+      def self.valid?(c_id)
+        all.map(&:id).include?(c_id.to_i)
+      end
+
+      def self.valid_code?(code)
+        return unless code
+        codes.include?(code.to_sym)
       end
 
     end

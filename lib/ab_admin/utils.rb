@@ -49,6 +49,8 @@ module AbAdmin
       locale == I18n.default_locale ? '' : "/#{locale}"
     end
 
+    alias :locale_path :l_path
+
     def rss_text(raw_html)
       Rack::Utils.escape_html(raw_html.no_html.squish)
     end
