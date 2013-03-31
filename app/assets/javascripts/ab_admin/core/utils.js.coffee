@@ -145,6 +145,10 @@ window.to_f = (val) ->
   val = parseFloat val, 10
   if isNaN(val) then 0.0 else val
 
+window.to_fixed = (val, prec = 2) ->
+  return 0 unless val
+  (parseFloat(val) + 0.0).toFixed(prec)
+
 window.log = (objects...) ->
   window.logging = true
   unless window.gon?.no_log
