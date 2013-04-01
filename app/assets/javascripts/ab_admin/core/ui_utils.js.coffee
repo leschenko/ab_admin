@@ -123,11 +123,11 @@ window.initFancySelect = ->
 
             log cond
 
-          data = {q: term, class: $el.data('class'), token: true}
+          data = {q: term, class: $el.data('class'), token: true, page: page}
           _.extend(data, cond)
 
         results: (data, page) ->
-          results: data
+          results: data, more: data.length > 0
 
     $el.select2(options)
 
