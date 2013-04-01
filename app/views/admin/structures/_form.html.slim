@@ -11,8 +11,11 @@
 
   = f.input :is_visible
 
-  = input_set t('admin.pictures') do
+  = input_set ha(:picture) do
     = f.attach_file_field :picture, file_max_size: 2
+
+  = input_set ha(:pictures) do
+    = f.attach_file_field :pictures, file_max_size: 2
 
   = input_set t('admin.keywords') do
     = render 'admin/headers/form', f: f
