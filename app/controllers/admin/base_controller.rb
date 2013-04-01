@@ -93,6 +93,10 @@ class Admin::BaseController < ::InheritedResources::Base
 
   protected
 
+  def default_url_options
+    {format: nil}
+  end
+
   def batch_action_list
     self.class.batch_action_list ||= begin
       resource_class.batch_actions.map do |a|
