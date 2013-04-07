@@ -22,7 +22,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rails-i18n'
   gem.add_dependency 'slim'
   gem.add_dependency 'cancan'
-  gem.add_dependency 'inherited_resources', '>= 1.3.0'
+  gem.add_dependency 'inherited_resources', '~> 1.4.0', '>= 1.3.0'
   gem.add_dependency 'rack-pjax'
   gem.add_dependency 'ransack'
   gem.add_dependency 'has_scope'
@@ -55,5 +55,5 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'forgery'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'connection_pool'
-  gem.add_development_dependency 'cucumber-rails'
+  #gem.add_development_dependency 'cucumber-rails'
 end
