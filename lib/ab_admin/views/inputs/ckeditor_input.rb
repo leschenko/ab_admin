@@ -4,7 +4,6 @@ module AbAdmin
       class CkeditorInput < ::SimpleForm::Inputs::Base
         def input
           unless @builder.template.instance_variable_get(:@ckeditor_init)
-            #concat template.javascript_include_tag("/assets/ckeditor/init")
             @builder.template.concat @builder.template.javascript_include_tag('/javascripts/ckeditor/init')
             @builder.template.instance_variable_set(:@ckeditor_init, true)
           end
