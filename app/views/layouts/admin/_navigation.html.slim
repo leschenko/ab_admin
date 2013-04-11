@@ -20,11 +20,9 @@ header.navbar
             li.divider
             li= link_to(t('admin.auth.sign_out'), destroy_user_session_path, method: 'delete')
 
-  = render 'admin/shared/breadcrumbs'
+  ul.breadcrumb
+    li.resource_actions
+      - action_items.each do |act|
+        = action_link(act)
+    = render 'admin/shared/breadcrumbs'
 
-.top_bar.clearfix
-  .resource_actions
-    - action_items.each do |act|
-      = action_link(act)
-  .resource_title
-    h1= @page_title

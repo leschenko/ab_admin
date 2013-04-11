@@ -131,16 +131,6 @@ class Admin::BaseController < ::InheritedResources::Base
     export_builder.render_options
   end
 
-  def set_title
-    name_for_lookup = params[:custom_action] || action_name
-    lookups = [:"admin.#{controller_name}.actions.#{name_for_lookup}.title",
-               :"admin.#{controller_name}.actions.#{name_for_lookup}",
-               :"admin.actions.#{name_for_lookup}.title",
-               :"admin.actions.#{name_for_lookup}",
-               name_for_lookup]
-    @page_title ||= [resource_class.model_name.human(count: 1), t(lookups.shift, default: lookups)].join(' - ')
-  end
-
   def preview_resource_path(item)
     nil
   end
@@ -189,6 +179,16 @@ class Admin::BaseController < ::InheritedResources::Base
     if params[:id] && resource.persisted?
       @breadcrumbs << {name: AbAdmin.display_name(resource), url: resource_path}
     end
+  end
+
+  def set_title
+    name_for_lookup = params[:custom_action] || action_name
+    lookups = [:"admin.#{controller_name}.actions.#{name_for_lookup}.title",
+               :"admin.#{controller_name}.actions.#{name_for_lookup}",
+               :"admin.actions.#{name_for_lookup}.title",
+               :"admin.actions.#{name_for_lookup}",
+               name_for_lookup]
+    @page_title ||= t(lookups.shift, default: lookups)
   end
 
   def parent_collection_path

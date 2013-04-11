@@ -33,7 +33,7 @@
     &.hide_sidebar {
       .wrap_content {
         position: absolute;
-        left: 20px;
+        left: 16px;
         z-index: 2;
         margin-left: 5px;
       }
@@ -57,6 +57,7 @@
   }
   #view_layout {
     display: none;
+    float: right;
   }
   .table_view #view_layout {
     display: block;

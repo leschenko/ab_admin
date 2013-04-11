@@ -291,11 +291,11 @@ ru:
     updating: "Обновление..."
     "yes": "Да"
   will_paginate: 
-    next_label: "След. &#8594;"
     page_gap: "&hellip;"
-    pagination_info: "Показано <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b> всего"
+    pagination_info: "<b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b>"
     pagination_info_empty: "0 всего"
-    previous_label: "&#8592; Пред."
+    next_label: "→"
+    previous_label: "←"
 
   errors:
     messages:

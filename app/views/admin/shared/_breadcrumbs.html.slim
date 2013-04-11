@@ -1,7 +1,6 @@
 - if @breadcrumbs.present?
-  ul.breadcrumb
-    - @breadcrumbs[0..-2].each do |crumb|
-      li
-      	= link_to crumb[:name], crumb[:url], crumb[:options]
-      	span.divider &nbsp;/&nbsp;
-    li.active= link_to @breadcrumbs.last[:name], @breadcrumbs.last[:url], @breadcrumbs.last[:options]
+  - @breadcrumbs[0..-2].each do |crumb|
+    li
+      = link_to crumb[:name], crumb[:url], crumb[:options]
+      span.divider &nbsp;/&nbsp;
+  li.active= link_to [@breadcrumbs.last[:name] || @breadcrumbs.last[:url], @page_title].join(' - '), @breadcrumbs.last[:url], @breadcrumbs.last[:options]

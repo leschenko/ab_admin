@@ -19,6 +19,19 @@ $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 @import "ab_admin/components/text_styles";
 @import "ab_admin/components/view_layout";
 
+.pagination a {
+  background-color: white;
+}
+
+.breadcrumb {
+  padding: 10px 14px;
+  margin-bottom: 10px;
+}
+
+.well {
+  padding: 15px;
+}
+
 .dropdown .caret {
   margin-left: 5px;
 }

@@ -296,8 +296,8 @@ en:
     updating: "Update ..."
     "yes": "Yes"
   will_paginate:
-    next_label: "Next. →"
     page_gap: "..."
-    pagination_info: "Displaying <b>%{from}&nbsp;-&nbsp;%{to}</b> of %{count} total"
+    pagination_info: "<b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b>"
     pagination_info_empty: "0 total"
-    previous_label: "← Prev."
+    next_label: "→"
+    previous_label: "←"
