@@ -1,0 +1,64 @@
+#main {
+  &.main_wide {
+    #container {
+      display: table-row;
+      .wrap_content {
+        display: table-cell;
+        vertical-align: top;
+        float: none;
+      }
+    }
+  }
+  &.main_reverse {
+    .wrap_content {
+      width: auto;
+      margin-left: 260px;
+    }
+    .content_with_sidebar {
+      margin-right: 0;
+    }
+    .sidebar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      margin-left: 5px;
+    }
+    #toggle_sidebar_off {
+      display: block;
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      z-index: 3;
+    }
+    &.hide_sidebar {
+      .wrap_content {
+        position: absolute;
+        left: 20px;
+        z-index: 2;
+        margin-left: 5px;
+      }
+      #toggle_sidebar_off {
+        display: none;
+      }
+      #toggle_sidebar_on {
+        display: block;
+        position: absolute;
+        top: -1px;
+        left: -4px;
+        z-index: 3;
+        height: 100px;
+        padding: 80px 5px 0;
+        width: 15px;
+      }
+    }
+  }
+  #toggle_sidebar_off, #toggle_sidebar_on {
+    display: none;
+  }
+  #view_layout {
+    display: none;
+  }
+  .table_view #view_layout {
+    display: block;
+  }
+}

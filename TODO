@@ -1,3 +1,4 @@
 +settings and locales reloading
 form has_many has_one
 add resource history
+extract perms css

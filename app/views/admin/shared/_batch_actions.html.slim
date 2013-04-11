@@ -17,5 +17,10 @@
     - %w(csv xls json).each do |format|
       - next if format == 'xls' && !defined?(Mime::XLSX)
       = link_to format, params.merge(format: format), id: "export_#{format}"
+
+  .btn-group#view_layout
+    .btn data-css='main_wide' = icon('align-left')
+    .btn data-css='main_reverse' = icon('align-right')
+
   a.btn.pull-right#columns_hider_show[href="#columns_hider" data-toggle='modal']= t 'admin.columns_hider.button'
 

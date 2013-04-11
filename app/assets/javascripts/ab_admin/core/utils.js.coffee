@@ -167,3 +167,17 @@ window.clone_obj = (obj) ->
     newInstance[key] = clone_obj obj[key]
 
   return newInstance
+
+
+window.storeData = (key, data) ->
+  if _.isObject(data)
+    str = JSON.stringify(data)
+  else
+    str = '' + data
+  if window.localStorage
+    window.localStorage[key] = str
+  else
+    $.cookie(key, str, {path: '/'})
+
+window.fetchData = (key) ->
+  window.localStorage?[key] or $.cookie(key)

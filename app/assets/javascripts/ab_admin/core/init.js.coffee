@@ -6,6 +6,7 @@
 #= require ab_admin/core/search_form
 #= require ab_admin/core/pagination
 #= require ab_admin/core/columns_hider
+#= require ab_admin/core/view_layout
 
 $ ->
   if $('#list')[0]
@@ -61,6 +62,7 @@ $ ->
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
 
   initHotkeys() if window.gon?.hotkeys
+
 
 #    $('form .region_ac').regionAc()
 #    new NestedFieldsAdder
