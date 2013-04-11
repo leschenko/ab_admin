@@ -1,24 +1,30 @@
 class window.ViewLayout
   constructor: ->
     @wrap = $('#main')
+    @initElements()
+    @css_classes = @control.find('.btn').map(-> $(this).data('css')).get().join(' ')
+    @initHandlers()
+    @restoreMainCss(true)
+    $(document).on 'pjax:end', =>
+      @initElements()
+      @restoreMainCss()
+
+  initElements: ->
     @control = $('#view_layout')
     @sidebar_on = $('#toggle_sidebar_on')
     @sidebar_off = $('#toggle_sidebar_off')
-    @css_classes = @control.find('.btn').map(-> $(this).data('css')).get().join(' ')
-    @restoreMainCss()
-    @initHandlers()
 
   initHandlers: ->
     self = this
-    $('#toggle_sidebar_off').click =>
+    $(document).on 'click', '#toggle_sidebar_off', =>
       @wrap.addClass('hide_sidebar')
       @storeMainCss()
 
-    $('#toggle_sidebar_on').click =>
+    $(document).on 'click', '#toggle_sidebar_on', =>
       @wrap.removeClass('hide_sidebar')
       @storeMainCss()
 
-    $('#view_layout').on 'click', '.btn', ->
+    $(document).on 'click', '#view_layout .btn', ->
       $el = $(this)
       $el.toggleClass('active').siblings().removeClass('active')
       self.wrap.removeClass(self.css_classes).toggleClass($el.data('css'), $el.hasClass('active'))
@@ -27,10 +33,11 @@ class window.ViewLayout
   storeMainCss: ->
     storeData('view_layout', @wrap.prop('className'))
 
-  restoreMainCss: ->
+  restoreMainCss: (wrap=false) =>
     css = fetchData('view_layout')
     if css
-      @wrap.prop('className', css)
+      log css
+      @wrap.prop('className', css) if wrap
       @control.find("[data-css='#{css_class}']").addClass('active') for css_class in css.split(' ')
 
 $ ->
