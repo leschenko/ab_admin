@@ -85,8 +85,8 @@ module AbAdmin
           </div>
           #{template.capture(&block) if block_given?}
           <div class="controls"><div id="#{prefix}_map" class="admin_map thumbnail"></div></div>
-          #{template.init_js(js)}
         </div>
+        #{template.init_js(js)}
         HTML
       end
 
