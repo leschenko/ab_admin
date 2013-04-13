@@ -40,7 +40,7 @@ window.inputSetToggle = ->
     $(this).siblings().toggle()
 
 window.flash = (message, type='notice') ->
-  $('#container').prepend $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>")
+  $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>").insertBefore $('#container')
 
 window.focusInput = (scope=null) ->
   scope ||= $('form.simple_form:first')
