@@ -121,7 +121,7 @@ module AbAdmin
         elsif options[:video]
           script_options['allowedExtensions'] ||= %w(mp4 flv)
           script_options['template_id'] = '#fileupload_vtmpl'
-          options[:asset_template] = 'video_file'
+          options[:asset_template] = 'video'
         end
         script_options['allowedExtensions'] ||= %w(jpg jpeg png gif)
         script_options['multiple'] ||= object.fileupload_multiple?(attribute_name)
