@@ -17,8 +17,8 @@ html id="controller_#{controller_name}"
       = render 'layouts/admin/navigation'
       #main role="main"
         .container-fluid
+          = render('admin/shared/flash', flash: flash) if flash
           #container.row-fluid
-            = render('admin/shared/flash', flash: flash) if flash
             .wrap_content
               .clearfix[data-pjax-container=true class=layout_css]= yield
             - if collection_action? && settings[:search]
