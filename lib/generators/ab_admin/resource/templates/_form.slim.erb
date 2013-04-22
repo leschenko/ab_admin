@@ -43,7 +43,7 @@
    end
 -%>
 = admin_form_for @<%= singular_name %> do |f|
-<% if model.translates? -%>
+<% if model.respond_to?(:translates?) && model.translates? -%>
   = f.locale_tabs do |l|
 <% model.translated_columns_hash.each do |key, col| -%>
     <%= input_by_col_loc(key, col) %>
