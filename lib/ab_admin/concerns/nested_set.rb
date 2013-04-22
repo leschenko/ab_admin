@@ -51,7 +51,7 @@ module AbAdmin
             r.root? ? parents = [] : parents.reject! { |p| p.depth >= r.depth }
 
             unless mover && mover.id == r.id
-              res << ["#{parents.map { |c| "#{AbAdmin.display_name(c)} - " }.join} <b>#{AbAdmin.display_name(r)}</b>", r.id]
+              res << ["#{parents.map { |c| "#{AbAdmin.display_name(c)} - " }.join} #{AbAdmin.display_name(r)}", r.id]
             end
 
             parents << r

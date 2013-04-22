@@ -60,7 +60,7 @@
   margin-left: -30px;
   .btn-group {
     float: left;
-    margin-left: 15px;
+    margin-left: 10px;
   }
   .btn-group:first-child {
     margin-left: 30px;
@@ -70,6 +70,10 @@
 #columns_hider {
   width: 60%;
   margin-left: -30%;
+}
+
+#columns_hider_show {
+  margin-left: 10px;
 }
 
 #lang_bar img {
