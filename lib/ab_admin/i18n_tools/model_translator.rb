@@ -26,7 +26,7 @@ module AbAdmin
               }
               @models_i18n_hash[locale]['activerecord']['models'][model.model_name.i18n_key.to_s]= model_i18n
               attributes = model.columns.map(&:name)
-              attributes.concat(model.translated_attribute_names.map(&:to_s)) if model.translates?
+              attributes.concat(model.translated_attribute_names.map(&:to_s)) if model.respond_to?(:translates?) && model.translates?
               attributes.reject! { |el| IGNORE_COLUMNS.include?(el) }
               h[model.model_name.underscore] = attributes.each_with_object({}) do |attr, o|
                 o[attr] = ha(model, attr, locale).presence || attr

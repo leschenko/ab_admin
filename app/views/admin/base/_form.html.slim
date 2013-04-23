@@ -2,7 +2,7 @@
   - resource_class.content_columns.map{|c| c.name.to_sym }.without(:created_at, :updated_at).each do |column|
     = f.input column
 
-  - if resource_class.translates?
+  - if resource_class.respond_to?(:translates?) && resource_class.translates?
     = f.locale_tabs do |l|
       - resource_class.translated_attribute_names.each do |column|
         = f.input column, locale: l, as: (:editor if column == :description)

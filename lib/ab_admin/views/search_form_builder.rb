@@ -96,7 +96,7 @@ module AbAdmin
 
         if input_type
           return :select if options[:collection]
-        elsif @object.klass.translates? && @object.klass.translated?(attr)
+        elsif @object.klass.respond_to?(:translates?) && @object.klass.translates? && @object.klass.translated?(attr)
           options[:value_attr] = "translations_#{attr}"
           return :string
         elsif assoc = @object.klass.reflect_on_association(attr.to_sym)
