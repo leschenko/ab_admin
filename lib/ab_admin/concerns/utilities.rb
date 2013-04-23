@@ -84,7 +84,7 @@ module AbAdmin
         end
 
         def all_translated_attribute_names
-          if translates?
+          if respond_to?(:translates?) && translates?
             ::I18n.available_locales.map do |loc|
               translated_attribute_names.map { |attr| "#{attr}_#{loc}" }
             end.flatten
@@ -94,7 +94,7 @@ module AbAdmin
         end
 
         def all_columns_names
-          if translates?
+          if respond_to?(:translates?) && translates?
             column_names + all_translated_attribute_names + translated_attribute_names.map(&:to_s)
           else
             column_names

@@ -33,7 +33,7 @@ module AbAdmin
       end
 
       def all_translated
-        all_models.find_all { |m| m.translates? }
+        all_models.find_all { |m| m.respond_to?(:translates?) && m.translates? }
       end
 
       def all_models
