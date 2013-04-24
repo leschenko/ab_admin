@@ -52,6 +52,7 @@ module WillPaginate
   end
 end
 
+WillPaginate::ViewHelpers.pagination_options[:no_uri] = false
 WillPaginate::ActionView::LinkRenderer.class_exec do
   def url(page)
     @base_url_params ||= begin
