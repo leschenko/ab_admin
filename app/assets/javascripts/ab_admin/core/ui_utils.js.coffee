@@ -66,6 +66,8 @@ window.initFancySelect = ->
     options = _.defaults({}, defaults)
     options.multiple = $el.data('multi') unless _.isUndefined($el.data('multi'))
     options.width = $el[0].style.width || 'resolve'
+    options.escapeMarkup = (m) -> m
+
     if $el.data('tags')
       options.tokenSeparators = [","]
       options.tags = $el.data('tags')
@@ -83,9 +85,6 @@ window.initFancySelect = ->
         options.formatResult = (item) -> fetchTemplate($el.data('result'))(item)
       if $el.data('selection')
         options.formatSelection = (item) -> fetchTemplate($el.data('selection'))(item)
-
-      if $el.data('image') || $el.data('result') || $el.data('selection')
-        options.escapeMarkup = (m) -> m
 
       options.initSelection = (el, callback) ->
         data = $el.data('pre')
