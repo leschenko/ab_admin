@@ -188,13 +188,6 @@ ru:
         deleted: "Удален"
         pending: "Неактивирован"
         suspended: "Заморожен"
-    versions: 
-      current: "Текущая версия"
-      item: "Элемент"
-      modified_at: "Дата редактирования"
-      modified_by: "Редактировал(а)"
-      title: "История"
-      type: "Тип"
     structure:
       kind:
         group: "Группа страницек"

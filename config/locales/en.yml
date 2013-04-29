@@ -197,13 +197,6 @@ en:
         deleted: Removed
         pending: Inactive
         suspended: Frozen
-    versions:
-      current: "The current version of"
-      item: Element
-      modified_at: "Date of editing"
-      modified_by: "Edited (a)"
-      title: Story
-      type: Type
   admin_js:
     empty: Empty
     add_link: Create?

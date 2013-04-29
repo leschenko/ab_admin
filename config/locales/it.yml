@@ -211,14 +211,7 @@ it:
         deleted: Rimosso
         pending: Inattivo
         suspended: Congelato
-    versions: 
-      current: La versione corrente di
-      item: Elemento
-      modified_at: Data di modifica
-      modified_by: Edited (a)
-      title: Storia
-      type: Tipo
-  admin_js: 
+  admin_js:
     add_link: Crea?
     button_description: Descrizione
     button_name_add: Aggiungere
