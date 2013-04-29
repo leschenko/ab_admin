@@ -1,7 +1,7 @@
 class window.CroppableImage
-  @crop_defaults =
-    aspectRatio: 760 / 350
-    setSelect: [0, 0, 760, 350]
+  @crop_defaults = {}
+#    aspectRatio: 760 / 350
+#    setSelect: [0, 0, 760, 350]
 
   constructor: (@element_id, @options = {}) ->
     @uploader_api = qq.FileUploader.instances[@element_id]
