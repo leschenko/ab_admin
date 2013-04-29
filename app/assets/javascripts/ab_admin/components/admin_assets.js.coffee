@@ -60,7 +60,8 @@ class window.AdminAssets
 
   initCrop: ->
     if @uploader_el.data('crop') && $.fn.Jcrop
-      @crop = new CroppableImage(@element_id)
+      opts = if _.isObject(@uploader_el.data('crop')) then @uploader_el.data('crop') else {}
+      @crop = new CroppableImage(@element_id, opts)
 
   initFancybox: =>
     $(@query + " a.fancybox").fancybox
