@@ -176,12 +176,14 @@ module AbAdmin
       end
 
       def auto_edit_link(rec, opts = {})
-        return if !rec || cannot?(:edit, rec)
+        return opts[:missing] unless rec
+        return if cannot?(:edit, rec)
         admin_edit_link(rec, opts)
       end
 
       def auto_show_link(rec, opts = {})
-        return if !rec || cannot?(:read, rec)
+        return opts[:missing] unless rec
+        return if cannot?(:read, rec)
         admin_show_link(rec, opts)
       end
 

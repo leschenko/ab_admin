@@ -36,7 +36,6 @@ class window.ViewLayout
   restoreMainCss: (wrap=false) =>
     css = fetchData('view_layout')
     if css
-      log css
       @wrap.prop('className', css) if wrap
       @control.find("[data-css='#{css_class}']").addClass('active') for css_class in css.split(' ')
 
