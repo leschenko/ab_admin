@@ -42,6 +42,9 @@ module AbAdmin
               end
               return association(attribute_name, options.merge(as: :select))
             end
+          when :checkbox_tree
+            reflection = object.class.reflect_on_association(attribute_name)
+            return template.render 'admin/shared/inputs/checkbox_tree', attribute_name: attribute_name, reflection: reflection, f: self
         end
 
         attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]

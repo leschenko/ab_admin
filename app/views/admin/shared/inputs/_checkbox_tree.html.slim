@@ -1,0 +1,14 @@
+- attr_ids_method = "#{attribute_name.to_s.singularize}_ids"
+- attr_ids = f.object.send(attr_ids_method)
+- attr_name = "#{f.object_name}[#{attr_ids_method}][]"
+- opts = reflection.options.slice(:conditions, :order)
+
+- reflection.klass.roots.all(opts).each do |root|
+  .checkbox_tree_input
+    label.checkbox
+      = check_box_tag attr_name, root.id, attr_ids.include?(root.id)
+      b= AbAdmin.display_name(root)
+    - root.children.all(opts).each do |child|
+      label.checkbox
+        = check_box_tag attr_name, child.id, attr_ids.include?(child.id)
+        = AbAdmin.display_name(child)
