@@ -28,12 +28,12 @@ Feature: Export
     And should see "$234"
     And should see "Chair"
 
-  Scenario: Export to json format
-    When I am on the admin products page
-    And I follow "export_json"
-    Then should see "t-12"
-    And should see "234"
-    And should see "Chair"
+#  Scenario: Export to json format
+#    When I am on the admin products page
+#    And I follow "export_json"
+#    Then should see "t-12"
+#    And should see "234"
+#    And should see "Chair"
 
   Scenario: Export to xls format
     When I am on the admin products page
