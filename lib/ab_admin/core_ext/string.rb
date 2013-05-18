@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class String
   # http://lucene.apache.org/core/old_versioned_docs/versions/2_9_1/queryparsersyntax.html
-  LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\)/
+  LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\/)/
   #LUCENE_ESCAPE_REGEX = /(\+|-|&&|\|\||!|\(|\)|{|}|\[|\]|`|"|~|\?|:|\\|\s)/
   KEYBOARDS = {
       en: 'qwertyuiop[]asdfghjkl;\'zxcvbnm,./',
