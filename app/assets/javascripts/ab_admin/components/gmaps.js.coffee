@@ -55,6 +55,11 @@ class window.GeoInput
     @marker.setPosition(point)
     @setInputs(point)
 
+  setPoint: (point) ->
+    @map.setCenter(point)
+    @marker.setPosition(point)
+    @setInputs(point)
+
   setInputs: (point) ->
     @lat_el.val(point.lat())
     @lon_el.val(point.lng())
