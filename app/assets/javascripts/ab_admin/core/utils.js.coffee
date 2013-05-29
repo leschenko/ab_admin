@@ -36,6 +36,12 @@ _.inGroupsOf = (array, number, fill_with=null) ->
       res.last().push fill_with
   res
 
+_.indexBy = (obj, value, context) ->
+  res = _.groupBy(obj, value, context)
+  for k, v of res
+    res[k] = v[0]
+  res
+
 # jquery
 $.fn.serializeJSON = ->
   json = {}

@@ -27,7 +27,7 @@ module AbAdmin
           page_title.flatten.compact.uniq.join(options[:splitter])
         end
         @page_title = [I18n.t('page.page_title', page: options[:page]), @page_title].join(options[:splitter]) if options[:page]
-        @page_description = [I18n.t('page.prefix'), @page_description].compact.join(' - ')
+        @page_description = [I18n.t('page.prefix').presence, @page_description, options[:desc_suffix]].compact.join(' - ')
       end
 
     end
