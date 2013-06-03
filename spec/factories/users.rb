@@ -11,6 +11,8 @@ FactoryGirl.define do
       last_name Forgery::Name.last_name
 
       factory :admin_user do
+        first_name 'admin'
+        last_name nil
         user_role_id UserRoleType.admin.id
       end
 

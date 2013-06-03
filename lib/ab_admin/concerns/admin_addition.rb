@@ -22,6 +22,14 @@ module AbAdmin
         {id: id, text: name}
       end
 
+      def han
+        "#{self.class.model_name.human(count: 1)} ##{self.id} #{AbAdmin.safe_display_name(self)}"
+      end
+
+      def new_changes
+        changes.map { |k, v| [k, v.last] }.to_hash
+      end
+
       def token_data(method, options={})
         assoc = self.class.reflect_on_association(method)
         records = Array(send(method))

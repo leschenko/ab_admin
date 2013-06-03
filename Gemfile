@@ -69,6 +69,7 @@ group :test do
   gem 'guard-cucumber'
   gem 'rb-fsevent', require: false
   gem 'growl', require: false
+  gem 'debugger'
 end
 
 group :development do
