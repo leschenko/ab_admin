@@ -23,20 +23,22 @@ Feature: Resource history tracking
     Given a product with sku "table"
     When I edit product
     Then Resource should have track with attributes:
-      | key           | action_title | user  | owner |
-      | products.edit | Edit         | admin | admin |
+      | key             | action_title | user  | owner |
+      | products.update | Editing      | admin | admin |
 
   Scenario: Track resource destroy
+    Given a product with sku "table"
     When I destroy product
     Then Resource should have track with attributes:
       | key              | action_title | user  | owner |
-      | products.destroy | Destroy      | admin | admin |
+      | products.destroy | Removal      | admin | admin |
 
   Scenario: Track resource batch action
+    Given a product with sku "table"
     When I batch un_publish product
     Then Resource should have track with attributes:
       | key                       | action_title | user  | owner |
-      | products.batch_un_publish | UnPublish    | admin | admin |
+      | products.batch_un_publish | Multi-hiding | admin | admin |
 
 
 

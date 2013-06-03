@@ -8,15 +8,18 @@ When(/^I create product$/) do
 end
 
 When(/^I edit product$/) do
-  pending # express the regexp above with the code you wish you had
+  step 'I am on the edit admin product page'
+  step 'I fill in "Sku" with "chair"'
+  step 'I submit form'
 end
 
 When(/^I destroy product$/) do
-  pending # express the regexp above with the code you wish you had
+  step 'I am on the edit admin product page'
+  step 'I click "Remove"'
 end
 
 When(/^I batch un_publish product$/) do
-  pending # express the regexp above with the code you wish you had
+  post('/admin/products/batch', ids: [@product.id], batch_action: 'un_publish')
 end
 
 Then(/^Resource should have track with attributes:$/) do |track_attrs|

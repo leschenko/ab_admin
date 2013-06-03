@@ -40,7 +40,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def create
     create! do |success, failure|
-      resource.track(key: action_name, user: current_user) if success.present?
+      track_action if settings[:history] && success.present?
       success.html { redirect_to redirect_to_on_success }
       success.js { render layout: false }
       failure.js { render :new, layout: false }
@@ -49,6 +49,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def update
     update! do |success, failure|
+      track_action if settings[:history] && success.present?
       success.html { redirect_to redirect_to_on_success }
       failure.html { render :edit }
       success.js { render layout: false }
@@ -57,6 +58,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def destroy
+    track_action if settings[:history]
     destroy! { redirect_to_on_success }
   end
 
@@ -81,11 +83,12 @@ class Admin::BaseController < ::InheritedResources::Base
     else
       raise CanCan::AccessDenied
     end
-    redirect_to :back
+    redirect_to_back_or_root
   end
 
   def apply_batch_action(item, batch_action)
     item.send(batch_action)
+    track_action("batch_#{batch_action}", item) if settings[:history]
   end
 
   def allow_batch_action?(batch_action)
@@ -96,6 +99,14 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def default_url_options
     {format: nil}
+  end
+
+  def redirect_to_back_or_root
+    redirect_to request.env['HTTP_REFERER'] ? :back : admin_root_path
+  end
+
+  def track_action(key=nil, item=nil)
+    (item || resource).track(key: key || action_name, user: current_user)
   end
 
   def batch_action_list
