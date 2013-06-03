@@ -6,7 +6,7 @@ class CreateTracks < ActiveRecord::Migration
       t.belongs_to :trackable, :polymorphic => true
       t.belongs_to :user, :polymorphic => true
       t.belongs_to :owner, :polymorphic => true
-      t.column :changes, :mediumtext
+      t.column :trackable_changes, :mediumtext
       t.text :parameters
 
       t.timestamps

@@ -21,6 +21,8 @@ class Product < ActiveRecord::Base
 
   validates :sku, presence: true
 
+  include AbAdmin::Concerns::HasTracking
+
   def publish!
     update_column(:is_visible, true)
   end

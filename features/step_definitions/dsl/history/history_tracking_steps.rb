@@ -23,7 +23,7 @@ Then(/^Resource should have track with attributes:$/) do |track_attrs|
   track = Track.last
   attrs = track_attrs.hashes.first.symbolize_keys
   track.key.should == attrs[:key]
-  track.name.should == attrs[:name]
+  track.action_title.should == attrs[:action_title]
   track.user.try(:name) == attrs[:user]
   track.owner.try(:name) == attrs[:owner]
 end

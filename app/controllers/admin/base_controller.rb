@@ -40,6 +40,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def create
     create! do |success, failure|
+      resource.track(key: action_name, user: current_user) if success.present?
       success.html { redirect_to redirect_to_on_success }
       success.js { render layout: false }
       failure.js { render :new, layout: false }

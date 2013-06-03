@@ -51,6 +51,7 @@ module AbAdmin
     autoload :NestedSet, 'ab_admin/concerns/nested_set'
     autoload :Validations, 'ab_admin/concerns/validations'
     autoload :Reloadable, 'ab_admin/concerns/reloadable'
+    autoload :HasTracking, 'ab_admin/concerns/has_tracking'
   end
 
   module Controllers
