@@ -6,7 +6,7 @@ module AbAdmin
 
     ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action] unless self.const_defined?(:ACTIONS)
 
-    attr_accessor :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
+    attr_accessor :model, :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
                   :parent_resources, :custom_actions
 
@@ -25,7 +25,7 @@ module AbAdmin
 
     def add_admin_addition_to_model
       return unless @model
-      @model.send(:include, AbAdmin::Concerns::AdminAddition) unless @model.included_modules.include?(AbAdmin::Concerns::AdminAddition)
+      @model.send(:include, AbAdmin::Concerns::AdminAddition) unless has_module?(AbAdmin::Concerns::AdminAddition)
     end
 
     class << self
@@ -66,6 +66,7 @@ module AbAdmin
 
       def settings(value)
         instance.custom_settings = value
+        instance.model.send(:include, AbAdmin::Concerns::HasTracking) if value[:history] && !instance.has_module?(AbAdmin::Concerns::HasTracking)
       end
 
       def batch_action(name, options={}, &block)
@@ -145,6 +146,9 @@ module AbAdmin
       custom_action
     end
 
+    def has_module?(module_constant)
+      model.included_modules.include?(module_constant)
+    end
   end
 
 end
