@@ -96,6 +96,7 @@ module AbAdmin
 
         if input_type
           return :select if options[:collection]
+          return :string if input_type == :text
         elsif @object.klass.translates? && @object.klass.translated?(attr)
           options[:value_attr] = "translations_#{attr}"
           return :string
