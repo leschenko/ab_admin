@@ -94,7 +94,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def apply_batch_action(item, batch_action)
     item.send(batch_action)
-    track_action("batch_#{batch_action}", item) if settings[:history]
+    track_action!("batch_#{batch_action}", item) if settings[:history]
   end
 
   def allow_batch_action?(batch_action)

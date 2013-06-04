@@ -33,8 +33,8 @@ end
 
 Given(/^a product with history$/) do
   step 'a product with sku "table"'
-  @product.track key: :create, user: @me
-  @product.track key: :update, user: @me
+  @product.track! key: :create, user: @me
+  @product.track! key: :update, user: @me
 end
 
 Then(/^I should see resource history$/) do
@@ -46,5 +46,9 @@ Then(/^I should see resource history$/) do
 end
 
 Then(/^I should see resource history bar$/) do
-  pending # express the regexp above with the code you wish you had
+  within '.sidebar.abs_bar' do
+    @product.tracks.each do |track|
+      page.should have_content(I18n.l(track.created_at, format: :short))
+    end
+  end
 end

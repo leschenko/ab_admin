@@ -20,8 +20,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #  link_to icon('arrow-down'), '/', default_order: 'btn'
   #end
 
-  #settings default_order: true
-  settings default_order: true, history: true
+  #settings default_order: true, history: true
+  settings history: {sidebar: true}
 
   belongs_to :collection
 

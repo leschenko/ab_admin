@@ -8,12 +8,13 @@ module AbAdmin
       ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action, :history]
     end
 
-    attr_accessor :model, :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
+    attr_accessor :model, :table, :search, :export, :form, :show, :preview_path, :actions, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
                   :parent_resources, :custom_actions
 
     def initialize
       @actions = ACTIONS
+      @custom_settings = {}
       @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
       @action_items = []
       @disabled_action_items = []
@@ -68,7 +69,10 @@ module AbAdmin
 
       def settings(value)
         instance.custom_settings = value
-        instance.model.send(:include, AbAdmin::Concerns::HasTracking) if value[:history] && !instance.has_module?(AbAdmin::Concerns::HasTracking)
+        if instance.custom_settings[:history]
+          instance.custom_settings[:history] = {} unless instance.custom_settings[:history].is_a?(Hash)
+          instance.model.send(:include, AbAdmin::Concerns::HasTracking) if !instance.has_module?(AbAdmin::Concerns::HasTracking)
+        end
       end
 
       def batch_action(name, options={}, &block)
@@ -134,7 +138,7 @@ module AbAdmin
         base = [:new]
         if for_resource
           base += [:edit, :show, :destroy, :preview]
-          base << :history if has_history_action_item?
+          base << :history if custom_settings[:history] && !custom_settings[:history][:sidebar]
         end
         disabled = action == :new ? [] : [action]
         (base - disabled - @disabled_action_items) & @actions
@@ -155,9 +159,6 @@ module AbAdmin
       model.included_modules.include?(module_constant)
     end
 
-    def has_history_action_item?
-      custom_settings[:history] && !(custom_settings[:history].is_a?(Hash) && custom_settings[:history][:sidebar])
-    end
   end
 
 end

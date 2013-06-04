@@ -18,6 +18,10 @@ module AbAdmin
         tracks.build(options)
       end
 
+      def track!(*args)
+        track(*args).save!
+      end
+
       module ClassMethods
         def tracking_enabled?
           tracking_enabled && Activity.tracking_enabled

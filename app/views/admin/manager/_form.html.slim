@@ -23,3 +23,17 @@
 
   - if settings[:comments]
     = admin_comments
+
+  - if settings[:history] && settings[:history][:sidebar]
+    .sidebar.abs_bar.well.well-small
+      label.do_toggle.label.label-large= t 'admin.actions.history.title'
+      table.table.table-striped
+        thead
+          tr
+            th= Track.han(:created_at)
+            th= Track.han(:user)
+        tbody
+          - resource.tracks.recently.each do |a|
+            tr
+              td= l(a.created_at, format: :short)
+              td= auto_show_link a.user
