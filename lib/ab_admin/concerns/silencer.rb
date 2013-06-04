@@ -14,30 +14,18 @@ module AbAdmin
       end
 
       def no_versions
-        versions_const = get_versions_const
-        yield and return unless versions_const
-        original_setting = versions_const.enabled?
-        versions_const.enabled = false
+        original_setting = Track.tracking_enabled
+        Track.tracking_enabled = false
         begin
           yield
         ensure
-          versions_const.enabled = original_setting
+          Track.tracking_enabled = original_setting
         end
       end
 
       def full_silence(&block)
         no_timestamps do
           no_versions(&block)
-        end
-      end
-
-      def get_versions_const
-        if defined? PaperTrail
-          PaperTrail
-        elsif defined? PublicActivity
-          PublicActivity
-        else
-          nil
         end
       end
 
