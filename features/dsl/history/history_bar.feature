@@ -1,4 +1,4 @@
-@dsl
+@dsl @focus
 Feature: Resource history sidebar
   In order to view resource history during editing
   As a logged in user

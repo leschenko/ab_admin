@@ -38,5 +38,13 @@ Given(/^a product with history$/) do
 end
 
 Then(/^I should see resource history$/) do
+  within 'table' do
+    @product.tracks.each do |track|
+      page.should have_content(track.name)
+    end
+  end
+end
+
+Then(/^I should see resource history bar$/) do
   pending # express the regexp above with the code you wish you had
 end

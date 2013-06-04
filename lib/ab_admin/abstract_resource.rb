@@ -134,7 +134,7 @@ module AbAdmin
         base = [:new]
         if for_resource
           base += [:edit, :show, :destroy, :preview]
-          base << :history if custom_settings[:history]
+          base << :history if has_history_action_item?
         end
         disabled = action == :new ? [] : [action]
         (base - disabled - @disabled_action_items) & @actions
@@ -153,6 +153,10 @@ module AbAdmin
 
     def has_module?(module_constant)
       model.included_modules.include?(module_constant)
+    end
+
+    def has_history_action_item?
+      custom_settings[:history] && !(custom_settings[:history].is_a?(Hash) && custom_settings[:history][:sidebar])
     end
   end
 
