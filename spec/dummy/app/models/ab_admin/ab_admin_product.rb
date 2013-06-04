@@ -21,7 +21,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #end
 
   #settings default_order: true
-  settings default_order: true
+  settings default_order: true, history: true
 
   belongs_to :collection
 

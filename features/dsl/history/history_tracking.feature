@@ -1,4 +1,4 @@
-@dsl @focus
+@dsl
 Feature: Resource history tracking
   In order to save history of resource changes
   Every resource change should be saved

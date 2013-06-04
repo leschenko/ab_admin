@@ -30,3 +30,13 @@ Then(/^Resource should have track with attributes:$/) do |track_attrs|
   track.user.try(:name) == attrs[:user]
   track.owner.try(:name) == attrs[:owner]
 end
+
+Given(/^a product with history$/) do
+  step 'a product with sku "table"'
+  @product.track key: :create, user: @me
+  @product.track key: :update, user: @me
+end
+
+Then(/^I should see resource history$/) do
+  pending # express the regexp above with the code you wish you had
+end

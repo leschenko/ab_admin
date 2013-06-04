@@ -5,6 +5,14 @@ en:
     models:
       locator: Translations
       settings: Settings
+    attributes:
+      track:
+        user: "User"
+        key: "Action"
+        trackable: "Resource"
+        owner: "Owner"
+        created_at: "Date"
+        trackable_changes: "Changes"
   admin:
     actions:
       activate:

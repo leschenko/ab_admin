@@ -15,6 +15,8 @@ class Track < ActiveRecord::Base
 
   alias_method :tracking_enabled?, :tracking_enabled
 
+  scope :recently, order('id DESC')
+
   def action_title(params = {})
     parts = key.split('.')
     lookups = []
@@ -27,10 +29,15 @@ class Track < ActiveRecord::Base
     I18n.t(lookups.shift, (parameters.merge(params) || {}).merge(scope: [:admin, :actions], default: lookups))
   end
 
+  def trackable_changed_attrs
+    return unless trackable
+    trackable_changes.keys.map { |attr| trackable.class.han(attr) }.join(', ')
+  end
+
   private
 
   def make_trackable
     self.name ||= trackable.han
-    self.trackable_changes ||= trackable.new_changes
+    self.trackable_changes = trackable.new_changes
   end
 end

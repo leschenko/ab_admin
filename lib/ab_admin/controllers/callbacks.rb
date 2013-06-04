@@ -14,7 +14,7 @@ module AbAdmin
       #  run_build_callbacks object
       #  object
       #end
-      #
+
       def create_resource(object)
         run_create_callbacks object do
           save_resource(object)

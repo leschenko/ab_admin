@@ -40,6 +40,7 @@ Rails.application.routes.draw do
 
         scope ':id' do
           get '/edit', to: :edit, as: 'edit'
+          get '/history', to: :history, as: 'history'
           match '/custom_action', to: :custom_action, as: 'member_action'
           get '/', to: :show, as: 'show'
           put '/', to: :update, as: 'update'

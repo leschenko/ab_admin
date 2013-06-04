@@ -4,7 +4,9 @@ module AbAdmin
 
     include Singleton
 
-    ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action] unless self.const_defined?(:ACTIONS)
+    unless self.const_defined?(:ACTIONS)
+      ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action, :history]
+    end
 
     attr_accessor :model, :table, :search, :export, :form, :show, :preview_path, :actions, :settings, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
@@ -130,7 +132,10 @@ module AbAdmin
     def default_action_items_for(action, for_resource)
       @default_action_items_for[action] ||= begin
         base = [:new]
-        base += [:edit, :show, :destroy, :preview] if for_resource
+        if for_resource
+          base += [:edit, :show, :destroy, :preview]
+          base << :history if custom_settings[:history]
+        end
         disabled = action == :new ? [] : [action]
         (base - disabled - @disabled_action_items) & @actions
       end

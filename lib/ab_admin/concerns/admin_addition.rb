@@ -27,7 +27,9 @@ module AbAdmin
       end
 
       def new_changes
-        changes.map { |k, v| [k, v.last] }.to_hash
+        exclude_attrs = respond_to?(:translated_attribute_names) ? translated_attribute_names : []
+        exclude_attrs << :updated_at
+        changes.except(*exclude_attrs).map { |k, v| [k, v.last] }.to_hash
       end
 
       def token_data(method, options={})

@@ -15,7 +15,7 @@ module AbAdmin
         options[:owner] ||= user if respond_to?(:user)
         options[:user] ||= updater if respond_to?(:updater)
         options[:key] = [self.class.model_name.plural, options[:key]].compact.join('.')
-        tracks.create(options)
+        tracks.build(options)
       end
 
       module ClassMethods

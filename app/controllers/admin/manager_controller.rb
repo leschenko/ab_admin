@@ -6,7 +6,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   load_and_authorize_resource
 
-  helper_method :manager, :admin_partial_name
+  helper_method :manager, :admin_partial_name, :history_resource_path
 
   def custom_action
     custom_action = manager.custom_action_for(params[:custom_action], self)
@@ -143,14 +143,19 @@ class ::Admin::ManagerController < ::Admin::BaseController
     admin_new_path(options.merge(model_name: resource_collection_name))
   end
 
+  def resource_path(record=nil, options={})
+    record ||= resource
+    admin_show_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
+  end
+
   def edit_resource_path(record=nil, options={})
     record ||= resource
     admin_edit_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
   end
 
-  def resource_path(record=nil, options={})
+  def history_resource_path(record=nil, options={})
     record ||= resource
-    admin_show_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
+    admin_history_path(options.merge(model_name: record.class.model_name.plural, id: record.id))
   end
 
   def self.cancan_resource_class

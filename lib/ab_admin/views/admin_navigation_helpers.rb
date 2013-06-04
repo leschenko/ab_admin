@@ -67,6 +67,9 @@ module AbAdmin
             if path = preview_resource_path(item)
               link_to icon('eye-open', true), path, class: 'btn btn-small btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
             end
+          when :history
+            item_link_to_can? :history, item, icon('book', true), history_resource_path(item),
+                              class: 'btn btn-info', title: t('admin.actions.history.link')
           when AbAdmin::Config::ActionItem
             instance_exec(item, &action.data) if action.for_context?(self)
           else
@@ -90,6 +93,8 @@ module AbAdmin
             if path = preview_resource_path(resource)
               link_to t('admin.actions.preview.link'), path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
             end
+          when :history
+            link_to_can? :history, t('admin.actions.history.link'), history_resource_path, class: 'btn btn-info'
           when AbAdmin::Config::ActionItem
             instance_exec(&action.data) if action.for_context?(self)
           else

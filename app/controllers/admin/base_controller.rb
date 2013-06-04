@@ -40,7 +40,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def create
     create! do |success, failure|
-      track_action if settings[:history] && success.present?
       success.html { redirect_to redirect_to_on_success }
       success.js { render layout: false }
       failure.js { render :new, layout: false }
@@ -49,7 +48,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def update
     update! do |success, failure|
-      track_action if settings[:history] && success.present?
       success.html { redirect_to redirect_to_on_success }
       failure.html { render :edit }
       success.js { render layout: false }
@@ -58,8 +56,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def destroy
-    track_action if settings[:history]
-    destroy! { redirect_to_on_success }
+    destroy! do
+      track_action! if settings[:history]
+      redirect_to_on_success
+    end
   end
 
   def edit
@@ -86,6 +86,12 @@ class Admin::BaseController < ::InheritedResources::Base
     redirect_to_back_or_root
   end
 
+  protected
+
+  def default_url_options
+    {format: nil}
+  end
+
   def apply_batch_action(item, batch_action)
     item.send(batch_action)
     track_action("batch_#{batch_action}", item) if settings[:history]
@@ -95,18 +101,16 @@ class Admin::BaseController < ::InheritedResources::Base
     resource_class.batch_actions.include?(batch_action)
   end
 
-  protected
-
-  def default_url_options
-    {format: nil}
-  end
-
   def redirect_to_back_or_root
     redirect_to request.env['HTTP_REFERER'] ? :back : admin_root_path
   end
 
   def track_action(key=nil, item=nil)
     (item || resource).track(key: key || action_name, user: current_user)
+  end
+
+  def track_action!(*args)
+    track_action(*args).save!
   end
 
   def batch_action_list
@@ -123,6 +127,7 @@ class Admin::BaseController < ::InheritedResources::Base
     base.class_eval do
       before_create :bind_current_user
       before_save :bind_current_updater
+      before_save { track_action if settings[:history] }
     end
   end
 
@@ -148,7 +153,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || action_name == 'show'),
+    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name)),
      search: true, batch: true, hotkeys: true}
   end
 

@@ -21,11 +21,14 @@ module NavigationHelpers
       when /new admin product page/
         '/admin/products/new'
 
+      when /the admin product page/
+        "/admin/products/#{@product.id}"
+
       when /edit admin product page/
         "/admin/products/#{@product.id}/edit"
 
-      when /the admin product page/
-        "/admin/products/#{@product.id}"
+      when /the history admin product page/
+        "/admin/products/#{@product.id}/history"
 
       when /the collection products page/
         "/admin/collections/#{@collection.id}/products"

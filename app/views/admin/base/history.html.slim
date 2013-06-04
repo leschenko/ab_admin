@@ -1,0 +1,20 @@
+table.table.table-striped
+  thead
+    tr
+      th= Track.han(:user)
+      th= Track.han(:key)
+      th= Track.han(:trackable)
+      th= Track.han(:owner)
+      th= Track.han(:created_at)
+      th= Track.han(:trackable_changes)
+  tbody
+    - resource.tracks.recently.each do |track|
+      tr
+        td= auto_show_link track.user
+        td= track.action_title
+        td= auto_show_link track.trackable, title: track.trackable.try(:han), missing: track.name
+        td= auto_show_link track.owner
+        td= l(track.created_at, format: :short)
+        td= track.trackable_changed_attrs
+
+
