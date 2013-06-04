@@ -75,6 +75,7 @@ module AbAdmin
     autoload :Locator, 'ab_admin/models/locator'
     autoload :Settings, 'ab_admin/models/settings'
     autoload :User, 'ab_admin/models/user'
+    autoload :Track, 'ab_admin/models/track'
   end
 
   module Views
