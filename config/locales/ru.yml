@@ -6,6 +6,12 @@ ru:
     models:
       locator: "Переводы"
       settings: "Настройки"
+      track:
+        few: История
+        many: История
+        one: История
+        other: История
+        zero: История
     attributes:
       track:
         user: "Пользователь"

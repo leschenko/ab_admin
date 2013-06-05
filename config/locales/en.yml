@@ -5,6 +5,12 @@ en:
     models:
       locator: Translations
       settings: Settings
+      track:
+        few: History
+        many: History
+        one: History
+        other: History
+        zero: History
     attributes:
       track:
         user: "User"

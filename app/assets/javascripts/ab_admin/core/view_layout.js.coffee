@@ -40,5 +40,5 @@ class window.ViewLayout
       @control.find("[data-css='#{css_class}']").addClass('active') for css_class in css.split(' ')
 
 $ ->
-  if $('#list')[0]
+  if $('#list')[0] && !$('#list').hasClass('skip_view_layout')
     window.view_layout = new ViewLayout()

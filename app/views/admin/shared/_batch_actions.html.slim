@@ -8,10 +8,11 @@
         - batch_action_list.each do |batch_action|
           li
             a.batch_action_link[href='#' data-action=batch_action.name data-confirm=batch_action.confirm]= batch_action.title
-  .btn-group.pjax_links
-    - button_scopes.each do |name, opts|
-      - active = params[opts[:as]]
-      a.btn[href=(url_for(opts[:as] => (active ? nil : 1))) class=('active' if active)]= t "admin.scopes.#{name}"
+  - unless button_scopes.blank?
+    .btn-group.pjax_links
+      - button_scopes.each do |name, opts|
+        - active = params[opts[:as]]
+        a.btn[href=(url_for(opts[:as] => (active ? nil : 1))) class=('active' if active)]= t "admin.scopes.#{name}"
 
   a.btn.pull-left#columns_hider_show[href="#columns_hider" data-toggle='modal']= t 'admin.columns_hider.button'
 

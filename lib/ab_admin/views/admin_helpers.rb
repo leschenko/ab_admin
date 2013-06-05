@@ -68,6 +68,12 @@ module AbAdmin
         css
       end
 
+      def admin_title
+        base = @breadcrumbs ? @breadcrumbs.map_val(:name).reverse : []
+        base << @page_title || 'Ab Admin'
+        base.join(' - ')
+      end
+
       def admin_comments
         render 'admin/admin_comments/comments'
       end
