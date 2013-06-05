@@ -17,6 +17,8 @@ ru:
         user: "Пользователь"
         key: "Действие"
         trackable: "Ресурс"
+        trackable_type: "Тип ресурса"
+        trackable_id: "ID ресурса"
         owner: "Владелец"
         created_at: "Дата"
         trackable_changes: "Изменения"

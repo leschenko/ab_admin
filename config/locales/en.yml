@@ -16,6 +16,8 @@ en:
         user: "User"
         key: "Action"
         trackable: "Resource"
+        trackable_type: "Resource type"
+        trackable_id: "Resource ID"
         owner: "Owner"
         created_at: "Date"
         trackable_changes: "Changes"

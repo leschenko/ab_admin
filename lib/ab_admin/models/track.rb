@@ -6,8 +6,8 @@ module AbAdmin
 
       included do
         belongs_to :trackable, polymorphic: true
-        belongs_to :owner, polymorphic: true
-        belongs_to :user, polymorphic: true
+        belongs_to :owner, class_name: 'User'
+        belongs_to :user, class_name: 'User'
 
         serialize :parameters, Hash
         serialize :trackable_changes, Hash
@@ -34,6 +34,7 @@ module AbAdmin
           lookups << ['actions', key]
         end
         lookups.map!{|l| l.join('.').to_sym }
+        lookups << key
 
         I18n.t(lookups.shift, (parameters.merge(params) || {}).merge(scope: :admin, default: lookups))
       end

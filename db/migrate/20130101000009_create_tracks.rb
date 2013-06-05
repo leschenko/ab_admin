@@ -3,9 +3,9 @@ class CreateTracks < ActiveRecord::Migration
     create_table :tracks do |t|
       t.string :name
       t.string :key
-      t.belongs_to :trackable, :polymorphic => true
-      t.belongs_to :user, :polymorphic => true
-      t.belongs_to :owner, :polymorphic => true
+      t.belongs_to :trackable, polymorphic: true
+      t.belongs_to :user
+      t.belongs_to :owner
       t.column :trackable_changes, :mediumtext
       t.text :parameters
 
@@ -13,8 +13,8 @@ class CreateTracks < ActiveRecord::Migration
     end
 
     add_index :tracks, [:trackable_type, :trackable_id]
-    add_index :tracks, [:owner_type, :owner_id]
-    add_index :tracks, [:user_type, :user_id]
+    add_index :tracks, :owner_id
+    add_index :tracks, :user_id
     add_index :tracks, :key
   end
 end
