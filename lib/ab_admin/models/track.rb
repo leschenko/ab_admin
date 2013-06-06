@@ -41,7 +41,12 @@ module AbAdmin
 
       def trackable_changed_attrs
         return unless trackable
-        trackable_changes.keys.map { |attr| trackable.class.han(attr) }.join(', ')
+        trackable_changes.keys.map { |attr| trackable_han(attr) }.join(', ')
+      end
+
+      def trackable_han(attr)
+        attr_s = attr.to_s
+        trackable.class.han attr_s =~ /_ids$/ ? attr_s.sub(/_ids$/, '').pluralize : attr_s
       end
 
       private
