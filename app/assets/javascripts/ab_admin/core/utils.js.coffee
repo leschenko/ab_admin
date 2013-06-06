@@ -76,7 +76,7 @@ $.fn.loadSelect = (optionsDataArray) ->
 
 $.fn.scrollToEl = (speed='slow') ->
   return unless $(this)[0]
-  $('html, body').animate({scrollTop: $(this).offset().top}, speed)
+  $('html, body').stop(true, true).animate({scrollTop: $(this).offset().top}, speed)
 
 $.fn.toHref = ->
   $el = $(this)
