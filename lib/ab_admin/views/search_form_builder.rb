@@ -6,9 +6,9 @@ module AbAdmin
                :options_for_select, :options_from_collection_for_select, :hidden_field_tag, to: :@template
 
       def input(attr, options={})
-        filed_type = filed_type(attr, options)
-        content_tag :div, class: "clearfix #{filed_type}" do
-          send("#{filed_type}_field", attr, options)
+        field_type = field_type(attr, options)
+        content_tag :div, class: "clearfix #{field_type} #{options[:wrapper_class]}" do
+          send("#{field_type}_field", attr, options)
         end
       end
 
@@ -88,7 +88,7 @@ module AbAdmin
         super(attr, text, options)
       end
 
-      def filed_type(attr, options={})
+      def field_type(attr, options={})
         return options.delete(:as).to_sym if options[:as]
         return :string if attr =~ /^translations_/
 

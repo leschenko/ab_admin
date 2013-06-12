@@ -33,24 +33,24 @@ module AbAdmin
           roots
         end
 
-        def nested_opts(records, mover=nil)
-          mover = nil if mover && !mover.is_a?(self)
+        def nested_opts(records, item=nil)
+          item = nil if item && !item.is_a?(self)
           res = []
           records.each do |r|
-            next if mover && mover.id == r.id
+            next if item && item.id == r.id
             res << ["#{'–' * r.depth} #{AbAdmin.display_name(r)}", r.id]
           end
           res
         end
 
-        def nested_opts_with_parent(records, mover=nil)
-          mover = nil if mover && !mover.is_a?(self)
+        def nested_opts_with_parent(records, item=nil)
+          item = nil if item && !item.is_a?(self)
           res = []
           parents = []
           records.each do |r|
             r.root? ? parents = [] : parents.reject! { |p| p.depth >= r.depth }
 
-            unless mover && mover.id == r.id
+            unless item && item.id == r.id
               res << ["#{parents.map { |c| "#{AbAdmin.display_name(c)} - " }.join} <b>#{AbAdmin.display_name(r)}</b>", r.id]
             end
 
