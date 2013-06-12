@@ -22,12 +22,12 @@ module AbAdmin
           page_title = []
 	        page_title << options[:title] if options.key?(:title)
           page_title << view_title
-          page_title << I18n.t('page.title') if options[:append_title]
+          page_title << I18n.t('seo.title') if options[:append_title]
 
           page_title.flatten.compact.uniq.join(options[:splitter])
         end
-        @page_title = [I18n.t('page.page_title', page: options[:page]), @page_title].join(options[:splitter]) if options[:page]
-        @page_description = [I18n.t('page.prefix').presence, @page_description, options[:desc_suffix]].compact.join(' - ')
+        @page_title = [I18n.t('seo.page', page: options[:page]), @page_title].join(options[:splitter]) if options[:page]
+        @page_description = [I18n.t('seo.prefix').presence, @page_description, options[:desc_suffix]].compact.join(' - ')
       end
 
     end
