@@ -65,7 +65,6 @@ class window.GoogleLocaleTabs
       _.each @locales, (to) =>
         _.each @locales, (from) =>
           $cont_to = $tabs.find(".tab_#{to}")
-          $cont_from = $tabs.find(".tab_#{from}")
           $el = $cont_to.find(".t_locale_#{from}")
           $el.click =>
             for el_to in $cont_to.find("input.string, textarea")
