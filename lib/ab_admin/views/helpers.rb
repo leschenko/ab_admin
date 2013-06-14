@@ -2,6 +2,8 @@ module AbAdmin
   module Views
     module Helpers
 
+      CLEAN_SEPARATOR_REGEXP = /\s?(—|-|—|,|\.|\|)(?=\s(\||—|-|,|\.))/
+
       def pjax?
         request.headers['X-PJAX']
       end
@@ -64,7 +66,7 @@ module AbAdmin
       end
 
       def render_title
-        @page_title || I18n.t('page.title')
+        (@page_title || I18n.t('page.title')).sub(CLEAN_SEPARATOR_REGEXP, '')
       end
 
       def render_keywords
