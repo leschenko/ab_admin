@@ -57,20 +57,20 @@ module AbAdmin
         end
 
         def update_counter_column(col, ass)
-          assoc = reflect_on_association(ass)
+          assoc = assoc_count = reflect_on_association(ass)
           if assoc
+            add_from = ''
             if assoc.options[:through]
               assoc_count = reflect_on_association(assoc.options[:through])
               if assoc.klass.quoted_table_name == quoted_table_name
-                add_from = ''
                 add_cond = '1=1'
               else
                 add_from = "INNER JOIN #{assoc.klass.quoted_table_name} ON #{assoc_count.klass.quoted_table_name}.#{assoc.foreign_key} = #{assoc.klass.quoted_table_name}.id"
                 add_cond = assoc.sanitized_conditions || '1=1'
               end
+            elsif assoc.type
+              add_cond = "#{assoc.klass.quoted_table_name}.#{assoc.type} = '#{name}'"
             else
-              assoc_count = assoc
-              add_from = ''
               add_cond = assoc.sanitized_conditions || '1=1'
             end
             count_klass = assoc_count.klass
