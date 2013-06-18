@@ -24,6 +24,7 @@ html id="controller_#{controller_name}"
             - if collection_action? && settings[:search]
               .sidebar.well= render 'search_layout'
             = yield :sidebar
+      #modal_form.modal.hide
       #loading.label.label-warning= t 'admin.loading'
       #push
     = render 'layouts/admin/footer'
