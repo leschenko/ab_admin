@@ -6,3 +6,4 @@ $('#<%= form_wrap_id %>').remove();
 $('#list tbody').prepend('<%= j html %>');
 $('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
 $(document).trigger('admin:list_init');
+window.ab_admin_last_created = {id: <%= resource.id %>, text: <%= raw AbAdmin.safe_display_name(resource).inspect %>};

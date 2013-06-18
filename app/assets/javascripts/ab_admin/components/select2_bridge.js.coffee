@@ -4,7 +4,6 @@ class window.Select2Bridge
     @el.prop('required', null)
     @modal = $('#modal_form')
     @el.select2 @buildOptions()
-    @initHandlersOnce()
 
   buildOptions: ->
     @options = @defaults()
@@ -16,25 +15,33 @@ class window.Select2Bridge
     else if @el.data('class')
       @initAjaxInput()
     if @el.data('add')
-      @options.createSearchChoice = (term, data) =>
-        @el.siblings('.select2-create-choise').remove()
-        @btn_add = $("<div class='btn btn-info select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
-        @btn_add.insertAfter @el
-        @btn_add.click =>
-          @modal.data('target', this)
-          @modal.load @el.data('add'), =>
-            @modal.modal()
-        null
-
+      @initCreateChoiseOnce()
+      @initCreateChoise()
     @options
 
-  initHandlersOnce: ->
-    unless Select2Bridge.handlersInited
-      @modal.on 'ajax:success', 'form', =>
-        log 'success'
-        @modal.modal(show: false)
-        @el.select2("data", @el.select2('data').push({id: 123, text: 'Test'}))
-      Select2Bridge.handlersInited = true
+  initCreateChoise: ->
+    @options.createSearchChoice = (term, data) =>
+      @el.siblings('.select2-create-choise').remove()
+      @btn_add = $("<div class='btn btn-info select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
+      @btn_add.insertAfter @el
+      @btn_add.click =>
+        @modal.data('target', this)
+        @modal.load @el.data('add'), =>
+          $('#modal_form form input[name$="[name]"]').val(term)
+          @modal.modal()
+      null
+
+  initCreateChoiseOnce: ->
+    return if Select2Bridge.initedCreateChoiseOnce
+    @modal.on 'ajax:success', 'form', =>
+      log 'success'
+      @modal.modal('hide')
+      $el = @modal.data('target').el
+      data = $el.select2('data')
+      data.push window.ab_admin_last_created
+      $el.select2("data", data)
+
+    Select2Bridge.initedCreateChoiseOnce = true
 
   defaults: ->
     formatNoMatches: ->
