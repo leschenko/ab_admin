@@ -31,7 +31,7 @@ class window.Select2Bridge
     if @el.data('selection')
       @options.formatSelection = (item) -> fetchTemplate(@el.data('selection'))(item)
 
-    @options.initSelection = (el, callback) ->
+    @options.initSelection = (el, callback) =>
       data = @el.data('pre')
       if @el.data('multi')
         data = @el.data('pre')
