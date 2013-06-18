@@ -27,9 +27,9 @@ class window.Select2Bridge
     if @el.data('image')
       @buildimageOptions()
     if @el.data('result')
-      @options.formatResult = (item) -> fetchTemplate(@el.data('result'))(item)
+      @options.formatResult = (item) => fetchTemplate(@el.data('result'))(item)
     if @el.data('selection')
-      @options.formatSelection = (item) -> fetchTemplate(@el.data('selection'))(item)
+      @options.formatSelection = (item) => fetchTemplate(@el.data('selection'))(item)
 
     @options.initSelection = (el, callback) =>
       data = @el.data('pre')
