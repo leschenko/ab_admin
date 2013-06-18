@@ -1,10 +1,16 @@
-<%
-  form_wrap_id = dom_id(resource, 'list_edit')
-  html = %[<tr id="#{form_wrap_id}" class="warning list_edit"><td>#{render('form')}</td></tr>].html_safe
-%>
-$('#<%= form_wrap_id %>').remove();
-$('#list tbody').prepend('<%= j html %>');
-$('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
-$('#<%= form_wrap_id %> form').trigger('admin:form_init');
+<% if params[:modal] %>
+  var $form = $('#modal_form');
+  $form.html("<%= j render 'modal_form_layout' %>");
+  $form.find('form').trigger('admin:form_init');
+<% else %>
+  <%
+    form_wrap_id = dom_id(resource, 'list_edit')
+    html = %[<tr id="#{form_wrap_id}" class="warning list_edit"><td>#{render('form')}</td></tr>].html_safe
+  %>
+  $('#<%= form_wrap_id %>').remove();
+  $('#list tbody').prepend('<%= j html %>');
+  $('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
+  $('#<%= form_wrap_id %> form').trigger('admin:form_init');
+<% end %>
 
 <%= render 'admin/shared/flash', flash: flash %>

@@ -26,9 +26,10 @@ class window.Select2Bridge
       @btn_add.insertAfter @el
       @btn_add.click =>
         @modal.data('target', this)
-        @modal.load @el.data('add'), =>
+        fn = =>
           $('#modal_form form input[name$="[name]"]').val(term)
           @modal.modal()
+        $.get @el.data('add'), {modal: true}, fn, 'script'
       null
 
   initCreateChoiseOnce: ->

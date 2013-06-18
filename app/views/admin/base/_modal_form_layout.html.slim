@@ -1,0 +1,12 @@
+= admin_form_for resource do |f|
+  .modal-header
+    button.close data-dismiss='modal' type='button' ×
+    h3= [resource_class.model_name.human(count: 1), t('admin.actions.new.title')].join(' - ')
+  .modal-body
+    = render 'modal_form', f: f
+    = hidden_field_tag :modal, true
+  .modal-footer
+    button.btn data-dismiss='modal' = t('admin.form.cancel')
+    button.btn.btn-primary type='submit' name='_save' data-disable-with=t('admin.form.save')
+      = icon('ok', true)
+      = t('admin.form.save')
