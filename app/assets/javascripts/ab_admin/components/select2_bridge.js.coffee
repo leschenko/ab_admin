@@ -2,7 +2,9 @@ class window.Select2Bridge
   constructor: (@el) ->
     return if gon.test
     @el.prop('required', null)
+    @modal = $('#modal_form')
     @el.select2 @buildOptions()
+    @initHandlersOnce()
 
   buildOptions: ->
     @options = @defaults()
@@ -13,7 +15,26 @@ class window.Select2Bridge
       @options.tags = @el.data('tags')
     else if @el.data('class')
       @initAjaxInput()
+    if @el.data('add')
+      @options.createSearchChoice = (term, data) =>
+        @el.siblings('.select2-create-choise').remove()
+        @btn_add = $("<div class='btn btn-info select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
+        @btn_add.insertAfter @el
+        @btn_add.click =>
+          @modal.data('target', this)
+          @modal.load @el.data('add'), =>
+            @modal.modal()
+        null
+
     @options
+
+  initHandlersOnce: ->
+    unless Select2Bridge.handlersInited
+      @modal.on 'ajax:success', 'form', =>
+        log 'success'
+        @modal.modal(show: false)
+        @el.select2("data", @el.select2('data').push({id: 123, text: 'Test'}))
+      Select2Bridge.handlersInited = true
 
   defaults: ->
     formatNoMatches: ->

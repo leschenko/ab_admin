@@ -55,4 +55,5 @@ window.fetchTemplate = (tmpl_id) ->
 window.initFancySelect = ->
   $('form .fancy_select, form input.token, .without_form.fancy_select').each ->
     $el = $(this)
+    return if $el.data('select2')
     $el.data('Select2Bridge') or $el.data('Select2Bridge', new Select2Bridge($el))

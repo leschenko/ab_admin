@@ -218,10 +218,8 @@ ru:
   admin_js:
     empty: Пусто
     add_link: "Создать?"
-    button_description: "Описание"
-    button_name_add: "Добавить"
-    button_name_cancel: "Сбросить"
-    button_name_remove: "Удалить"
+    add: "Добавить"
+    remove: "Удалить"
     cancel: "Отмена"
     clear: "Сброс"
     confirm: "Подтвердить"
