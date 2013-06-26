@@ -135,6 +135,9 @@ module AbAdmin
   mattr_accessor :assets
   @@assets = %w(ab_admin/devise.css bootstrap.js)
 
+  mattr_accessor :test_settings
+  @@test_settings = {}
+
   extend Utils
 
   def self.setup

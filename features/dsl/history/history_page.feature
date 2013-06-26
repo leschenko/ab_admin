@@ -1,4 +1,4 @@
-@dsl @focus
+@dsl
 Feature: Resource history page
   In order to view resource history
   As a logged in user

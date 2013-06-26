@@ -57,6 +57,10 @@ module AbAdmin
       end
     end
 
+    class ModalForm < Form
+      self.partial_name = 'modal_form'
+    end
+
     class Show < BaseBuilder
       self.partial_name = 'show_table'
 

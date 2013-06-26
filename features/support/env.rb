@@ -28,10 +28,15 @@ DatabaseCleaner.clean_with(:truncation)
 
 After do
   Warden.test_reset!
+  AbAdmin.test_settings = {}
 end
 
 Before '@locator' do
   FileUtils.cp_r Rails.root.join('config', 'locales'), Rails.root.join('tmp')
+end
+
+Before '@fancy_select' do
+  AbAdmin.test_settings[:enable_fancy_select] = true
 end
 
 After '@locator' do

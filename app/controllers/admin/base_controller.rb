@@ -274,8 +274,11 @@ class Admin::BaseController < ::InheritedResources::Base
     gon.locale = I18n.locale
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
-    gon.test = Rails.env.test?
     gon.hotkeys = settings[:hotkeys]
+    if Rails.env.test?
+      gon.test = true
+      AbAdmin.test_settings.each { |k, v| gon.set_variable k, v }
+    end
   end
 
   def moderator?

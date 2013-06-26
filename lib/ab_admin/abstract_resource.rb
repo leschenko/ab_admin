@@ -8,7 +8,7 @@ module AbAdmin
       ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action, :history]
     end
 
-    attr_accessor :model, :table, :search, :export, :form, :show, :preview_path, :actions, :custom_settings,
+    attr_accessor :model, :table, :search, :export, :form, :modal_form, :show, :preview_path, :actions, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
                   :parent_resources, :custom_actions
 
@@ -46,6 +46,10 @@ module AbAdmin
 
       def form(options={}, &block)
         instance.form = ::AbAdmin::Config::Form.new(options, &block)
+      end
+
+      def modal_form(options={}, &block)
+        instance.modal_form = ::AbAdmin::Config::ModalForm.new(options, &block)
       end
 
       def show(options={}, &block)

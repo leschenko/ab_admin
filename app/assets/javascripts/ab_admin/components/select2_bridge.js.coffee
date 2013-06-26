@@ -1,6 +1,6 @@
 class window.Select2Bridge
   constructor: (@el) ->
-    return if gon.test
+    return if gon.test && !gon.enable_fancy_select
     @el.prop('required', null)
     @modal = $('#modal_form')
     @el.select2 @buildOptions()
@@ -12,6 +12,8 @@ class window.Select2Bridge
     if @el.data('tags')
       @options.tokenSeparators = [',']
       @options.tags = @el.data('tags')
+    else if @el.data('collection')
+      @options.data = @el.data('collection')
     else if @el.data('class')
       @initAjaxInput()
     if @el.data('add')
@@ -22,7 +24,7 @@ class window.Select2Bridge
   initCreateChoise: ->
     @options.createSearchChoice = (term, data) =>
       @el.siblings('.select2-create-choise').remove()
-      @btn_add = $("<div class='btn btn-info select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
+      @btn_add = $("<div class='btn btn-info btn-mini select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
       @btn_add.insertAfter @el
       @btn_add.click =>
         @modal.data('target', this)
@@ -35,22 +37,29 @@ class window.Select2Bridge
   initCreateChoiseOnce: ->
     return if Select2Bridge.initedCreateChoiseOnce
     @modal.on 'ajax:success', 'form', =>
-      log 'success'
       @modal.modal('hide')
       $el = @modal.data('target').el
-      data = $el.select2('data')
-      data.push window.ab_admin_last_created
-      $el.select2("data", data)
-
+      select2 = $el.data('select2')
+      new_item = window.ab_admin_last_created
+      if select2.opts.multiple
+        data = $el.select2('data')
+        data.push new_item
+        $el.select2('data', data)
+      else
+        $el.select2('data', new_item)
+      $el.siblings('.select2-create-choise').remove()
+      $el.change()
     Select2Bridge.initedCreateChoiseOnce = true
 
   defaults: ->
-    formatNoMatches: ->
-      I18n.t('admin_js.no_results')
-    placeholder: ' '
-    allowClear: true
-    minimumResultsForSearch: 10
-    escapeMarkup: (m) -> m
+    opts =
+      formatNoMatches: ->
+        I18n.t('admin_js.no_results')
+      placeholder: ' '
+      allowClear: true
+      escapeMarkup: (m) -> m
+    opts.minimumResultsForSearch = 10 unless gon.test
+    opts
 
   initAjaxInput: ->
     if @el.data('image')
