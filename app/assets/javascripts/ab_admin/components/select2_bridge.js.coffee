@@ -6,7 +6,7 @@ class window.Select2Bridge
     @el.select2 @buildOptions()
 
   buildOptions: ->
-    @options = @defaults()
+    @options = _.defaults(@el.data('select2_opts') || {},  @defaults())
     @options.multiple = @el.data('multi') unless _.isUndefined(@el.data('multi'))
     @options.width = @el[0].style.width || 'resolve'
     if @el.data('tags')
