@@ -19,7 +19,7 @@ module AbAdmin
       end
 
       def for_input_token
-        {id: id, text: AbAdmin.safe_display_name(name)}
+        {id: id, text: AbAdmin.safe_display_name(self)}
       end
 
       def han
