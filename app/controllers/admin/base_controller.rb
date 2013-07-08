@@ -62,6 +62,12 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
+  def show
+    show! do |format|
+      format.js { render layout: false }
+    end
+  end
+
   def edit
     edit! do |format|
       format.js { render layout: false }

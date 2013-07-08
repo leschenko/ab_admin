@@ -1,0 +1,7 @@
+<%
+  html = render('table', collection: [resource]).match(/<tbody>(.*)<\/tbody>/m)[1].html_safe
+%>
+$wrap = $('#list');
+$wrap.prepend('<%= j html %>');
+$('#<%= dom_id(resource, 'list') %>').scrollToEl();
+$(document).trigger('admin:list_init');
