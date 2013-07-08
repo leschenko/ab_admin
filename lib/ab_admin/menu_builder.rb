@@ -34,14 +34,13 @@ module AbAdmin
       @menu_tree = []
     end
 
-    def render(template)
-      <<-HTML.html_safe
-        <ul class="nav">#{render_nested(template)}</ul>
-      HTML
+    def render(template, options={})
+      inner = render_nested(template)
+      options[:skip_wrap] ? inner.html_safe : %[<ul class="nav">#{inner}</ul>].html_safe
     end
 
-    def self.render(template)
-      instance.render(template)
+    def self.render(*args)
+      instance.render(*args)
     end
   end
 
