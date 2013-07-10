@@ -80,6 +80,13 @@ class String
     coder.decode(self.no_html)
   end
 
+  def mb_upcase
+    mb_chars.upcase.to_s
+  end
+
+  def mb_downcase
+    mb_chars.downcase.to_s
+  end
 end
 
 unless ''.respond_to?(:each)
