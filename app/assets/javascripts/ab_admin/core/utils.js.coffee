@@ -76,7 +76,8 @@ $.fn.loadSelect = (optionsDataArray) ->
 
 $.fn.scrollToEl = (speed='slow') ->
   return unless $(this)[0]
-  $('html, body').stop(true, true).animate({scrollTop: $(this).offset().top}, speed)
+  margin_top = $('.navbar-fixed-top').height() || 0
+  $('html, body').stop(true, true).animate({scrollTop: $(this).offset().top - margin_top}, speed)
 
 $.fn.toHref = ->
   $el = $(this)
