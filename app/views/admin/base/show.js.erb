@@ -1,5 +1,5 @@
 <%
-  html = render('table', collection: [resource]).match(/<tbody>(.*)<\/tbody>/m)[1].html_safe
+  html = render('table', collection: [resource]).match(/<tbody[^>]*>(.*)<\/tbody>/m)[1].html_safe
 %>
 $wrap = $('#list');
 $wrap.prepend('<%= j html %>');
