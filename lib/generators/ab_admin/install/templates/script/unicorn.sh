@@ -22,7 +22,6 @@ set -e
 
 # Feel free to change any of the following variables for your app:
 rvm_trust_rvmrcs_flag=1
-PATH=/usr/local/rvm/bin:$PATH
 APP_ROOT=<%= app_path %>
 PID=$APP_ROOT/tmp/pids/unicorn.pid
 ENV=production
@@ -31,7 +30,6 @@ CMD="$APP_ROOT/bin/unicorn -D -E $ENV -c $APP_ROOT/config/unicorn_config.rb"
 old_pid="$PID.oldbin"
 
 cd $APP_ROOT || exit 1
-#rvm wrapper ruby-1.9.3-p0@<%= app_name %> unicorn
 git show-ref >> tmp/refs
 
 sig () {
