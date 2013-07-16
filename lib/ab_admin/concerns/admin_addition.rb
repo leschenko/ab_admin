@@ -14,12 +14,12 @@ module AbAdmin
 
       module ClassMethods
         def for_input_token(r, attr='name_ru')
-          {id: r.id, text: r[attr]}
+          {id: r.id, text: r[attr].to_s}
         end
       end
 
       def for_input_token
-        {id: id, text: AbAdmin.safe_display_name(self)}
+        {id: id, text: AbAdmin.safe_display_name(self).to_s}
       end
 
       def han
