@@ -6,7 +6,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   load_and_authorize_resource
 
-  helper_method :manager, :admin_partial_name, :history_resource_path
+  helper_method :manager, :admin_partial_name, :history_resource_path, :fetch_admin_template
 
   def custom_action
     custom_action = manager.custom_action_for(params[:custom_action], self)
@@ -117,9 +117,13 @@ class ::Admin::ManagerController < ::Admin::BaseController
   def admin_partial_name(builder)
     builder.partial ||= begin
       #if template_exists?(builder.partial_name, "admin/#{resource_collection_name}", true)
-      if Dir[Rails.root.join("app/views/admin/#{resource_collection_name}/_#{builder.partial_name}.html.*")].present?
-        "admin/#{resource_collection_name}/#{builder.partial_name}"
-      end
+      fetch_admin_template(builder.partial_name, true)
+    end
+  end
+
+  def fetch_admin_template(template_name, partial=false)
+    if Dir[Rails.root.join("app/views/admin/#{resource_collection_name}/#{'_' if partial}#{template_name}.html.*")].present?
+      "admin/#{resource_collection_name}/#{template_name}"
     end
   end
 
