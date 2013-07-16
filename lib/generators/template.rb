@@ -30,7 +30,7 @@ gem 'gon'
 gem 'i18n-js'
 
 gem 'globalize3', git: 'git://github.com/leschenko/globalize3.git', ref: 'bcdf5eb'
-gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968'
+gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968', branch: 'master'
 gem 'turbo-sprockets-rails3', group: :assets
 gem 'ab_admin'
 
