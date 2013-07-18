@@ -276,7 +276,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def set_user_vars
-    I18n.locale = AbAdmin.locale || Rails.application.config.i18n.default_locale
+    I18n.locale = AbAdmin.locale
     gon.locale = I18n.locale
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
