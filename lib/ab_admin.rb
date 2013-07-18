@@ -138,6 +138,8 @@ module AbAdmin
   mattr_accessor :test_settings
   @@test_settings = {}
 
+  mattr_accessor :locale
+
   extend Utils
 
   def self.setup
