@@ -262,7 +262,8 @@ ru:
     it: "итал."
     ru: "рус."
     uk: "укр."
-  flash: 
+    de: "нем."
+  flash:
     admin: 
       actions: 
         create:
