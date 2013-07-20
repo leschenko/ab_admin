@@ -35,7 +35,7 @@ table.table.table-bordered.table-striped
             div== keys.join(' > ')
             .btn.btn-mini.btn-inverse.auto_translate.pull-right google translate
           td = text_area_tag 'locale_hash' + keys.map{|k| "[#{k}]" }.join, value
-          td = text_area_tag 'fake', t(keys.join('.')), disabled: true
+          td = text_area_tag 'fake', t(keys.join('.'), locale: I18n.default_locale), disabled: true
     tbody
       tr
         td colspan=3 = submit_tag t('admin.form.save'), class: 'btn btn-primary'
