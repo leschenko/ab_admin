@@ -22,7 +22,9 @@ module AbAdmin
       end
 
       def title
-        I18n.t(@code, scope: i18n_scope)
+        I18n.t!(@code, scope: i18n_scope)
+      rescue I18n::MissingTranslationData
+        @code.to_s.humanize
       end
 
       def self.legal?(value)
