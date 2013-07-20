@@ -1,4 +1,5 @@
 window.gon ||= {}
+window.I18n ||= {}
 I18n.locale = window.gon.locale || 'ru'
 window.locale_path = if I18n.locale == 'ru' then '' else "/#{I18n.locale}"
 
