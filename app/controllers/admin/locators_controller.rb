@@ -56,6 +56,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
   end
 
   def find_file
+    redirect_to(admin_locators_path) and return if params[:filename].blank?
     @file = @files.detect{|path| File.basename(path) == params[:filename]}
     raise "File #{params[:filename]} not found" unless @file
   end
