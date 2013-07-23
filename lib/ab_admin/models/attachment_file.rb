@@ -6,6 +6,7 @@ module AbAdmin
 
       included do
         include ActionView::Helpers::NumberHelper
+        alias_method :is_image, :image?
       end
 
       def file_css_class
@@ -21,7 +22,7 @@ module AbAdmin
       end
 
       def as_json(options={})
-        options.reverse_merge!(methods: [:filename, :url, :file_css_class, :human_filesize, :created_at])
+        options.reverse_merge!(methods: [:filename, :url, :is_image, :file_css_class, :human_filesize, :created_at])
         super
       end
     end
