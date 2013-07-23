@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'rails', '~> 3.2.0'
   gem.add_dependency 'jquery-rails'
   gem.add_dependency 'rails-i18n'
-  gem.add_dependency 'slim', '~> 1.3.8'
+  gem.add_dependency 'slim'
   gem.add_dependency 'cancan'
   gem.add_dependency 'inherited_resources', '~> 1.4.0'
   gem.add_dependency 'rack-pjax'
