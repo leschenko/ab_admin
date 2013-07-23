@@ -108,6 +108,14 @@ class Hash
     reject { |k, v| v.blank? }
   end
 
+  def deep_stringify_keys
+    inject({}) { |result, (key, value)|
+      value = value.deep_stringify_keys if value.is_a?(Hash)
+      result[(key.to_s rescue key) || key] = value
+      result
+    }
+  end unless Hash.method_defined?(:deep_stringify_keys)
+
   #def deep_set_key_values
   #  self.each_key do |key|
   #    if self[key].is_a?(Hash)
