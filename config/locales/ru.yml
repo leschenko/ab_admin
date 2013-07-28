@@ -254,6 +254,8 @@ ru:
     updated_at: "Дата изменения"
     user: "Пользователь"
     user_id: "Пользователь"
+    updater: Обновил
+    updater_id: Обновил
     remember_me: "Запомнить"
     password: "Пароль"
     slug: "Алиас"
