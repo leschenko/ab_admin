@@ -45,7 +45,7 @@ module AbAdmin
     end
 
     def l_path(locale=nil)
-      return '' unless locale
+      locale ||= I18n.locale
       locale == I18n.default_locale ? '' : "/#{locale}"
     end
 

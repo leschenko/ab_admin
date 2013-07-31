@@ -67,15 +67,19 @@ module AbAdmin
       end
 
       def render_title
-        (@page_title || I18n.t('page.title')).sub(CLEAN_SEPARATOR_REGEXP, '')
+        (@page_title || @meta_tags_builder.try(:title) || I18n.t('page.title')).sub(CLEAN_SEPARATOR_REGEXP, '')
       end
 
       def render_keywords
-        @page_keywords || I18n.t('page.keywords')
+        @page_keywords || @meta_tags_builder.try(:keywords) || I18n.t('page.keywords')
       end
 
       def render_description
-        @page_description || I18n.t('page.description')
+        @page_description || @meta_tags_builder.try(:description) || I18n.t('page.description')
+      end
+
+      def render_h1
+        @page_h1 || @meta_tags_builder.try(:h1)
       end
 
       # swf_object
