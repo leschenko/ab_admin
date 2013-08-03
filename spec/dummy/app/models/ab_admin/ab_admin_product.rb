@@ -56,6 +56,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :sku
       field :price
     end
+    field :created_at, as: :time_picker
     field :is_visible
     field :collection, as: :association, fancy: true
     locale_tabs do

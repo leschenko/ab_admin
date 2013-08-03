@@ -6,8 +6,8 @@ class Admin::BaseController < ::InheritedResources::Base
   include AbAdmin::Controllers::Callbacks
   define_admin_callbacks :save, :create
 
-  before_filter :authenticate_user!, :require_moderator
-  before_filter :add_breadcrumbs, :set_title, :set_user_vars, unless: :xhr?
+  before_filter :authenticate_user!, :require_moderator, :set_user_vars
+  before_filter :add_breadcrumbs, :set_title, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 

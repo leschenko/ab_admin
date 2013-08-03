@@ -11,7 +11,7 @@ module AbAdmin
       map_type :color, to: ::AbAdmin::Views::Inputs::ColorInput
       map_type :ckeditor, to: ::AbAdmin::Views::Inputs::CkeditorInput
       map_type :editor, to: ::AbAdmin::Views::Inputs::EditorInput
-      map_type :date, :time, :datetime, to: ::AbAdmin::Views::Inputs::DateTimeInput
+      map_type :date_picker, :time_picker, :datetime_picker, to: ::AbAdmin::Views::Inputs::DateTimePickerInput
       map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
 
       def input(attribute_name, options = {}, &block)

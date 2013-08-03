@@ -91,7 +91,7 @@ module AbAdmin
       autoload :CkeditorInput, 'ab_admin/views/inputs/ckeditor_input'
       autoload :ColorInput, 'ab_admin/views/inputs/color_input'
       autoload :EditorInput, 'ab_admin/views/inputs/editor_input'
-      autoload :DateTimeInput, 'ab_admin/views/inputs/date_time_input'
+      autoload :DateTimePickerInput, 'ab_admin/views/inputs/date_time_picker_input'
       autoload :TokenInput, 'ab_admin/views/inputs/token_input'
     end
   end
