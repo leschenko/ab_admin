@@ -70,21 +70,6 @@
   width: 700px;
 }
 
-.datepicker {
-  margin-top: 0;
-}
-
-.right_picker {
-  &.datepicker::after {
-    right: 7px;
-    left: auto;
-  }
-  &.datepicker::before {
-    right: 6px;
-    left: auto;
-  }
-}
-
 input[type='color'] {
   width: 30px;
   height: 30px;

@@ -12,9 +12,6 @@
 //= require bootstrap
 //= require ab_admin/jquery_nested_form
 //= require ab_admin/bootstrap-tab-multi
-//q= require ab_admin/bootstrap-datepicker/core
-//q= require ab_admin/bootstrap-datepicker/locales/bootstrap-datepicker.ru.js
-//q= require ab_admin/bootstrap-timepicker
 //= require ab_admin/bootstrap-datetimepicker/bootstrap-datetimepicker.min
 //= require ab_admin/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.ru.js
 //= require bootstrap-wysihtml5
