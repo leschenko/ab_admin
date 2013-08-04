@@ -23,3 +23,8 @@ $(document).on 'admin:init', (e) ->
     onblur: 'submit'
     placement: 'bottom'
     emptytext: I18n.lookup('admin_js.empty') || 'Empty'
+    datetimepicker:
+      format: "dd.mm.yyyy hh:ii"
+      autoclose: true
+      todayBtn: true
+      language: I18n.locale
