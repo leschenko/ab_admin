@@ -53,7 +53,7 @@ module AbAdmin
 
       def make_trackable
         self.name ||= trackable.han
-        self.trackable_changes = trackable.new_changes
+        self.trackable_changes = trackable.changes.except(:updated_at)
       end
 
     end
