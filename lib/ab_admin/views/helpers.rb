@@ -40,17 +40,17 @@ module AbAdmin
       def locale_path
         I18n.locale == I18n.default_locale ? '' : "/#{I18n.locale}"
       end
-
-      def external_link(raw_link, options={}, &block)
-        return unless raw_link.present?
-        options.reverse_merge!(title: raw_link, target: '_blank', rel: 'nofollow')
-        link = raw_link =~ /^http[s]?:\/\// ? raw_link : "http://#{raw_link}"
-        if block_given?
-          link_to link, options, &block
-        else
-          link_to options[:title], link, options
-        end
-      end
+      #
+      #def external_link(raw_link, options={}, &block)
+      #  return unless raw_link.present?
+      #  options.reverse_merge!(title: raw_link, target: '_blank', rel: 'nofollow')
+      #  link = raw_link =~ /^http[s]?:\/\// ? raw_link : "http://#{raw_link}"
+      #  if block_given?
+      #    link_to link, options, &block
+      #  else
+      #    link_to options[:title], link, options
+      #  end
+      #end
 
       def skype_link(skype, options={})
         return '' if skype.blank?
