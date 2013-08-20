@@ -60,7 +60,8 @@ end
 group :test do
   gem 'childprocess', '0.3.6'
   gem 'cucumber-rails', require: false
-  gem 'capybara'#, '~> 2.1.0'
+  gem 'capybara', '~> 2.1.0'
+  gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'connection_pool'
