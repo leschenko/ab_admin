@@ -30,6 +30,9 @@ module Dummy
         #{config.root}/../../lib/generators/ab_admin/install/templates/models/ab_admin
         #{config.root}/app/models/ab_admin)
 
+    config.paths['db/migrate'] << File.expand_path('../../../../../db/migrate', __FILE__)
+    config.paths['app/helpers'] << File.expand_path('../../../../lib/generators/ab_admin/install/templates/helpers', __FILE__)
+
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
     # config.plugins = [ :exception_notification, :ssl_requirement, :all ]
@@ -72,6 +75,7 @@ module Dummy
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
     base_dir = File.expand_path('../../../../app/', __FILE__)
     dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)
     config.eager_load_paths += dirs

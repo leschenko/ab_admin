@@ -1,6 +1,6 @@
 # encoding: utf-8
 
-ActiveRecord::Migrator.migrate File.expand_path('../../../../db/migrate/', __FILE__)
+#ActiveRecord::Migrator.migrate File.expand_path('../../../../db/migrate/', __FILE__)
 
 def insert_user  
   User.truncate!

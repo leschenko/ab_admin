@@ -1,5 +1,5 @@
 class CreateStaticPages < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :static_pages do |t|
       t.integer   :structure_id, null: false
       t.references :user
@@ -10,9 +10,5 @@ class CreateStaticPages < ActiveRecord::Migration
 
     add_index :static_pages, :user_id
     add_index :static_pages, :structure_id
-  end
-
-  def self.down
-    drop_table :static_pages
   end
 end

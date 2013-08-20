@@ -10,27 +10,9 @@ require 'capybara/rspec'
 require 'connection_pool'
 require 'shoulda/matchers'
 
-# Copy helpers
-require 'fileutils'
-dest = File.join(File.dirname(__FILE__), 'dummy/app/helpers/admin')
-FileUtils.rm_r(dest, force: true)
-FileUtils.mkdir_p(dest)
-
-source = File.expand_path('../../lib/generators/ab_admin/install/templates/helpers/admin', __FILE__)
-FileUtils.cp(Dir[File.join(source, '*.rb')], dest)
-
 require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
 FactoryGirl.find_definitions
-
-ActionMailer::Base.delivery_method = :test
-ActionMailer::Base.perform_deliveries = true
-ActionMailer::Base.default_url_options[:host] = 'example.com'
-
-ActiveRecord::Migrator.migrate File.expand_path('../dummy/db/migrate/', __FILE__)
-ActiveRecord::Migrator.migrate File.expand_path('../../db/migrate/', __FILE__)
-
-Rails.backtrace_cleaner.remove_silencers!
 
 require 'carrierwave'
 CarrierWave.configure do |config|
@@ -38,8 +20,15 @@ CarrierWave.configure do |config|
   config.enable_processing = false
 end
 
-Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
+Rails.application.config.paths['db/migrate'].each { |migrate_path| ActiveRecord::Migrator.migrate migrate_path }
 
+ActionMailer::Base.delivery_method = :test
+ActionMailer::Base.perform_deliveries = true
+ActionMailer::Base.default_url_options[:host] = 'example.com'
+
+Rails.backtrace_cleaner.remove_silencers!
+
+Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/shared_behaviors/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|

@@ -1,5 +1,5 @@
 class CreateUsers < ActiveRecord::Migration
-  def self.up
+  def change
     create_table(:users) do |t|
       t.string :login
       t.integer :user_role_id, limit: 1, default: 1
@@ -59,9 +59,5 @@ class CreateUsers < ActiveRecord::Migration
     add_index :users, :email, unique: true
     add_index :users, :reset_password_token, unique: true
     add_index :users, :confirmation_token, unique: true
-  end
-
-  def self.down
-    drop_table :users
   end
 end

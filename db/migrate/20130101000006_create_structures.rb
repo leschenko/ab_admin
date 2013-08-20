@@ -1,5 +1,5 @@
 class CreateStructures < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :structures do |t|
       t.string :slug, null: false
       t.integer :kind, limit: 1, default: 1
@@ -19,9 +19,5 @@ class CreateStructures < ActiveRecord::Migration
     add_index :structures, [:slug, :kind], unique: true
     add_index :structures, :parent_id
     add_index :structures, [:lft, :rgt]
-  end
-
-  def self.down
-    drop_table :structures
   end
 end

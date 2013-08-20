@@ -1,5 +1,5 @@
 class CreateAssets < ActiveRecord::Migration
-  def self.up
+  def change
     create_table :assets do |t|
       t.string  :data_file_name, null: false
       t.string  :data_content_type
@@ -26,9 +26,5 @@ class CreateAssets < ActiveRecord::Migration
     add_index :assets, [:assetable_type, :type, :assetable_id]
     add_index :assets, :guid
     add_index :assets, :user_id
-  end
-
-  def self.down
-    drop_table :assets
   end
 end
