@@ -5,6 +5,7 @@ module AbAdmin
 
       included do
         belongs_to :headerable, polymorphic: true
+        before_save :normalize_html
       end
       
       def empty?
@@ -19,6 +20,15 @@ module AbAdmin
         value = read_attribute(key)
         value.blank? ? nil : value
       end
+
+      def normalize_html
+        ::I18n.available_locales.each do |loc|
+          %w(title h1 keywords description seo_block).each do |attr|
+            send("#{attr}_#{loc}=", send("#{attr}_#{loc}").to_s.no_html)
+          end
+        end
+      end
+
     end
   end
 end
