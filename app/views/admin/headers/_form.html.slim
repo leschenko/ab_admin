@@ -1,5 +1,7 @@
 = f.simple_fields_for :header, f.object.default_header do |h|
   = h.locale_tabs do |l|
     = h.input :title, locale: l
+    = h.input :h1, locale: l
     = h.input :keywords, locale: l
     = h.input :description, locale: l, as: :text
+    = h.input :seo_block, locale: l, as: :text

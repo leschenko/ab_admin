@@ -1,7 +1,7 @@
 class BaseTranslations < ActiveRecord::Migration
   def self.up
     StaticPage.create_translation_table! title: :string, content: :text
-    Header.create_translation_table! title: :string, keywords: :string, description: :text
+    Header.create_translation_table! title: :string, h1: :string, keywords: :string, description: :text, seo_block: :text
     Structure.create_translation_table! title: :string, redirect_url: :string
   end
 
