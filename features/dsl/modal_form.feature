@@ -1,4 +1,4 @@
-@javascript @dsl @fancy_select @focus @wip
+@javascript @dsl @fancy_select @wip
 Feature: ModalForm
 
   Background:
