@@ -1,6 +1,7 @@
 footer
   ' Powered by
   a href='https://github.com/leschenko/ab_admin' target='_blank' = "AbAdmin #{AbAdmin::VERSION}"
+  .muted= AbAdmin.footer_notes
 
 = cache [I18n.locale, 'admin', 'footer'] do
   = render 'admin/fileupload/tmpl'
