@@ -3,8 +3,6 @@ module AbAdmin
   module Views
     module Helpers
 
-      CLEAN_SEPARATOR_REGEXP = /\s?(—|-|—|,|\.|\|)(?=\s(\||—|-|,|\.))/
-
       def pjax?
         request.headers['X-PJAX']
       end
@@ -40,17 +38,6 @@ module AbAdmin
       def locale_path
         I18n.locale == I18n.default_locale ? '' : "/#{I18n.locale}"
       end
-      #
-      #def external_link(raw_link, options={}, &block)
-      #  return unless raw_link.present?
-      #  options.reverse_merge!(title: raw_link, target: '_blank', rel: 'nofollow')
-      #  link = raw_link =~ /^http[s]?:\/\// ? raw_link : "http://#{raw_link}"
-      #  if block_given?
-      #    link_to link, options, &block
-      #  else
-      #    link_to options[:title], link, options
-      #  end
-      #end
 
       def skype_link(skype, options={})
         return '' if skype.blank?
@@ -66,23 +53,6 @@ module AbAdmin
         image_tag image, options
       end
 
-      def render_title
-        (@page_title || @meta_tags_builder.try(:title) || I18n.t('page.title')).sub(CLEAN_SEPARATOR_REGEXP, '')
-      end
-
-      def render_keywords
-        @page_keywords || @meta_tags_builder.try(:keywords) || I18n.t('page.keywords')
-      end
-
-      def render_description
-        @page_description || @meta_tags_builder.try(:description) || I18n.t('page.description')
-      end
-
-      def render_h1
-        @page_h1 || @meta_tags_builder.try(:h1)
-      end
-
-      # swf_object
       def swf_object(swf, id, width, height, flash_version, options = {})
         options.symbolize_keys!
 

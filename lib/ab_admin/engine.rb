@@ -26,10 +26,6 @@ module AbAdmin
         ActionMailer::Base.send :include, AbAdmin::Mailers::Helpers
       end
 
-      ActiveSupport.on_load :action_controller do
-        ActionController::Base.send :include, AbAdmin::Controllers::HeadOptions
-      end
-
       ActiveSupport.on_load :action_view do
         ActionController::Base.helper AbAdmin::Views::Helpers
         ActionController::Base.helper AbAdmin::Views::AdminHelpers
