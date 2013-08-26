@@ -13,6 +13,7 @@ module AbAdmin
       map_type :editor, to: ::AbAdmin::Views::Inputs::EditorInput
       map_type :date_picker, :time_picker, :datetime_picker, to: ::AbAdmin::Views::Inputs::DateTimePickerInput
       map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
+      map_type :capture_block, to: ::SimpleForm::Inputs::BlockInput
 
       def input(attribute_name, options = {}, &block)
         if options[:fancy] || (!options.key?(:fancy) && ((!options.key?(:as) && options[:collection]) || options[:as] == :select))
@@ -50,6 +51,10 @@ module AbAdmin
         attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
 
         super(attribute_name, options, &block)
+      end
+
+      def render_dsl_node(node, options={})
+        input node.name, node.options.merge(options), &node.block
       end
 
       def link_to_add_assoc(assoc, options={})

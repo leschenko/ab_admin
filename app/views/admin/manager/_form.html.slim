@@ -8,13 +8,13 @@
           = f.locale_tabs do |l|
             - node.fields.each do |field|
               - field.options[:as] = :editor if !field.options.key?(:as) && field.name.to_s =~ /description|content|body/
-              = f.input field.name, field.options.merge(locale: l)
+              = f.render_dsl_node field, locale: l
         - else
           = input_set node.title, node.options do
             - node.fields.each do |field|
-              = f.input field.name, field.options
+              = f.render_dsl_node field
       - else
-        = f.input node.name, node.options
+        = f.render_dsl_node node
 
     - if f.object.respond_to?(:fileupload_guid) && f.object.new_record?
       = f.hidden_field :fileupload_guid

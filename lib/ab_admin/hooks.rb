@@ -8,6 +8,8 @@ ActiveSupport::XmlMini.backend = 'Nokogiri'
 InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.flash_keys
 Responders::FlashResponder.namespace_lookup = true
 YAML::ENGINE.yamler = 'psych'
+::SimpleForm.wrapper_mappings ||= {}
+::SimpleForm.wrapper_mappings[:capture_block] = AbAdmin::Views::ContentOnlyWrapper.instance
 
 Time::DATE_FORMATS[:api] = '%d.%m.%Y'
 Time::DATE_FORMATS[:compare] = '%Y%m%d%H%M'

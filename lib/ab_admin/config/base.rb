@@ -90,12 +90,16 @@ module AbAdmin
     end
 
     class Field
-      attr_reader :name, :options, :data
+      attr_reader :name, :options, :block
 
       def initialize(name, options={}, &block)
         @name = name
         @options = options
-        @data = block_given? ? block : name.to_sym
+        @block = block
+      end
+
+      def data
+        @block || name.to_sym
       end
 
       def group?

@@ -86,6 +86,7 @@ module AbAdmin
     autoload :FormBuilder, 'ab_admin/views/form_builder'
     autoload :SearchFormBuilder, 'ab_admin/views/search_form_builder'
     autoload :UrlForRoutes, 'ab_admin/views/url_for_routes'
+    autoload :ContentOnlyWrapper, 'ab_admin/views/content_only_wrapper'
 
     module Inputs
       autoload :CkeditorInput, 'ab_admin/views/inputs/ckeditor_input'
