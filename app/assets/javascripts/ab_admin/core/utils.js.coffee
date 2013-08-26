@@ -43,7 +43,19 @@ _.indexBy = (obj, value, context) ->
     res[k] = v[0]
   res
 
-# jquery
+_.timeout = (timeout, fn) ->
+  setTimeout(fn, timeout)
+
+_.interval = (timeout, fn) ->
+  setInterval(fn, timeout)
+
+# execute function periodically while it return false
+_.tryInterval = (timeout, fn) ->
+  proxy_fn = ->
+    clearInterval(try_interval_id) if fn.call()
+  try_interval_id = setInterval(proxy_fn, timeout)
+
+# jquery utils
 $.fn.serializeJSON = ->
   json = {}
   jQuery.map $(this).serializeArray(), (n) ->
