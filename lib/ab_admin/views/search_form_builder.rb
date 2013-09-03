@@ -14,7 +14,7 @@ module AbAdmin
 
       def select_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, class: 'controls') do
-          param = "#{options[:value_attr] || attr}_eq"
+          param = options[:param] || "#{options[:value_attr] || attr}_eq"
 
           if options[:collection].is_a?(Proc)
             collection = options[:collection].call
@@ -46,7 +46,7 @@ module AbAdmin
 
       def string_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, class: 'controls') do
-          param = "#{options[:value_attr] || attr}_cont"
+          param = options[:param] || "#{options[:value_attr] || attr}_cont"
           options[:input_html] ||= {}
           options[:input_html][:id] = "q_#{attr}"
           text_field_tag("q[#{param}]", params[:q][param], options[:input_html])
@@ -69,12 +69,25 @@ module AbAdmin
 
       def boolean_field(attr, options={})
         content_tag(:div, class: 'pull-left') do
-          param = "#{attr}_eq"
+          param = options[:param] || "#{attr}_eq"
           content_tag(:label, class: 'checkbox inline') do
             check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
           end +
           content_tag(:label, class: 'checkbox inline') do
             check_box_tag("q[#{param}]", 0, params[:q][param] && params[:q][param].to_i == 0, class: 'inline') + I18n.t('simple_form.no')
+          end
+        end + label(attr, options[:label], class: 'right-label')
+      end
+
+      def presence_field(attr, options={})
+        content_tag(:div, class: 'pull-left') do
+          content_tag(:label, class: 'checkbox inline') do
+            param = "#{attr}_present"
+            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
+          end +
+          content_tag(:label, class: 'checkbox inline') do
+            param = "#{attr}_null"
+            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline') + I18n.t('simple_form.no')
           end
         end + label(attr, options[:label], class: 'right-label')
       end
