@@ -26,12 +26,12 @@ module AbAdmin
             collection.map!{|r| [AbAdmin.display_name(r), r.id] }
           end
 
-          options[:html_options] ||= {}
+          options[:input_html] ||= {}
           if options[:fancy] || !options.has_key?(:fancy)
-            options[:html_options][:class] = [options[:html_options][:class], 'fancy_select'].join(' ')
+            options[:input_html][:class] = [options[:input_html][:class], 'fancy_select'].join(' ')
           end
 
-          html_options = options[:html_options].merge(include_blank: true, id: "q_#{attr}")
+          html_options = options[:input_html].merge(include_blank: true, id: "q_#{attr}")
           select_tag("q[#{param}]", options_for_select(collection, params[:q][param]), html_options)
         end
       end
