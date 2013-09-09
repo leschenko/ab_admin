@@ -281,6 +281,7 @@ class Admin::BaseController < ::InheritedResources::Base
     gon.bg_color = current_user.bg_color
     gon.admin = admin?
     gon.hotkeys = settings[:hotkeys]
+    gon.env = Rails.env
     if Rails.env.test?
       gon.test = true
       AbAdmin.test_settings.each { |k, v| gon.set_variable k, v }
