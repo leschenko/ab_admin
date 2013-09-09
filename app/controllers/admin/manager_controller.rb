@@ -69,8 +69,9 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def apply_batch_action(item, batch_action)
-    call_method_or_proc_on item, manager.batch_action_list.detect{|a| a.name == batch_action }.data, exec: false
+    success = call_method_or_proc_on item, manager.batch_action_list.detect{|a| a.name == batch_action }.data, exec: false
     track_action!("batch_#{batch_action}", item) if settings[:history]
+    success
   end
 
   def allow_batch_action?(batch_action)
