@@ -222,7 +222,7 @@ it:
     confirm: Confermare
     create_product: Creazione di un nuovo prodotto
     day: ""
-    day_short: "Dom, Lun, Martedì, mer, gio, ven, sab"
+    day_short: "Dom, Lun, Mar, mer, gio, ven, sab"
     delete_nested_elements: Impossibile eliminare
     edit: Modifica
     month: ""

@@ -225,7 +225,7 @@ de:
     confirm: Confirm
     create_product: "Create a new product"
     day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
-    day_short: "Sun, Mon, Tuesday, Wed, Thu, Fri, Sat"
+    day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
     delete_nested_elements: "Can not delete"
     edit: Edit
     month: "January,February,March,April,May,June,July,August,September,October,November,December"
