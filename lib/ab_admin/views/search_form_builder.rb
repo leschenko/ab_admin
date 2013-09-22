@@ -93,7 +93,7 @@ module AbAdmin
       end
 
       def hidden_field(attr, options={})
-        hidden_field_tag("q[#{attr}_eq]", options.delete(:value), options)
+        hidden_field_tag("q[#{attr}_eq]", options[:value], options)
       end
 
       def label(attr, text=nil, options={})
@@ -102,7 +102,7 @@ module AbAdmin
       end
 
       def field_type(attr, options={})
-        return options.delete(:as).to_sym if options[:as]
+        return options[:as].to_sym if options[:as]
         return :string if attr =~ /^translations_/
 
         input_type = @object.klass.columns_hash[attr.to_s].try(:type)
