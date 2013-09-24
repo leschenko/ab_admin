@@ -58,10 +58,10 @@ module AbAdmin
       return if @options[:unless] && call_method_or_proc_on(template, @options[:unless])
 
       <<-HTML.html_safe
-          <li class="dropdown">
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#" >#{@title}<b class="caret"></b></a>
-            <ul class="dropdown-menu">#{render_nested(template)}</ul>
-          <li>
+      <li class="dropdown">
+        <a class="dropdown-toggle" href="#{@options[:url] || '#'}" >#{@title}<b class="caret"></b></a>
+        <ul class="dropdown-menu">#{render_nested(template)}</ul>
+      <li>
       HTML
     end
   end
@@ -81,7 +81,7 @@ module AbAdmin
 
       active = template.request.path.split('/')[2] == @path.split('/')[2]
       <<-HTML.html_safe
-          <li class="#{'active' if active}">#{template.link_to @title, @path, @options}</li>
+      <li class="#{'active' if active}">#{template.link_to @title, @path, @options}</li>
       HTML
     end
   end
