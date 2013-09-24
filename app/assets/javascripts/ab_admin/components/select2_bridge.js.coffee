@@ -87,11 +87,18 @@ class window.Select2Bridge
     @options.formatResult = (item) ->
       html = '<div class="fancy_select-result">'
       html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
-      html += "<span>#{item.text}</span></div>"
+      if item.url
+        html += "<a href='#{item.url}'>#{item.text}</a>"
+      else
+        html += "<span>#{item.text}</span>"
+      html += "</div>"
     @options.formatSelection = (item) ->
       html = '<div class="fancy_select-selection">'
       html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
-      html += "<span>#{item.text}</span></div>"
+      if item.url
+        html += "<a href='#{item.url}'>#{item.text}</a>"
+      else
+        html += "<span>#{item.text}</span>"
 
   fetchAjaxParams: (term, page) =>
     cond = {}
