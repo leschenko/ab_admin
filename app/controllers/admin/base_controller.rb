@@ -18,7 +18,7 @@ class Admin::BaseController < ::InheritedResources::Base
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer
 
-  respond_to :json
+  #respond_to :json
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
