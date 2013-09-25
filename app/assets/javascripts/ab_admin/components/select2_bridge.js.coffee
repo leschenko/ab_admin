@@ -4,6 +4,12 @@ class window.Select2Bridge
     @el.prop('required', null)
     @modal = $('#modal_form')
     @el.select2 @buildOptions()
+    @initHandlers()
+
+  initHandlers: ->
+    @el.select2('container').on 'click', '.select2-choices a', (e) ->
+      log 's click'
+      e.stopPropagation()
 
   buildOptions: ->
     @options = _.defaults(@el.data('select2_opts') || {},  @defaults())
@@ -23,9 +29,10 @@ class window.Select2Bridge
 
   initCreateChoise: ->
     @options.createSearchChoice = (term, data) =>
-      @el.siblings('.select2-create-choise').remove()
+      @clearCreateChoise()
+      @cont = @el.select2('container')
       @btn_add = $("<div class='btn btn-info btn-mini select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
-      @btn_add.insertAfter @el
+      @btn_add.prependTo @cont
       @btn_add.click =>
         @modal.data('target', this)
         fn = =>
@@ -38,18 +45,22 @@ class window.Select2Bridge
     return if Select2Bridge.initedCreateChoiseOnce
     @modal.on 'ajax:success', 'form', =>
       @modal.modal('hide')
-      $el = @modal.data('target').el
-      select2 = $el.data('select2')
+      that = @modal.data('target')
       new_item = window.ab_admin_last_created
-      if select2.opts.multiple
-        data = $el.select2('data')
-        data.push new_item
-        $el.select2('data', data)
-      else
-        $el.select2('data', new_item)
-      $el.siblings('.select2-create-choise').remove()
-      $el.change()
+      that.addItem(new_item)
+      that.clearCreateChoise()
     Select2Bridge.initedCreateChoiseOnce = true
+
+  addItem: (item) ->
+    if @el.data('select2').opts.multiple
+      data = @el.select2('data')
+      data.push item
+      @el.select2('data', data)
+    else
+      @el.select2('data', item)
+
+  clearCreateChoise: ->
+    @el.select2('container').children('.select2-create-choise').remove()
 
   defaults: ->
     opts =
@@ -88,7 +99,7 @@ class window.Select2Bridge
       html = '<div class="fancy_select-result">'
       html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
       if item.url
-        html += "<a href='#{item.url}'>#{item.text}</a>"
+        html += "<a href='#{item.url}' target='_blank'>#{item.text}</a>"
       else
         html += "<span>#{item.text}</span>"
       html += "</div>"
@@ -96,7 +107,7 @@ class window.Select2Bridge
       html = '<div class="fancy_select-selection">'
       html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
       if item.url
-        html += "<a href='#{item.url}'>#{item.text}</a>"
+        html += "<a href='#{item.url}' target='_blank'>#{item.text}</a>"
       else
         html += "<span>#{item.text}</span>"
 
