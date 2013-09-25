@@ -38,8 +38,8 @@ module AbAdmin
         data = {
             type: options[:type],
             source: options[:source].try(:to_json),
-            model: resource_class.model_name.singular,
-            url: resource_path(item),
+            model: item.class.model_name.singular,
+            url: options[:url] || "/admin/#{item.class.model_name.plural}/#{item.id}",
             name: attr,
             value: options[:value] || item[attr],
             title: options[:title] || item[attr]
