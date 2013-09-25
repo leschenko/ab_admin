@@ -17,11 +17,11 @@ class window.ColumnsHider
     res = {}
     _.each @data, (v, k) ->
       res[k] = v.join('_')
-    @storeData(res)
+    window.storeData(@store_key, res)
 
   getData: ->
     data = {}
-    raw = $.parseJSON(@fetchData()) || {}
+    raw = $.parseJSON(window.fetchData(@store_key)) || {}
     _.each raw, (v, k) ->
       data[k] = []
       _.each v.split('_'), (el) ->
@@ -34,13 +34,6 @@ class window.ColumnsHider
 
   fetchData: ->
     window.localStorage?[@store_key] or $.cookie(@store_key)
-
-  storeData: (data) ->
-    str = JSON.stringify(data)
-    if window.localStorage
-      window.localStorage[@store_key] = str
-    else
-      $.cookie(@store_key, str, {path: '/'})
 
   initButtons: ->
     @data_el.empty()
