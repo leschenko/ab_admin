@@ -129,7 +129,7 @@ module AbAdmin
   @@image_types = %w(image/jpeg image/png image/gif image/jpg image/pjpeg image/tiff image/x-png)
 
   mattr_accessor :display_name_methods
-  @@display_name_methods = [:title, :name, :full_name]
+  @@display_name_methods = [:title, :name, :full_name, :id]
 
   mattr_accessor :translate_models
   @@translate_models = %w(User Asset Structure StaticPage Header AdminComment)
