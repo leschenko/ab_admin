@@ -20,9 +20,10 @@
     .btn data-css='main_wide' = icon('align-left')
     .btn data-css='main_reverse' = icon('align-right')
 
-  .btn-group.downloads
-    = icon('download-alt')
-    /- %w(csv xls json).each do |format|
-    - %w(csv xls).each do |format|
-      - next if format == 'xls' && !defined?(Mime::XLSX)
-      = link_to format, params.merge(format: format), id: "export_#{format}"
+  - if can? :export, resource_class
+    .btn-group.downloads
+      = icon('download-alt')
+      /- %w(csv xls json).each do |format|
+      - %w(csv xls).each do |format|
+        - next if format == 'xls' && !defined?(Mime::XLSX)
+        = link_to format, params.merge(format: format), id: "export_#{format}"
