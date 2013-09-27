@@ -43,7 +43,7 @@ class window.ColumnsHider
       @data_el.append(html)
 
   columnNames: ->
-    _.map $('#list th'), (el) ->
+    _.map $('#list > thead > tr > th'), (el) ->
       $el = $(el)
       {disabled: $el.hasClass('hide_cell'), name: $.trim($el.text().replace(/[▼▲]/g, ''))}
 
@@ -67,7 +67,7 @@ class window.ColumnsHider
     $("#list > thead > tr > th:nth-child(#{i}), #list > tbody > tr > td:nth-child(#{i})").hide()
 
   showAll: ->
-    $("#list tr th, #list tr td").show()
+    $("#list > thead > tr > th, #list > thead > tr > td").show()
 
 $ ->
   window.columns_hider = new ColumnsHider()
