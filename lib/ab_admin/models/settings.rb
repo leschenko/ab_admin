@@ -11,7 +11,7 @@ module AbAdmin
       end
 
       module ClassMethods
-        def load
+        def load_config
           configatron.configure_from_hash instance.all
           configatron
         end
@@ -63,7 +63,7 @@ module AbAdmin
             conf[root_key] = case_value(root_value)
           end
         end
-        File.open(@editable_path, 'w') { |file| file.write conf.to_yaml } and self.class.load
+        File.open(@editable_path, 'w') { |file| file.write conf.to_yaml } and self.class.load_config
       end
 
       def case_value(value)
