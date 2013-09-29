@@ -6,7 +6,7 @@ class Admin::BaseController < ::InheritedResources::Base
   include AbAdmin::Controllers::Callbacks
   define_admin_callbacks :save, :create
 
-  before_filter :authenticate_user!, :require_moderator, :set_user_vars
+  before_filter :authenticate_user!, :require_require_admin_access, :set_user_vars
   before_filter :add_breadcrumbs, :set_title, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
@@ -299,6 +299,10 @@ class Admin::BaseController < ::InheritedResources::Base
     user_signed_in? && current_user.admin?
   end
 
+  def require_require_admin_access
+    raise CanCan::AccessDenied unless current_user.admin_access?
+  end
+
   def require_moderator
     raise CanCan::AccessDenied unless moderator?
   end
@@ -349,7 +353,7 @@ class Admin::BaseController < ::InheritedResources::Base
     if pjax?
       render partial: 'admin/shared/flash', locals: {flash: {alert: exception.message}}
     elsif request.format.try(:html?)
-      redirect_to (moderator? ? admin_root_path : root_path), alert: exception.message
+      redirect_to (current_user.try(:admin_access?) ? admin_root_path : root_path), alert: exception.message
     else
       head :unauthorized
     end

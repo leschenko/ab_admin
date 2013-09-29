@@ -70,6 +70,10 @@ module AbAdmin
         has_role?(:admin) || has_role?(:moderator)
       end
 
+      def admin_access?
+        moderator?
+      end
+
       def default?
         has_role?(:default)
       end
