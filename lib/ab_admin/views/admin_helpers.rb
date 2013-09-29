@@ -60,7 +60,7 @@ module AbAdmin
         items.map { |item| admin_tree_item(item) }.join.html_safe
       end
 
-      def layout_css
+      def admin_layout_css
         css = []
         css << 'content_with_sidebar' if settings[:sidebar] || content_for?(:sidebar)
         css << 'well' if settings[:well]

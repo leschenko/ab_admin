@@ -1,5 +1,5 @@
 doctype html
-html id="controller_#{controller_name}" 
+html id="controller_#{controller_name}"
   head
     meta charset='utf-8'
     meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'
@@ -12,7 +12,7 @@ html id="controller_#{controller_name}"
     = javascript_include_tag 'ab_admin/application'
     = csrf_meta_tags
     = yield(:head)
-  body id="action_#{action_name}"
+  body id="action_#{action_name}" class="resource_#{resource_collection_name}"
     #wrap
       = render 'layouts/admin/navigation'
       #main role="main"
@@ -20,7 +20,7 @@ html id="controller_#{controller_name}"
           = render('admin/shared/flash', flash: flash) if flash
           #container.row-fluid
             .wrap_content
-              .clearfix data-pjax-container=true class=layout_css = yield
+              .clearfix data-pjax-container=true class=admin_layout_css = yield
             - if collection_action? && settings[:search]
               .sidebar.well= render 'search_layout'
             = yield :sidebar
