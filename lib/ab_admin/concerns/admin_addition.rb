@@ -34,13 +34,16 @@ module AbAdmin
 
       def token_data(method, options={})
         assoc = self.class.reflect_on_association(method)
-        records = Array(send(method))
+        scope = send(method)
+        scope = scope.reorder(assoc.options[:through] => :position) if options[:sortable]
+        records = Array(scope)
         data = records.map(&:for_input_token)
         data = {
             pre: data.to_json,
             class: assoc.klass.name,
             multi: assoc.collection?,
-            c: options.delete(:c)
+            c: options.delete(:c),
+            sortable: options.delete(:sortable)
         }
         if options[:geo_order]
           data[:c] ||= {}

@@ -5,6 +5,7 @@ class window.Select2Bridge
     @modal = $('#modal_form')
     @el.select2 @buildOptions()
     @initHandlers()
+    @initSortable() if @el.data('sortable')
 
   initHandlers: ->
     @el.select2('container').on 'click', '.select2-choices a', (e) ->
@@ -26,6 +27,14 @@ class window.Select2Bridge
       @initCreateChoiseOnce()
       @initCreateChoise()
     @options
+
+  initSortable: ->
+    @el.select2('container').find('ul.select2-choices').sortable
+      containment: 'parent'
+      start: =>
+        @el.select2 'onSortStart'
+      update: =>
+        @el.select2 'onSortEnd'
 
   initCreateChoise: ->
     @options.createSearchChoice = (term, data) =>
