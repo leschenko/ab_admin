@@ -22,6 +22,9 @@ ru:
         owner: "Владелец"
         created_at: "Дата"
         trackable_changes: "Изменения"
+    attributes:
+      user:
+        password_confirmation: "Пароль еще раз"
   admin:
     actions: 
       activate: 

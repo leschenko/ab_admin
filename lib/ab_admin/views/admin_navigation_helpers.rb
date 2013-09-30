@@ -108,7 +108,7 @@ module AbAdmin
       end
 
       def item_link_to_can?(act, item, *args, &block)
-        if can?(act, get_subject)
+        if can?(act, item)
           if block_given?
             link_to(*args, &block)
           else
