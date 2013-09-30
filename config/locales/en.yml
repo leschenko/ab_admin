@@ -146,6 +146,10 @@ en:
       it: It
       ru: Ru
       uk: Uk
+    index_view:
+      table: 'Table view'
+      tree: 'Tree view with sorting'
+      grid: 'Grid view'
     loading: "Loading ..."
     locators:
       all_terms: All

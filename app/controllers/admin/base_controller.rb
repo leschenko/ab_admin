@@ -16,7 +16,8 @@ class Admin::BaseController < ::InheritedResources::Base
   helper_method :admin?, :moderator?
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
-                :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer
+                :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
+                :normalized_index_views, :current_index_view
 
   #respond_to :json
 
@@ -238,7 +239,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def per_page
     return params[:per_page] if params[:per_page].present?
-    if settings[:index_view] == 'tree'
+    if current_index_view == 'tree'
       params[:per_page] = 1000
     else
       params[:per_page] = cookies[:pp] || 50
@@ -249,8 +250,16 @@ class Admin::BaseController < ::InheritedResources::Base
     pjax? ? false : 'admin/application'
   end
 
-  def pjax?
-    request.headers['X-PJAX']
+  def normalized_index_views
+    Array(settings[:index_view])
+  end
+
+  def current_index_view
+    if params[:index_view] && normalized_index_views.include?(params[:index_view])
+      params[:index_view]
+    else
+      normalized_index_views.first
+    end
   end
 
   def back_or_collection
@@ -291,6 +300,16 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
+  # utility methods
+  def pjax?
+    request.headers['X-PJAX']
+  end
+
+  def xhr?
+    request.xhr?
+  end
+
+  # user role logic
   def moderator?
     user_signed_in? && current_user.moderator?
   end
@@ -317,10 +336,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def bind_current_updater(*args)
     resource.updater_id = current_user.id if resource.respond_to?(:updater_id)
-  end
-
-  def xhr?
-    request.xhr?
   end
 
   # roles logic

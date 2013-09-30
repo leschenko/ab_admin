@@ -2,6 +2,8 @@ module AbAdmin
   module Views
     module ManagerHelpers
 
+      INDEX_VIEW_ICONS = {table: 'list', tree: 'move', grid: 'th'}
+
       def table_builder
         manager.table ||= ::AbAdmin::Config::Table.default_for_model(resource_class)
       end
@@ -30,6 +32,12 @@ module AbAdmin
           record ||= resource
           admin_member_action_path(model_name: resource_collection_name, id: record.id, custom_action: custom_action.name)
         end
+      end
+
+      def index_view_link(index_view)
+        options = {class: "btn #{('active' if current_index_view == index_view)}", title: t("admin.index_view.#{index_view}")}
+        url = url_for(index_view: (index_view == normalized_index_views.first ? nil : index_view))
+        link_to icon(INDEX_VIEW_ICONS[index_view.to_sym]), url, options
       end
     end
   end

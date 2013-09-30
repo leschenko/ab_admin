@@ -1,5 +1,5 @@
 .batch_actions.clearfix
-  - if settings[:batch] && settings[:index_view] =~ /table/
+  - if settings[:batch] && current_index_view =~ /table/
     .btn-group
       a.btn.dropdown-toggle data-toggle="dropdown" href="#"
         = t 'admin.batch_actions.title'
@@ -19,6 +19,11 @@
   .btn-group#view_layout
     .btn data-css='main_wide' = icon('align-left')
     .btn data-css='main_reverse' = icon('align-right')
+
+  - if normalized_index_views.length > 1
+    .btn-group#index_views
+      - normalized_index_views.each do |index_view|
+        = index_view_link(index_view)
 
   - if can? :export, resource_class
     .btn-group.downloads

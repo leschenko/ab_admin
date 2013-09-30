@@ -100,7 +100,7 @@ ru:
     choose: "Выберите %{attr}"
     close: "Закрыть"
     columns_hider: 
-      button: "Настроить таблицу"
+      button: "Столбцы"
       title: "Настройка отображения колонок"
     comments: 
       add: "Комментировать"
@@ -151,6 +151,10 @@ ru:
       it: It
       ru: Ru
       uk: Uk
+    index_view:
+      table: 'Отображение таблицей'
+      tree: 'Отображение деревом с сортировкой'
+      grid: 'Отображение плиткой'
     loading: "Загрузка..."
     locators: 
       edit_file: "Редактировать файл"

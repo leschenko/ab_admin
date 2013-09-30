@@ -44,8 +44,13 @@ ol.sortable_tree {
   color: #8a1f11;
 }
 
-.tree_view {
-  #columns_hider_show {
-    display: none;
+#main {
+  .tree_view {
+    #columns_hider_show {
+      display: none;
+    }
+    .batch_actions {
+      margin-left: 20px;
+    }
   }
 }

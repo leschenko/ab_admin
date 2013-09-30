@@ -3,7 +3,7 @@
   input name='batch_action' id='batch_action' type='hidden'
   = render 'admin/shared/batch_actions'
     
-#content= render settings[:index_view]
+#content= render current_index_view
 .pagination.pull-left
   = will_paginate collection, renderer: BootstrapPagination::Rails
   .pagination_info= pagination_info collection

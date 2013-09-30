@@ -7,6 +7,7 @@ $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 @import "ab_admin/components/navigation";
 @import "ab_admin/components/table_view";
 @import "ab_admin/components/grid_view";
+@import "ab_admin/components/tree_view";
 @import "ab_admin/components/form";
 
 @import "ab_admin/components/colored_tabs";
@@ -15,7 +16,6 @@ $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 @import "ab_admin/components/perms";
 @import "ab_admin/components/admin_comments";
 @import "ab_admin/components/geo_input";
-@import "ab_admin/components/sortable_tree";
 @import "ab_admin/components/text_styles";
 @import "ab_admin/components/view_layout";
 
