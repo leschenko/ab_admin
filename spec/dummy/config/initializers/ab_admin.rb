@@ -16,4 +16,5 @@ FactoryGirl.find_definitions
 
 #if Rails.env.development?
 #  ActiveRecord::Migrator.migrate File.expand_path('../../db/migrate/', Rails.root)
+#  ActiveRecord::Migrator.migrate File.expand_path('../../../db/migrate/', Rails.root)
 #end
