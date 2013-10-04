@@ -1,52 +1,56 @@
 <%
-   def input_by_col(key, col)
-     case col.type
-       when :integer
-         if key.to_s =~ /_id$/
-           if model.reflect_on_association(key.sub(/_id$/, '').to_sym)
-             "= f.association :#{key.sub(/_id$/, '')}"
-           else
-             if key.to_s =~ /_type/
-               "= f.input :#{key}, collection: #{key.sub(/_type.*/, '').camelize}Type.all, include_blank: false"
-             else
-               "= f.input :#{key}"
-             end
-           end
-         else
-           "= f.input :#{key}"
-         end
-       when :string
-         "= f.input :#{key}"
-       when :boolean
-         "= f.input :#{key}"
-       when :text
-         %Q[= f.input :#{key}, as: :editor]
-       else
-         "= f.input :#{key}"
-     end
-   end
+  def input_by_col(key, col)
+    case col.type
+      when :integer
+        if key.to_s =~ /_id$/
+          if model.reflect_on_association(key.sub(/_id$/, '').to_sym)
+            "= f.association :#{key.sub(/_id$/, '')}"
+          else
+            if key.to_s =~ /_type/
+              "= f.input :#{key}, collection: #{key.sub(/_type.*/, '').camelize}Type.all, include_blank: false"
+            else
+              "= f.input :#{key}"
+            end
+          end
+        else
+          "= f.input :#{key}"
+        end
+      when :string
+        "= f.input :#{key}"
+      when :boolean
+        "= f.input :#{key}"
+      when :text
+        %Q[= f.input :#{key}, as: :editor]
+      else
+        "= f.input :#{key}"
+    end
+  end
 
-   def input_by_col_loc(key, col)
-     col = :string if [:name, :web_site, :title].include?(key)
-     case col
-       when :integer
-         %Q[= f.input :#{key}, locale: l]
-       when :string
-         %Q[= f.input :#{key}, locale: l]
-       when :boolean
-         %Q[= f.input :#{key}, locale: l]
-       when :text
-         %Q[= f.input :#{key}, locale: l, as: :editor]
-       else
-         %Q[= f.input :#{key}, locale: l]
-     end
-   end
+  def input_by_col_loc(key, col)
+    col = :string if [:name, :web_site, :title].include?(key)
+    case col
+      when :integer
+        %Q[= f.input :#{key}, locale: l]
+      when :string
+        %Q[= f.input :#{key}, locale: l]
+      when :boolean
+        %Q[= f.input :#{key}, locale: l]
+      when :text
+        %Q[= f.input :#{key}, locale: l, as: :editor]
+      else
+        %Q[= f.input :#{key}, locale: l]
+    end
+  end
+
+  def column_for_attribute(name)
+    model.translation_class.columns_hash[name.to_s]
+  end
 -%>
 = admin_form_for @<%= singular_name %> do |f|
 <% if model.respond_to?(:translates?) && model.translates? -%>
   = f.locale_tabs do |l|
-<% model.translated_columns_hash.each do |key, col| -%>
-    <%= input_by_col_loc(key, col) %>
+<% model.translated_attribute_names.each do |name| -%>
+    <%= input_by_col_loc(name, column_for_attribute(name)) %>
 <% end -%>
 <% end -%>
 
