@@ -55,6 +55,10 @@ class Admin::BaseController < ::InheritedResources::Base
       failure.html { render :edit }
       success.js { render layout: false }
       failure.js { render :edit, layout: false }
+      unless Admin::ManagerController.mimes_for_respond_to[:json]
+        success.json { head :no_content }
+        failure.json { head :unprocessable }
+      end
     end
   end
 
