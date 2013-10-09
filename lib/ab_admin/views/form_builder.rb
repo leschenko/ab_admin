@@ -21,6 +21,12 @@ module AbAdmin
           options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end
 
+        if options[:append]
+          return super(attribute_name, options.merge(wrapper: 'append')) do
+            input_field(attribute_name, options.merge(options[:input_html] || {})) + %(<span class="add-on">#{options[:append]}</span>).html_safe
+          end
+        end
+
         case options[:as]
           when :uploader
             title = options[:title] || I18n.t("admin.#{attribute_name}", default: object.class.han(attribute_name))
