@@ -23,7 +23,7 @@ module AbAdmin
 
         if options[:append]
           return super(attribute_name, options.merge(wrapper: 'append')) do
-            input_field(attribute_name, options.merge(options[:input_html] || {})) + %(<span class="add-on">#{options[:append]}</span>).html_safe
+            input_field(attribute_name, options.merge(options[:input_html] || {})) + %(<span class="add-on #{options[:append_class]}">#{options[:append]}</span>).html_safe
           end
         end
 
