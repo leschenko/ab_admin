@@ -89,7 +89,7 @@ $.fn.loadSelect = (optionsDataArray) ->
 
 $.fn.scrollToEl = (speed='slow') ->
   return unless $(this)[0]
-  top = $(this).offset().top - to_i($('.navbar-fixed-top').height()) + to_i($('#list > thead').height())
+  top = $(this).offset().top - to_i($('.navbar-fixed-top').height()) - 2 * to_i($('#list > thead').height())
   $('html, body').stop(true, true).animate({scrollTop: top}, speed)
 
 $.fn.toHref = ->

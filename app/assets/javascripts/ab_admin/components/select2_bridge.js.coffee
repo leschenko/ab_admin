@@ -9,7 +9,6 @@ class window.Select2Bridge
 
   initHandlers: ->
     @el.select2('container').on 'click', '.select2-choices a', (e) ->
-      log 's click'
       e.stopPropagation()
 
   buildOptions: ->

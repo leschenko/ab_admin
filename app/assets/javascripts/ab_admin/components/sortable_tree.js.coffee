@@ -46,7 +46,7 @@ class window.SortableTree
         $('.sortable_tree i.handle').show()
 
       error: (xhr, status, error) ->
-        console.log error
+        log error
 
 $.fn.sortableTree = ->
   @each ->
