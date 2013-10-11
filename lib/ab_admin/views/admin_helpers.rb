@@ -129,7 +129,7 @@ module AbAdmin
         options.reverse_merge!(class: "inputs well well-small #{options.delete(:legend_class) || 'do_sort'}", id: options.delete(:legend_id))
         html = content_tag(:label, title, class: "input_set label #{options.delete(:label_class)}")
         html.concat(capture(&block)) if block_given?
-        content_tag(:fieldset, html, options)
+        content_tag(:div, html, options)
       end
 
       def ha(attr)
