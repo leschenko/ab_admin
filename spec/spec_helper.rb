@@ -20,7 +20,7 @@ CarrierWave.configure do |config|
   config.enable_processing = false
 end
 
-Rails.application.config.paths['db/migrate'].each { |migrate_path| ActiveRecord::Migrator.migrate migrate_path }
+#Rails.application.config.paths['db/migrate'].each { |migrate_path| ActiveRecord::Migrator.migrate migrate_path }
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
