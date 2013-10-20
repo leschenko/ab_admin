@@ -20,7 +20,7 @@ gem 'has_scope'
 gem 'friendly_id'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'awesome_nested_set'
-gem 'globalize3', github: 'globalize/globalize'
+gem 'globalize3', github: 'globalize/globalize', ref: '6ad3de9f257a'
 gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '6aad0cf'
 
 gem 'carrierwave'
