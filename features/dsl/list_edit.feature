@@ -43,4 +43,3 @@ Feature: Editing records in the list
     And I submit form
     When I should see "Sku can't be blank"
     And I should see "Save"
-

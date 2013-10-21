@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  attr_accessible :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom
+  attr_accessible :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom, :token
 
   belongs_to :collection
 
