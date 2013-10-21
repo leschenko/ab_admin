@@ -114,7 +114,9 @@ module AbAdmin
       end
 
       def generate_token(column=:guid)
-        self[column] = self.class.generate_token(column)
+        begin
+          self[column] = ::Devise.friendly_token
+        end while self.class.exists?(column => self[column])
       end
 
       def ensure_token(column=:guid)
