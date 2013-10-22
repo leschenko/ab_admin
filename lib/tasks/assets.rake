@@ -1,6 +1,7 @@
 require 'ruby-progressbar'
 
 namespace :assets do
+  # rake assets:reprocess CLASS=PostImage
   desc 'Refresh carrierwave assets versions by model (CLASS=)'
   task reprocess: :environment do
     name = (ENV['CLASS'] || ENV['class'] || 'Asset').to_s
