@@ -152,6 +152,10 @@ label.control-label.label-reset {
     background-color: #fcf8e3;
   }
 
+  tr.muted > td, &.muted > tr > td {
+    background-color: #ededed;
+  }
+
   tr.info > td, &.info > tr > td {
     background-color: #d9edf7;
   }
