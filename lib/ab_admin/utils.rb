@@ -127,5 +127,9 @@ module AbAdmin
       end
     end
 
+    def test_env?
+      Rails.env.test? || Rails.env.cucumber?
+    end
+
   end
 end

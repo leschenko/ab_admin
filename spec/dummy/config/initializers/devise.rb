@@ -79,7 +79,7 @@ Devise.setup do |config|
   # Limiting the stretches to just one in testing will increase the performance of
   # your test suite dramatically. However, it is STRONGLY RECOMMENDED to not use
   # a value less than 10 in other environments.
-  config.stretches = Rails.env.test? ? 1 : 10
+  config.stretches = AbAdmin.test_env? ? 1 : 10
 
   # Setup a pepper to generate the encrypted password.
   # config.pepper = "600ea5bd75af2386065bb90c59b53e37284b357121d5dd962b27ba021fa91fb92285a6cb955aae3400c750aa6b7491d902dd0ed830763103866df97648a2745a"
@@ -200,7 +200,7 @@ Devise.setup do |config|
   # config.navigational_formats = ["*/*", :html]
 
   # The default HTTP method used to sign out a resource. Default is :delete.
-  config.sign_out_via = Rails.env.test? ? [:get, :delete] : :delete
+  config.sign_out_via = AbAdmin.test_env? ? [:get, :delete] : :delete
 
   # ==> OmniAuth
   # Add a new OmniAuth provider. Check the wiki for more information on setting
