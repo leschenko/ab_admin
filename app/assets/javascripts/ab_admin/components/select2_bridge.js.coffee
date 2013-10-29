@@ -77,7 +77,7 @@ class window.Select2Bridge
       placeholder: ' '
       allowClear: true
       escapeMarkup: (m) -> m
-    opts.minimumResultsForSearch = 10 unless gon.test
+    opts.minimumResultsForSearch = 10 unless gon.test || @el.data('add')
     opts
 
   initAjaxInput: ->
