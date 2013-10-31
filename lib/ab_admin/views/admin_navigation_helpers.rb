@@ -120,7 +120,6 @@ module AbAdmin
       def model_admin_menu_link(model)
         content_tag :li, class: ('active' if controller_name.split('/').last == model.model_name.plural) do
           link_to model.model_name.human(count: 9), "/admin/#{model.model_name.plural}"
-          #link_to model.model_name.human(count: 9), {action: :index, controller: "admin/#{model.model_name.plural}"}
         end
       end
 
@@ -148,9 +147,17 @@ module AbAdmin
       end
 
       def item_index_actions(item)
-        resource_action_items.map do |act|
+        actions = resource_action_items.map do |act|
           short_action_link(act, item)
-        end.join(' ').html_safe
+        end
+        actions << admin_comments_button(item) if settings[:comments] && settings[:comments][:list]
+        actions.join(' ').html_safe
+      end
+
+      def admin_comments_button(item)
+        title = [icon('comment', true), item.admin_comments_count_non_zero].compact.join(' ').html_safe
+        link_to title, admin_admin_comments_path(resource_type: item.class.name, resource_id: item.id), remote: true,
+                class: 'btn btn-info list_admin_comments_link'
       end
 
       def batch_action_toggle
