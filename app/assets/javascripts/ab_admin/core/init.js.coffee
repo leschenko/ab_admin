@@ -63,6 +63,10 @@ $ ->
 
   initHotkeys() if window.gon?.hotkeys
 
+  $(document).on 'click', '.btn-close', (e) ->
+    e.preventDefault()
+    $(this).closest('.close-wrap').remove()
+
 
 #    $('form .region_ac').regionAc()
 #    new NestedFieldsAdder
