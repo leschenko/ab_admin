@@ -76,6 +76,7 @@ module AbAdmin
     autoload :Settings, 'ab_admin/models/settings'
     autoload :User, 'ab_admin/models/user'
     autoload :Track, 'ab_admin/models/track'
+    autoload :AdminComment, 'ab_admin/models/admin_comment'
   end
 
   module Views
