@@ -17,6 +17,28 @@ Feature: Admin comments
     And I press "Comment"
     Then I should see "Hello" comment with author
 
+  Scenario: Adding a comment with attachment
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        settings comments: true
+      end
+      """
+    And I am on the edit admin product page
+    When I add admin comment "Comment with attachment" with attachment
+    Then I should see "Comment with attachment" comment with attachment
+
+  Scenario: Adding a list comment
+    Given a configuration of:
+    """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        settings comments: {list: true}
+      end
+      """
+    And I am on the admin products page
+    When I add admin comment "List comment" in the list
+    Then I should see "List comment" comment with author
+
   Scenario: Deleting a comment
     Given a configuration of:
       """

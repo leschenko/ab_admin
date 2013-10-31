@@ -10,3 +10,26 @@ Given /^comment "(.*?)" exists$/ do |comment|
     c.author = @me
   end
 end
+
+When(/^I add admin comment "(.*?)" with attachment$/) do |comment|
+  within '#new_admin_comment' do
+    fill_in 'admin_comment_body', with: comment
+    attach_file 'file', Rails.root.join('../../spec/factories/files/rails.png')
+    click_button 'Comment'
+  end
+end
+
+Then(/^I should see "(.*?)" comment with attachment$/) do |comment|
+  within '#admin_comments' do
+    page.should have_content(comment)
+    page.should have_css('.admin_comment-item-attachment')
+  end
+end
+
+When(/^I add admin comment "(.*?)" in the list$/) do |comment|
+  find("#list_product_#{@product.id} .list_admin_comments_link").click
+  within "#list_admin_comments_product_#{@product.id}" do
+    fill_in 'admin_comment_body', with: comment
+    click_button 'Comment'
+  end
+end
