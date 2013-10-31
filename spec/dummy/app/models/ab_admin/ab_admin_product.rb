@@ -21,7 +21,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #end
 
   #settings default_order: true, history: true
-  settings history: {sidebar: true}
+  settings history: {sidebar: true}, comments: true
 
   belongs_to :collection
 
@@ -56,7 +56,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :sku
       field :price
     end
-    field :created_at, as: :time_picker
+    field :in_stock_at, as: :time_picker
     field :is_visible
     field :collection, as: :association, fancy: true
     locale_tabs do
