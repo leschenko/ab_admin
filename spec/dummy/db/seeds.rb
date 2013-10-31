@@ -7,7 +7,7 @@ def insert_user
   password = Rails.env.production? ? Devise.friendly_token : (1..6).to_a.join
   
   admin = User.new do |u|
-    u.email = 'test@test.com'
+    u.email = 'admin@example.com'
     u.password = password
     u.password_confirmation = password
     u.user_role_id = UserRoleType.admin.id
