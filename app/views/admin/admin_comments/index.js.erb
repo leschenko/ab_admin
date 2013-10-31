@@ -1,0 +1,14 @@
+<%
+  wrap_id = dom_id(commentable, 'list_admin_comments')
+  html = render('list_block')
+%>
+
+$base = $('#<%= dom_id(commentable, 'list') %>');
+$cont = $('#<%= wrap_id %>')
+if ($cont[0]) {
+  $cont.html("<%= j html %>");
+} else {
+  $base.after("<%= j %[<tr id="#{wrap_id}" class="list_admin_comments">#{html}</tr>].html_safe %>");
+}
+var colspan = $base.closest('table').find('tr:first > th').length;
+$('#<%= wrap_id %> td:first').attr('colspan', colspan);

@@ -1,6 +1,6 @@
 = admin_form_for AdminComment.new, remote: true do |f|
-  = f.input_field :resource_type, as: :hidden, value: resource.class.name
-  = f.input_field :resource_id, as: :hidden, value: resource.id
+  = f.input_field :resource_type, as: :hidden, value: commentable.class.name
+  = f.input_field :resource_id, as: :hidden, value: commentable.id
   .row-fluid
     .span5
       = f.input_field :body, size: '80x4', required: true

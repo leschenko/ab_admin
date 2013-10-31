@@ -1,0 +1,7 @@
+td.close-wrap
+  .admin_comments
+    label.input_set.label.label-info
+      = t 'admin.comments.title_content', count: collection.length
+      a.pull-right.btn-close href="#" = icon('remove', true)
+    #admin_comments= render partial: 'admin/admin_comments/comment', collection: collection
+    = render 'admin/admin_comments/form'

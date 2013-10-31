@@ -1,4 +1,5 @@
 <% if resource.persisted? %>
-  $('#admin_comments').append('<%= j render(partial: 'comment', object: resource) %>');
-  $('#new_admin_comment').replaceWith('<%= j render(partial: 'form') %>');
+  $context = $('#<%= dom_id(resource.resource, 'list_admin_comments') %>').or('body');
+  $('#admin_comments', $context).append('<%= j render('comment', comment: resource) %>');
+  $('#new_admin_comment', $context).replaceWith('<%= j render('form', commentable: resource.resource) %>');
 <% end %>
