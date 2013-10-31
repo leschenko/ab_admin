@@ -17,7 +17,14 @@ require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.join(SPEC_PATH, 'factories')]
 FactoryGirl.find_definitions
 
-Capybara.default_wait_time = 5
+Capybara.configure do |config|
+  config.default_selector = :css
+  config.default_wait_time = 5
+  config.exact_options = true
+  config.ignore_hidden_elements = false
+  config.visible_text_only = true
+end
+
 BCrypt::Engine::DEFAULT_COST = 1
 
 require File.join(SPEC_PATH, 'support/shared_connection')
