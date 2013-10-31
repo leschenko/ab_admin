@@ -63,6 +63,12 @@ $.fn.serializeJSON = ->
 
   json
 
+$.fn.or = (fallbackSelector) ->
+  if @length
+    this
+  else
+    $(fallbackSelector || 'body')
+
 $.fn.unescape = ->
   $(this).html $.unescape($(this).html())
 
