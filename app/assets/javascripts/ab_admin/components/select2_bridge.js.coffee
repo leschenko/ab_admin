@@ -57,6 +57,7 @@ class window.Select2Bridge
       new_item = window.ab_admin_last_created
       that.addItem(new_item)
       that.clearCreateChoise()
+      @el.trigger('change', [new_item])
     Select2Bridge.initedCreateChoiseOnce = true
 
   addItem: (item) ->
