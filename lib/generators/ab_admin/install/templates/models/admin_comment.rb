@@ -5,6 +5,9 @@ class AdminComment < ActiveRecord::Base
   belongs_to :author, class_name: 'User'
   belongs_to :user
 
+  has_many :attachment_files, as: :assetable, dependent: :destroy
+  fileuploads :attachment_files
+
   validates_presence_of :resource
   validates_presence_of :body
 

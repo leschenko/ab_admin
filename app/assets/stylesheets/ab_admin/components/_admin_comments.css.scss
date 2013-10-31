@@ -1,9 +1,21 @@
 .admin_comments {
-  form input[type="submit"] {
-    display: block;
-    margin-top: 10px;
+  form {
+    input[type="submit"] {
+      display: block;
+      margin-top: 10px;
+    }
+    textarea {
+      width: 100%;
+    }
+    .file-types {
+      max-width: 800px;
+    }
   }
-  .admin_comment-meta > * {
-    margin-right: 10px;
+  .admin_comment-item-attachment {
+    float: left;
+    margin-right: 5px;
+    .thumbnail img {
+      max-height: 80px;
+    }
   }
 }

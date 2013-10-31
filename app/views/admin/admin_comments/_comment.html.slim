@@ -1,9 +1,23 @@
-.admin_comment-item id=dom_id(comment)
-  .admin_comment-meta
-    - if comment.author_id
-      = link_to comment.author_name, admin_user_path(id: comment.author_id), target: '_blank'
-    span.muted= l(comment.created_at, format: :long)
+.row-fluid.admin_comment-item id=dom_id(comment)
+  .span5
+    strong
+      - if comment.author_id
+        =' link_to comment.author_name, admin_user_path(id: comment.author_id), target: '_blank'
+    div.muted= l(comment.created_at, format: :long)
+    div= comment.body
+
+  .span6
+    - comment.attachment_files.each do |file|
+      .admin_comment-item-attachment
+        - if file.image?
+          a.thumbnail href=file.url target='_blank'
+            img src=file.url
+        - else
+          a.admin_comment-item-attachment-file href=file.url target='_blank'
+            = icon('file')
+            = file.human_name
+
+  .span1
     - if can? :destroy, comment
       = link_to t('admin.delete'), admin_admin_comment_path(comment), remote: true, method: :delete, class: 'btn btn-mini btn-danger'
-  .admin_comment-body
-    p= comment.body
+hr

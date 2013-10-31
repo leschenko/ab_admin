@@ -1,4 +1,4 @@
 <% if resource.persisted? %>
-  $('#admin_comments').append('<%= render partial: 'comment', object: resource %>');
-  $('#new_admin_comment')[0].reset();
+  $('#admin_comments').append('<%= j render(partial: 'comment', object: resource) %>');
+  $('#new_admin_comment').replaceWith('<%= j render(partial: 'form') %>');
 <% end %>
