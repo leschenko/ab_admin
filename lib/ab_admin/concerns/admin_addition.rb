@@ -32,6 +32,10 @@ module AbAdmin
         changes.except(*exclude_attrs).map { |k, v| [k, v.last] }.to_hash
       end
 
+      def admin_comments_count_non_zero
+        self[:admin_comments_count].to_i.zero? ? nil : self[:admin_comments_count]
+      end
+
       def token_data(method, options={})
         assoc = self.class.reflect_on_association(method)
         scope = send(method)
