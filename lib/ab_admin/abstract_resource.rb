@@ -77,6 +77,9 @@ module AbAdmin
           instance.custom_settings[:history] = {} unless instance.custom_settings[:history].is_a?(Hash)
           instance.model.send(:include, AbAdmin::Concerns::HasTracking) if !instance.has_module?(AbAdmin::Concerns::HasTracking)
         end
+        if instance.custom_settings[:comments]
+          instance.custom_settings[:comments] = {} unless instance.custom_settings[:comments].is_a?(Hash)
+        end
       end
 
       def batch_action(name, options={}, &block)
