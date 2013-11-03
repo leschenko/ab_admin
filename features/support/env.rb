@@ -38,12 +38,12 @@ After do
   AbAdmin.test_settings = {}
 end
 
-Before '@locator' do
-  FileUtils.cp_r Rails.root.join('config', 'locales'), Rails.root.join('tmp')
-end
-
 Before '@fancy_select' do
   AbAdmin.test_settings[:enable_fancy_select] = true
+end
+
+Before '@locator' do
+  FileUtils.cp_r Rails.root.join('config', 'locales'), Rails.root.join('tmp')
 end
 
 After '@locator' do
