@@ -20,9 +20,10 @@ module AbAdmin
               builder.member kind, object: new(kind.to_s)
             end
           end
+          define_question_methods
         end
 
-        def define_code_check_methods
+        def define_question_methods
           codes.each do |code_check|
             define_method "#{code_check}?" do
               self.code == code_check
