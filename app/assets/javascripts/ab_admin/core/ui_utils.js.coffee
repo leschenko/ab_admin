@@ -1,7 +1,7 @@
 #= require ab_admin/components/select2_bridge
 
 window.clonePagination = ->
-  $('.pagination:first').clone().appendTo($('.batch_actions'))
+  $('.pagination:first').clone().appendTo($('.content_actions'))
 
 window.initPopover = ->
   $('.popover').hide()
