@@ -32,3 +32,8 @@
       - %w(csv xls).each do |format|
         - next if format == 'xls' && !defined?(Mime::XLSX)
         = link_to format, params.merge(format: format), id: "export_#{format}"
+
+  - if @search && settings[:sort_buttons]
+    .btn-group
+      - settings[:sort_buttons].each do |opts|
+        = sort_link(@search, opts[:title], column: opts[:column], html_options: {class: 'btn'})
