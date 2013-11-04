@@ -32,7 +32,7 @@ gem 'i18n-js'
 gem 'globalize3', github: 'globalize/globalize', ref: '6ad3de9f257a'
 gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '6aad0cf'
 gem 'turbo-sprockets-rails3', group: :assets
-gem 'ab_admin', github: 'leschenko/ab_admin', ref: 'ab57386'
+gem 'ab_admin', github: 'leschenko/ab_admin', ref: 'ab57386', branch: 'master'
 
 ckeditor = yes?('Install ckeditor?')
 
