@@ -12,7 +12,7 @@ gem 'galetahub-enum_field', '~> 0.2.0', require: 'enum_field'
 gem 'friendly_id'
 
 gem 'configatron'
-gem 'inherited_resources', '~> 1.3.0'
+gem 'inherited_resources', '~> 1.4.0'
 gem 'carrierwave'
 gem 'mini_magick'
 gem 'ya2yaml'
@@ -29,10 +29,10 @@ gem 'select2-rails'
 gem 'gon'
 gem 'i18n-js'
 
-gem 'globalize3', git: 'git://github.com/leschenko/globalize3.git', ref: 'bcdf5eb'
-gem 'sunrise-file-upload', git: 'git://github.com/leschenko/sunrise-file-upload.git', ref: '53da968', branch: 'master'
+gem 'globalize3', github: 'globalize/globalize', ref: '6ad3de9f257a'
+gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '6aad0cf'
 gem 'turbo-sprockets-rails3', group: :assets
-gem 'ab_admin'
+gem 'ab_admin', github: 'leschenko/ab_admin'
 
 ckeditor = yes?('Install ckeditor?')
 
@@ -84,7 +84,7 @@ if gem_adds
   end
 
   gem_group :test do
-    gem 'spork', '1.0.0rc3'
+    gem 'spork', '1.0.0rc4'
     gem 'database_cleaner'
     gem 'shoulda-matchers'
     gem 'fuubar'
@@ -133,7 +133,7 @@ if yes?('Run db:seed?')
 end
 
 # copy ckeditor assets to public/javascripts
-if ckeditor && yes?('Copy ckeditor assets?')
+if ckeditor
   generate('ab_admin:ckeditor_assets')
 end
 
