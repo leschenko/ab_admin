@@ -9,8 +9,6 @@ gem 'slim'
 gem 'devise', '~> 2.1.0'
 gem 'devise-encryptable'
 gem 'cancan'
-# for ruby 2.0
-#gem 'inherited_resources', git: 'git://github.com/josevalim/inherited_resources.git'
 gem 'inherited_resources', '~> 1.4.0'
 gem 'rack-pjax'
 gem 'configatron'
