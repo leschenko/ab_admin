@@ -105,6 +105,10 @@ $.fn.toHref = ->
   else
     $el.click()
 
+$.fn.toggleClassRadio = (class_name = 'active', state = undefined) ->
+  @each ->
+    $(this).toggleClass(class_name, state).siblings().removeClass(class_name)
+
 $.parseQuery = ->
   window.location.search.replace("?", "").parseQuery()
 

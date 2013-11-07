@@ -18,3 +18,14 @@
     margin-left: -15px;
   }
 }
+
+#main {
+  .grid_view {
+    #columns_hider_show {
+      display: none;
+    }
+    .content_actions {
+      margin-left: 20px;
+    }
+  }
+}

@@ -1,3 +1,12 @@
+module Globalize
+  mattr_accessor :available_locales
+
+  def self.valid_locale?(loc)
+    return false unless loc
+    available_locales.include?(loc.to_sym)
+  end
+end
+
 Globalize::ActiveRecord::ClassMethods.module_eval do
   def translations_accessor_with_locale_suffix_accessors(name)
     translations_accessor_without_locale_suffix_accessors(name)
@@ -16,11 +25,3 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
   alias_method_chain :translations_accessor, :locale_suffix_accessors
 end
 
-module Globalize
-  mattr_accessor :available_locales
-
-  def self.valid_locale?(loc)
-    return false unless loc
-    available_locales.include?(loc.to_sym)
-  end
-end

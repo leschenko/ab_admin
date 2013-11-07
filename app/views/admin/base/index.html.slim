@@ -1,7 +1,7 @@
 /- if settings[:index_view] == 'table'
 = form_tag url_for(action: :batch), id: 'batch_action_form', class: 'pjax-form' do
   input name='batch_action' id='batch_action' type='hidden'
-  = render 'admin/shared/batch_actions'
+  = render 'admin/shared/content_actions'
     
 #content= render current_index_view
 .pagination.pull-left

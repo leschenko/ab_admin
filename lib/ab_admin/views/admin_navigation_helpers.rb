@@ -20,13 +20,14 @@ module AbAdmin
         options = args.first.is_a?(Hash) ? args.shift.dup : {}
         search_params = params[:q] || {}.with_indifferent_access
         attr_name = (options.delete(:column) || attribute).to_s
+        default_order = options.delete :default_order
 
         if existing_sort = search.sorts.detect { |s| s.name == attr_name }
           prev_attr, prev_dir = existing_sort.name, existing_sort.dir
+          current_dir = prev_attr == attr_name ? prev_dir : nil
+        else
+          current_dir = nil
         end
-
-        default_order = options.delete :default_order
-        current_dir = prev_attr == attr_name ? prev_dir : nil
 
         if current_dir
           new_dir = current_dir == 'desc' ? 'asc' : 'desc'
@@ -34,10 +35,10 @@ module AbAdmin
           new_dir = default_order || 'asc'
         end
 
-        html_options = args.first.is_a?(Hash) ? args.shift.dup : {}
+        html_options = options.delete(:html_options) || {}
         html_options[:class] = ['sort_link', current_dir, html_options[:class]].compact.join(' ')
-        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"))
 
+        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"))
         link_to [name, order_indicator_for(current_dir)].join(' ').html_safe, url_for(options), html_options
       end
 
@@ -47,7 +48,7 @@ module AbAdmin
         elsif order == 'desc'
           '&#9660;'
         else
-          '<span class="order_indicator">&#9650;&#9660;</div></span>'
+          '<span class="order_indicator">&#9650;&#9660;</span>'
         end
       end
 
