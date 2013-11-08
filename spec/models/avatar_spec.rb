@@ -15,11 +15,11 @@ describe Avatar do
   end
 
   context 'validations' do
-    it 'should not be valid without data' do
-      pending 'asset data validations dont work on presence_of'
-      @avatar.data = nil
-      @avatar.should_not be_valid
-    end
+    #it 'should not be valid without data' do
+    #  pending 'asset data validations dont work on presence_of'
+    #  @avatar.data = nil
+    #  @avatar.should_not be_valid
+    #end
 
     it 'should not be valid with not image content-type' do
       @avatar.data_content_type = 'unknown type'
