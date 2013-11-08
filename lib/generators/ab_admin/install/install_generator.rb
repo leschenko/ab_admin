@@ -25,7 +25,8 @@ module AbAdmin
         template('config/settings.yml', 'config/settings/settings.yml')
         template('config/settings.yml', 'config/settings/settings.local.yml')
         copy_file('config/unicorn_config.rb', 'config/unicorn_config.rb')
-        copy_file 'gitignore', '.gitignore'
+        copy_file('config/robots.txt', 'config/robots.txt')
+        copy_file('gitignore', '.gitignore')
       end
 
       # copy models
