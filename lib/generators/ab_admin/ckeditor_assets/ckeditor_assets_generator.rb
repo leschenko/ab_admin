@@ -4,7 +4,7 @@ module AbAdmin
     class CkeditorAssetsGenerator < Rails::Generators::Base
       desc 'Copy ckeditor assets to public (prevent it\'s long and buggy precompile)'
 
-      DOWNLOAD_LINK = 'http://dl.dropbox.com/u/48737256/ckeditor_assets.tar'
+      DOWNLOAD_LINK = 'https://dl.dropboxusercontent.com/s/kwzb06hoi9heaoa/ckeditor_assets.tar'
 
       def copy_assets
         archive = 'ckeditor_assets.tar'
