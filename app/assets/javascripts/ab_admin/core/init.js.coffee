@@ -41,7 +41,6 @@ $ ->
 #    focusInput($(this))
     initEditor()
     initFancySelect()
-    inputSetToggle()
     initPickers()
 
   $(document).on 'pjax:end', ->
@@ -56,16 +55,15 @@ $ ->
   initFancySelect()
   initNestedFields()
   initNestedFields()
-  #  initAcFileds()
+  inputSetToggle()
+  inputBtnClose()
+#  initAcFileds()
 
   if window.gon?.bg_color
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
 
   initHotkeys() if window.gon?.hotkeys
 
-  $(document).on 'click', '.btn-close', (e) ->
-    e.preventDefault()
-    $(this).closest('.close-wrap').remove()
 
 
 #    $('form .region_ac').regionAc()

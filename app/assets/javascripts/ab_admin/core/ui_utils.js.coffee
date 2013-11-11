@@ -38,8 +38,13 @@ window.initEditor = ->
     $el.addClass('wysihtml5_done')
 
 window.inputSetToggle = ->
-  $('.label.do_toggle').click ->
+  $(document).on 'click', '.label.do_toggle', ->
     $(this).siblings().toggle()
+
+window.inputBtnClose = ->
+  $(document).on 'click', '.btn-close', (e) ->
+    e.preventDefault()
+    $(this).closest('.close-wrap').remove()
 
 window.flash = (message, type='notice') ->
   $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>").insertBefore $('#container')
