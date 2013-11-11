@@ -188,16 +188,16 @@ module AbAdmin
         end
       end
 
-      def auto_edit_link(record, opts = {})
-        return opts[:missing] unless record
+      def auto_edit_link(record, options = {})
+        return options[:missing] unless record
         return options[:title] || AbAdmin.display_name(record) if cannot?(:edit, record)
-        admin_edit_link(record, opts)
+        admin_edit_link(record, options)
       end
 
-      def auto_show_link(record, opts = {})
-        return opts[:missing] unless record
+      def auto_show_link(record, options = {})
+        return options[:missing] unless record
         return options[:title] || AbAdmin.display_name(record) if cannot?(:read, record)
-        admin_show_link(record, opts)
+        admin_show_link(record, options)
       end
 
       def admin_edit_link(record, options = {})
