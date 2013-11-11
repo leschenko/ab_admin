@@ -32,7 +32,7 @@ module AbAdmin
         end
 
         def legal?(value)
-          ActiveSupport::Deprecation.warn('legal? id deprecated, use valid? instead')
+          ActiveSupport::Deprecation.warn('legal? is deprecated, use valid? instead')
           valid?(value)
         end
 
