@@ -3,6 +3,7 @@
 - attr_name = "#{f.object_name}[#{attr_ids_method}][]"
 - opts = reflection.options.slice(:conditions, :order)
 
+h3= Tag.han(attribute_name)
 = hidden_field_tag attr_name, nil
 - reflection.klass.roots.all(opts).each do |root|
   .checkbox_tree_input
@@ -13,3 +14,4 @@
       label.checkbox
         = check_box_tag attr_name, child.id, attr_ids.include?(child.id)
         = AbAdmin.display_name(child)
+hr
