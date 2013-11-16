@@ -259,8 +259,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def current_index_view
-    if params[:index_view] && normalized_index_views.include?(params[:index_view])
-      params[:index_view]
+    index_view = params[:index_view].presence || cookies[:iv].presence
+    if index_view && normalized_index_views.include?(index_view)
+      cookies[:iv] = index_view
+      index_view
     else
       normalized_index_views.first
     end
