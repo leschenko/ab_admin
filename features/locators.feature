@@ -10,7 +10,7 @@ Feature: Locale files editor
     """
       en:
         site:
-          title: "Dummy app"
+          title: Dummy app
       """
     And am on the admin locators page
 
@@ -22,7 +22,7 @@ Feature: Locale files editor
       """
       en:
         site:
-          title: "Great app"
+          title: Great app
       """
 
   Scenario: Merging locale files
@@ -31,7 +31,7 @@ Feature: Locale files editor
       """
       ru:
         site:
-          title: ""
+          title: ''
       """
 
 #  Scenario: Reloading localization

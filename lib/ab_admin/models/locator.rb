@@ -16,9 +16,7 @@ module AbAdmin
         end
 
         def save(path, data)
-          File.open(path, 'w') do |file|
-            file.write data.ya2yaml.sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
-          end
+          File.write path, data.deep_stringify_keys.to_yaml.sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
         end
 
         def prepare_data(path)

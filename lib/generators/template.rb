@@ -15,7 +15,6 @@ gem 'configatron'
 gem 'inherited_resources', '~> 1.4.0'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'ya2yaml'
 gem 'multi_json'
 gem 'ruby-progressbar'
 

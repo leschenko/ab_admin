@@ -1,4 +1,3 @@
-require 'ya2yaml'
 require 'ostruct'
 
 class Locator
