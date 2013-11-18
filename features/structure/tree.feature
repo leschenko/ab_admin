@@ -14,8 +14,3 @@ Feature: Sortable tree index view
 
   Scenario: Structure tree
     Then I should see structures tree
-
-#  Scenario: Structure tree
-#    Then pause
-#    When I drag "_2-1_" to "_1-1_"
-#    Then pause
