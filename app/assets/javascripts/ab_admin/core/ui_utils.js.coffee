@@ -1,7 +1,11 @@
 #= require ab_admin/components/select2_bridge
 
 window.clonePagination = ->
-  $('.pagination:first').clone().appendTo($('.content_actions'))
+  $pagination = $('.pagination-wrap:not(".pagination-cloned"):first')
+  if $pagination[0]
+    $wrap = $('.content_actions')
+    $wrap.find('.pagination').remove()
+    $pagination.clone().addClass('pagination-cloned').appendTo($wrap)
 
 window.initPopover = ->
   $('.popover').hide()

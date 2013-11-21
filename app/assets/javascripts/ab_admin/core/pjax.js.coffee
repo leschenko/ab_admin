@@ -4,10 +4,19 @@ $ ->
       return
     else if $.support.pjax
       e.preventDefault()
+      container = $(this).data('pjax-container')
+      unless container
+        table = $(this).closest('table.index_table')
+        if table[0]
+          container = "##{table.attr('id')}"
+        else
+          container = '[data-pjax-container]'
+
       $.pjax
-        container: $(this).data('pjax-container') || '[data-pjax-container]'
+        container: container
         url: $(this).data('href') || $(this).attr('href')
         timeout: 50000
+        push: container == '#list'
     else if $(this).data('href')
       e.preventDefault()
       window.location = $(this).data('href')
