@@ -5,5 +5,6 @@ h3= t('admin.search.title')
   - cache [I18n.locale, 'search_form_inside', resource_class.name, params[:q].hash] do
     = render 'search_form', f: f
     br
-    = f.submit t('admin.search.submit'), class: 'btn btn-success btn-large'
-    = f.submit t('admin.search.cancel'), class: 'btn', id: 'search_cancel'
+    div
+      = f.submit t('admin.search.submit'), class: 'btn btn-success btn-large'
+      = f.submit t('admin.search.cancel'), class: 'btn', id: 'search_cancel'
