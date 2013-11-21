@@ -4,7 +4,7 @@ window.clonePagination = ->
   $pagination = $('.pagination-wrap:not(".pagination-cloned"):first')
   if $pagination[0]
     $wrap = $('.content_actions')
-    $wrap.find('.pagination').remove()
+    $wrap.find('.pagination-wrap').remove()
     $pagination.clone().addClass('pagination-cloned').appendTo($wrap)
 
 window.initPopover = ->
