@@ -10,18 +10,19 @@
   }
 }
 
-.pagination {
-  margin: 0;
+.pagination-wrap {
   .pagination {
-    float: left;
+    margin: 0;
+    display: inline-block;
   }
   .pagination_info {
-    float: left;
+    display: inline-block;
+    vertical-align: top;
     padding: 10px;
   }
 }
 
-.content_actions > .pagination {
+.content_actions > .pagination-wrap {
   margin-left: 15px;
 }
 

@@ -4,7 +4,7 @@
   = render 'admin/shared/content_actions'
     
 #content= render current_index_view
-.pagination.pull-left
+.pagination-wrap.pull-left
   = will_paginate collection, renderer: BootstrapPagination::Rails
   .pagination_info= pagination_info collection
 .btn-toolbar.pull-right.pjax_links
