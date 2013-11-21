@@ -13,6 +13,15 @@ module AbAdmin
         form_for([:admin, object].flatten, *(args << options), &block)
       end
 
+      def list_sort_link(attribute, options={})
+        adapter = options[:adapter] || @search
+        if adapter && adapter.klass == resource_class
+          sort_link(adapter, attribute, options)
+        else
+          attribute.is_a?(Symbol) ? ha(attribute) : attribute
+        end
+      end
+
       def sort_link(search, attribute, *args)
         name = attribute.is_a?(Symbol) ? ha(attribute) : attribute
         return name unless search
