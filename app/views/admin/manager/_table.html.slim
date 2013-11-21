@@ -5,15 +5,15 @@
     thead
       tr.pjax_links
         = batch_action_toggle
-        th= sort_link(@search, :id)
+        th= list_sort_link(:id)
         - table_builder.fields.each do |field|
           th
             - if field.options[:sortable] && !field.options[:image]
               - if field.options[:sortable].is_a?(TrueClass)
-                = sort_link @search, field.name
+                = list_sort_link field.name
               - else
                 - opts = field.options[:sortable].is_a?(Hash) ? field.options[:sortable] : {column: field.options[:sortable]}
-                = sort_link @search, field.name, opts
+                = list_sort_link field.name, opts
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
         th=t 'admin.table.actions'

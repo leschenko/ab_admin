@@ -2,9 +2,9 @@ table.table.table-striped.index_table#list
   thead
     tr.pjax_links
       = batch_action_toggle
-      th= sort_link(@search, :id)
+      th= list_sort_link(:id)
       - resource_class.content_columns.map(&:name).without('updated_at').each do |col|
-        th= sort_link(@search, col)
+        th= list_sort_link(@search, col)
       th=t 'admin.table.actions'
   tbody
     - collection.each do |item|

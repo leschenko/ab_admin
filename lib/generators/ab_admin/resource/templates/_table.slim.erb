@@ -18,7 +18,7 @@ table.table.table-striped.index_table#list
       = batch_action_toggle
 <% attrs = model_instance.attributes.keys.without(*(translated_columns + %w(updated_at)).map(&:to_s)) -%>
 <% attrs.each do |attribute| -%>
-      th= sort_link(@search, :<%= attribute -%>)
+      th= list_sort_link(:<%= attribute -%>)
 <% end -%>
       th= t 'admin.table.actions'
   tbody

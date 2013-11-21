@@ -2,16 +2,16 @@ table.table.table-striped.index_table#list
   thead
     tr.pjax_links
       = batch_action_toggle
-      th= sort_link(@search, :id)
-      th= sort_link(@search, :email)
+      th= list_sort_link(:id)
+      th= list_sort_link(:email)
       th= ha :avatar
-      th= sort_link(@search, :user_role_id)
-      th= sort_link(@search, :trust_state)
-      th= sort_link(@search, :first_name)
-      th= sort_link(@search, :last_name)
-      th= sort_link(@search, :phone)
-      th= sort_link(@search, :skype)
-      th= sort_link(@search, :created_at)
+      th= list_sort_link(:user_role_id)
+      th= list_sort_link(:trust_state)
+      th= list_sort_link(:first_name)
+      th= list_sort_link(:last_name)
+      th= list_sort_link(:phone)
+      th= list_sort_link(:skype)
+      th= list_sort_link(:created_at)
       th=t 'admin.table.actions'
   tbody
     - collection.each do |item|
