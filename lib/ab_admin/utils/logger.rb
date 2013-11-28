@@ -2,17 +2,17 @@ module AbAdmin
   module Utils
     module Logger
 
-      class ShortFormatter < ::Logger::Formatter
-        def call(severity, time, progname, msg)
-          "[#{time.strftime('%Y-%m-%dT%H:%M:%S')}] #{msg}\n"
+      class ExtendedLogger < ::Logger
+        def exception(e, options={})
+          message = "#{e.message} #{"DATA:#{options[:data].inspect}" if options && options[:data]}"
+          backtrace = e.backtrace.map { |l| "#{' ' * 2}#{l}" }.join("\n")
+          error("#{message}\n#{backtrace}\n\n")
         end
       end
 
       def self.for_file(filename)
-        logfile = File.open(Rails.root.join('log', filename), 'a+')
-        logfile.sync = true
-        logger = ::Logger.new(logfile)
-        logger.formatter = ShortFormatter.new
+        logger = ExtendedLogger.new(Rails.root.join('log', filename))
+        logger.formatter = ::Logger::Formatter.new
         logger
       end
 

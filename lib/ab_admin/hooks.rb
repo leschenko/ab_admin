@@ -12,6 +12,7 @@ YAML::ENGINE.yamler = 'psych'
 ::SimpleForm.wrapper_mappings[:capture_block] = AbAdmin::Views::ContentOnlyWrapper.instance
 
 Time::DATE_FORMATS[:api] = '%d.%m.%Y'
+Time::DATE_FORMATS[:path] = '%Y_%m_%d_%H_%M_%S'
 Time::DATE_FORMATS[:compare] = '%Y%m%d%H%M'
 Time::DATE_FORMATS[:compare_date] = Date::DATE_FORMATS[:compare_date] = '%Y%m%d'
 
