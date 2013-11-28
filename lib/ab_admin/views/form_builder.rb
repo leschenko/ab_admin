@@ -65,7 +65,7 @@ module AbAdmin
 
       def link_to_add_assoc(assoc, options={})
         model = @object.class.reflect_on_association(assoc).klass
-        title = [@template.icon('plus', true), I18n.t('admin.add'), model.model_name.human].join(' ').html_safe
+        title = [@template.icon('plus', true), I18n.t('admin.add'), options[:title] || model.model_name.human].join(' ').html_safe
         link_to_add title, assoc, class: "btn btn-primary #{options[:class]}"
       end
 
