@@ -3,10 +3,6 @@ module AbAdmin
   module Views
     module Helpers
 
-      def pjax?
-        request.headers['X-PJAX']
-      end
-
       def admin?
         user_signed_in? && current_user.admin?
       end

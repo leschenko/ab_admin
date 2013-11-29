@@ -17,7 +17,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?
 
   #respond_to :json
 
