@@ -6,17 +6,19 @@ $ ->
       e.preventDefault()
       container = $(this).data('pjax-container')
       unless container
-        table = $(this).closest('table.index_table')
+        table = $(this).closest('table.index_table:not(#list)')
         if table[0]
           container = "##{table.attr('id')}"
         else
           container = '[data-pjax-container]'
 
+      main_pjax_wrap = container == '[data-pjax-container]'
       $.pjax
         container: container
         url: $(this).data('href') || $(this).attr('href')
         timeout: 50000
-        push: container == '#list'
+        push: main_pjax_wrap
+        scrollTo: main_pjax_wrap
     else if $(this).data('href')
       e.preventDefault()
       window.location = $(this).data('href')
