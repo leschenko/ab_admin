@@ -11,6 +11,8 @@ module AbAdmin
       include ::CarrierWave::MimeTypes
       include AbAdmin::Utils::EvalHelpers
 
+      before :cache, :save_original_name
+
       storage :file
 
       process :set_content_type
@@ -22,6 +24,22 @@ module AbAdmin
       end
 
       process :set_model_info
+
+      def save_original_name(file)
+        model.original_name ||= file.original_filename if file.respond_to?(:original_name)
+      end
+
+      def secure_token
+        model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20)
+      end
+
+      def full_filename(for_file)
+        "#{version_name || model.data_secure_token}_#{model.data_file_name || filename}"
+      end
+
+      def full_original_filename
+        "#{version_name || model.data_secure_token}_#{model.data_file_name || filename}"
+      end
 
       # default store assets path
       def store_dir
