@@ -19,12 +19,14 @@ class CreateAssets < ActiveRecord::Migration
 
       t.boolean :is_main, default: false, null: false
       t.string  :original_name
+      t.string  :data_secure_token, limit: 20
 
       t.timestamps
     end
     
     add_index :assets, [:assetable_type, :type, :assetable_id]
     add_index :assets, :guid
+    add_index :assets, :data_secure_token
     add_index :assets, :user_id
   end
 end
