@@ -38,6 +38,10 @@ module AbAdmin
         end
       end
 
+      def build_file_name
+        nil
+      end
+
       def thumb_url
         data.url(self.thumb_size) if image?
       end

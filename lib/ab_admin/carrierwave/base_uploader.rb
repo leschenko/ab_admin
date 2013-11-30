@@ -11,6 +11,9 @@ module AbAdmin
       include ::CarrierWave::MimeTypes
       include AbAdmin::Utils::EvalHelpers
 
+      class_attribute :transliterate
+      self.transliterate = true
+
       before :cache, :save_original_name
 
       storage :file
@@ -26,19 +29,41 @@ module AbAdmin
       process :set_model_info
 
       def save_original_name(file)
-        model.original_name ||= file.original_filename if file.respond_to?(:original_name)
+        model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
-      def secure_token
-        model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20)
-      end
-
+      # version name to the end
       def full_filename(for_file)
-        "#{version_name || model.data_secure_token}_#{model.data_file_name || filename}"
+        parent_name = transliterated_filename
+        ext = File.extname(parent_name)
+        base_name = parent_name.chomp(ext)
+        [base_name, version_name || secure_token].compact.join('_') + ext
       end
 
+      # version name to the end
       def full_original_filename
-        "#{version_name || model.data_secure_token}_#{model.data_file_name || filename}"
+        parent_name = transliterated_filename
+        ext = File.extname(parent_name)
+        base_name = parent_name.chomp(ext)
+        [base_name, version_name || secure_token].compact.join('_') + ext
+      end
+
+      # transliterate original filename
+      def transliterated_filename
+        base_name = model.data_file_name || filename
+        return base_name unless transliterate
+        I18n.transliterate(base_name).downcase
+      end
+
+      # use secure token in the filename for non cropped image
+      def secure_token
+        model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
+      end
+
+      # allow to build custom filename
+      def filename
+        custom_file_name = model.build_file_name
+        custom_file_name ? custom_file_name + File.extname(super) : super
       end
 
       # default store assets path
