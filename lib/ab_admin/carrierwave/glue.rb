@@ -5,7 +5,7 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       module ClassMethods
-        def sunrise_uploader(uploader=nil, options={}, &block)
+        def ab_admin_uploader(uploader=nil, options={}, &block)
           options = { mount_on: :data_file_name }.merge(options)
           
           mount_uploader(:data, uploader, options, &block)
