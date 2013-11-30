@@ -27,7 +27,7 @@ class UploaderSpecModel < RspecActiveModelBase
 end
 
 
-describe AbAdmin::CarrierWave::BaseUploader, focus: true do
+describe AbAdmin::CarrierWave::BaseUploader do
   describe '#full_original_filename' do
     before do
       @uploader = AbAdmin::CarrierWave::BaseUploader.new

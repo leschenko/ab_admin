@@ -36,7 +36,7 @@ describe Avatar do
 
   context 'after create' do
     before(:each) do
-      @avatar = create(:asset_avatar)
+      @avatar = create(:asset_avatar, data_secure_token: 'abc')
     end
 
     it 'filename should be valid' do
@@ -67,8 +67,8 @@ describe Avatar do
     end
 
     it 'urls should be valid' do
-      @avatar.url.should == "/uploads/#{@avatar.class.to_s.underscore}/#{@avatar.id}/rails.png"
-      @avatar.thumb_url.should == "/uploads/#{@avatar.class.to_s.underscore}/#{@avatar.id}/thumb_rails.png"
+      @avatar.url.should == "/uploads/#{@avatar.class.to_s.underscore}/#{@avatar.id}/rails_abc.png"
+      @avatar.thumb_url.should == "/uploads/#{@avatar.class.to_s.underscore}/#{@avatar.id}/rails_thumb.png"
       @avatar.data.default_url.should == '/assets/defaults/avatar.png'
     end
   end
