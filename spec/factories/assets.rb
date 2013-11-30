@@ -31,6 +31,10 @@ FactoryGirl.define do
     end
   end
 
+  factory :product_image, class: Avatar do
+    data File.open(File.expand_path('../files/rails.png', __FILE__))
+  end
+
   factory :asset_avatar_big, class: Avatar do
     data File.open(File.expand_path('../files/silicon_valley.jpg', __FILE__))
     association :assetable, factory: :default_user
