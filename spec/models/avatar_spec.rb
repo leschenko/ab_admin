@@ -27,7 +27,7 @@ describe Avatar do
     end
 
     # wget https://dl.dropbox.com/u/48737256/silicon_valley.jpg -P spec/factories/files
-    it 'should not be valid with big size image' do
+    it 'should not be valid with big size image', slow: true do
       @avatar = build(:asset_avatar_big)
       @avatar.should_not be_valid
       @avatar.errors[:data].first.should =~ /is\stoo\sbig/
@@ -113,7 +113,6 @@ describe Avatar do
       @avatar.rename!
       @avatar.data_file_name.should_not == old_name
     end
-
   end
 
   context 'rotation' do

@@ -17,7 +17,7 @@ class UploaderSpecImage < Asset
     'abc'
   end
 
-  def build_file_name
+  def build_file_name(_)
     return unless is_main
     'custom_file_name'
   end
@@ -28,21 +28,6 @@ end
 
 
 describe AbAdmin::CarrierWave::BaseUploader do
-  describe '#full_original_filename' do
-    before do
-      @uploader = AbAdmin::CarrierWave::BaseUploader.new
-    end
-
-    around do |example|
-      I18n.with_locale(:ru) { example.run }
-    end
-
-    it 'transliterate names' do
-      @uploader.stub(:model).and_return(double('model', data_file_name: 'Тест.png', data_secure_token: 'abc'))
-      @uploader.full_original_filename.should == 'test_abc.png'
-    end
-  end
-
   context 'with models' do
     before :all do
       UploaderSpecImageUploader.enable_processing = true
@@ -68,6 +53,7 @@ describe AbAdmin::CarrierWave::BaseUploader do
       it 'include secure_token' do
         @image = create(:uploader_spec_image, assetable: @assetable)
         File.basename(@image.data.url).should == 'a_i_b_abc.png'
+        File.basename(@image.reload.data.url).should == 'a_i_b_abc.png'
       end
 
       it 'filename with special characters' do
@@ -78,10 +64,12 @@ describe AbAdmin::CarrierWave::BaseUploader do
 
     describe 'build custom image name' do
       it 'include secure_token' do
-        @image = create(:uploader_spec_image, assetable: @assetable, is_main: true)
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
         File.basename(@image.data.url).should == 'custom_file_name_abc.png'
+        @image = @image.class.find(@image.id)
+        File.basename(@image.reload.data.url).should == 'custom_file_name_abc.png'
       end
     end
-  end
 
+  end
 end

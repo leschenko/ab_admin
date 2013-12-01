@@ -12,6 +12,11 @@ module AbAdmin
           
           validates_processing_of :data
         end
+
+        def sunrise_uploader(*args)
+          ActiveSupport::Deprecation.warn('`sunrise_uploader` is deprecated, use `ab_admin_uploader` instead')
+          ab_admin_uploader(*args)
+        end
         
         def validates_filesize_of(*attr_names)
           validates_with FileSizeValidator, _merge_attributes(attr_names)

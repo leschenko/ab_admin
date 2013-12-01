@@ -32,38 +32,37 @@ module AbAdmin
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
-      # version name to the end
       def full_filename(for_file)
-        parent_name = transliterated_filename
-        ext = File.extname(parent_name)
-        base_name = parent_name.chomp(ext)
-        [base_name, version_name || secure_token].compact.join('_') + ext
+        build_file_name for_file || filename
+      end
+
+      def full_original_filename
+        build_file_name
+      end
+
+      def filename
+        model.data_file_name || normalized_filename(super)
       end
 
       # version name to the end
-      def full_original_filename
-        parent_name = transliterated_filename
-        ext = File.extname(parent_name)
-        base_name = parent_name.chomp(ext)
-        [base_name, version_name || secure_token].compact.join('_') + ext
+      def build_file_name(base_file_name=filename)
+        ext = File.extname(base_file_name)
+        [base_file_name.chomp(ext), version_name || secure_token].compact.join('_') + ext
       end
 
       # transliterate original filename
-      def transliterated_filename
-        base_name = model.data_file_name || filename
-        return base_name unless transliterate
-        I18n.transliterate(base_name).downcase
+      # allow to build custom filename
+      def normalized_filename(base_filename)
+        @transliterated_filename ||= begin
+          custom_file_name = model.build_file_name(base_filename)
+          result_filename = custom_file_name ? custom_file_name + File.extname(base_filename) : base_filename
+          transliterate ? I18n.transliterate(result_filename).downcase : result_filename
+        end
       end
 
       # use secure token in the filename for non cropped image
       def secure_token
         model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
-      end
-
-      # allow to build custom filename
-      def filename
-        custom_file_name = model.build_file_name
-        custom_file_name ? custom_file_name + File.extname(super) : super
       end
 
       # default store assets path

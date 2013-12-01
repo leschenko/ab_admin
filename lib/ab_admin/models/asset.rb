@@ -38,7 +38,8 @@ module AbAdmin
         end
       end
 
-      def build_file_name
+      # allow to build custom file name for file
+      def build_file_name(base_filename)
         nil
       end
 
@@ -56,8 +57,7 @@ module AbAdmin
 
       def as_json(options = nil)
         options = {
-            only: [:id, :guid, :assetable_id, :assetable_type, :user_id,
-                      :data_file_size, :data_content_type, :is_main, :original_name],
+            only: [:id, :guid, :assetable_id, :assetable_type, :user_id, :data_file_size, :data_content_type, :is_main, :original_name],
             root: 'asset',
             methods: [:filename, :url, :thumb_url, :width, :height]
         }.merge(options || {})
@@ -105,7 +105,9 @@ module AbAdmin
         file = data.file
         path = data.path
         ext = File.extname(path)
-        new_path = File.join(File.dirname(path), "#{File.basename(path).chomp(ext)}_#{rand(99)}#{ext}")
+
+        self.data_file_name = [data_file_name.chomp(ext), rand(99), ext].join('_')
+        new_path = File.join(File.dirname(path), data_file_name)
         new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
         data.cache!(new_file)
       end
