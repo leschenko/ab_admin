@@ -25,6 +25,10 @@ module AbAdmin
         kind == StructureType.redirect.id
       end
 
+      def admin_title
+        [title, structure_type.title, position_type.title, "#{self.class.han(:is_visible)}: #{is_visible ? '+' : '-'}"].join(' | ')
+      end
+
     end
   end
 end

@@ -17,7 +17,7 @@ class Admin::StructuresController < Admin::BaseController
   end
 
   def tree_node_renderer
-    @tree_node_renderer ||= lambda { |r| link_to r.title, edit_structure_record_path(r), class: 'tree-item_link' }
+    @tree_node_renderer ||= lambda { |r| link_to r.admin_title, edit_structure_record_path(r), class: 'tree-item_link' }
   end
 
   def settings
