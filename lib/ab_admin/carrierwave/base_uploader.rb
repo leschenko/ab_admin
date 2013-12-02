@@ -23,9 +23,27 @@ module AbAdmin
 
       process :set_model_info
 
+      # use secure token in the filename for non cropped image
+      def secure_token
+        model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
+      end
+
+      # prevent large number of subdirectories
+      # up to 1 million files
+      def tree_store_dir
+        str_id = model.id.to_s.rjust(9, '0')
+        id_sub_dirs = [0..2, 3..5, 6..8].map { |r| str_id.to_s[r] }.join('/')
+        "uploads/#{model.class.to_s.underscore}/#{id_sub_dirs}"
+      end
+
+      # plain store assets path
+      def plain_store_dir
+        "uploads/#{model.class.to_s.underscore}/#{model.id}"
+      end
+
       # default store assets path
       def store_dir
-        "uploads/#{model.class.to_s.underscore}/#{model.id}"
+        plain_store_dir
       end
 
       # Strips out all embedded information from the image
