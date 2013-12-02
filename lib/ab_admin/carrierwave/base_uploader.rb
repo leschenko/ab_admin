@@ -29,11 +29,9 @@ module AbAdmin
       end
 
       # prevent large number of subdirectories
-      # up to 1 million files
       def tree_store_dir
-        str_id = model.id.to_s.rjust(9, '0')
-        id_sub_dirs = [0..2, 3..5, 6..8].map { |r| str_id.to_s[r] }.join('/')
-        "uploads/#{model.class.to_s.underscore}/#{id_sub_dirs}"
+        str_id = model.id.to_s.rjust(6, '0')
+        "uploads/#{model.class.to_s.underscore}/#{str_id[0..2]}/#{str_id[3..-1]}"
       end
 
       # plain store assets path
