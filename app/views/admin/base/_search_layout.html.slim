@@ -2,7 +2,7 @@
 #toggle_sidebar_on.btn.btn-large = icon('chevron-right')
 h3= t('admin.search.title')
 = search_admin_form_for @search, url: collection_path do |f|
-  - cache [I18n.locale, 'search_form_inside', resource_class.name, params[:q].hash] do
+  - cache [I18n.locale, 'search_form_inside', resource_class.name, params[:q].hash, current_user.user_role_id] do
     = render 'search_form', f: f
     br
     div
