@@ -59,7 +59,6 @@ module AbAdmin
         new_file_name = model_filename(old_file_name)
         return if new_file_name.blank? || new_file_name == old_file_name
         rename_via_move new_file_name
-        write_model_identifier new_file_name
         new_file_name
       end
 
@@ -75,6 +74,7 @@ module AbAdmin
 
       def write_model_identifier(model_identifier)
         self.model_identifier = model_identifier
+        versions.values.each{|v| v.model_identifier = model_identifier }
       end
 
       # transliterate original filename
@@ -91,21 +91,23 @@ module AbAdmin
         for_move = []
         for_move << [File.join(dir, full_filename), File.join(dir, full_filename(new_file_name))]
         self.class.versions.keys.each do |version_name|
-          self.class.version_names = [version_name]
-          for_move << [File.join(dir, full_filename), File.join(dir, full_filename(new_file_name))]
+          for_move << [File.join(dir, File.basename(url(version_name))), File.join(dir, full_filename(new_file_name))]
         end
         for_move.each { |move| FileUtils.mv(move[0], move[1]) }
 
-        self.class.version_names = nil
+        write_model_identifier new_file_name
+        model.send("write_#{mounted_as}_identifier")
+        retrieve_from_store!(filename)
+        new_file_name
       end
 
-      # rename files via process
-      def rename_via_process(new_file_name)
-        self.model_identifier = new_file_name
-        new_path = File.join(File.dirname(path), model_identifier)
-        new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
-        cache!(new_file)
-      end
+      ## rename files via process
+      #def rename_via_process(new_file_name)
+      #  self.model_identifier = new_file_name
+      #  new_path = File.join(File.dirname(path), model_identifier)
+      #  new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
+      #  cache!(new_file)
+      #end
 
       private :write_model_identifier, :db_filename, :store_filename, :model_filename
 

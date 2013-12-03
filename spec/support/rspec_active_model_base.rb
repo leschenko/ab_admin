@@ -6,7 +6,7 @@ class RspecActiveModelBase
   define_model_callbacks :commit
 
   attr_reader :attributes
-  attr_accessor :id, :created_at
+  attr_accessor :id, :updated_at, :created_at
 
   class_attribute :primary_key, :base_class
   self.primary_key = :id
@@ -41,5 +41,9 @@ class RspecActiveModelBase
 
   def destroyed?
     !!@destroyed
+  end
+
+  def touch
+    @updated_at = Time.current
   end
 end

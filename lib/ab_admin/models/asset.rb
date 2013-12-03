@@ -101,8 +101,7 @@ module AbAdmin
       end
 
       def rename!
-        data.rename_via_process("#{Time.now.to_i}#{File.extname(data_file_name)}")
-        save!
+        data.rename_via_move "#{rand(9999)}#{File.extname(data_file_name)}"
       end
 
       def refresh_assetable

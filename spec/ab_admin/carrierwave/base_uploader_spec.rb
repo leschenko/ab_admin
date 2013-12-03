@@ -2,7 +2,7 @@ require 'spec_helper'
 
 class UploaderSpecImageUploader < AbAdmin::CarrierWave::BaseUploader
   version :thumb do
-    process resize_to_fill: [80, 80]
+    process resize_to_fill: [40, 40]
   end
 end
 
@@ -29,68 +29,89 @@ end
 
 
 describe AbAdmin::CarrierWave::BaseUploader do
-  context 'with models' do
-    before :all do
-      UploaderSpecImageUploader.enable_processing = true
-      @assetable = UploaderSpecModel.new(id: 1)
-    end
-
-    after :all do
-      UploaderSpecImageUploader.enable_processing = false
-    end
-
-    around do |example|
-      I18n.with_locale(:ru) { example.run }
-    end
-
-    describe '#store_dir' do
-      it 'create subdirectories from id' do
-        @image = create(:uploader_spec_image, id: 12345678, assetable: @assetable)
-        @image.data.store_dir.should == 'uploads/uploader_spec_image/123/45678'
-      end
-
-      it 'create subdirectories from id 2' do
-        @image = create(:uploader_spec_image, id: 1, assetable: @assetable)
-        @image.data.store_dir.should == 'uploads/uploader_spec_image/000/1'
-      end
-    end
-
-
-    describe 'original filename' do
-      it 'stored in original_name field' do
-        @image = create(:uploader_spec_image, assetable: @assetable)
-        @image.original_name.should == 'А и б.png'
-      end
-    end
-
-    describe 'full image name' do
-      it 'include secure_token' do
-        @image = create(:uploader_spec_image, assetable: @assetable)
-        File.basename(@image.data.url).should == 'abc.png'
-        File.basename(@image.reload.data.url).should == 'abc.png'
-      end
-    end
-
-    describe 'build custom image name' do
-      after do
-        UploaderSpecImage.stub_build_filename = nil
-      end
-
-      it 'include secure_token' do
-        @image = create(:main_uploader_spec_image, assetable: @assetable)
-        @image.store_model_filename
-        File.basename(@image.data.url).should == 'custom_filename_abc.png'
-        @image.data.file.exists?.should be_true
-        File.basename(@image.class.find(@image.id).data.url).should == 'custom_filename_abc.png'
-      end
-
-      it 'include secure_token' do
-        UploaderSpecImage.stub_build_filename = 'Тест . - + ='
-        @image = create(:main_uploader_spec_image, assetable: @assetable)
-        @image.store_model_filename
-        File.basename(@image.data.url).should == 'test_-_abc.png'
-      end
-    end
-
+  before :all do
+    UploaderSpecImageUploader.enable_processing = true
+    @assetable = UploaderSpecModel.new(id: 1)
   end
+
+  after :all do
+    UploaderSpecImageUploader.enable_processing = false
+  end
+
+  around do |example|
+    I18n.with_locale(:ru) { example.run }
+  end
+
+  describe '#store_dir' do
+    it 'create subdirectories from id' do
+      @image = create(:uploader_spec_image, id: 12345678, assetable: @assetable)
+      @image.data.store_dir.should == 'uploads/uploader_spec_image/123/45678'
+    end
+
+    it 'create subdirectories from id 2' do
+      @image = create(:uploader_spec_image, id: 1, assetable: @assetable)
+      @image.data.store_dir.should == 'uploads/uploader_spec_image/000/1'
+    end
+  end
+
+
+  describe 'original filename' do
+    it 'stored in original_name field' do
+      @image = create(:uploader_spec_image, assetable: @assetable)
+      @image.original_name.should == 'А и б.png'
+    end
+  end
+
+  describe 'full image name' do
+    it 'include secure_token' do
+      @image = create(:uploader_spec_image, assetable: @assetable)
+      File.basename(@image.data.url).should == 'abc.png'
+      File.basename(@image.reload.data.url).should == 'abc.png'
+    end
+  end
+
+  describe 'build custom image name' do
+    after do
+      UploaderSpecImage.stub_build_filename = nil
+    end
+
+    it 'include secure_token' do
+      @image = create(:main_uploader_spec_image, assetable: @assetable)
+      @image.store_model_filename
+      File.basename(@image.data.url).should == 'custom_filename_abc.png'
+      @image.data.file.exists?.should be_true
+      File.basename(@image.class.find(@image.id).data.url).should == 'custom_filename_abc.png'
+    end
+
+    it 'include secure_token' do
+      UploaderSpecImage.stub_build_filename = 'Тест . - + ='
+      @image = create(:main_uploader_spec_image, assetable: @assetable)
+      @image.store_model_filename
+      File.basename(@image.data.url).should == 'test_-_abc.png'
+    end
+  end
+
+  describe '#rename!' do
+    it 'rename file via move' do
+      @image = create(:main_uploader_spec_image, assetable: @assetable)
+      File.basename(@image.data.url(:thumb)).should == 'thumb.png'
+      new_name = @image.rename!
+      @image.save!
+      @image = @image.class.find(@image.id)
+      File.basename(@image.data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
+    end
+  end
+
+  describe '#crop!' do
+    it 'cropped file name', focus: true do
+      @image = create(:main_uploader_spec_image, assetable: @assetable)
+      File.basename(@image.data.url(:thumb)).should == 'thumb.png'
+      @image.crop!('10,10,5,5')
+      @image = @image.class.find(@image.id)
+      @image.data_file_name.should =~ /\d{1,4}\.png/
+      File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
+    end
+  end
+
 end
+

@@ -52,6 +52,7 @@ module AbAdmin
     autoload :Validations, 'ab_admin/concerns/validations'
     autoload :Reloadable, 'ab_admin/concerns/reloadable'
     autoload :HasTracking, 'ab_admin/concerns/has_tracking'
+    autoload :AssetHumanNames, 'ab_admin/concerns/asset_human_names'
   end
 
   module Controllers
