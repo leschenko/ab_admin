@@ -13,12 +13,14 @@ class UploaderSpecImage < Asset
   validates_integrity_of :data
   validates_filesize_of :data, maximum: 1.megabyte
 
+  class_attribute :stub_build_filename
+
   def data_secure_token
     'abc'
   end
 
   def build_filename(_)
-    'custom_file_name'
+    stub_build_filename || 'custom_filename'
   end
 end
 
@@ -26,7 +28,7 @@ class UploaderSpecModel < RspecActiveModelBase
 end
 
 
-describe AbAdmin::CarrierWave::BaseUploader, focus: true do
+describe AbAdmin::CarrierWave::BaseUploader do
   context 'with models' do
     before :all do
       UploaderSpecImageUploader.enable_processing = true
@@ -70,15 +72,23 @@ describe AbAdmin::CarrierWave::BaseUploader, focus: true do
     end
 
     describe 'build custom image name' do
-      it 'include secure_token' do
-        @image = create(:main_uploader_spec_image, assetable: @assetable)
-        File.basename(@image.data.url).should == 'abc.png'
-        File.basename(@image.class.find(@image.id).data.url).should == 'abc.png'
+      after do
+        UploaderSpecImage.stub_build_filename = nil
       end
 
-      it 'filename with special characters' do
-        @image = create(:uploader_spec_image, :bad_filename, assetable: @assetable)
-        File.basename(@image.data.url).should == 'abc.png'
+      it 'include secure_token' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        @image.store_model_filename
+        File.basename(@image.data.url).should == 'custom_filename_abc.png'
+        @image.data.file.exists?.should be_true
+        File.basename(@image.class.find(@image.id).data.url).should == 'custom_filename_abc.png'
+      end
+
+      it 'include secure_token' do
+        UploaderSpecImage.stub_build_filename = 'Тест . - + ='
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        @image.store_model_filename
+        File.basename(@image.data.url).should == 'test_-_abc.png'
       end
     end
 

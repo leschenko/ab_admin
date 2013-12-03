@@ -34,10 +34,10 @@ module AbAdmin
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
-      def full_filename(_)
-        if db_filename.present?
-          ext = File.extname(db_filename)
-          human_filename_part = db_filename.chomp(ext)
+      def full_filename(for_file=db_filename)
+        if for_file.present?
+          ext = File.extname(for_file)
+          human_filename_part = for_file.chomp(ext)
           tech_filename_part = "#{version_name || secure_token}#{ext}"
           human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
         else
@@ -64,17 +64,16 @@ module AbAdmin
 
       alias_method :store_filename, :filename
 
-      def db_filename
-        model_identifier || model.send("#{mounted_as}_file_name")
-      end
-
       def filename
         model_identifier || "#{secure_token}#{File.extname(store_filename)}"
       end
 
+      def db_filename
+        model_identifier || model.send("#{mounted_as}_file_name")
+      end
+
       def write_model_identifier(model_identifier)
         self.model_identifier = model_identifier
-        save
       end
 
       # transliterate original filename
@@ -87,17 +86,19 @@ module AbAdmin
 
       # rename files via move
       def rename_via_move(new_file_name)
-        dir = File.dirname(data.path)
+        dir = File.dirname(path)
         for_move = []
-        for_move << [File.join(dir, full_filename(for_file)), File.join(dir, full_filename(new_file_name))]
-        data.class.versions.keys.each do |version_name|
+        for_move << [File.join(dir, full_filename), File.join(dir, full_filename(new_file_name))]
+        self.class.versions.keys.each do |version_name|
           self.class.version_names = [version_name]
-          for_move << [File.join(dir, full_filename(for_file)), File.join(dir, full_filename(new_file_name))]
+          for_move << [File.join(dir, full_filename), File.join(dir, full_filename(new_file_name))]
         end
         for_move.each { |move| FileUtils.mv(move[0], move[1]) }
 
         self.class.version_names = nil
       end
+
+      private :write_model_identifier, :db_filename, :store_filename, :model_filename
 
       # prevent large number of subdirectories
       def store_dir

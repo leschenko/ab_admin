@@ -12,10 +12,6 @@ FactoryGirl.define do
       instance.data_content_type ||= 'image/png'
     end
 
-    trait :bad_filename do
-      data File.open(File.expand_path('../files/Тест : \n . - +.png', __FILE__))
-    end
-
     factory :uploader_spec_image, traits: [:with_file]
     factory :main_uploader_spec_image, traits: [:main_image, :with_file]
   end
