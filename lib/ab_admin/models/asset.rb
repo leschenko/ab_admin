@@ -39,8 +39,7 @@ module AbAdmin
       end
 
       def store_model_filename
-        data.store_model_filename
-        save!(validate: false)
+        data.store_model_filename and save!(validate: false)
       end
 
       # allow to build custom human file name
@@ -102,19 +101,8 @@ module AbAdmin
       end
 
       def rename!
-        rename
+        data.rename_via_process("#{rand(99)}#{File.extname(data_file_name)}")
         save!
-      end
-
-      def rename
-        file = data.file
-        path = data.path
-        ext = File.extname(path)
-
-        data.model_identifier = [data_file_name.chomp(ext), rand(99), ext].join('_')
-        new_path = File.join(File.dirname(path), data.model_identifier)
-        new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
-        data.cache!(new_file)
       end
 
       def refresh_assetable

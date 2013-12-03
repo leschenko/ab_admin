@@ -60,6 +60,7 @@ module AbAdmin
         return if new_file_name.blank? || new_file_name == old_file_name
         rename_via_move new_file_name
         write_model_identifier new_file_name
+        new_file_name
       end
 
       alias_method :store_filename, :filename
@@ -96,6 +97,14 @@ module AbAdmin
         for_move.each { |move| FileUtils.mv(move[0], move[1]) }
 
         self.class.version_names = nil
+      end
+
+      # rename files via process
+      def rename_via_process(new_file_name)
+        data.model_identifier = full_filename(new_file_name)
+        new_path = File.join(File.dirname(path), data.model_identifier)
+        new_file = ::CarrierWave::SanitizedFile.new data.file.move_to(new_path)
+        data.cache!(new_file)
       end
 
       private :write_model_identifier, :db_filename, :store_filename, :model_filename
