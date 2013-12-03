@@ -14,6 +14,8 @@ module AbAdmin
       class_attribute :transliterate
       self.transliterate = true
 
+      attr_accessor :model_identifier
+
       before :cache, :save_original_name
 
       storage :file
@@ -32,42 +34,75 @@ module AbAdmin
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
-      def full_filename(for_file)
-        build_file_name for_file || filename
-      end
-
-      def full_original_filename
-        build_file_name
-      end
-
-      def filename
-        model.data_file_name || normalized_filename(super)
-      end
-
-      # version name to the end
-      def build_file_name(base_file_name=filename)
-        ext = File.extname(base_file_name)
-        [base_file_name.chomp(ext), version_name || secure_token].compact.join('_') + ext
-      end
-
-      # transliterate original filename
-      # allow to build custom filename
-      def normalized_filename(base_filename)
-        @transliterated_filename ||= begin
-          custom_file_name = model.build_file_name(base_filename)
-          result_filename = custom_file_name ? custom_file_name + File.extname(base_filename) : base_filename
-          transliterate ? I18n.transliterate(result_filename).downcase : result_filename
+      def full_filename(_)
+        if db_filename.present?
+          ext = File.extname(db_filename)
+          human_filename_part = db_filename.chomp(ext)
+          tech_filename_part = "#{version_name || secure_token}#{ext}"
+          human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
+        else
+          "#{version_name || secure_token}#{File.extname(store_filename)}"
         end
       end
 
-      # use secure token in the filename for non cropped image
+      def full_original_filename
+        "#{version_name || secure_token}#{File.extname(store_filename)}"
+      end
+
+      # use secure token in the filename for non processed image
       def secure_token
         model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
       end
 
-      # default store assets path
+      def store_model_filename
+        old_file_name = db_filename
+        new_file_name = model_filename(old_file_name)
+        return if !new_file_name && new_file_name == old_file_name
+        rename_via_move new_file_name
+        write_model_identifier new_file_name
+      end
+
+      alias_method :store_filename, :filename
+
+      def db_filename
+        model_identifier || model.send("#{mounted_as}_file_name")
+      end
+
+      def filename
+        model_identifier || "#{secure_token}#{File.extname(store_filename)}"
+      end
+
+      def write_model_identifier(model_identifier)
+        self.model_identifier = model_identifier
+        save
+      end
+
+      # transliterate original filename
+      # allow to build custom filename
+      def model_filename(base_filename)
+        custom_file_name = model.build_filename(base_filename)
+        return unless custom_file_name
+        I18n.transliterate(custom_file_name).parameterize('_').downcase + File.extname(base_filename)
+      end
+
+      # rename files via move
+      def rename_via_move(new_file_name)
+        dir = File.dirname(data.path)
+        for_move = []
+        for_move << [File.join(dir, full_filename(for_file)), File.join(dir, full_filename(new_file_name))]
+        data.class.versions.keys.each do |version_name|
+          self.class.version_names = [version_name]
+          for_move << [File.join(dir, full_filename(for_file)), File.join(dir, full_filename(new_file_name))]
+        end
+        for_move.each { |move| FileUtils.mv(move[0], move[1]) }
+
+        self.class.version_names = nil
+      end
+
+      # prevent large number of subdirectories
       def store_dir
-        "uploads/#{model.class.to_s.underscore}/#{model.id}"
+        str_id = model.id.to_s.rjust(4, '0')
+        "uploads/#{model.class.to_s.underscore}/#{str_id[0..2]}/#{str_id[3..-1]}"
       end
 
       # Strips out all embedded information from the image

@@ -17,8 +17,7 @@ class UploaderSpecImage < Asset
     'abc'
   end
 
-  def build_file_name(_)
-    return unless is_main
+  def build_filename(_)
     'custom_file_name'
   end
 end
@@ -27,7 +26,7 @@ class UploaderSpecModel < RspecActiveModelBase
 end
 
 
-describe AbAdmin::CarrierWave::BaseUploader do
+describe AbAdmin::CarrierWave::BaseUploader, focus: true do
   context 'with models' do
     before :all do
       UploaderSpecImageUploader.enable_processing = true
@@ -42,6 +41,19 @@ describe AbAdmin::CarrierWave::BaseUploader do
       I18n.with_locale(:ru) { example.run }
     end
 
+    describe '#store_dir' do
+      it 'create subdirectories from id' do
+        @image = create(:uploader_spec_image, id: 12345678, assetable: @assetable)
+        @image.data.store_dir.should == 'uploads/uploader_spec_image/123/45678'
+      end
+
+      it 'create subdirectories from id 2' do
+        @image = create(:uploader_spec_image, id: 1, assetable: @assetable)
+        @image.data.store_dir.should == 'uploads/uploader_spec_image/000/1'
+      end
+    end
+
+
     describe 'original filename' do
       it 'stored in original_name field' do
         @image = create(:uploader_spec_image, assetable: @assetable)
@@ -52,22 +64,21 @@ describe AbAdmin::CarrierWave::BaseUploader do
     describe 'full image name' do
       it 'include secure_token' do
         @image = create(:uploader_spec_image, assetable: @assetable)
-        File.basename(@image.data.url).should == 'a_i_b_abc.png'
-        File.basename(@image.reload.data.url).should == 'a_i_b_abc.png'
-      end
-
-      it 'filename with special characters' do
-        @image = create(:uploader_spec_image, :bad_filename, assetable: @assetable)
-        File.basename(@image.data.url).should == 'n_._-_+_abc.png'
+        File.basename(@image.data.url).should == 'abc.png'
+        File.basename(@image.reload.data.url).should == 'abc.png'
       end
     end
 
     describe 'build custom image name' do
       it 'include secure_token' do
         @image = create(:main_uploader_spec_image, assetable: @assetable)
-        File.basename(@image.data.url).should == 'custom_file_name_abc.png'
-        @image = @image.class.find(@image.id)
-        File.basename(@image.reload.data.url).should == 'custom_file_name_abc.png'
+        File.basename(@image.data.url).should == 'abc.png'
+        File.basename(@image.class.find(@image.id).data.url).should == 'abc.png'
+      end
+
+      it 'filename with special characters' do
+        @image = create(:uploader_spec_image, :bad_filename, assetable: @assetable)
+        File.basename(@image.data.url).should == 'abc.png'
       end
     end
 

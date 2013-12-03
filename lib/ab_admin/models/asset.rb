@@ -38,8 +38,8 @@ module AbAdmin
         end
       end
 
-      # allow to build custom file name for file
-      def build_file_name(base_filename)
+      # allow to build custom human file name
+      def build_filename(base_filename)
         nil
       end
 
@@ -106,8 +106,8 @@ module AbAdmin
         path = data.path
         ext = File.extname(path)
 
-        self.data_file_name = [data_file_name.chomp(ext), rand(99), ext].join('_')
-        new_path = File.join(File.dirname(path), data_file_name)
+        data.model_identifier = [data_file_name.chomp(ext), rand(99), ext].join('_')
+        new_path = File.join(File.dirname(path), data.model_identifier)
         new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
         data.cache!(new_file)
       end
