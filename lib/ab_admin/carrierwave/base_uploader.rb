@@ -57,7 +57,7 @@ module AbAdmin
       def store_model_filename
         old_file_name = db_filename
         new_file_name = model_filename(old_file_name)
-        return if !new_file_name && new_file_name == old_file_name
+        return if new_file_name.blank? || new_file_name == old_file_name
         rename_via_move new_file_name
         write_model_identifier new_file_name
       end
