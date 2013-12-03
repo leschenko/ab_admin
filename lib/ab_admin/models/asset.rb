@@ -101,7 +101,7 @@ module AbAdmin
       end
 
       def rename!
-        data.rename_via_process("#{rand(99)}#{File.extname(data_file_name)}")
+        data.rename_via_process("#{Time.now.to_i}#{File.extname(data_file_name)}")
         save!
       end
 

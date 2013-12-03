@@ -101,7 +101,7 @@ module AbAdmin
 
       # rename files via process
       def rename_via_process(new_file_name)
-        self.model_identifier = full_filename(new_file_name)
+        self.model_identifier = new_file_name
         new_path = File.join(File.dirname(path), model_identifier)
         new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
         cache!(new_file)
