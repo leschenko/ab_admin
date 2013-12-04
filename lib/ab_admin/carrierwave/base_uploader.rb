@@ -14,7 +14,7 @@ module AbAdmin
       class_attribute :transliterate
       self.transliterate = true
 
-      attr_accessor :model_identifier
+      attr_accessor :internal_identifier
 
       before :cache, :save_original_name
 
@@ -65,16 +65,16 @@ module AbAdmin
       alias_method :store_filename, :filename
 
       def filename
-        model_identifier || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
+        internal_identifier || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
       end
 
       def db_filename
-        model_identifier || model.send("#{mounted_as}_file_name")
+        internal_identifier || model.send("#{mounted_as}_file_name")
       end
 
-      def write_model_identifier(model_identifier)
-        self.model_identifier = model_identifier
-        versions.values.each{|v| v.model_identifier = model_identifier }
+      def write_internal_identifier(internal_identifier)
+        self.internal_identifier = internal_identifier
+        versions.values.each{|v| v.internal_identifier = internal_identifier }
       end
 
       # transliterate original filename
@@ -88,20 +88,16 @@ module AbAdmin
       # rename files via move
       def rename_via_move(new_file_name)
         dir = File.dirname(path)
-        for_move = []
-        for_move << [File.join(dir, full_filename), File.join(dir, full_filename(new_file_name))]
-        self.class.versions.keys.each do |version_name|
-          for_move << [File.join(dir, File.basename(url(version_name))), File.join(dir, full_filename(new_file_name))]
-        end
-        for_move.each { |move| FileUtils.mv(move[0], move[1]) }
 
-        write_model_identifier new_file_name
+        versions.values.unshift(self).each { |v| FileUtils.mv(File.join(dir, v.full_filename), File.join(dir, v.full_filename(new_file_name))) }
+
+        write_internal_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")
         retrieve_from_store!(new_file_name)
         new_file_name
       end
 
-      private :write_model_identifier, :db_filename, :store_filename, :model_filename
+      private :write_internal_identifier, :db_filename, :store_filename, :model_filename
 
       # prevent large number of subdirectories
       def store_dir

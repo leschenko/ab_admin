@@ -28,7 +28,7 @@ class UploaderSpecModel < RspecActiveModelBase
 end
 
 
-describe AbAdmin::CarrierWave::BaseUploader do
+describe AbAdmin::CarrierWave::BaseUploader, focus: true do
   before :all do
     UploaderSpecImageUploader.enable_processing = true
     @assetable = UploaderSpecModel.new(id: 1)
@@ -42,74 +42,229 @@ describe AbAdmin::CarrierWave::BaseUploader do
     I18n.with_locale(:ru) { example.run }
   end
 
-  describe '#store_dir' do
-    it 'create subdirectories from id' do
-      @image = create(:uploader_spec_image, id: 12345678, assetable: @assetable)
-      @image.data.store_dir.should == 'uploads/uploader_spec_image/123/45678'
+  context 'naming' do
+    describe 'file names' do
+      before do
+        @image = create(:uploader_spec_image, assetable: @assetable)
+      end
+
+      context 'full name' do
+        it 'include secure_token' do
+          File.basename(@image.data.url).should == 'abc.png'
+          File.basename(@image.class.find(@image.id).data.url).should == 'abc.png'
+        end
+      end
+
+      context 'version name' do
+        it 'only version name' do
+          File.basename(@image.data.url(:thumb)).should == 'thumb.png'
+          File.basename(@image.class.find(@image.id).data.url(:thumb)).should == 'thumb.png'
+        end
+      end
     end
 
-    it 'create subdirectories from id 2' do
-      @image = create(:uploader_spec_image, id: 1, assetable: @assetable)
-      @image.data.store_dir.should == 'uploads/uploader_spec_image/000/1'
+    describe '#store_dir' do
+      it 'create subdirectories from id' do
+        @image = create(:uploader_spec_image, id: 12345678, assetable: @assetable)
+        @image.data.store_dir.should == 'uploads/uploader_spec_image/123/45678'
+      end
+
+      it 'create subdirectories from id 2' do
+        @image = create(:uploader_spec_image, id: 1, assetable: @assetable)
+        @image.data.store_dir.should == 'uploads/uploader_spec_image/000/1'
+      end
+    end
+
+    describe 'store original filename' do
+      it 'stored in original_name field' do
+        @image = create(:uploader_spec_image, assetable: @assetable)
+        @image.original_name.should == 'А и б.png'
+      end
+    end
+
+    describe 'build custom image name' do
+      after do
+        UploaderSpecImage.stub_build_filename = nil
+      end
+
+      it 'include secure_token' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        @image.store_model_filename
+        File.basename(@image.data.url).should == 'custom_filename_abc.png'
+        @image.data.file.exists?.should be_true
+        File.basename(@image.class.find(@image.id).data.url).should == 'custom_filename_abc.png'
+      end
+
+      it 'include secure_token' do
+        UploaderSpecImage.stub_build_filename = 'Тест . - + ='
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        @image.store_model_filename
+        File.basename(@image.data.url).should == 'test_-_abc.png'
+      end
+    end
+
+    describe '#rename!' do
+      it 'rename file via move' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        File.basename(@image.data.url(:thumb)).should == 'thumb.png'
+        new_name = @image.rename!
+        @image.save!
+        File.basename(@image.data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
+        File.basename(@image.class.find(@image.id).data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
+      end
     end
   end
 
 
-  describe 'original filename' do
-    it 'stored in original_name field' do
-      @image = create(:uploader_spec_image, assetable: @assetable)
-      @image.original_name.should == 'А и б.png'
-    end
-  end
-
-  describe 'full image name' do
-    it 'include secure_token' do
-      @image = create(:uploader_spec_image, assetable: @assetable)
-      File.basename(@image.data.url).should == 'abc.png'
-      File.basename(@image.reload.data.url).should == 'abc.png'
-    end
-  end
-
-  describe 'build custom image name' do
-    after do
-      UploaderSpecImage.stub_build_filename = nil
-    end
-
-    it 'include secure_token' do
+  describe 'validations' do
+    before do
       @image = create(:main_uploader_spec_image, assetable: @assetable)
-      @image.store_model_filename
-      File.basename(@image.data.url).should == 'custom_filename_abc.png'
-      @image.data.file.exists?.should be_true
-      File.basename(@image.class.find(@image.id).data.url).should == 'custom_filename_abc.png'
     end
 
-    it 'include secure_token' do
-      UploaderSpecImage.stub_build_filename = 'Тест . - + ='
-      @image = create(:main_uploader_spec_image, assetable: @assetable)
-      @image.store_model_filename
-      File.basename(@image.data.url).should == 'test_-_abc.png'
-    end
-  end
+    #it 'should not be valid without data' do
+    #  pending 'asset data validations dont work on presence_of'
+    #  @avatar.data = nil
+    #  @avatar.should_not be_valid
+    #end
 
-  describe '#rename!' do
-    it 'rename file via move' do
-      @image = create(:main_uploader_spec_image, assetable: @assetable)
-      File.basename(@image.data.url(:thumb)).should == 'thumb.png'
-      new_name = @image.rename!
-      @image.save!
-      @image = @image.class.find(@image.id)
-      File.basename(@image.data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
+    it 'not valid with not image content-type' do
+      @image.data_content_type = 'unknown type'
+      @image.should_not be_valid
+    end
+
+    # wget https://dl.dropbox.com/u/48737256/silicon_valley.jpg -P spec/factories/files
+    it 'not valid with big size image', slow: true do
+      @image = build(:asset_avatar_big)
+      @image.should_not be_valid
+      @image.errors[:data].first.should =~ /is\stoo\sbig/
     end
   end
 
-  describe '#crop!' do
-    it 'cropped file name', focus: true do
+
+  describe 'create callbacks' do
+    before do
+      @image = create(:main_uploader_spec_image, id: 12345678, assetable: @assetable)
+    end
+
+    it 'filename should be valid' do
+      @image.filename.should == 'А_и_б.png'
+    end
+
+    it 'content-type should be valid' do
+      @image.data_content_type.should == 'image/png'
+    end
+
+    it 'file size should be valid' do
+      @image.data_file_size.should be_between(6400, 6600)
+    end
+
+    it 'should be image' do
+      @image.image?.should be_true
+    end
+
+    it 'data_file_name should be valid' do
+      @image.data_file_name.should == 'abc.png'
+    end
+
+    it 'width and height should be valid' do
+      if @image.has_dimensions?
+        @image.width.should == 50
+        @image.height.should == 64
+      end
+    end
+
+    it 'urls should be valid' do
+      @image.url.should == "/uploads/#{@image.class.to_s.underscore}/123/45678/abc.png"
+      @image.thumb_url.should == "/uploads/#{@image.class.to_s.underscore}/123/45678/thumb.png"
+      @image.data.default_url.should == '/assets/defaults/uploader_spec_image.png'
+    end
+  end
+
+
+  describe 'cropping' do
+    before do
       @image = create(:main_uploader_spec_image, assetable: @assetable)
-      File.basename(@image.data.url(:thumb)).should == 'thumb.png'
-      @image.crop!('10,10,5,5')
-      @image = @image.class.find(@image.id)
-      @image.data_file_name.should =~ /\d{1,4}\.png/
-      File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
+    end
+
+    describe 'cropper_geometry' do
+      before do
+        @image.cropper_geometry = '50,64,10,10'
+      end
+
+      it 'construct cropping geometry' do
+        @image.cropper_geometry.should == %w(50 64 10 10)
+        @image.cropper_geometry_changed?.should == true
+      end
+
+      it 'set image dimensions before process' do
+        @image.width.should == 50
+        @image.height.should == 64
+        @image.data.dimensions.should == [50, 64]
+      end
+
+      it 'crop image by specific geometry on save' do
+        @image.save
+        @image.width.should == 40
+        @image.height.should == 54
+        @image.data.dimensions.should == [40, 54]
+      end
+    end
+
+    describe '#crop!' do
+      it 'change filename' do
+        @image.crop!('50,64,10,10')
+
+        @image.data.dimensions.should == [40, 54]
+        @image.data_file_name.should =~ /\d{1,4}\.png/
+        File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
+
+        @image = @image.class.find(@image.id)
+        @image.data.dimensions.should == [40, 54]
+        @image.data_file_name.should =~ /\d{1,4}\.png/
+        File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
+      end
+    end
+  end
+
+
+  describe 'rotation' do
+    before do
+      @image = create(:main_uploader_spec_image, assetable: @assetable)
+    end
+
+    describe 'rotate_degrees' do
+      before(:each) do
+        @image.rotate_degrees = '90'
+      end
+
+      it 'set property correctly' do
+        @image.rotate_degrees.should == '90'
+        @image.rotate_degrees_changed?.should == true
+      end
+
+      it 'set image dimensions before process' do
+        @image.width.should == 50
+        @image.height.should == 64
+        @image.data.dimensions.should == [50, 64]
+      end
+
+      it 'rotate image by degrees on save' do
+        @image.save
+        @image.width.should == 64
+        @image.height.should == 50
+        @image.data.dimensions.should == [64, 50]
+      end
+    end
+
+    describe '#rotate!' do
+      it 'rotate image' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        @image.data.dimensions.should == [50, 64]
+        @image.rotate!
+        @image.width.should == 64
+        @image.height.should == 50
+        @image.data.dimensions.should == [64, 50]
+      end
     end
   end
 
