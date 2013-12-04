@@ -65,7 +65,7 @@ module AbAdmin
       alias_method :store_filename, :filename
 
       def filename
-        model_identifier || "#{secure_token}#{File.extname(store_filename)}"
+        model_identifier || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
       end
 
       def db_filename
@@ -97,17 +97,9 @@ module AbAdmin
 
         write_model_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")
-        retrieve_from_store!(filename)
+        retrieve_from_store!(new_file_name)
         new_file_name
       end
-
-      ## rename files via process
-      #def rename_via_process(new_file_name)
-      #  self.model_identifier = new_file_name
-      #  new_path = File.join(File.dirname(path), model_identifier)
-      #  new_file = ::CarrierWave::SanitizedFile.new file.move_to(new_path)
-      #  cache!(new_file)
-      #end
 
       private :write_model_identifier, :db_filename, :store_filename, :model_filename
 
