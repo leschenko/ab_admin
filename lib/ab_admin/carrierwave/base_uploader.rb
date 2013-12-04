@@ -54,9 +54,9 @@ module AbAdmin
         model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
       end
 
-      def store_model_filename
+      def store_model_filename(record)
         old_file_name = db_filename
-        new_file_name = model_filename(old_file_name)
+        new_file_name = model_filename(old_file_name, record)
         return if new_file_name.blank? || new_file_name == old_file_name
         rename_via_move new_file_name
         new_file_name
@@ -79,8 +79,8 @@ module AbAdmin
 
       # transliterate original filename
       # allow to build custom filename
-      def model_filename(base_filename)
-        custom_file_name = model.build_filename(base_filename)
+      def model_filename(base_filename, record)
+        custom_file_name = model.build_filename(base_filename, record)
         return unless custom_file_name
         I18n.transliterate(custom_file_name).parameterize('_').downcase + File.extname(base_filename)
       end

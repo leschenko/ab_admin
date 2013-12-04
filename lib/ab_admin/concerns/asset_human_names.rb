@@ -14,7 +14,7 @@ module AbAdmin
       def make_asset_human_names
         asset_human_names_list.each do |assoc|
           Array(send(assoc)).each do |asset|
-            asset.data.store_model_filename
+            asset.store_model_filename(self)
           end
         end
       end

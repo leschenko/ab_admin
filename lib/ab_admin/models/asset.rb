@@ -38,12 +38,12 @@ module AbAdmin
         end
       end
 
-      def store_model_filename
-        data.store_model_filename and save!(validate: false)
+      def store_model_filename(record)
+        data.store_model_filename(record) and save!(validate: false)
       end
 
       # allow to build custom human file name
-      def build_filename(base_filename)
+      def build_filename(base_filename, record=nil)
         nil
       end
 
