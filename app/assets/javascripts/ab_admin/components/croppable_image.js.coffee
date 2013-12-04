@@ -24,7 +24,7 @@ class window.CroppableImage
 
   cropHandler: (e) =>
     e.preventDefault()
-    asset_id = $('.fancybox-image:first').attr('src').match(/\d+/)
+    asset_id = $('.fancybox-image:first').attr('src').match(/\/[\d\/]{2,}\//)[0].replace(/\//g, '')
     $asset = $("#asset_#{asset_id}")
     geometry = [@cropData['w'], @cropData['h'], @cropData['x'], @cropData['y']].join(',')
     $.post "/admin/assets/#{$asset.data('id')}/crop", {geometry: geometry}, (data) =>
