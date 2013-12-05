@@ -18,6 +18,7 @@
 //= require bootstrap-wysihtml5/locales/ru
 //= require moment.min
 //= require ab_admin/bootstrap-editable
+//= require ab_admin/bootbox.min
 //= require select2
 //= require fancybox
 //= require jquery.ui.nestedSortable
