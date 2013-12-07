@@ -2,8 +2,6 @@ class Admin::AssetsController < ApplicationController
   before_filter :find_klass, only: [:create, :sort]
   before_filter :find_asset, only: [:destroy, :main, :rotate, :crop]
 
-  respond_to :html, :xml
-
   authorize_resource
 
   def create
@@ -16,29 +14,29 @@ class Admin::AssetsController < ApplicationController
     @asset.user = current_user
     @asset.save
 
-    respond_with(@asset) do |format|
-      format.html { head :ok }
-      format.xml { render xml: @asset.to_xml }
-    end
+    head :ok
   end
 
   def destroy
     @asset.destroy
-
-    respond_with(@asset) do |format|
-      format.html { head :ok }
-      format.xml { render xml: @asset.to_xml }
-    end
+    head :ok
   end
 
   def sort
     params[:asset].each_with_index do |id, index|
       @klass.move_to(index, id)
     end
+    head :ok
+  end
 
-    respond_with(@klass) do |format|
-      format.html { head :ok }
-    end
+  def batch_edit
+    @assets = Asset.find(params[:ids])
+    render layout: false
+  end
+
+  def batch_update
+    Asset.update(params[:data].keys, params[:data].values)
+    head :ok
   end
 
   def rotate

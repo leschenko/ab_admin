@@ -17,6 +17,8 @@ Rails.application.routes.draw do
     resources :assets, only: [:create, :destroy] do
       post :rotate, :main, :crop, on: :member
       post :sort, on: :collection
+      get :batch_edit, on: :collection
+      post :batch_update, on: :collection
     end
 
     resource :settings, only: [:edit, :update] do

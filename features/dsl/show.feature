@@ -3,7 +3,7 @@ Feature: Show resource page
 
   Background:
     Given I am logged in
-    And products exists with attributes:
+    And product exists with attributes:
       | sku     | name      | price |
       | sofa-12 | FancySofa | 123   |
 

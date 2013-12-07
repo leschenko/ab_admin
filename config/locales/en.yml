@@ -224,7 +224,8 @@ en:
     button_name_add: Add
     button_name_cancel: Reset
     button_name_remove: Remove
-    cancel: Cancellation
+    save: Save
+    cancel: Cancel
     clear: Reset
     confirm: Confirm
     create_product: "Create a new product"
@@ -257,7 +258,7 @@ en:
     reviews_count: Views
     slug: Alias
     synonyms: Synonyms
-    title: Name
+    title: Title
     updated_at: "Updated at"
     user: User
     user_id: User
@@ -299,7 +300,7 @@ en:
         success: "Rights successfully updated"
   simple_form:
     buttons:
-      cancel: Cancellation
+      cancel: Cancel
     creating: "Creating ..."
     error_notification:
       default_message: "When you save any errors"

@@ -155,7 +155,8 @@ module AbAdmin
                 asset: asset_klass.to_s,
                 assoc: params[:method],
                 multiple: script_options['multiple'],
-                crop: options[:crop]
+                crop: options[:crop],
+                edit_meta: options[:edit_meta]
             }
         }
 

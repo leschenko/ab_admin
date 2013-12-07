@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :asset_avatar, class: Avatar do
+  factory :avatar do
     #include ActionDispatch::TestProcess
     data File.open(File.expand_path('../files/rails.png', __FILE__))
     association :assetable, factory: :default_user
@@ -9,11 +9,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :product_image, class: Avatar do
-    data File.open(File.expand_path('../files/rails.png', __FILE__))
-  end
-
-  factory :asset_avatar_big, class: Avatar do
+  factory :avatar_big, class: 'Avatar' do
     data File.open(File.expand_path('../files/silicon_valley.jpg', __FILE__))
     association :assetable, factory: :default_user
 

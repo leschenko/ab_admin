@@ -28,5 +28,9 @@ FactoryGirl.define do
         trust_state UserState.suspended.id
       end
     end
+
+    #trait :avatar do
+    #  avatar { FactoryGirl.create(:avatar, guid: fileupload_guid) }
+    #end
   end
 end

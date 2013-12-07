@@ -34,6 +34,7 @@ class window.AdminAssets
       @initRemove()
       @initRotate()
     @initCrop()
+    @initBatchEdit()
 
   initRemove: ->
     $(document).on "ajax:complete", ".fileupload .del_asset", ->
@@ -66,3 +67,20 @@ class window.AdminAssets
   initFancybox: =>
     $(@query + " a.fancybox").fancybox
       afterShow: => @crop?.fancyboxHandler()
+
+  initBatchEdit: ->
+    return unless @uploader_el.data('edit-meta')
+    @uploader_el.find('.fileupload-edit-button').show()
+    @uploader_el.on 'click', '.fileupload-edit-button', =>
+      ids = @uploader_el.find('.fileupload-list .asset').map(-> $(this).data('id')).get()
+      unless ids[0]
+        bootbox.alert 'Upload images first'
+      $.get '/admin/assets/batch_edit', {ids: ids}, (data) =>
+        bootbox.dialog(data, [
+          {label: I18n.t('admin_js.cancel'), class: ' '},
+          {label: I18n.t('admin_js.save'), class: 'btn-primary btn-large fileupload-edit-submit', callback: -> $('form.fileupload-edit-form').submit()}
+        ])
+        $('.bootbox.modal').css
+          width: 900
+          'margin-left': -450
+

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 ### UTILITY METHODS ###
 def valid_user
-  @user ||= {email: 'test@example.com', password: '123456'}
+  @user ||= {email: 'admin@example.com', password: '123456'}
 end
 
 def sign_in(user)

@@ -227,6 +227,7 @@ ru:
     add_link: "Создать?"
     add: "Добавить"
     remove: "Удалить"
+    save: Сохнанить
     cancel: "Отмена"
     clear: "Сброс"
     confirm: "Подтвердить"

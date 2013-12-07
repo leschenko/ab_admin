@@ -134,7 +134,7 @@ describe AbAdmin::CarrierWave::BaseUploader do
 
     # wget https://dl.dropbox.com/u/48737256/silicon_valley.jpg -P spec/factories/files
     it 'not valid with big size image', slow: true do
-      @image = build(:asset_avatar_big)
+      @image = build(:avatar_big)
       @image.should_not be_valid
       @image.errors[:data].first.should =~ /is\stoo\sbig/
     end
