@@ -14,7 +14,7 @@ When(/^I fill in image meta$/) do
   within 'form.fileupload-edit-form' do
     click_link I18n.locale.to_s.titleize
     find(".tab_#{I18n.locale} input[placeholder=\"Alt\"]").set('Alt text')
-    find(".tab_#{I18n.locale} input[placeholder=\"Title\"]").set('Title text')
+    find(".tab_#{I18n.locale} input[placeholder=\"Name\"]").set('Title text')
   end
 end
 
@@ -27,6 +27,6 @@ end
 Then(/^image should store meta$/) do
   image = @me.reload.avatar
   image.alt.should == 'Alt text'
-  image.title.should == 'Title text'
+  image.name.should == 'Title text'
 end
 

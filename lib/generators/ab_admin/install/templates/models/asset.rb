@@ -2,7 +2,7 @@ class Asset < ActiveRecord::Base
   include AbAdmin::Models::Asset
 
   attr_accessible :data, :is_main, :original_name
-  translates :title, :alt
+  translates :name, :alt
   attr_accessible *all_translated_attribute_names
 
   validates_presence_of :data

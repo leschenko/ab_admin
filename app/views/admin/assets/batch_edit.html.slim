@@ -4,7 +4,7 @@
       .row-fluid
         .span4
           a.thumbnail href=asset.url target='_blank' = image_tag(asset.thumb_url)
-        - [:alt, :title].each do |attr|
+        - [:alt, :name].each do |attr|
           .span8
             - loc_attr = "#{attr}_#{l}"
             p= text_field :data, loc_attr, index: asset.id, value: asset.send(loc_attr), placeholder: Asset.han(attr), style: 'width: 95%;'
