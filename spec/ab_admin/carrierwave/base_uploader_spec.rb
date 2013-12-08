@@ -113,6 +113,13 @@ describe AbAdmin::CarrierWave::BaseUploader do
         File.basename(@image.class.find(@image.id).data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
       end
     end
+
+    describe '#recreate_versions!' do
+      it 'keep custom filenames' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable, data_file_name: 'custom.png')
+        File.basename(@image.data.url(:thumb)).should == 'custom_thumb.png'
+      end
+    end
   end
 
 

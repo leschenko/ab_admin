@@ -34,15 +34,11 @@ module AbAdmin
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
-      def full_filename(for_file=db_filename)
-        if for_file.present?
-          ext = File.extname(for_file)
-          human_filename_part = for_file.chomp(ext)
-          tech_filename_part = "#{version_name || secure_token}#{ext}"
-          human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
-        else
-          "#{version_name || secure_token}#{File.extname(store_filename)}"
-        end
+      def full_filename(for_file=filename)
+        ext = File.extname(for_file)
+        human_filename_part = for_file.chomp(ext)
+        tech_filename_part = "#{version_name || secure_token}#{ext}"
+        human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
       end
 
       def full_original_filename
@@ -55,7 +51,7 @@ module AbAdmin
       end
 
       def store_model_filename(record)
-        old_file_name = db_filename
+        old_file_name = filename
         new_file_name = model_filename(old_file_name, record)
         return if new_file_name.blank? || new_file_name == old_file_name
         rename_via_move new_file_name
@@ -65,11 +61,7 @@ module AbAdmin
       alias_method :store_filename, :filename
 
       def filename
-        internal_identifier || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
-      end
-
-      def db_filename
-        internal_identifier || model.send("#{mounted_as}_file_name")
+        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
       end
 
       def write_internal_identifier(internal_identifier)
@@ -97,7 +89,7 @@ module AbAdmin
         new_file_name
       end
 
-      private :write_internal_identifier, :db_filename, :store_filename, :model_filename
+      private :write_internal_identifier, :store_filename, :model_filename
 
       # prevent large number of subdirectories
       def store_dir
