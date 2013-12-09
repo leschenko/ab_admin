@@ -54,20 +54,19 @@
     font-size: 0.9em;
     font-weight: bold;
   }
-  .file-types {
-    overflow: hidden;
-    padding-top: 10px;
-    padding-left: 5px;
-    z-index: 2;
-    position: relative;
-    height: 30px;
-  }
   .fileupload-button {
     z-index: 3;
   }
   .fileupload-edit-button {
     margin-left: 10px;
     display: none;
+  }
+  .file-types {
+    overflow: hidden;
+    padding-top: 10px;
+    padding-left: 5px;
+    z-index: 2;
+    position: relative;
   }
   .file-types .type-info {
     float: right;
