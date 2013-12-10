@@ -81,7 +81,7 @@ module AbAdmin
 
       active = template.request.path.split('/')[2] == @path.split('/')[2]
       <<-HTML.html_safe
-      <li class="#{'active' if active}">#{template.link_to @title, @path, @options}</li>
+      <li class="#{'active' if active}">#{template.link_to @title, @path, @options.except(:if, :unless)}</li>
       HTML
     end
   end
