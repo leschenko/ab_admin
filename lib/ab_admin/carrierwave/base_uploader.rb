@@ -54,8 +54,7 @@ module AbAdmin
         old_file_name = filename
         new_file_name = model_filename(old_file_name, record)
         return if new_file_name.blank? || new_file_name == old_file_name
-        rename_via_move new_file_name
-        new_file_name
+        rename_via_move(new_file_name)
       end
 
       alias_method :store_filename, :filename
@@ -81,7 +80,9 @@ module AbAdmin
       def rename_via_move(new_file_name)
         dir = File.dirname(path)
 
-        versions.values.unshift(self).each { |v| FileUtils.mv(File.join(dir, v.full_filename), File.join(dir, v.full_filename(new_file_name))) }
+        moves = versions.values.unshift(self).map { |v| [File.join(dir, v.full_filename), File.join(dir, v.full_filename(new_file_name))] }
+        return false unless moves.all?{|move| File.exists?(move[0]) }
+        moves.each { |move| FileUtils.mv(*move) }
 
         write_internal_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")

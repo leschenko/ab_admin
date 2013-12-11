@@ -101,6 +101,13 @@ describe AbAdmin::CarrierWave::BaseUploader do
         @image.store_model_filename(@assetable)
         File.basename(@image.data.url).should == 'test_-_abc.png'
       end
+
+      it 'skip rename when have missing files' do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+        FileUtils.mv @image.data.path, @image.data.path.sub('abc.png', 'new_abc.png')
+        @image.store_model_filename(@assetable).should be_false
+        File.basename(@image.data.url).should == 'abc.png'
+      end
     end
 
     describe '#rename!' do
