@@ -1,10 +1,14 @@
 = admin_form_for Asset.new, url: batch_update_admin_assets_path, remote: true, html: {class: 'fileupload-edit-form'} do |f|
+  - first_locale = Globalize.available_locales.first
   - f.locale_tabs do |l|
     - @assets.each do |asset|
       .row-fluid
         .span4
           a.thumbnail href=asset.url target='_blank' = image_tag(asset.thumb_url)
-        - [:alt, :name].each do |attr|
-          .span8
+        .span8
+          - if first_locale == l
+            p= text_field :data, :base_filename, index: asset.id, value: asset.base_filename, placeholder: Asset.han(:data_file_name), style: 'width: 95%;'
+          - [:alt, :name].each do |attr|
             - loc_attr = "#{attr}_#{l}"
             p= text_field :data, loc_attr, index: asset.id, value: asset.send(loc_attr), placeholder: Asset.han(attr), style: 'width: 95%;'
+      hr

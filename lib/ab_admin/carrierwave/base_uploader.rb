@@ -73,7 +73,11 @@ module AbAdmin
       def model_filename(base_filename, record)
         custom_file_name = model.build_filename(base_filename, record)
         return unless custom_file_name
-        I18n.transliterate(custom_file_name).parameterize('_').downcase + File.extname(base_filename)
+        normalize_filename(custom_file_name) + File.extname(base_filename)
+      end
+
+      def normalize_filename(raw_filename)
+        I18n.transliterate(raw_filename).parameterize('_').downcase
       end
 
       # rename files via move

@@ -116,8 +116,10 @@ describe AbAdmin::CarrierWave::BaseUploader do
         File.basename(@image.data.url(:thumb)).should == 'thumb.png'
         new_name = @image.rename!
         @image.save!
-        File.basename(@image.data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
-        File.basename(@image.class.find(@image.id).data.url(:thumb)).should == "#{new_name.sub('.png', '')}_thumb.png"
+        filename = File.basename(new_name, '.*')
+        filename.should =~ /\d+/
+        File.basename(@image.data.url(:thumb)).should == "#{filename}_thumb.png"
+        File.basename(@image.class.find(@image.id).data.url(:thumb)).should == "#{filename}_thumb.png"
       end
     end
 
@@ -128,7 +130,6 @@ describe AbAdmin::CarrierWave::BaseUploader do
       end
     end
   end
-
 
   describe 'validations' do
     before do

@@ -77,6 +77,16 @@ module AbAdmin
         AbAdmin.image_types.include?(self.data_content_type)
       end
 
+      def base_filename
+        File.basename(data_file_name, '.*')
+      end
+
+      def base_filename=(value)
+        return false if value.blank? || File.basename(data_file_name, '.*') == value
+        self.original_name = value + File.extname(data_file_name)
+        rename!(value)
+      end
+
       def main!
         self.class.update_all('is_main=0', ['assetable_type=? AND assetable_id=? AND type=?', assetable_type, assetable_id, type])
         update_column(:is_main, true)
@@ -100,8 +110,10 @@ module AbAdmin
         self
       end
 
-      def rename!
-        data.rename_via_move "#{rand(9999)}#{File.extname(data_file_name)}"
+      def rename!(name=nil)
+        normalized_name = name ? data.normalize_filename(name) : rand(9999)
+        return false if normalized_name.blank?
+        data.rename_via_move "#{normalized_name}#{File.extname(data_file_name)}"
       end
 
       def refresh_assetable

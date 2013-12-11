@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
   include AbAdmin::Models::Asset
 
-  attr_accessible :data, :is_main, :original_name
+  attr_accessible :data, :is_main, :original_name, :base_filename
   translates :name, :alt
   attr_accessible *all_translated_attribute_names
 
