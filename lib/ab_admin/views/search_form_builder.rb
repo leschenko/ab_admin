@@ -27,7 +27,7 @@ module AbAdmin
           end
 
           options[:input_html] ||= {}
-          if options[:fancy] || !options.has_key?(:fancy)
+          if options[:fancy] || collection.length > 30
             options[:input_html][:class] = [options[:input_html][:class], 'fancy_select'].join(' ')
           end
 
