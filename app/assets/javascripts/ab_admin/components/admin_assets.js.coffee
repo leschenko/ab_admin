@@ -80,7 +80,12 @@ class window.AdminAssets
           {label: I18n.t('admin_js.cancel'), class: ' '},
           {label: I18n.t('admin_js.save'), class: 'btn-primary btn-large fileupload-edit-submit', callback: -> $('form.fileupload-edit-form').submit()}
         ])
+        max_h = $(window).height() - 100
         $('.bootbox.modal').css
+          height: max_h
           width: 900
           'margin-left': -450
+          'margin-top': -max_h / 2
+        $('.modal-body').css
+          'max-height': max_h - 90
 

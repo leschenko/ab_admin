@@ -78,7 +78,8 @@ module AbAdmin
       end
 
       def base_filename
-        File.basename(data_file_name, '.*')
+        base = File.basename(data_file_name, '.*')
+        base == data_secure_token ? nil : base
       end
 
       def base_filename=(value)
