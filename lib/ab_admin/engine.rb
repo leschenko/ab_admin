@@ -1,6 +1,3 @@
-require 'rails'
-require 'ab_admin'
-
 module AbAdmin
   class Engine < ::Rails::Engine
     engine_name 'ab_admin'
@@ -18,7 +15,7 @@ module AbAdmin
         ActiveRecord::Base.send :include, AbAdmin::Concerns::DeepCloneable
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Utilities
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Silencer
-        ActiveRecord::Base.send :extend,  AbAdmin::Concerns::Silencer
+        ActiveRecord::Base.send :extend, AbAdmin::Concerns::Silencer
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Validations
       end
 

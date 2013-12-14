@@ -2,50 +2,51 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'mysql2'
 gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'slim'
-gem 'devise', '~> 2.2.5'
-gem 'devise-encryptable'
-gem 'cancan'
 gem 'inherited_resources', '~> 1.4.0'
 gem 'rack-pjax'
-gem 'configatron'
-
 gem 'ransack'
 gem 'has_scope'
 gem 'friendly_id'
+gem 'devise', '~> 3.2.2'
+gem 'cancan'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'awesome_nested_set'
-gem 'globalize3', github: 'globalize/globalize', ref: '6ad3de9f257a'
-gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '6aad0cf'
 
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'will_paginate', '>= 3.0.3'
-# disabled links broken styling in 0.2.2
-gem 'will_paginate-bootstrap', '0.2.1'
-gem 'bootstrap-sass', '2.0.4'
+gem 'coffee-rails'
+gem 'sass-rails'
+
+gem 'bootstrap-sass', '~> 3.0.3.0'
 gem 'bootstrap-wysihtml5-rails'
-gem 'fancybox2-rails'
-gem 'select2-rails'
-gem 'nested_form', '0.2.2'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap', '~> 1.0.0'
+gem 'nested_form', '~> 0.2.2'
 gem 'simple_form'
-gem 'russian'
 gem 'gon'
 gem 'i18n-js'
 gem 'ruby-progressbar'
-gem 'ckeditor'
+
+
+gem 'globalize', '~> 4.0.0.alpha.2'
+gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '01708cd5a39'
+gem 'devise-encryptable'
+gem 'configatron'
+gem 'ruby-progressbar'
 gem 'quiet_assets'
 gem 'ruby2xlsx'
 gem 'rest-client'
 
-group :assets do
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'bootstrap-wysihtml5-rails'
+gem 'fancybox2-rails'
+gem 'select2-rails'
+gem 'russian'
+gem 'gon'
+gem 'i18n-js'
+gem 'ckeditor'
 
 group :development, :test do
   gem 'rspec-rails'
@@ -57,7 +58,7 @@ end
 group :test do
   gem 'childprocess', '0.3.6'
   gem 'cucumber-rails', require: false
-  gem 'capybara', '~> 2.1.0'
+  gem 'capybara', '~> 2.2.0'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'database_cleaner'

@@ -20,6 +20,8 @@ class CreateAssets < ActiveRecord::Migration
       t.boolean :is_main, default: false, null: false
       t.string  :original_name
       t.string  :data_secure_token, limit: 20
+      t.string  :cached_alt
+      t.string  :cached_title
 
       t.timestamps
     end

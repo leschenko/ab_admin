@@ -36,7 +36,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   table do
     field :sku
-    field(:picture) { |item| item_image_link(item) }
+    field :picture, image: true
     field :name, sortable: {column: :id, default_order: 'desc'}
     field :is_visible
     field :collection

@@ -61,7 +61,8 @@ module AbAdmin
 
       def as_json(options = nil)
         options = {
-            only: [:id, :guid, :assetable_id, :assetable_type, :user_id, :data_file_size, :data_content_type, :is_main, :original_name],
+            only: [:id, :guid, :assetable_id, :assetable_type, :user_id, :data_file_size, :data_content_type, :is_main,
+                   :original_name, :cached_alt, :cached_title],
             root: 'asset',
             methods: [:filename, :url, :thumb_url, :width, :height]
         }.merge(options || {})

@@ -5,19 +5,21 @@ module AbAdmin
 
       included do
         belongs_to :resource, polymorphic: true
-        belongs_to :author, class_name: 'User'
+        belongs_to :resource_user, class_name: 'User'
         belongs_to :user
 
         has_many :attachment_files, as: :assetable, dependent: :destroy
-        fileuploads :attachment_files
-
-        after_create :increment_counter_cache
-        before_destroy :decrement_counter_cache
-
-        scope :admin, includes(:author, :attachment_files)
 
         validates_presence_of :resource
         validates_presence_of :body
+
+        before_save :set_user_name, :set_resource_user
+        after_create :increment_counter_cache
+        before_destroy :decrement_counter_cache
+
+        scope :admin, lambda { includes(:user, :attachment_files) }
+        
+        fileuploads :attachment_files
       end
 
       module ClassMethods
@@ -34,14 +36,18 @@ module AbAdmin
         end
       end
 
-      def set_author(user)
-        return unless user
-        self.author_id = user.id
-        self.author_name = user.name.presence || user.email
+      def set_user_name
+        self.user_name = user.name.presence || user.email
+        true
+      end
+
+      def set_resource_user
+        self.resource_user = resource.try(:user) if resource.respond_to?(:user)
+        true
       end
 
       def for_form
-        {id: id, body: body, author_name: user.try(:name), author_id: user.try(:id), created_at: I18n.l(created_at, format: :long)}
+        {id: id, body: body, user_name: user.try(:name), user_id: user.try(:id), created_at: I18n.l(created_at, format: :long)}
       end
 
       def increment_counter_cache

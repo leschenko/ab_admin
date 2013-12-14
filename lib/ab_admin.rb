@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'inherited_resources'
 require 'rack-pjax'
 require 'has_scope'

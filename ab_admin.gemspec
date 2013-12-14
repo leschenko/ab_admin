@@ -1,58 +1,58 @@
-# -*- encoding: utf-8 -*-
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+$:.push File.expand_path('../lib', __FILE__)
+
+# Maintain your gem's version:
 require 'ab_admin/version'
 
-Gem::Specification.new do |gem|
-  gem.name          = 'ab_admin'
-  gem.version       = AbAdmin::VERSION
-  gem.authors       = ['Alex Leschenko']
-  gem.email         = %w(leschenko.al@gmail.com)
-  gem.description   = %q{Simple and real-life tested Rails::Engine admin interface}
-  gem.summary       = %q{Simple and real-life tested Rails::Engine admin interface based on slim, bootstrap, inherited_resources, simple_form, device, cancan}
-  gem.homepage      = 'https://github.com/leschenko/ab_admin'
+# Describe your gem and declare its dependencies:
+Gem::Specification.new do |s|
+  s.name          = 'ab_admin'
+  s.version       = AbAdmin::VERSION
+  s.authors       = ['Alex Leschenko']
+  s.email         = %w(leschenko.al@gmail.com)
+  s.description   = %q{Simple and real-life tested Rails::Engine admin interface}
+  s.summary       = %q{Simple and real-life tested Rails::Engine admin interface based on slim, bootstrap, inherited_resources, simple_form, device, cancan}
+  s.homepage      = 'https://github.com/leschenko/ab_admin'
 
-  gem.files         = `git ls-files | grep -v 'spec/factories/files'`.split($/)
-  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
-  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
-  gem.require_paths = %w(lib)
+  s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  gem.add_dependency 'rails', '~> 3.2.0'
-  gem.add_dependency 'jquery-rails'
-  gem.add_dependency 'rails-i18n'
-  gem.add_dependency 'slim'
-  gem.add_dependency 'cancan'
-  gem.add_dependency 'inherited_resources', '~> 1.4.0'
-  gem.add_dependency 'rack-pjax'
-  gem.add_dependency 'ransack'
-  gem.add_dependency 'has_scope'
-  gem.add_dependency 'friendly_id'
-  gem.add_dependency 'galetahub-enum_field'
-  gem.add_dependency 'awesome_nested_set'
+  s.add_dependency 'rails', '~> 4.0.2'
+  s.add_dependency 'jquery-rails'
+  s.add_dependency 'rails-i18n'
+  s.add_dependency 'slim'
+  s.add_dependency 'inherited_resources', '~> 1.4.0'
+  s.add_dependency 'rack-pjax'
+  s.add_dependency 'ransack'
+  s.add_dependency 'has_scope'
+  s.add_dependency 'friendly_id'
+  s.add_dependency 'devise', '~> 3.2.2'
+  s.add_dependency 'cancan'
+  s.add_dependency 'galetahub-enum_field'
+  s.add_dependency 'awesome_nested_set'
 
-  gem.add_dependency 'carrierwave'
-  gem.add_dependency 'mini_magick'
-  gem.add_dependency 'coffee-rails'
-  gem.add_dependency 'sass-rails'
+  s.add_dependency 'carrierwave'
+  s.add_dependency 'mini_magick'
+  s.add_dependency 'coffee-rails'
+  s.add_dependency 'sass-rails'
 
-  gem.add_dependency 'bootstrap-sass', '~> 2.0.4'
-  gem.add_dependency 'bootstrap-wysihtml5-rails'
-  gem.add_dependency 'will_paginate'
-  gem.add_dependency 'will_paginate-bootstrap', '0.2.1'
-  gem.add_dependency 'nested_form', '~> 0.2.2'
-  gem.add_dependency 'simple_form'
-  gem.add_dependency 'gon'
-  gem.add_dependency 'i18n-js'
-  gem.add_dependency 'ruby-progressbar'
+  s.add_dependency 'bootstrap-sass', '~> 3.0.3.0'
+  s.add_dependency 'bootstrap-wysihtml5-rails'
+  s.add_dependency 'will_paginate'
+  s.add_dependency 'will_paginate-bootstrap', '~> 1.0.0'
+  s.add_dependency 'nested_form', '~> 0.2.2'
+  s.add_dependency 'simple_form'
+  s.add_dependency 'gon'
+  s.add_dependency 'i18n-js'
+  s.add_dependency 'ruby-progressbar'
 
-  gem.add_development_dependency 'rspec-rails'
-  gem.add_development_dependency 'shoulda-matchers'
-  gem.add_development_dependency 'factory_girl_rails'
-  gem.add_development_dependency 'database_cleaner'
-  gem.add_development_dependency 'fuubar'
-  gem.add_development_dependency 'generator_spec'
-  gem.add_development_dependency 'forgery'
-  gem.add_development_dependency 'capybara'
-  gem.add_development_dependency 'connection_pool'
-  #gem.add_development_dependency 'cucumber-rails'
+  s.add_development_dependency 'mysql2'
+  s.add_development_dependency 'rspec-rails'
+  s.add_development_dependency 'shoulda-matchers'
+  s.add_development_dependency 'factory_girl_rails'
+  s.add_development_dependency 'database_cleaner'
+  s.add_development_dependency 'fuubar'
+  s.add_development_dependency 'generator_spec'
+  s.add_development_dependency 'forgery'
+  s.add_development_dependency 'capybara'
+  s.add_development_dependency 'connection_pool'
+
 end
