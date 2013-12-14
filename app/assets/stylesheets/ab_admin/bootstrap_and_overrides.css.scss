@@ -2,7 +2,6 @@
 $iconSpritePath: asset-url('glyphicons-halflings.png', image);
 $iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
 @import "bootstrap";
-@import "bootstrap-responsive";
 @import "ab_admin/components/base";
 @import "ab_admin/components/navigation";
 @import "ab_admin/components/table_view";
