@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+Dummy::Application.routes.draw do
 
   root to: 'welcome#index'
 
@@ -11,4 +11,5 @@ Rails.application.routes.draw do
   end
 
   mount Ckeditor::Engine => '/ckeditor'
+
 end
