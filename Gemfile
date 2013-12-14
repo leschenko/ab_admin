@@ -39,6 +39,7 @@ gem 'ruby-progressbar'
 gem 'quiet_assets'
 gem 'ruby2xlsx'
 gem 'rest-client'
+gem 'protected_attributes'
 
 gem 'bootstrap-wysihtml5-rails'
 gem 'fancybox2-rails'
