@@ -1,6 +1,6 @@
 class PictureUploader < AbAdmin::CarrierWave::BaseUploader
   
-  process quality: 90
+  process quality: 80
   process cropper: :cropper_geometry
 
   version :thumb do

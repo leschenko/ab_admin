@@ -1,6 +1,6 @@
 class AvatarUploader < AbAdmin::CarrierWave::BaseUploader
   
-  process quality: 90
+  process quality: 80
   
   version :thumb do
     process resize_to_fill: [80, 80, 'North']
