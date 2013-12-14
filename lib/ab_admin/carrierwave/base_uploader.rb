@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'mime/types'
 require 'mini_magick'
 require 'carrierwave/processing/mini_magick'
@@ -181,7 +180,6 @@ module AbAdmin
       end
 
       def magick
-        #@magick ||= ::MiniMagick::Image.new(current_path)
         ::MiniMagick::Image.new(current_path)
       end
 

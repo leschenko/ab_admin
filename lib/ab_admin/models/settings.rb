@@ -6,8 +6,12 @@ module AbAdmin
       included do
         extend ActiveModel::Naming
         extend ActiveRecord::Translation
-        class_attribute :base_class
+        class_attribute :base_class, :editable_paths
         self.base_class = self
+        self.editable_paths = [
+            Rails.root.join('config', 'settings', "#{Rails.env}.local.yml"),
+            Rails.root.join('config', 'settings', 'settings.local.yml')
+        ]
       end
 
       module ClassMethods
@@ -24,12 +28,8 @@ module AbAdmin
       end
 
       def find_editable_path
-        edited_settings_paths = [
-            Rails.root.join('config', 'settings', "#{Rails.env}.local.yml"),
-            Rails.root.join('config', 'settings', 'settings.local.yml')
-        ]
-        path = edited_settings_paths.detect { |path| File.exists?(path) }
-        path or raise("Create settings file for editing: #{edited_settings_paths.join(' or ')}")
+        path = editable_paths.detect { |path| File.exists?(path) }
+        path or raise("Create settings file for editing: #{editable_paths.join(' or ')}")
       end
 
       def find_paths

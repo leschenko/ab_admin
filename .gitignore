@@ -32,6 +32,7 @@ spec/dummy/public/cache/
 spec/dummy/public/assets/
 spec/dummy/public/ckeditor_assets/
 spec/dummy/public/uploads/
+spec/dummy/public/uploads_new
 spec/dummy/vendor/bundle/
 spec/dummy/app/helpers
 spec/dummy/app/assets/javascripts/i18n/translations.js

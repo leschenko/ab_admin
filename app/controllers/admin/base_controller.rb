@@ -19,8 +19,6 @@ class Admin::BaseController < ::InheritedResources::Base
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
                 :normalized_index_views, :current_index_view, :pjax?, :xhr?
 
-  #respond_to :json
-
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
   def index
