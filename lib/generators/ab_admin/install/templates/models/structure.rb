@@ -1,7 +1,7 @@
 class Structure < ActiveRecord::Base
   include AbAdmin::Models::Structure
 
-  attr_accessible :kind, :position, :parent_id, :title, :redirect_url, :is_visible,
+  attr_accessible :structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,
                   :structure_type, :position_type, :slug, :parent
 
   has_one :picture, as: :assetable, dependent: :destroy, conditions: {is_main: true}

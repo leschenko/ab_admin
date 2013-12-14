@@ -7,5 +7,6 @@
   * Deprecated `Structure.with_scope` in favor of `Structure.with_type`
 
 * backwards incompatible changes
-  * Renamed `kind` column to `structure_type_id` and `position` renamed to `position_type_id` in Structure model
-  * Removed `trust_state` column from User model
+  * Structure model: renamed `kind` column to `structure_type_id` and `position` renamed to `position_type_id`
+  * User model: removed `trust_state` column
+  * AdminComment model: renamed `author_id` to `user_id`, `author_name` to `user_name`, `user_id` to `resource_user_id`
