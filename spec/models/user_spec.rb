@@ -32,7 +32,7 @@ describe User do
   end
 
   describe 'scopes' do
-    before(:all) do
+    before :all do
       @user = create(:default_user)
       @moderator = create(:moderator_user)
       @inactive = create(:user)
@@ -75,7 +75,6 @@ describe User do
 
     it 'set user defaults' do
       @inactive.user_role_id.should == ::UserRoleType.default.id
-      @inactive.trust_state.should == ::UserState.pending.id
       @inactive.locale.should == 'ru'
       @inactive.time_zone.should == 'Kiev'
     end
@@ -92,14 +91,12 @@ describe User do
 
       it 'activate user' do
         @inactive.activate
-        @inactive.trust_state.should == ::UserState.active.id
         @inactive.locked_at.should be_nil
       end
 
       it 'activate! user' do
         @inactive.activate!
         @inactive.reload
-        @inactive.trust_state.should == ::UserState.active.id
         @inactive.locked_at.should be_nil
         @inactive.should be_confirmed
       end
@@ -123,21 +120,7 @@ describe User do
 
       it 'suspend user' do
         @user.suspend!
-        @user.reload
-        @user.trust_state.should == ::UserState.suspended.id
-      end
-
-      it 'delete user' do
-        @user.delete!
-        @user.reload
-        @user.trust_state.should == ::UserState.deleted.id
-        @user.should be_deleted
-      end
-
-      it 'delete user' do
-        @user.unsuspend!
-        @user.reload
-        @user.trust_state.should == ::UserState.active.id
+        @user.locked_at.should be_blank
       end
 
       describe 'roles' do

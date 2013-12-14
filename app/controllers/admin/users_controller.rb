@@ -2,8 +2,7 @@ class Admin::UsersController < Admin::BaseController
   load_and_authorize_resource
 
   def activate
-    resource.confirm! unless resource.confirmed?
-    resource.unsuspend!
+    resource.activate!
     redirect_to :back
   end
 

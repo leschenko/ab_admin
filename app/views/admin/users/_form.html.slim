@@ -10,7 +10,6 @@
     = f.input :address
 
     = f.input :user_role_id, collection: UserRoleType.all, include_blank: false, as: :radio_buttons, item_wrapper_class: 'inline'
-    = f.input :trust_state, collection: UserState.all, include_blank: false, as: :radio, as: :radio_buttons, item_wrapper_class: 'inline'
 
     = f.input :birthday, include_blank: true
     = f.input :gender, collection: GenderType.all, include_blank: false, as: :radio_buttons, item_wrapper_class: 'inline'

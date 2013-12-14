@@ -7,7 +7,7 @@ module AbAdmin
         has_one :avatar, as: :assetable, dependent: :destroy, autosave: true
 
         scope :managers, where(user_role_id: [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
-        scope :active, where(trust_state: ::UserState.active.id)
+        scope :active, where(locked_at: nil)
         scope :admin, includes(:avatar)
 
         after_initialize :init
@@ -17,18 +17,6 @@ module AbAdmin
         validate :check_role
 
         enumerated_attribute :user_role_type, id_attribute: :user_role_id, class: ::UserRoleType
-        enumerated_attribute :trust_state_type, id_attribute: :trust_state, class: ::UserState
-      end
-
-      def set_default_role
-        self.user_role_id ||= ::UserRoleType.default.id
-      end
-
-      def generate_password!
-        raw_password = AbAdmin.test_env? ? '654321' : ::Devise.friendly_token[0..7]
-        self.password = self.password_confirmation = raw_password
-        self.save(validate: false)
-        raw_password
       end
 
       def name
@@ -39,31 +27,20 @@ module AbAdmin
         [first_name.presence, last_name.presence].compact.join(' ')
       end
 
-      def activate
-        self.trust_state = ::UserState.active.id
-        self.locked_at = nil
+      def suspend!
+        update_attribute(:locked_at, Time.now.utc)
       end
 
       def activate!
-        confirm!
-        activate
-        save
+        confirm! unless confirmed?
+        unlock_access! if access_locked?
       end
 
-      def suspend!
-        self.update_attribute(:trust_state, ::UserState.suspended.id)
-      end
-
-      def delete!
-        self.update_attribute(:trust_state, ::UserState.deleted.id)
-      end
-
-      def unsuspend!
-        self.update_attribute(:trust_state, ::UserState.active.id)
-      end
-
-      def deleted?
-        trust_state == ::UserState.deleted.id
+      def generate_password!
+        raw_password = AbAdmin.test_env? ? '654321' : ::Devise.friendly_token[0..7]
+        self.password = self.password_confirmation = raw_password
+        self.save(validate: false)
+        raw_password
       end
 
       def moderator?
@@ -86,20 +63,8 @@ module AbAdmin
         user_role_type.code == role_name
       end
 
-      def pending?
-        trust_state == ::UserState.pending.id
-      end
-
-      def trusted?
-        self.trust_state == ::UserState.active.id
-      end
-
-      def active_for_authentication?
-        super && trusted?
-      end
-
-      def inactive_message
-        trusted? ? super : :unconfirmed
+      def set_default_role
+        self.user_role_id ||= ::UserRoleType.default.id
       end
 
       protected

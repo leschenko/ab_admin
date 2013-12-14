@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
                   :time_zone, :locale, :bg_color, :gender
 
 
-  attr_accessible :user_role_id, :trust_state, as: :admin
+  attr_accessible :user_role_id, as: :admin
 
   include AbAdmin::Concerns::AdminAddition
   include AbAdmin::Models::User
@@ -17,7 +17,6 @@ class User < ActiveRecord::Base
 
   def init
     set_default_role
-    self.trust_state ||= ::UserState.pending.id
     self.locale ||= 'ru'
     self.time_zone ||= 'Kiev'
   end

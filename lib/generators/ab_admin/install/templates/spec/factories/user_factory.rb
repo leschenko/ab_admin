@@ -6,7 +6,6 @@ FactoryGirl.define do
 
     factory :default_user do
       confirmed_at 1.hour.ago
-      trust_state UserState.active.id
       first_name Forgery::Name.first_name
       last_name Forgery::Name.last_name
 
@@ -23,7 +22,7 @@ FactoryGirl.define do
       end
 
       factory :inactive_user do
-        trust_state UserState.suspended.id
+        locked_at Time.current
       end
     end
   end
