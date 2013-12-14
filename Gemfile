@@ -11,7 +11,7 @@ gem 'ransack'
 gem 'has_scope'
 gem 'friendly_id'
 gem 'devise', '~> 3.2.2'
-gem 'cancan'
+gem 'cancan', github: 'ryanb/cancan'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'awesome_nested_set'
 

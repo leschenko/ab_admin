@@ -1,8 +1,8 @@
 class ::Admin::LocatorsController < ::Admin::BaseController
   authorize_resource
 
-  before_filter :find_files, only: [:show, :edit, :update]
-  before_filter :find_file, only: [:edit, :update]
+  before_action :find_files, only: [:show, :edit, :update]
+  before_action :find_file, only: [:edit, :update]
 
   def edit
     @locale_hash = YAML.load_file(@file)

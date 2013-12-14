@@ -6,12 +6,12 @@ class Admin::BaseController < ::InheritedResources::Base
   include AbAdmin::Controllers::Callbacks
   define_admin_callbacks :save, :create
 
-  before_filter :authenticate_user!, :require_require_admin_access, :set_user_vars
-  before_filter :add_breadcrumbs, :set_title, unless: :xhr?
+  before_action :authenticate_user!, :require_require_admin_access, :set_user_vars
+  before_action :add_breadcrumbs, :set_title, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 
-  has_scope :ids, type: :array
+  has_scope :by_ids, type: :array
 
   helper_method :admin?, :moderator?
 

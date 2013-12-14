@@ -1,6 +1,6 @@
 class Admin::AssetsController < ApplicationController
-  before_filter :find_klass, only: [:create, :sort]
-  before_filter :find_asset, only: [:destroy, :main, :rotate, :crop]
+  before_action :find_klass, only: [:create, :sort]
+  before_action :find_asset, only: [:destroy, :main, :rotate, :crop]
 
   authorize_resource
 

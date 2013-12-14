@@ -181,7 +181,7 @@ module AbAdmin
       def batch_action_item(item)
         if settings[:batch]
           content_tag :td do
-            check_box_tag 'ids[]', item.id, false, id: "batch_action_item_#{item.id}", class: 'batch_check'
+            check_box_tag 'by_ids[]', item.id, false, id: "batch_action_item_#{item.id}", class: 'batch_check'
           end
         end
       end

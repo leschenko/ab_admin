@@ -2,7 +2,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Utils::EvalHelpers
   include AbAdmin::Controllers::Tree
 
-  prepend_before_filter :manager
+  prepend_before_action :manager
 
   load_and_authorize_resource
 
