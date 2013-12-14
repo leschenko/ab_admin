@@ -25,3 +25,6 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
   alias_method_chain :translations_accessor, :locale_suffix_accessors
 end
 
+Globalize::ActiveRecord::Translation.class_exec do
+  attr_accessible :locale
+end

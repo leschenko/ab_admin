@@ -22,7 +22,7 @@ module ActiveModel
     class Sanitizer
       def sanitize(attributes, authorizers)
         sanitized_attributes = attributes.reject { |key, value| authorizers.all? { |auth| auth.deny?(key) } }
-        debug_protected_attribute_removal(attributes, sanitized_attributes)
+        #debug_protected_attribute_removal(attributes, sanitized_attributes)
         sanitized_attributes
       end
     end

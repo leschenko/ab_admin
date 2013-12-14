@@ -13,7 +13,7 @@ gem 'friendly_id'
 gem 'devise', '~> 3.2.2'
 gem 'cancan', github: 'ryanb/cancan'
 gem 'galetahub-enum_field', require: 'enum_field'
-gem 'awesome_nested_set'
+gem 'awesome_nested_set', '~> 3.0.0.rc.2'
 
 gem 'carrierwave'
 gem 'mini_magick'

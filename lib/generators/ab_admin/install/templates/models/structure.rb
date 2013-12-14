@@ -4,8 +4,8 @@ class Structure < ActiveRecord::Base
   attr_accessible :structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,
                   :structure_type, :position_type, :slug, :parent
 
-  has_one :picture, as: :assetable, dependent: :destroy, conditions: {is_main: true}
-  has_many :pictures, as: :assetable, dependent: :destroy, conditions: {is_main: false}
+  has_one :picture, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
+  has_many :pictures, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
 
   fileuploads :picture
   translates :title, :redirect_url
@@ -15,7 +15,7 @@ class Structure < ActiveRecord::Base
   extend FriendlyId
   friendly_id :title, use: :slugged
 
-  default_scope nested_set.includes(:translations)
+  default_scope -> { nested_set.includes(:translations) }
 
   def should_generate_new_friendly_id?
     slug.blank? && new_record?

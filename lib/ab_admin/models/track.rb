@@ -19,7 +19,7 @@ module AbAdmin
 
         alias_method :tracking_enabled?, :tracking_enabled
 
-        scope :recently, order('id DESC')
+        scope :recently, -> { order('id DESC') }
       end
 
       def action_title(params = {})

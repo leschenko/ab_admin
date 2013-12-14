@@ -10,9 +10,9 @@ module AbAdmin
 
         attr_accessor :cached_children
 
-        scope :nested_set, order('lft ASC')
-        scope :reversed_nested_set, order('lft DESC')
-        scope :with_depth, proc { |level| where(depth: level) }
+        scope :nested_set, -> { order('lft ASC') }
+        scope :reversed_nested_set, -> { order('lft DESC') }
+        scope :with_depth, lambda { |level| where(depth: level) }
       end
 
       module ClassMethods

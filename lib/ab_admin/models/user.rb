@@ -6,9 +6,9 @@ module AbAdmin
       included do
         has_one :avatar, as: :assetable, dependent: :destroy, autosave: true
 
-        scope :managers, where(user_role_id: [::UserRoleType.admin.id, ::UserRoleType.moderator.id])
-        scope :active, where(locked_at: nil)
-        scope :admin, includes(:avatar)
+        scope :managers, -> { where(user_role_id: [::UserRoleType.admin.id, ::UserRoleType.moderator.id]) }
+        scope :active, -> { where(locked_at: nil) }
+        scope :admin, -> { includes(:avatar) }
 
         after_initialize :init
         before_validation :generate_login
