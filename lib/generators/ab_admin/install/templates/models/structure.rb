@@ -5,7 +5,7 @@ class Structure < ActiveRecord::Base
                   :structure_type, :position_type, :slug, :parent
 
   has_one :picture, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
-  has_many :pictures, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
+  has_many :pictures, -> { where(is_main: false) }, as: :assetable, dependent: :destroy
 
   fileuploads :picture
   translates :title, :redirect_url

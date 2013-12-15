@@ -17,7 +17,7 @@ module Dummy
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W(
-    #{config.root}/../../lib/generators/ab_admin/install/templates/models/
+        #{config.root}/../../lib/generators/ab_admin/install/templates/models/
         #{config.root}/../../lib/generators/ab_admin/install/templates/uploaders
         #{config.root}/../../lib/generators/ab_admin/install/templates/models/ab_admin
         #{config.root}/app/models/ab_admin)
@@ -39,7 +39,6 @@ module Dummy
     config.eager_load_paths += dirs
 
     config.action_mailer.default_url_options = {host: 'localhost:3000'}
-
   end
 end
 

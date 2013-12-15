@@ -19,6 +19,7 @@ gem 'carrierwave'
 gem 'mini_magick'
 gem 'coffee-rails'
 gem 'sass-rails'
+gem 'uglifier'
 
 gem 'bootstrap-sass'
 gem 'bootstrap-wysihtml5-rails'
@@ -76,4 +77,8 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
+end
+
+group :production do
+  gem 'puma'
 end

@@ -5,6 +5,6 @@ class Catalogue < ActiveRecord::Base
   include AbAdmin::Concerns::AdminAddition
 
 
-  default_scope nested_set
+  default_scope -> { nested_set }
 
 end
