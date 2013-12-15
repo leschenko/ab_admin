@@ -1,7 +1,7 @@
-// Set the correct sprite paths
-$iconSpritePath: asset-url('glyphicons-halflings.png', image);
-$iconWhiteSpritePath: asset-url('glyphicons-halflings-white.png', image);
+$baseFontSize: 13px !default;
+$baseLineHeight: 18px !default;
 @import "bootstrap";
+@import "bootstrap-responsive";
 @import "ab_admin/components/base";
 @import "ab_admin/components/navigation";
 @import "ab_admin/components/table_view";
@@ -36,6 +36,10 @@ img {
   margin-bottom: 10px;
 }
 
+.well-small {
+  margin-bottom: 15px;
+}
+
 .dropdown .caret {
   margin-left: 5px;
 }
@@ -55,10 +59,6 @@ img {
 
 .radio.inline + .radio.inline, .checkbox.inline + .checkbox.inline {
   margin-left: 20px;
-}
-
-.well-small {
-  margin-bottom: 15px;
 }
 
 ul.nav li.dropdown:hover ul.dropdown-menu {
@@ -92,9 +92,9 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
   background-color: #DA4E49;
 }
 
-//.navbar-inner {
-//  @include border-radius(0);
-//}
+.navbar-inner {
+  @include border-radius(0);
+}
 
 .navbar {
   margin-bottom: 5px;
