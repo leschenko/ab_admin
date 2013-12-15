@@ -92,9 +92,9 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
   background-color: #DA4E49;
 }
 
-.navbar-inner {
-  @include border-radius(0);
-}
+//.navbar-inner {
+//  @include border-radius(0);
+//}
 
 .navbar {
   margin-bottom: 5px;

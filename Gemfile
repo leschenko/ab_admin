@@ -54,6 +54,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'forgery'
+  gem 'debugger'
 end
 
 group :test do
