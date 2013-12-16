@@ -38,7 +38,8 @@ module WillPaginate
         rel.total_entries = total.to_i unless total.blank?
 
         if large
-          new_rel = rel.except(:limit, :offset, :where).where(id: rel.select("#{quoted_table_name}.id").map(&:id))
+          ids = rel.except(:includes).pluck("#{quoted_table_name}.id")
+          new_rel = rel.except(:limit, :offset, :where).where(id: ids)
           new_rel.paginate_limit = rel.limit_value.to_i
           new_rel.paginate_offset = rel.offset_value.to_i
           new_rel.total_entries = rel.total_entries
