@@ -161,10 +161,6 @@ describe AbAdmin::CarrierWave::BaseUploader do
       @image = create(:main_uploader_spec_image, id: 12345678, assetable: @assetable)
     end
 
-    it 'filename should be valid' do
-      @image.filename.should == 'А_и_б.png'
-    end
-
     it 'content-type should be valid' do
       @image.data_content_type.should == 'image/png'
     end

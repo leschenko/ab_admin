@@ -10,7 +10,7 @@ module AbAdmin
         # Store options for image manipulation
         attr_reader :cropper_geometry, :rotate_degrees
 
-        delegate :url, :original_filename, to: :data
+        delegate :url, to: :data
 
         class_attribute :thumb_size, :max_size
         self.thumb_size = :thumb
@@ -18,7 +18,7 @@ module AbAdmin
 
         before_save :reprocess
 
-        alias_attribute :filename, :original_filename
+        alias_attribute :filename, :data_file_name
         alias_attribute :size, :data_file_size
         alias_attribute :content_type, :data_content_type
       end

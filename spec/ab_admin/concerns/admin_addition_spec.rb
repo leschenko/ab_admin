@@ -19,7 +19,7 @@ describe AbAdmin::Concerns::AdminAddition do
 
     it 'translated attrs with locale suffix' do
       @product.name_ru = 'new name'
-      @product.new_changes.should == {name_ru: 'new name'}
+      @product.new_changes.should == {'name_ru' => 'new name'}
     end
   end
 

@@ -18,7 +18,6 @@ Time::DATE_FORMATS[:compare] = '%Y%m%d%H%M'
 Time::DATE_FORMATS[:compare_date] = Date::DATE_FORMATS[:compare_date] = '%Y%m%d'
 
 Kernel.suppress_warnings do
-  #ActionView::Base::InstanceTag::DEFAULT_TEXT_AREA_OPTIONS = {'cols' => 93, 'rows' => 5}
   # fixed in master branch
   Russian::LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e|%-d)(.*)(%B)/ if defined? Russian
 end

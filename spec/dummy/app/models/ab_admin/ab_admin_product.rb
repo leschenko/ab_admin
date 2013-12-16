@@ -61,7 +61,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :collection, as: :association, fancy: true
     locale_tabs do
       field :name
-      field :description
+      field :description, as: :text
     end
     field :test, as: :capture_block do
       '<b>Capture block input</b>'.html_safe

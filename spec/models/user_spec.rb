@@ -24,10 +24,8 @@ describe User do
       end
     end
     it 'allow mass assignment of user_role_id, trust_state only for admin' do
-      [:user_role_id, :trust_state].each do |attr|
-        should_not allow_mass_assignment_of(attr)
-        should allow_mass_assignment_of(attr).as(:admin)
-      end
+      should_not allow_mass_assignment_of(:user_role_id)
+      should allow_mass_assignment_of(:user_role_id).as(:admin)
     end
   end
 
@@ -90,7 +88,7 @@ describe User do
       end
 
       it 'activate user' do
-        @inactive.activate
+        @inactive.activate!
         @inactive.locked_at.should be_nil
       end
 
@@ -108,19 +106,13 @@ describe User do
         @inactive.user_role_id.should == ::UserRoleType.default.id
       end
 
-      it 'pending by default' do
-        @inactive.reload
-        @inactive.should be_pending
-        @inactive.inactive_message.should == :unconfirmed
-      end
-
       it 'active for authentication' do
         @user.should be_active_for_authentication
       end
 
       it 'suspend user' do
         @user.suspend!
-        @user.locked_at.should be_blank
+        @user.locked_at.should_not be_blank
       end
 
       describe 'roles' do
