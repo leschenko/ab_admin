@@ -121,7 +121,7 @@ module AbAdmin
             guid: element_guid
         }.merge(script_options.delete(:params) || {})
 
-        script_options['action'] ||= '/sunrise/fileupload?' + Rack::Utils.build_query(params)
+        script_options['action'] ||= "#{AbAdmin.fileupload_url}?#{Rack::Utils.build_query(params)}"
         if !script_options['allowedExtensions'] && asset_klass
           script_options['allowedExtensions'] = asset_klass.ext_list
         end

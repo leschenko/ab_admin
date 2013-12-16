@@ -22,7 +22,9 @@
     = f.input :password_confirmation, input_html: {autocomplete: 'off'}
 
   = input_set t('admin.avatar') do
-    = f.attach_file_field :avatar, file_max_size: 2, edit_meta: true
+    = file_field_tag 'data', id: 'fileupload_avatar'
+    /= f.file_field :image, multiple: true, name: 'user[data]'
+    /= f.attach_file_field :avatar, file_max_size: 2, edit_meta: true
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
 

@@ -1,25 +1,25 @@
 class Admin::AssetsController < ApplicationController
-  before_action :find_klass, only: [:create, :sort]
+  before_action :find_klass, only: :sort
   before_action :find_asset, only: [:destroy, :main, :rotate, :crop]
 
   authorize_resource
 
-  def create
-    @asset = @klass.new(params[:asset])
+  respond_to :json
 
-    @asset.assetable_type = params[:assetable_type]
-    @asset.assetable_id = params[:assetable_id] || 0
+  def create
+    @asset = build_asset(params[:asset])
+
     @asset.guid = params[:guid]
     @asset.data = params[:data]
     @asset.user = current_user
     @asset.save
 
-    head :ok
+    respond_with(@asset, location: nil)
   end
 
   def destroy
-    @asset.destroy
-    head :ok
+    @asset.destroy!
+    respond_with(@asset, location: nil)
   end
 
   def sort
@@ -53,18 +53,6 @@ class Admin::AssetsController < ApplicationController
 
   protected
 
-  def find_assets
-    assoc = params[:assetable_type].constantize.reflect_on_association(params[:assoc].to_sym)
-    scope = assoc.klass.where(assetable_type: params[:assetable_type], is_main: !assoc.collection?)
-    if params[:assetable_id].present?
-      scope.where(assetable_id: params[:assetable_id])
-    elsif params[:guid].present?
-      scope.where(guid: params[:guid])
-    else
-      []
-    end
-  end
-
   def find_asset
     @asset = Asset.find(params[:id])
   end
@@ -72,4 +60,23 @@ class Admin::AssetsController < ApplicationController
   def find_klass
     @klass = params[:klass].blank? ? Asset : params[:klass].classify.constantize
   end
+
+  def build_asset(asset_params)
+    raise 'Can not build Asset without assetable_type' if params[:assetable_type].blank?
+
+    assetable_klass = params[:assetable_type].constantize
+    assoc = assetable_klass.reflect_on_association(params[:method].to_sym)
+    if params[:assetable_id].to_i.zero?
+      base = assoc.scope ? assoc.klass.instance_exec(&assoc.scope) : assoc.klass
+      base.where(assetable_type: assetable_klass.name, assetable_id: 0).new(asset_params)
+    else
+      assetable = assetable_klass.find(params[:assetable_id])
+      if assoc.collection?
+        assetable.send(params[:method]).new(asset_params)
+      else
+        assetable.send("build_#{params[:method]}", asset_params)
+      end
+    end
+  end
+
 end

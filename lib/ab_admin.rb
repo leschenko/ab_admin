@@ -145,6 +145,10 @@ module AbAdmin
 
   mattr_accessor :locale
 
+  mattr_accessor :fileupload_url
+  #@@fileupload_url = '/sunrise/fileupload'
+  @@fileupload_url = '/admin/assets'
+
   extend Utils
 
   def self.setup
