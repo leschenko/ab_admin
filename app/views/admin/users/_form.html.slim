@@ -22,7 +22,23 @@
     = f.input :password_confirmation, input_html: {autocomplete: 'off'}
 
   = input_set t('admin.avatar') do
-    = file_field_tag 'data', id: 'fileupload_avatar'
+    .fileupload.image_asset_type.one_asset
+      .fileupload-list.clearfix
+        /= render partial: "admin/fileupload/#{asset_template}", collection: assets
+      .fileupload-list
+      .file-types
+        .fileupload-button.pull-left
+          .btn Select files
+          = file_field_tag 'data', id: 'fileupload_avatar'
+        .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
+
+        .file-types-info
+          span.file_title== 'JPG PNG. '
+          span.file_max_size== "#{t('admin.fileupload.max_size')}: <b>2</b> MB"
+
+
+
+
     /= f.file_field :image, multiple: true, name: 'user[data]'
     /= f.attach_file_field :avatar, file_max_size: 2, edit_meta: true
 

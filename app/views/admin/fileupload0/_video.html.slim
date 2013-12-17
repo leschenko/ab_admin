@@ -1,0 +1,9 @@
+.asset id="asset_#{video.id}" data-id=video.id
+  = link_to icon('remove', true), admin_asset_path(video), remote: true, method: :delete, title: t('admin.delete'), class: 'del_asset', \
+     data: {confirm: t('admin.delete_confirmation')}
+  video controls='true'
+    source src=video.url
+    | Your browser does not support mp4 videos
+    .video-filename
+      a href=video.url target='_blank' = video.human_name
+      span== " (#{video.human_filesize}) - #{l(video.created_at, format: :long)}"

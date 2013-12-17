@@ -1,0 +1,6 @@
+script#fileupload_ftmpl type="text/x-jquery-tmpl"
+  .asset id="asset_${id}" data-id='${id}'
+    a href='${url}' target='_blank' ${original_name}
+    span &nbsp;(${human_filesize})
+    = link_to icon('remove', true), '/admin/assets/${id}', remote: true, method: :delete, title: t('admin.delete'), \
+      class: 'del_asset btn btn-danger btn-mini', data: {confirm: t('admin.delete_confirmation')}

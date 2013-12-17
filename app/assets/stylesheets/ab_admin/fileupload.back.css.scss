@@ -3,20 +3,6 @@
   position: relative;
   padding-top: 10px;
   padding-left: 10px;
-  .fileupload-button {
-    position: relative;
-    overflow: hidden;
-    input {
-      position: absolute;
-      top: 0;
-      right: 0;
-      margin: 0;
-      opacity: 0;
-      font-size: 200px;
-      direction: ltr;
-      cursor: pointer;
-    }
-  }
   &.image_asset_type {
     .asset {
       float: left;
@@ -68,22 +54,37 @@
     font-size: 0.9em;
     font-weight: bold;
   }
+  .fileupload-button {
+    z-index: 3;
+  }
   .fileupload-edit-button {
     margin-left: 10px;
     display: none;
   }
-  .fileupload-types {
+  .file-types {
     overflow: hidden;
     padding-top: 10px;
     padding-left: 5px;
     z-index: 2;
     position: relative;
   }
-  .file-types-info {
+  .file-types .type-info {
     float: right;
     color: #5b6569;
     font-size: 0.9em;
     text-transform: uppercase;
+  }
+  .fileupload-drop-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 70px;
+    z-index: 1;
+    text-align: center;
+    color: #999;
+    font-size: 18px;
   }
   &.error .help-inline {
     color: #b94a48;
@@ -95,4 +96,3 @@
     max-height: 130px;
   }
 }
-
