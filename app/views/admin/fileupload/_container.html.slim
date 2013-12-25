@@ -1,15 +1,15 @@
-= content_tag :div, id: element_id, class: css_class, data: container_data do
-  = error
-  .fileupload-drop-area
-    span= t('admin.fileupload.drop_here')
-  .fileupload-list.clearfix= render partial: "admin/fileupload/#{asset_template}", collection: assets
+.fileupload.image_asset_type.one_asset id=uploader_options[:element_id] data=uploader_options[:element_id]
+  .fileupload-list.clearfix
+    /= render partial: "admin/fileupload/#{asset_template}", collection: assets
+  .fileupload-list
   .file-types
     .fileupload-button.pull-left
-      button.btn type='button' = button_title
+      .btn Select files
+      = file_field_tag 'data', id: 'fileupload_avatar', multiple: uploader_options[:multiple]
     .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
 
-    .type-info
-      span.file_title== "#{file_title}. "
-      span.file_max_size== "#{t('admin.fileupload.max_size')}: <b>#{file_max_size}</b> MB"
+    .file-types-info
+      span.file_title== 'JPG PNG. '
+      span.file_max_size== "#{t('admin.fileupload.max_size')}: <b>2</b> MB"
 
-= init_js(js)
+= uploader_js

@@ -96,6 +96,7 @@ module AbAdmin
       autoload :DateTimePickerInput, 'ab_admin/views/inputs/date_time_picker_input'
       autoload :TokenInput, 'ab_admin/views/inputs/token_input'
       autoload :CaptureBlockInput, 'ab_admin/views/inputs/capture_block_input'
+      autoload :UploaderInput, 'ab_admin/views/inputs/uploader_input'
     end
   end
 

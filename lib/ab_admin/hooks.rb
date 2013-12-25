@@ -9,7 +9,7 @@ InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.
 Responders::FlashResponder.namespace_lookup = true
 YAML::ENGINE.yamler = 'psych'
 ::SimpleForm.wrapper_mappings ||= {}
-::SimpleForm.wrapper_mappings[:capture_block] = AbAdmin::Views::ContentOnlyWrapper.instance
+::SimpleForm.wrapper_mappings[:capture_block] = ::SimpleForm.wrapper_mappings[:uploader] = AbAdmin::Views::ContentOnlyWrapper.instance
 CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 
 Time::DATE_FORMATS[:api] = '%d.%m.%Y'
