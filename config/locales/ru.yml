@@ -138,6 +138,7 @@ ru:
     gender:
       female: "Женский"
       male: "Мужской"
+      undefined: "Неизвестно"
     geo_autocomplete: "Введите адрес"
     group: 
       kind: 

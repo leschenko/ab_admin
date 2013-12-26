@@ -1,6 +1,5 @@
 load 'ab_admin/views/inputs/uploader_input.rb'
 
-
 class AbAdminProduct < AbAdmin::AbstractResource
   #preview_path :product_path
   #preview_path { |product| product_path(product) }

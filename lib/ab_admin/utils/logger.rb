@@ -8,6 +8,10 @@ module AbAdmin
           backtrace = e.backtrace.map { |l| "#{' ' * 2}#{l}" }.join("\n")
           error("#{message}\n#{backtrace}\n\n")
         end
+
+        def reopen
+          @logdev = LogDevice.new(@logdev.filename)
+        end
       end
 
       def self.for_file(filename)
