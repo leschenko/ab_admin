@@ -16,6 +16,7 @@ module AbAdmin
               error: @builder.error(attribute_name)
           }
           @options.reverse_merge!(defaults)
+          @options[:sortable] = @options[:multiple] unless @options.has_key?(:sortable)
           @options[:container_class] = container_class
         end
 
@@ -47,6 +48,8 @@ module AbAdmin
           classes << (@options[:multiple] ? 'fileupload-multiple' : 'fileupload-single')
           classes << "fileupload-#{@options[:file_type]}_file_type"
           classes << "fileupload-#{@options[:theme]}_theme" if @options[:theme]
+          classes << 'fileupload-sortable' if @options[:sortable]
+          classes << "fileupload-klass-#{@assoc.klass.name}"
           classes << 'error' if @options[:error]
           classes
         end
@@ -67,8 +70,9 @@ module AbAdmin
         def js_options
           {
             container_id: @options[:container_id],
-            sort_url: template.sort_admin_assets_path(klass: @assoc.klass),
+            sort_url: template.sort_admin_assets_path(klass: @assoc.klass.name),
             extensions: @options[:extensions],
+            klass: @assoc.klass.name,
             fileupload: {
               url: AbAdmin.fileupload_url,
               maxFileSize: @options[:max_size].megabytes.to_i,
