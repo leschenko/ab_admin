@@ -40,10 +40,10 @@ module AbAdmin
           {
             element_id: @uploader_options[:element_id],
             sort_url: template.sort_admin_assets_path(klass: @assoc.klass),
+            alloved_extensions: @assoc.klass.ext_list,
             fileupload: {
               url: AbAdmin.fileupload_url,
-              #maxFileSize: (options[:file_max_size] || @assoc.klass.try(:max_size)).megabytes.to_i,
-              #maxFileSize: 100,
+              maxFileSize: (options[:file_max_size] || @assoc.klass.try(:max_size)).megabytes.to_i,
               formData: {
                 assetable_type: 'User',
                 assetable_id: 1,

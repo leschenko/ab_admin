@@ -1,12 +1,12 @@
-#=require jquery-fileupload/vendor/jquery.ui.widget
-#=require jquery-fileupload/vendor/load-image
-#=require jquery-fileupload/vendor/canvas-to-blob
-#=require jquery-fileupload/jquery.iframe-transport
-#=require jquery-fileupload/jquery.fileupload
-#=require jquery-fileupload/jquery.fileupload-fp
-#=require ab_admin/fileupload/jquery.fileupload-validate.js
-#=require ab_admin/fileupload/jquery.fileupload-process.js
-#=require jquery-fileupload/locale
+#=require fileupload/vendor/jquery.ui.widget
+#=require fileupload/jquery.iframe-transport
+#=require fileupload/jquery.fileupload
+#=require fileupload/jquery.fileupload-process
+#=require fileupload/jquery.fileupload-validate
+#q=require fileupload/jquery.fileupload-image
+#q=require fileupload/jquery.fileupload-audio
+#q=require fileupload/jquery.fileupload-video
+#=require fileupload/locales/ru
 
 class window.AdminAssets
   constructor: (@options) ->
@@ -16,17 +16,14 @@ class window.AdminAssets
   initHandlers: ->
     defaults =
       dataType: 'json'
-      maxFileSize: 100
-      acceptFileTypes: /(\.|\/)(gif|jpe?g|png)$/i
+      processfail: @processfail
 
-    log @options
+    if @options.alloved_extensions
+      defaults.acceptFileTypes = new RegExp("(\.|\/)(#{@options.alloved_extensions.join('|')})", 'i')
+
     @el.fileupload _.defaults(@options.fileupload, defaults)
 
-    callbacks = ['fileuploadadd', 'fileuploadsubmit', 'fileuploadsend', 'fileuploaddone', 'fileuploadfail', 'fileuploadalways',
-     'fileuploadprogress', 'fileuploadprogressall', 'fileuploadstart', 'fileuploadstop', 'fileuploadchange',
-     'fileuploadpaste', 'fileuploaddrop', 'fileuploaddragover', 'fileuploadchunksend']
-
-    for callback in callbacks
-      @el.on callback, (e, data) ->
-        log callback
-        log [e, data]
+  processfail: (e, data) ->
+    errors = _.map(data.files,(file) ->
+      [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
+    bootbox.alert(errors)

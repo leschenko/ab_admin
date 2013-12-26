@@ -39,7 +39,7 @@ class window.Select2Bridge
     @options.createSearchChoice = (term, data) =>
       @clearCreateChoise()
       @cont = @el.select2('container')
-      @btn_add = $("<div class='btn btn-info btn-mini select2-create-choise'>#{I18n.t('admin_js.add')} - #{term}</div>")
+      @btn_add = $("<div class='btn btn-info btn-mini select2-create-choise'>#{I18n.t('admin.js.add')} - #{term}</div>")
       @btn_add.prependTo @cont
       @btn_add.click =>
         @modal.data('target', this)
@@ -74,7 +74,7 @@ class window.Select2Bridge
   defaults: ->
     opts =
       formatNoMatches: ->
-        I18n.t('admin_js.no_results')
+        I18n.t('admin.js.no_results')
       placeholder: ' '
       allowClear: true
       escapeMarkup: (m) -> m

@@ -213,26 +213,26 @@ de:
         deleted: Removed
         pending: Inactive
         suspended: Frozen
-  admin_js:
-    empty: Empty
-    add_link: Create?
-    button_description: Description
-    button_name_add: Add
-    button_name_cancel: Reset
-    button_name_remove: Remove
-    cancel: Cancellation
-    clear: Reset
-    confirm: Confirm
-    create_product: "Create a new product"
-    day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
-    day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
-    delete_nested_elements: "Can not delete"
-    edit: Edit
-    month: "January,February,March,April,May,June,July,August,September,October,November,December"
-    name: Name
-    no_results: "Nothing found"
-    search: "Searching ..."
-    value: Value
+    js:
+      empty: Empty
+      add_link: Create?
+      button_description: Description
+      button_name_add: Add
+      button_name_cancel: Reset
+      button_name_remove: Remove
+      cancel: Cancellation
+      clear: Reset
+      confirm: Confirm
+      create_product: "Create a new product"
+      day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
+      day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+      delete_nested_elements: "Can not delete"
+      edit: Edit
+      month: "January,February,March,April,May,June,July,August,September,October,November,December"
+      name: Name
+      no_results: "Nothing found"
+      search: "Searching ..."
+      value: Value
   attributes:
     address: Address
     country: Country

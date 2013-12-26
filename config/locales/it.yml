@@ -211,25 +211,25 @@ it:
         deleted: Rimosso
         pending: Inattivo
         suspended: Congelato
-  admin_js:
-    add_link: Crea?
-    button_description: Descrizione
-    button_name_add: Aggiungere
-    button_name_cancel: Reset
-    button_name_remove: Rimuovere
-    cancel: Cancellazione
-    clear: Reset
-    confirm: Confermare
-    create_product: Creazione di un nuovo prodotto
-    day: ""
-    day_short: "Dom, Lun, Mar, mer, gio, ven, sab"
-    delete_nested_elements: Impossibile eliminare
-    edit: Modifica
-    month: ""
-    name: Nome
-    no_results: Non abbiamo trovato nulla
-    search: Ricerca ...
-    value: Valore
+    js:
+      add_link: Crea?
+      button_description: Descrizione
+      button_name_add: Aggiungere
+      button_name_cancel: Reset
+      button_name_remove: Rimuovere
+      cancel: Cancellazione
+      clear: Reset
+      confirm: Confermare
+      create_product: Creazione di un nuovo prodotto
+      day: ""
+      day_short: "Dom, Lun, Mar, mer, gio, ven, sab"
+      delete_nested_elements: Impossibile eliminare
+      edit: Modifica
+      month: ""
+      name: Nome
+      no_results: Non abbiamo trovato nulla
+      search: Ricerca ...
+      value: Valore
   attributes: 
     address: Indirizzo
     country: Paese

@@ -77,8 +77,8 @@ class window.AdminAssets
         bootbox.alert 'Upload images first'
       $.get '/admin/assets/batch_edit', {ids: ids}, (data) =>
         bootbox.dialog(data, [
-          {label: I18n.t('admin_js.cancel'), class: ' '},
-          {label: I18n.t('admin_js.save'), class: 'btn-primary btn-large fileupload-edit-submit', callback: -> $('form.fileupload-edit-form').submit()}
+          {label: I18n.t('admin.js.cancel'), class: ' '},
+          {label: I18n.t('admin.js.save'), class: 'btn-primary btn-large fileupload-edit-submit', callback: -> $('form.fileupload-edit-form').submit()}
         ])
         max_h = $(window).height() - 100
         $('.bootbox.modal').css
