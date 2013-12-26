@@ -10,7 +10,7 @@ class Admin::AssetsController < ApplicationController
     @asset = build_asset(params[:asset])
 
     @asset.guid = params[:guid]
-    @asset.data = params[:data]
+    @asset.data = prepared_data
     @asset.user = current_user
     @asset.save
 
@@ -59,6 +59,11 @@ class Admin::AssetsController < ApplicationController
 
   def find_klass
     @klass = params[:klass].blank? ? Asset : params[:klass].classify.constantize
+  end
+
+  def prepared_data
+    params[:data].original_filename = "blob.#{params[:data].content_type.split('/').last}" if params[:data].original_filename == 'blob'
+    params[:data]
   end
 
   def build_asset(asset_params)

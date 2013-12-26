@@ -20,9 +20,16 @@ class window.AdminAssets
   initFileupload: ->
     defaults =
       dataType: 'json'
+      dropZone: @el
+      pasteZone: @el
       processfail: @showErrors
       done: (e, data) =>
-        @renderAsset(data.result.asset)
+        @list.empty() unless @options.multiple
+        @list.append @template(data.result.asset)
+      start: ->
+        toggleLoading(true)
+      always: ->
+        toggleLoading(false)
 
     if @options.extensions
       defaults.acceptFileTypes = new RegExp("(\.|\/)(#{@options.extensions.join('|')})", 'i')
@@ -34,42 +41,36 @@ class window.AdminAssets
       [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
     bootbox.alert(errors)
 
-  renderAsset: (asset) ->
-    @list.empty() unless @options.multiple
-    @list.append @template(asset)
-
   initHandlers: ->
-    unless window.admin_assets_first
-      window.admin_assets_first = true
-      @initRemove()
-      @initMainImage()
+    @initRemove()
     @initRotate()
+    @initMainImage() if @options.multiple
     @initSortable() if @options.sortable
     @initFancybox() if $.fn.fancybox
     @initEditMeta() if @options.edit_meta
 
   initRemove: ->
-    $(document).on 'ajax:complete', '.fileupload .destroy_asset', ->
+    @el.on 'ajax:complete', '.fileupload .destroy_asset', ->
       $(this).closest("div.asset").remove()
-
-  initMainImage: ->
-    @el.on 'click', '.fileupload-multiple .main_image', ->
-      $asset = $(this).closest('.asset')
-      $multiple_list = $asset.closest('.fileupload').find('.fileupload-list')
-      klass_css = "fileupload-klass-#{@options.klass}"
-      record_css = "fileupload-record-#{@options.fileupload.formData.guid}"
-      $single_list = $(".fileupload.fileupload-single.#{record_css}.#{klass_css} .fileupload-list")
-
-      $.post "/admin/assets/#{$asset.data('id')}/main", ->
-        $single_list.find('.asset').appendTo($multiple_list)
-        $asset.appendTo($single_list)
 
   initRotate: ->
     self = this
     @el.on 'click', '.rotate_image', ->
       $asset = $(this).closest('.asset')
       $.post "/admin/assets/#{$asset.data('id')}/rotate", (data) ->
-        self.renderAsset(data.asset)
+        $asset.replaceWith self.template(data.asset)
+
+  initMainImage: ->
+    self = this
+    @el.on 'click', '.fileupload-multiple .main_image', ->
+      $asset = $(this).closest('.asset')
+      klass_css = "fileupload-klass-#{self.options.klass}"
+      record_css = "fileupload-record-#{self.options.fileupload.formData.guid}"
+      $single_list = $(".fileupload.fileupload-single.#{record_css}.#{klass_css} .fileupload-list")
+
+      $.post "/admin/assets/#{$asset.data('id')}/main", ->
+        $single_list.find('.asset').appendTo(self.list)
+        $asset.appendTo($single_list)
 
   initSortable: ->
     @list.sortable
@@ -78,18 +79,23 @@ class window.AdminAssets
         $.post self.options.sort_url, {data: $(self.list_query).sortable('serialize')}
 
   initFancybox: =>
-    @list.find(" a.fancybox").fancybox
-      afterShow: =>
-        @crop?.fancyboxHandler()
+    @list.find(" a.fancybox")
+      .click (e) ->
+        e.preventDefault()
+      .fancybox
+        afterShow: =>
+          @crop?.fancyboxHandler()
+        helpers:
+          overlay:
+            locked: false
 
   initCrop: ->
     if @uploader_el.data('crop') && $.fn.Jcrop
-      opts = if _.isObject(@uploader_el.data('crop')) then @uploader_el.data('crop') else {}
-      @crop = new CroppableImage(@element_id, opts)
+      opts = if _.isObject(@options.crop) then @options.crop else {}
+      @crop = new CroppableImage(@options.container_id, opts)
 
   initEditMeta: ->
-    @el.find('.fileupload-edit-button').show()
-    @el.on 'click', '.fileupload-edit-button', =>
+    @el.find('.fileupload-edit-button').show().click =>
       ids = @el.find('.fileupload-list .asset').map(-> $(this).data('id')).get()
       unless ids[0]
         bootbox.alert 'Upload images first'

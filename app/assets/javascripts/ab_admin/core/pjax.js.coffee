@@ -1,3 +1,6 @@
+window.toggleLoading = (is_loading=true) ->
+  $('#loading').toggle(is_loading)
+
 $ ->
   $(document).on 'click', '.pjax, .pagination a, .pjax_links a', (e) ->
     if e.which > 1 || e.metaKey || e.ctrlKey
@@ -36,6 +39,6 @@ $ ->
 
   $(document)
     .on 'pjax:start', ->
-      $('#loading').show()
+      toggleLoading(true)
     .on 'pjax:end', ->
-      $('#loading').hide()
+      toggleLoading(false)
