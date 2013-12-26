@@ -16,6 +16,7 @@ module AbAdmin
       map_type :capture_block, to: ::AbAdmin::Views::Inputs::CaptureBlockInput
 
       def input(attribute_name, options = {}, &block)
+        options[:collection] = options[:collection].call if options[:collection].is_a?(Proc)
         if options[:fancy] || (options[:collection] && options[:collection].to_a.length > 30)
           options[:input_html] ||= {}
           options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
