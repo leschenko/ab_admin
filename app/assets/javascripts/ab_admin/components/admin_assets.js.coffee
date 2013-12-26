@@ -1,8 +1,12 @@
-#=require fileupload/vendor/jquery.ui.widget
-#=require fileupload/jquery.iframe-transport
-#=require fileupload/jquery.fileupload
-#=require fileupload/jquery.fileupload-process
-#=require fileupload/jquery.fileupload-validate
+#= require fileupload/vendor/jquery.ui.widget
+#= require fileupload/jquery.iframe-transport
+#= require fileupload/jquery.fileupload
+#= require fileupload/jquery.fileupload-process
+#= require fileupload/jquery.fileupload-validate
+
+#q= require ab_admin/jquery.Jcrop
+#q= require ab_admin/components/croppable_image
+
 #q=require fileupload/jquery.fileupload-image
 #q=require fileupload/jquery.fileupload-audio
 #q=require fileupload/jquery.fileupload-video
@@ -16,6 +20,7 @@ class window.AdminAssets
     @template = Handlebars.compile($("##{@options.file_type}_template").html())
     @initFileupload()
     @initHandlers()
+    log @options
 
   initFileupload: ->
     defaults =
@@ -48,6 +53,7 @@ class window.AdminAssets
     @initSortable() if @options.sortable
     @initFancybox() if $.fn.fancybox
     @initEditMeta() if @options.edit_meta
+    @initCrop() if @options.crop
 
   initRemove: ->
     @el.on 'ajax:complete', '.fileupload .destroy_asset', ->
@@ -90,9 +96,7 @@ class window.AdminAssets
             locked: false
 
   initCrop: ->
-    if @uploader_el.data('crop') && $.fn.Jcrop
-      opts = if _.isObject(@options.crop) then @options.crop else {}
-      @crop = new CroppableImage(@options.container_id, opts)
+    @crop = new CroppableImage(@el, @options.crop)
 
   initEditMeta: ->
     @el.find('.fileupload-edit-button').show().click =>
@@ -109,6 +113,5 @@ class window.AdminAssets
           height: max_h
           width: 900
           'margin-left': -450
-          'margin-top': -max_h / 2
         $('.modal-body').css
           'max-height': max_h - 90

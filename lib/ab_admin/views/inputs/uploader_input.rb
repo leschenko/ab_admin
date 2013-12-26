@@ -36,9 +36,7 @@ module AbAdmin
               options: @options,
               js_options: js_options,
               assets: uploader_values,
-              asset_template: "#{theme_path}/#{@options[:file_type]}",
-              crop: @options[:crop],
-              edit_meta: @options[:edit_meta]
+              asset_template: "#{theme_path}/#{@options[:file_type]}"
           }
           template.render(partial: "#{theme_path}/container", locals: locals)
         end
@@ -76,6 +74,8 @@ module AbAdmin
             sort_url: template.sort_admin_assets_path(klass: @assoc.klass.name),
             extensions: @options[:extensions],
             klass: @assoc.klass.name,
+            edit_meta: @options[:edit_meta],
+            crop: @options[:crop],
             fileupload: {
               url: AbAdmin.fileupload_url,
               maxFileSize: @options[:max_size].megabytes.to_i,

@@ -70,7 +70,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       '<b>Capture block input</b>'.html_safe
     end
     field :picture, as: :uploader
-    field :pictures, as: :uploader
+    field :pictures, as: :uploader, edit_meta: true, crop: true
     #field :map, as: :map
   end
 
@@ -80,3 +80,4 @@ class AbAdminProduct < AbAdmin::AbstractResource
   end
 
 end
+
