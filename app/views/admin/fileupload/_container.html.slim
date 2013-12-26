@@ -1,15 +1,15 @@
-.fileupload.image_asset_type.one_asset id=uploader_options[:element_id] data=uploader_options[:element_id]
-  .fileupload-list.clearfix
-    /= render partial: "admin/fileupload/#{asset_template}", collection: assets
+.fileupload id=options[:container_id] class=options[:container_class]
+  = options[:error]
+  .fileupload-list.clearfix= render partial: asset_template, collection: assets
   .fileupload-list
-  .file-types
+  .fileupload-upload
     .fileupload-button.pull-left
-      .btn Select files
-      = file_field_tag 'data', id: 'fileupload_avatar', multiple: uploader_options[:multiple]
+      .btn= options[:button_title] || I18n.t("admin.fileupload.button#{'s' if options[:multiple]}")
+      = file_field_tag 'data', id: 'fileupload_avatar', multiple: options[:multiple]
     .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
 
-    .file-types-info
-      span.file_title== 'JPG PNG. '
-      span.file_max_size== "#{t('admin.fileupload.max_size')}: <b>2</b> MB"
+    .fileupload-info
+      .fileupload-info-extensions= options[:extensions].join(', ')
+      .fileupload-info-max_size== "#{t('admin.fileupload.max_size')}: <b>#{options[:max_size]}</b> MB"
 
-= uploader_js
+= init_js("new AdminAssets(#{js_options.to_json})")

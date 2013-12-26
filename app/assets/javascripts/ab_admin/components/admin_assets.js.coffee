@@ -6,11 +6,10 @@
 #q=require fileupload/jquery.fileupload-image
 #q=require fileupload/jquery.fileupload-audio
 #q=require fileupload/jquery.fileupload-video
-#=require fileupload/locales/ru
 
 class window.AdminAssets
   constructor: (@options) ->
-    @el = $('#' + @options.element_id)
+    @el = $('#' + @options.container_id)
     @initHandlers()
 
   initHandlers: ->
@@ -18,8 +17,8 @@ class window.AdminAssets
       dataType: 'json'
       processfail: @processfail
 
-    if @options.alloved_extensions
-      defaults.acceptFileTypes = new RegExp("(\.|\/)(#{@options.alloved_extensions.join('|')})", 'i')
+    if @options.extensions
+      defaults.acceptFileTypes = new RegExp("(\.|\/)(#{@options.extensions.join('|')})", 'i')
 
     @el.fileupload _.defaults(@options.fileupload, defaults)
 
