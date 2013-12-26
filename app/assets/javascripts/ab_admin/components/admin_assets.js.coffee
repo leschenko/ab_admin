@@ -15,8 +15,7 @@ class window.AdminAssets
   constructor: (@options) ->
     @el = $('#' + @options.container_id)
     @el.data('AdminAssets', this)
-    @list_query = "##{@options.container_id} .fileupload-list"
-    @list = $(@list_query)
+    @list = @el.find('.fileupload-list')
     @template = Handlebars.compile($("##{@options.file_type}_template").html())
     @initFileupload()
     @initHandlers()
@@ -81,8 +80,8 @@ class window.AdminAssets
   initSortable: ->
     @list.sortable
       revert: true
-      update: ->
-        $.post self.options.sort_url, {data: $(self.list_query).sortable('serialize')}
+      update: =>
+        $.post @options.sort_url, @list.sortable('serialize')
 
   initFancybox: =>
     @list.find(" a.fancybox")
@@ -96,6 +95,7 @@ class window.AdminAssets
             locked: false
 
   initCrop: ->
+    return unless $.fn.Jcrop
     @crop = new CroppableImage(@el, @options.crop)
 
   initEditMeta: ->

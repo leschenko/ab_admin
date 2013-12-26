@@ -74,6 +74,7 @@ module AbAdmin
             sort_url: template.sort_admin_assets_path(klass: @assoc.klass.name),
             extensions: @options[:extensions],
             klass: @assoc.klass.name,
+            sortable: @options[:sortable],
             edit_meta: @options[:edit_meta],
             crop: @options[:crop],
             fileupload: {
