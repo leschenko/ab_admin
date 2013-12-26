@@ -70,6 +70,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
     end
     field :picture, as: :uploader
     field :pictures, as: :uploader, edit_meta: true, crop: true
+    field :attachment_files, as: :uploader, file_type: 'file'
     #field :map, as: :map
   end
 

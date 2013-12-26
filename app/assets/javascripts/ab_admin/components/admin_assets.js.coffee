@@ -19,7 +19,6 @@ class window.AdminAssets
     @template = Handlebars.compile($("##{@options.file_type}_template").html())
     @initFileupload()
     @initHandlers()
-    log @options
 
   initFileupload: ->
     defaults =
