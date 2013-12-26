@@ -12,58 +12,75 @@ class window.AdminAssets
     @el = $('#' + @options.container_id)
     @el.data('AdminAssets', this)
     @list_query = "##{@options.container_id} .fileupload-list"
+    @list = $(@list_query)
+    @template = Handlebars.compile($("##{@options.file_type}_template").html())
+    @initFileupload()
     @initHandlers()
-    @initSortable() if @options.sortable
-    @initFancybox() if $.fn.fancybox
-    @initEditMeta() if @options.edit_meta
 
-  initHandlers: ->
+  initFileupload: ->
     defaults =
       dataType: 'json'
-      processfail: @processfail
+      processfail: @showErrors
+      done: (e, data) =>
+        @renderAsset(data.result.asset)
 
     if @options.extensions
       defaults.acceptFileTypes = new RegExp("(\.|\/)(#{@options.extensions.join('|')})", 'i')
 
     @el.fileupload _.defaults(@options.fileupload, defaults)
 
-  processfail: (e, data) ->
+  showErrors: (e, data) ->
     errors = _.map(data.files,(file) ->
       [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
     bootbox.alert(errors)
 
-  initSortable: ->
-    $(".fileupload-sortable " + @list_query).sortable
-      revert: true
-      update: ->
-        $.post self.options.sort_url, {data: $(self.list_query).sortable("serialize")}
+  renderAsset: (asset) ->
+    @list.empty() unless @options.multiple
+    @list.append @template(asset)
 
-  initFancybox: =>
-    $(@list_query + " a.fancybox").fancybox
-      afterShow: =>
-        @crop?.fancyboxHandler()
+  initHandlers: ->
+    unless window.admin_assets_first
+      window.admin_assets_first = true
+      @initRemove()
+      @initMainImage()
+    @initRotate()
+    @initSortable() if @options.sortable
+    @initFancybox() if $.fn.fancybox
+    @initEditMeta() if @options.edit_meta
 
   initRemove: ->
     $(document).on 'ajax:complete', '.fileupload .destroy_asset', ->
       $(this).closest("div.asset").remove()
 
   initMainImage: ->
-    $(document).on 'click', '.fileupload.fileupload-multiple .main_image', ->
+    @el.on 'click', '.fileupload-multiple .main_image', ->
       $asset = $(this).closest('.asset')
-      $curr_cont = $asset.closest('.fileupload')
-      $curr_list = $curr_cont.find('.fileupload-list')
-      $main_list = $(".fileupload.fileupload-single.fileupload-klass-#{@options.klass} .fileupload-list:first")
+      $multiple_list = $asset.closest('.fileupload').find('.fileupload-list')
+      klass_css = "fileupload-klass-#{@options.klass}"
+      record_css = "fileupload-record-#{@options.fileupload.formData.guid}"
+      $single_list = $(".fileupload.fileupload-single.#{record_css}.#{klass_css} .fileupload-list")
 
       $.post "/admin/assets/#{$asset.data('id')}/main", ->
-        $main_list.find('.asset').appendTo($curr_list)
-        $asset.appendTo($main_list)
+        $single_list.find('.asset').appendTo($multiple_list)
+        $asset.appendTo($single_list)
 
   initRotate: ->
-    $(document).on 'click', '.fileupload .rotate_image', ->
+    self = this
+    @el.on 'click', '.rotate_image', ->
       $asset = $(this).closest('.asset')
-      $uploader = qq.FileUploader.instances[$asset.closest('.fileupload').attr('id')]
       $.post "/admin/assets/#{$asset.data('id')}/rotate", (data) ->
-        $asset.replaceWith $($uploader._options.template_id).tmpl(data.asset)
+        self.renderAsset(data.asset)
+
+  initSortable: ->
+    @list.sortable
+      revert: true
+      update: ->
+        $.post self.options.sort_url, {data: $(self.list_query).sortable('serialize')}
+
+  initFancybox: =>
+    @list.find(" a.fancybox").fancybox
+      afterShow: =>
+        @crop?.fancyboxHandler()
 
   initCrop: ->
     if @uploader_el.data('crop') && $.fn.Jcrop

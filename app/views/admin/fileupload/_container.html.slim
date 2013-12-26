@@ -1,11 +1,10 @@
 .fileupload id=options[:container_id] class=options[:container_class]
   = options[:error]
   .fileupload-list.clearfix= render partial: asset_template, collection: assets
-  .fileupload-list
   .fileupload-upload
     .fileupload-button.pull-left
       .btn= options[:button_title] || I18n.t("admin.fileupload.button#{'s' if options[:multiple]}")
-      = file_field_tag 'data', id: 'fileupload_avatar', multiple: options[:multiple]
+      = file_field_tag 'data', multiple: options[:multiple]
     .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
 
     .fileupload-info

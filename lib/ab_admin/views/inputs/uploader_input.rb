@@ -9,7 +9,7 @@ module AbAdmin
           @assoc = object.class.reflect_on_association(attribute_name)
           defaults = {
               file_type: 'image',
-              container_id: object.fileupload_guid,
+              container_id: "#{attribute_name}_#{object.fileupload_guid}",
               multiple: @assoc.collection?,
               extensions: @assoc.klass.ext_list,
               max_size: @assoc.klass.try(:max_size),
@@ -50,6 +50,7 @@ module AbAdmin
           classes << "fileupload-#{@options[:theme]}_theme" if @options[:theme]
           classes << 'fileupload-sortable' if @options[:sortable]
           classes << "fileupload-klass-#{@assoc.klass.name}"
+          classes << "fileupload-record-#{object.fileupload_guid}"
           classes << 'error' if @options[:error]
           classes
         end
@@ -70,6 +71,8 @@ module AbAdmin
         def js_options
           {
             container_id: @options[:container_id],
+            file_type: @options[:file_type],
+            multiple: @options[:multiple],
             sort_url: template.sort_admin_assets_path(klass: @assoc.klass.name),
             extensions: @options[:extensions],
             klass: @assoc.klass.name,
