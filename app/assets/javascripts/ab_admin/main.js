@@ -6,7 +6,7 @@
 //= require handlebars.min
 //= require underscore.min
 //= require jquery.cookie
-//= require jquery.pjax
+//= require jquery.pjax.min
 //= require jquery.ui.nestedSortable
 //= require jquery.hotkeys
 //= require bootstrap

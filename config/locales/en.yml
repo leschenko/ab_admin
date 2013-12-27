@@ -100,13 +100,6 @@ en:
       title: "Setting the display of columns"
     comments:
       add: Comment
-      author: Author
-      body: Body
-      errors:
-        empty_text: "Comment was not saved because of the lack of content"
-      no_comments_yet: "No comments yet"
-      resource: Resource
-      title: Comment
       title_content: "Comments (%{count})"
     delete: Remove
     delete_confirmation: "Are you sure you want to delete this?"
@@ -217,27 +210,40 @@ en:
         deleted: Removed
         pending: Inactive
         suspended: Frozen
-  admin_js:
-    empty: Empty
-    add_link: Create?
-    button_description: Description
-    button_name_add: Add
-    button_name_cancel: Reset
-    button_name_remove: Remove
-    save: Save
-    cancel: Cancel
-    clear: Reset
-    confirm: Confirm
-    create_product: "Create a new product"
-    day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
-    day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
-    delete_nested_elements: "Can not delete"
-    edit: Edit
-    month: "January,February,March,April,May,June,July,August,September,October,November,December"
-    name: Name
-    no_results: "Nothing found"
-    search: "Searching ..."
-    value: Value
+    js:
+      empty: Empty
+      add_link: Create?
+      button_description: Description
+      button_name_add: Add
+      button_name_cancel: Reset
+      button_name_remove: Remove
+      save: Save
+      cancel: Cancel
+      clear: Reset
+      confirm: Confirm
+      create_product: "Create a new product"
+      day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
+      day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
+      delete_nested_elements: "Can not delete"
+      edit: Edit
+      month: "January,February,March,April,May,June,July,August,September,October,November,December"
+      name: Name
+      no_results: "Nothing found"
+      search: "Searching ..."
+      value: Value
+      fileupload:
+        error: Error
+        start: Start
+        cancel: Cancel
+        destroy: Delete
+        errors:
+          maxFileSize: File is too big
+          minFileSize: File is too small
+          acceptFileTypes: Filetype not allowed
+          maxNumberOfFiles: Max number of files exceeded
+          uploadedBytes: Uploaded bytes exceed file size
+          emptyResult: Empty file upload result
+
   attributes:
     address: Address
     country: Country

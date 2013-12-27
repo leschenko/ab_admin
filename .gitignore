@@ -28,3 +28,5 @@ TODO
 .rvmrc
 .rspec
 .DS_Store
+rerun.txt
+spec/dummy0

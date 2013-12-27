@@ -18,4 +18,4 @@
 #
 translations:
  - file: "app/assets/javascripts/i18n/translations.js"
-   only: ["*.admin_js", "*.front_js"]
+   only: ["*.admin.js"]

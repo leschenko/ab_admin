@@ -15,7 +15,7 @@ $.rails.allowAction = (element) ->
     # We want a button
     .addClass('btn').addClass('btn-danger')
     # We want it to sound confirmy
-    .html(I18n.t('admin_js.confirm'))
+    .html(I18n.t('admin.js.confirm'))
 
   # Create the modal box with the message
   modal_html = """
@@ -28,7 +28,7 @@ $.rails.allowAction = (element) ->
                    <p></p>
                  </div>
                  <div class="modal-footer">
-                   <a data-dismiss="modal" class="btn">#{I18n.t('admin_js.cancel')}</a>
+                   <a data-dismiss="modal" class="btn">#{I18n.t('admin.js.cancel')}</a>
                  </div>
                </div>
                """

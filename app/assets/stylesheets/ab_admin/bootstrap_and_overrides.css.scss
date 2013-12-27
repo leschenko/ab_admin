@@ -1,5 +1,6 @@
 $baseFontSize: 13px !default;
 $baseLineHeight: 18px !default;
+
 @import "bootstrap";
 @import "bootstrap-responsive";
 @import "ab_admin/components/base";
@@ -123,6 +124,7 @@ label.checkbox {
 label.input_set, label.label-large, .label.label-large {
   font-size: 15px;
   padding: 4px 10px 6px;
+  display: block;
 }
 
 label.label-med {

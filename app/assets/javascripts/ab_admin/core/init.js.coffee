@@ -38,7 +38,6 @@ $ ->
     initTooltip()
 
   $(document).on 'admin:form_init', 'form', (e) ->
-#    focusInput($(this))
     initEditor()
     initFancySelect()
     initPickers()
@@ -57,19 +56,8 @@ $ ->
   initNestedFields()
   inputSetToggle()
   inputBtnClose()
-#  initAcFileds()
 
   if window.gon?.bg_color
     $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
 
   initHotkeys() if window.gon?.hotkeys
-
-
-
-#    $('form .region_ac').regionAc()
-#    new NestedFieldsAdder
-#      region_ac: true
-#      callback: ->
-#        initPickers()
-#        initFancySelect()
-#        initEditor()

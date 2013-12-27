@@ -86,11 +86,12 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def batch
-    raise 'No ids specified for batch action' unless params[:ids].present?
+    raise 'No ids specified for batch action' unless params[:by_ids].present?
     batch_action = params[:batch_action].to_sym
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
-      flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: I18n.t("admin.actions.batch_#{batch_action}.title"))
+      batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
+      flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action_name)
     else
       raise CanCan::AccessDenied
     end

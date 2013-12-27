@@ -1,0 +1,29 @@
+script#image_template type='text/x-handlebars-template'
+  .asset id="asset_{{id}}" data-id='{{id}}'
+    = link_to icon('remove', true), '/admin/assets/{{id}}', remote: true, method: :delete, title: t('admin.delete'), class: 'destroy_asset', \
+       data: {confirm: t('admin.delete_confirmation')}
+    .main_image title=t('admin.fileupload.main_image') = icon('home', true)
+    .crop_image title=t('admin.fileupload.crop') = icon('resize-full', true)
+    .rotate_image title=t('admin.fileupload.rotate') = icon('repeat', true)
+    a.fileupload-file.fancybox href='{{url}}' rel='fancybox'
+      img src='{{thumb_url}}' title='{{filename}}'
+
+
+script#file_template type='text/x-handlebars-template'
+  .asset id="asset_{{id}}" data-id='{{id}}'
+    a href='{{url}}' target='_blank' {{original_name}}
+    span &nbsp;({{human_filesize}})
+    = link_to icon('remove', true), '/admin/assets/{{id}}', remote: true, method: :delete, title: t('admin.delete'), \
+      class: 'destroy_asset btn btn-danger btn-mini', data: {confirm: t('admin.delete_confirmation')}
+
+
+script#video_template type='text/x-handlebars-template'
+  .asset id="asset_{{id}}" data-id='{{id}}'
+    = link_to icon('remove', true), '/admin/assets/{{id}}', remote: true, method: :delete, title: t('admin.delete'), \
+      class: 'destroy_asset btn btn-danger btn-mini', data: {confirm: t('admin.delete_confirmation')}
+    video controls='true'
+      source src='{{url}}'
+      | Your browser does not support mp4 videos
+      .video-filename
+        a href='{{url}}' target='_blank' {{original_name}}
+        span &nbsp;({{human_filesize}})

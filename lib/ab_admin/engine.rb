@@ -17,6 +17,7 @@ module AbAdmin
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Silencer
         ActiveRecord::Base.send :extend, AbAdmin::Concerns::Silencer
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Validations
+        ActiveRecord::Base.send :include, AbAdmin::Concerns::Fileuploads
       end
 
       ActiveSupport.on_load :action_mailer do

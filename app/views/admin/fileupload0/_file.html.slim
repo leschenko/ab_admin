@@ -1,0 +1,5 @@
+.asset id="asset_#{file.id}" data-id=file.id
+  a href=file.url target='_blank' = file.human_name
+  span== " (#{file.human_filesize}) - #{l(file.created_at, format: :long)}"
+  = link_to icon('remove', true), admin_asset_path(file), remote: true, method: :delete, \
+    class: 'del_asset btn btn-danger btn-mini', data: {confirm: t('admin.delete_confirmation')}

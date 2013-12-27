@@ -7,7 +7,7 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
     ajax_opts =
       url: url
       data: params
-      type: 'PUT'
+      type: 'PATCH'
       dataType: 'json'
     delete params.name
     delete params.value
@@ -22,7 +22,7 @@ $(document).on 'admin:init', (e) ->
   $('.editable').editable
     onblur: 'submit'
     placement: 'bottom'
-    emptytext: I18n.lookup('admin_js.empty') || 'Empty'
+    emptytext: I18n.lookup('admin.js.empty') || 'Empty'
     datetimepicker:
       format: "dd.mm.yyyy hh:ii"
       autoclose: true

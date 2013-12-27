@@ -52,6 +52,7 @@ module AbAdmin
     autoload :Reloadable, 'ab_admin/concerns/reloadable'
     autoload :HasTracking, 'ab_admin/concerns/has_tracking'
     autoload :AssetHumanNames, 'ab_admin/concerns/asset_human_names'
+    autoload :Fileuploads, 'ab_admin/concerns/fileuploads'
   end
 
   module Controllers
@@ -96,6 +97,7 @@ module AbAdmin
       autoload :DateTimePickerInput, 'ab_admin/views/inputs/date_time_picker_input'
       autoload :TokenInput, 'ab_admin/views/inputs/token_input'
       autoload :CaptureBlockInput, 'ab_admin/views/inputs/capture_block_input'
+      autoload :UploaderInput, 'ab_admin/views/inputs/uploader_input'
     end
   end
 
@@ -144,6 +146,10 @@ module AbAdmin
   mattr_accessor :footer_notes
 
   mattr_accessor :locale
+
+  mattr_accessor :fileupload_url
+  #@@fileupload_url = '/sunrise/fileupload'
+  @@fileupload_url = '/admin/assets'
 
   extend Utils
 

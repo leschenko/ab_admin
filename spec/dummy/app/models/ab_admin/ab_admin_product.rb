@@ -1,3 +1,5 @@
+load 'ab_admin/views/inputs/uploader_input.rb'
+
 class AbAdminProduct < AbAdmin::AbstractResource
   #preview_path :product_path
   #preview_path { |product| product_path(product) }
@@ -21,7 +23,8 @@ class AbAdminProduct < AbAdmin::AbstractResource
   #end
 
   #settings default_order: true, history: true
-  settings history: {sidebar: true}, comments: {list: true}
+  settings history: {sidebar: true}#, comments: {list: true}
+  settings history: {sidebar: true}, comments: true
 
   belongs_to :collection
 
@@ -66,7 +69,9 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :test, as: :capture_block do
       '<b>Capture block input</b>'.html_safe
     end
-    #field :picture, as: :uploader
+    field :picture, as: :uploader
+    field :pictures, as: :uploader, edit_meta: true, crop: true
+    field :attachment_files, as: :uploader, file_type: 'file'
     #field :map, as: :map
   end
 
@@ -76,3 +81,5 @@ class AbAdminProduct < AbAdmin::AbstractResource
   end
 
 end
+
+

@@ -6,7 +6,6 @@ table.table.table-striped.index_table#list
       th= list_sort_link(:email)
       th= ha :avatar
       th= list_sort_link(:user_role_id)
-      th= list_sort_link(:trust_state)
       th= list_sort_link(:first_name)
       th= list_sort_link(:last_name)
       th= list_sort_link(:phone)
@@ -21,7 +20,6 @@ table.table.table-striped.index_table#list
         td= mail_to item.email
         td= item_image_link(item, assoc: :avatar)
         td= item.user_role_type.try(:title)
-        td= item.trust_state_type.try(:title)
         td= item.first_name
         td= item.last_name
         td= item.phone

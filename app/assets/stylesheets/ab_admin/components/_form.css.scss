@@ -3,6 +3,9 @@
     width: 100%;
     max-width: 600px;
   }
+  .radio input[type="radio"], .checkbox input[type="checkbox"] {
+    width: auto;
+  }
   .fields {
     .second_nest {
       display: inline-block;

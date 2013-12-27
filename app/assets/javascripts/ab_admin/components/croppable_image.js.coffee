@@ -3,8 +3,8 @@ class window.CroppableImage
 #    aspectRatio: 760 / 350
 #    setSelect: [0, 0, 760, 350]
 
-  constructor: (@element_id, @options = {}) ->
-    @uploader_api = qq.FileUploader.instances[@element_id]
+  constructor: (@el, @options = {}) ->
+    @options = {} unless _.isObject(@options)
 
   fancyboxHandler: =>
     _.defaults(@options, CroppableImage.crop_defaults)
@@ -24,9 +24,9 @@ class window.CroppableImage
 
   cropHandler: (e) =>
     e.preventDefault()
-    asset_id = $('.fancybox-image:first').attr('src').match(/\/[\d\/]{2,}\//)[0].replace(/\//g, '')
+    asset_id = to_i($('.fancybox-image:first').attr('src').match(/\/[\d\/]{2,}\//)[0].replace(/\//g, ''))
     $asset = $("#asset_#{asset_id}")
     geometry = [@cropData['w'], @cropData['h'], @cropData['x'], @cropData['y']].join(',')
     $.post "/admin/assets/#{$asset.data('id')}/crop", {geometry: geometry}, (data) =>
-      $asset.replaceWith $(@uploader_api._options.template_id).tmpl(data.asset)
+      $asset.replaceWith @el.data('AdminAssets').template(data.asset)
       $.fancybox.close()

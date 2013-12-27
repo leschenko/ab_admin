@@ -14,8 +14,7 @@
     = product.locale_tabs do |l|
       = product.input :name, locale: l
 
-    = input_set t('admin.pictures') do
-      = product.attach_file_field :pictures
+    = product.input :pictures, as: :uploader
 
     = product.link_to_remove_assoc
 

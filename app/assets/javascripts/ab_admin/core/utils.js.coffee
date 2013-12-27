@@ -3,7 +3,6 @@ window.I18n ||= {}
 I18n.locale = window.gon.locale || 'ru'
 window.locale_path = if I18n.locale == 'ru' then '' else "/#{I18n.locale}"
 
-# undescore
 _.sum = (obj) ->
   return 0  if not $.isArray(obj) or obj.length is 0
   _.reduce obj, (sum, n) ->
@@ -55,7 +54,6 @@ _.tryInterval = (timeout, fn) ->
     clearInterval(try_interval_id) if fn.call()
   try_interval_id = setInterval(proxy_fn, timeout)
 
-# jquery utils
 $.fn.serializeJSON = ->
   json = {}
   jQuery.map $(this).serializeArray(), (n) ->
@@ -110,12 +108,11 @@ $.fn.toggleClassRadio = (class_name = 'active', state = undefined) ->
     $(this).toggleClass(class_name, state).siblings().removeClass(class_name)
 
 $.parseQuery = ->
-  window.location.search.replace("?", "").parseQuery()
+  $.parseQueryParams window.location.search.replace("?", "").parseQuery()
 
-# core types
-String::parseQuery = ->
+$.parseQueryParams = (string) ->
   h = {}
-  qs = $.trim(this).match(/([^?#]*)(#.*)?$/)[0]
+  qs = $.trim(string).match(/([^?#]*)(#.*)?$/)[0]
   return {}  unless qs
   pairs = qs.split("&")
   $.each pairs, (i, v) ->
@@ -123,45 +120,6 @@ String::parseQuery = ->
     h[pair[0]] = pair[1]
   h
 
-Array::last = ->
-  if @.length > 0
-    @[@.length - 1]
-
-Array::first = ->
-  @[0]
-
-Array::removeByIndex = (arrayIndex)->
-  @.splice(arrayIndex, 1)
-
-Array::valDetect = (v, prop = 'id') ->
-  res = null
-  for el in @
-    if el[prop] is v
-      res = el
-  res
-
-Array::includes = (obj) ->
-  for el, i in @
-    if el == obj
-      return i
-  return false
-
-Array::remove = ->
-  what = undefined
-  a = arguments
-  L = a.length
-  ax = undefined
-  while L and @length
-    what = a[--L]
-    until (ax = @indexOf(what)) is -1
-      @splice ax, 1
-      break;
-  this
-
-# global
-window.replaceURLWithHTMLLinks = (text) ->
-  exp = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig
-  text.replace(exp, "<a href='$1' target='_blank'>$1</a>")
 
 window.to_i = (val) ->
   unless val
@@ -197,7 +155,6 @@ window.clone_obj = (obj) ->
     newInstance[key] = clone_obj obj[key]
 
   return newInstance
-
 
 window.storeData = (key, data) ->
   if _.isObject(data)

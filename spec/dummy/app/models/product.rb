@@ -5,8 +5,9 @@ class Product < ActiveRecord::Base
 
   has_one :picture, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
   has_many :pictures, -> { where(is_main: false) }, as: :assetable, dependent: :destroy
+  has_many :attachment_files, -> { where(is_main: false) }, as: :assetable, dependent: :destroy
 
-  fileuploads :picture, :pictures
+  fileuploads :picture, :pictures, :attachment_files
   translates :name, :description
   attr_accessible *all_translated_attribute_names
 
