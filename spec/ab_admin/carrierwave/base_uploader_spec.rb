@@ -151,7 +151,7 @@ describe AbAdmin::CarrierWave::BaseUploader do
     it 'not valid with big size image', slow: true do
       @image = build(:avatar_big)
       @image.should_not be_valid
-      @image.errors[:data].first.should =~ /is\stoo\sbig/
+      @image.errors[:data].first.should =~ /слишком большой размер/
     end
   end
 
