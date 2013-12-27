@@ -78,17 +78,17 @@ end
 Given /^I should see routing error when follow "([^"]*)"$/ do |link|
   expect {
     click_link(link)
-  }.to raise_error(ActionController::RoutingError)
+  }.to raise_error
 end
 
 Given /^I should see routing error on (.+)$/ do |page_name|
   expect {
     visit path_to(page_name)
-  }.to raise_error(ActionController::RoutingError)
+  }.to raise_error
 end
 
 Given /^I should not see routing error on (.+)$/ do |page_name|
   expect {
     visit path_to(page_name)
-  }.to_not raise_error(ActionController::RoutingError)
+  }.to_not raise_error
 end

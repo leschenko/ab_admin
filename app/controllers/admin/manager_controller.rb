@@ -112,7 +112,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def preview_resource_path(item)
     return unless manager.preview_path
-    manager.preview_path.is_a?(Proc) ? manager.preview_path.bind(self).call(item) : send(manager.preview_path, item)
+    manager.preview_path.is_a?(Proc) ? instance_exec(item, &manager.preview_path) : send(manager.preview_path, item)
   end
 
   def admin_partial_name(builder)

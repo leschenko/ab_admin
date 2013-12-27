@@ -206,8 +206,8 @@ ActiveRecord::Schema.define(version: 20131031173609) do
 
   create_table "structures", force: true do |t|
     t.string   "slug",                                       null: false
-    t.integer  "structure_type_id", limit: 1, default: 0
-    t.integer  "position_type_id",  limit: 1, default: 0
+    t.integer  "structure_type_id", limit: 1, default: 1
+    t.integer  "position_type_id",  limit: 1, default: 1
     t.integer  "user_id"
     t.boolean  "is_visible",                  default: true, null: false
     t.integer  "parent_id"

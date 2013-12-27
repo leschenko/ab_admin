@@ -19,7 +19,7 @@ When(/^I destroy product$/) do
 end
 
 When(/^I batch un_publish product$/) do
-  post('/admin/products/batch', ids: [@product.id], batch_action: 'un_publish')
+  post('/admin/products/batch', by_ids: [@product.id], batch_action: 'un_publish')
 end
 
 Then(/^Resource should have track with attributes:$/) do |track_attrs|

@@ -15,6 +15,7 @@ class Product < ActiveRecord::Base
   scope :un_visible, -> { where(is_visible: false) }
 
   include AbAdmin::Concerns::AdminAddition
+  include AbAdmin::Concerns::HasTracking
 
   scope :admin, -> { includes(:translations, :picture) }
 
