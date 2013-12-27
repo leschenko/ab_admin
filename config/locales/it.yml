@@ -1,297 +1,312 @@
---- 
-it: 
-  _no: "No"
-  _yes: "Sì"
-  admin: 
-    actions: 
-      activate: 
+it:
+  _no: 'No'
+  _yes: Sì
+  activerecord:
+    models:
+      locator: ''
+      settings: ''
+      track:
+        few: ''
+        many: ''
+        one: ''
+        other: ''
+        zero: ''
+    attributes:
+      user:
+        password_confirmation: ''
+  admin:
+    actions:
+      activate:
         link: Attivare
-      batch_destroy: 
+      batch_destroy:
         confirmation: Sei sicuro di voler cancellare i record selezionati?
         link: Elimina selezione
         title: Multi-rimozione
-      batch_publish: 
+      batch_publish:
         link: Pubblica selezionato
         title: Multi-pubblicazione
-      batch_un_publish: 
+      batch_un_publish:
         link: Rimuovere dalle pubblicazioni selezionate
         title: Multi-nascondiglio
-      create: 
+      create:
         link: Creare
         title: Creazione
-      destroy: 
+      destroy:
         link: Rimuovere
         title: Rimozione
-      edit: 
+      edit:
         link: Modifica
         title: Montaggio
-      history: 
+      history:
         link: Storia
         title: Storia
-      index: 
+      index:
         link: Elenco
         title: Elenco
-      new: 
+      new:
         link: Creare
         title: Creazione
-      perms: 
+      perms:
         link: Diritti
         title: Modifica dei diritti di accesso
-      preview: 
+      preview:
         link: Anteprima
-      show: 
+      show:
         link: Recensione
         title: Dettagli
-      suspend: 
+      suspend:
         link: Ban
-      update: 
+      update:
         link: Modifica
         title: Montaggio
     add: Aggiungere
-    auth: 
+    auth:
       profile: Profilo
       sign_out: Produzione
+      sessions:
+        title: ''
+        button: ''
+      passwords:
+        new:
+          title: ''
+          button: ''
+        edit:
+          title: ''
+          button: ''
+          password: ''
+          password_confirmation: ''
     avatar: Immagine
-    batch_actions: "Attività"
+    batch_actions: Attività
     cache_clear: Cancella cache
     cant_be_deleted: Impossibile eliminare
     choose: Selezionare %{attr}
     close: Chiudere
-    columns_hider: 
+    columns_hider:
       button: Regolare la tabella
       title: Impostazione della visualizzazione delle colonne
-    comments: 
+    comments:
       add: Commento
-      author: Autore
-      body: Corpo
-      errors: 
-        empty_text: "Il commento non è stato salvato a causa della mancanza di contenuti"
-      no_comments_yet: Nessun commento
-      resource: Risorsa
-      title: Commento
       title_content: Commenti ( %{count})
     delete: Rimuovere
     delete_confirmation: Sei sicuro di voler eliminare questo?
-    details: "Di più"
     empty: Vuoto
     exit: Produzione
-    fileupload: 
+    fileupload:
       button: Selezionare il file
       buttons: Selezionare i file
       delete: Elimina file
       drop_here: Trascinare e rilasciare i file qui
+      main_image: ''
       max_size: Max. p.
-    form: 
+      crop: ''
+      rotate: ''
+    form:
       cancel: Cancellazione
       save: Salvare
       save_and_add_another: Salva e aggiungere nuovi
       save_and_edit: Salva e continuare a modificare
       save_and_edit_next: Salva e traccia.
       save_and_edit_prev: Salva e prima.
-    gender: 
+      details: ''
+      base: ''
+      keywords: ''
+    gender:
       female: Femmina
       male: Maschio
+      undefined: ''
     geo_autocomplete: Inserire l'indirizzo
-    group: 
-      kind: 
+    group:
+      kind:
         admin: Amministrativo
         default: Per impostazione predefinita
         private: Riservato
         public: Pubblico
     keywords: Parole Chiave
-    langs: 
+    langs:
       en: En
       it: Essa
       ru: Ru
       uk: Regno Unito
+    index_view:
+      table: ''
+      tree: ''
+      grid: ''
     loading: Caricamento in corso ...
-    locators: 
+    locators:
       edit_file: Modificare il file
       edit_files: Modificare i file
       file: File
-      locale: "Località"
+      locale: Località
       prepare: Preparare file di localizzazione
       restart: Aggiornamento localizzazione
       title: Modifica posizione
       update_file: Aggiornamento del file
-    main_image: Set principale
-    max_size: Max pubblicato.
-    navigation: 
+      all_terms: ''
+      incomplete: ''
+      complete: ''
+      key: ''
+      filter: ''
+      translate_incomplete: ''
+    navigation:
       system: Sistema
       users: Membri
+      dashboard: ''
     no_results_text: Non abbiamo trovato nulla
-    permissions: 
-      actions: 
-        create: Creare
-        delete: Rimuovere
-        publish: Pubblicare
-        read: Sfogliare
-        update: Modifica
-      assocs: 
-        company: azienda
-      form: 
-        actions: Lattina
-        add: Aggiungere
-        assoc: Attraverso
-        assoc_ids: risorsa
-        context: su
-        destroy: Rimuovere?
-        includes: Related
-        is_own: Solo il proprietario
-        is_visibility: nascondere inedito
-        is_work: nascondere pubblicato
-        per_resource: Secondo una risorsa
-        resource: "Cioè"
-        resources: Tutta la risorsa
-        subject: Per risorsa
-    perms: 
-      actions: 
-        add_styles: Modifica degli stili
-        create: Creare
-        delete: Rimuovere
-        import: Import Responsabile
-        journalist: Giornalista
-        moderator: Moderatore
-        publish: Pubblicare
-        publish_social: Pubblica sociale
-        read: Sfogliare
-        update: Modifica
-      assocs: 
-        catalogues: cataloghi
-        company: azienda
-        group: gruppo
-        groups: Gruppo
-      form: 
-        actions: Lattina
-        add: Aggiungere
-        assoc: Attraverso
-        assoc_ids: risorsa
-        context: su
-        destroy: Rimuovere?
-        includes: Related
-        is_own: Solo il proprietario
-        is_visibility: nascondere inedito
-        is_work: nascondere pubblicato
-        per_resource: Secondo una risorsa
-        resource: "Cioè"
-        resources: Tutta la risorsa
-        subject: Per risorsa
     photo: Immagine principale
     pictures: Immagine
     preview: Anteprima
-    role: 
-      kind: 
+    role:
+      kind:
         admin: Admin
         default: difetto
         group: gruppo
         user: utente
     save: Salvare
-    scopes: 
+    scopes:
       un_visible: Nascosto
       visible: Pubblicato il
-    search: 
+    search:
       cancel: Pulire
       submit: Perfezionare
       title: Cerca
     set_main: Ingrandisci l'immagine principale
-    show: 
+    show:
       attr: Attributo
       value: Valore
-    table: 
-      actions: "Attività"
-    user: 
-      role: 
+    table:
+      actions: Attività
+    user:
+      role:
         admin: Admin
         default: Cliente
         guest: Ospite
         moderator: Moderatore
         redactor: Editore
-      state: 
-        active: "Più attivo"
+      state:
+        active: Più attivo
         deleted: Rimosso
         pending: Inattivo
         suspended: Congelato
+    structure:
+      kind:
+        group: ''
+        main: ''
+        posts: ''
+        redirect: ''
+        static_page: ''
+      position:
+        bottom: ''
+        default: ''
+        menu: ''
     js:
+      empty: ''
       add_link: Crea?
-      button_description: Descrizione
-      button_name_add: Aggiungere
-      button_name_cancel: Reset
-      button_name_remove: Rimuovere
+      add: ''
+      remove: ''
+      save: ''
       cancel: Cancellazione
       clear: Reset
       confirm: Confermare
       create_product: Creazione di un nuovo prodotto
-      day: ""
-      day_short: "Dom, Lun, Mar, mer, gio, ven, sab"
+      day: ''
+      day_short: Dom, Lun, Mar, mer, gio, ven, sab
       delete_nested_elements: Impossibile eliminare
       edit: Modifica
-      month: ""
+      month: ''
       name: Nome
       no_results: Non abbiamo trovato nulla
       search: Ricerca ...
       value: Valore
-  attributes: 
+      fileupload:
+        error: ''
+        start: ''
+        cancel: ''
+        destroy: ''
+        errors:
+          maxFileSize: ''
+          minFileSize: ''
+          acceptFileTypes: ''
+          maxNumberOfFiles: ''
+          uploadedBytes: ''
+          emptyResult: ''
+  attributes:
+    map: ''
     address: Indirizzo
     country: Paese
     country_id: Paese
     created_at: Data di creazione
     description: Descrizione
-    footmarks_count: ""
+    footmarks_count: ''
     is_visible: Display
     name: Nome
-    parent: ""
-    parent_id: ""
+    parent: ''
+    parent_id: ''
     position: Posizione
     region: Regione
     region_id: Regione
-    reviews_count: ""
+    reviews_count: ''
     synonyms: Sinonimi
     title: Nome
     updated_at: Data di cambiamento
     user: Utente
     user_id: Utente
-  attrs: 
+    updater: ''
+    updater_id: ''
+    remember_me: ''
+    password: ''
+    slug: ''
+  attrs:
     en: Ing.
     it: Italiana.
     ru: rus.
     uk: Ukr.
-  flash: 
-    admin: 
-      actions: 
-        create: 
-          error: "%{resource_name} mentre gli errori di mantenimento si è verificato."
-          notice: "%{resource_name} è stato creato con successo."
-        destroy: 
-          error: "%{resource_name} non può essere cancellato."
-          notice: "%{resource_name} stato cancellato con successo."
-        update: 
-          error: "%{resource_name} mentre gli errori di mantenimento si è verificato."
-          notice: "%{resource_name} è stata modificata correttamente."
-      controller_name: 
-        update: 
+    de: ''
+    fr: ''
+  flash:
+    admin:
+      actions:
+        create:
+          error: '%{resource_name} mentre gli errori di mantenimento si è verificato.'
+          notice: '%{resource_name} è stato creato con successo.'
+        destroy:
+          error: '%{resource_name} non può essere cancellato.'
+          notice: '%{resource_name} stato cancellato con successo.'
+        update:
+          error: '%{resource_name} mentre gli errori di mantenimento si è verificato.'
+          notice: '%{resource_name} è stata modificata correttamente.'
+      controller_name:
+        update:
           success: prodotti
-      locators: 
+      locators:
         prepared: Traduzioni con successo preparati
         restart: Traduzioni successo ricaricate
         update_error: Verificato un errore durante l'aggiornamento dei dati
         updated: Traduzione aggiornato con successo
-      permissions: 
+      permissions:
         failure: Errore di aggiornamento
         success: Diritti aggiornato con successo
-  simple_form: 
-    buttons: 
+  simple_form:
+    buttons:
       cancel: Cancellazione
     creating: Creazione di ...
-    error_notification: 
+    error_notification:
       default_message: Quando si salva un errore
-    "no": "No"
-    required: 
-      mark: "*"
+    'no': 'No'
+    required:
+      mark: '*'
       text: obbligatorio
     updating: Aggiornamento ...
-    "yes": "Sì"
-  will_paginate: 
-    next_label: "Avanti. →"
-    page_gap: ...
+    'yes': Sì
+  will_paginate:
+    page_gap: '...'
     pagination_info: Visualizzazione <b>%{from}&nbsp;-&nbsp;%{to}</b>di %{count} solo
-    previous_label: "← Precedente."
+    pagination_info_empty: ''
+    next_label: Avanti. →
+    previous_label: ← Precedente.
+  errors:
+    messages:
+      wrong_size: ''
+      size_too_small: ''
+      size_too_big: ''
+      carrierwave_processing_error: ''
+      carrierwave_integrity_error: ''

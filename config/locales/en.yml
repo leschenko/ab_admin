@@ -1,6 +1,6 @@
 en:
-  _no: "No"
-  _yes: "Yes"
+  _no: 'No'
+  _yes: 'Yes'
   activerecord:
     models:
       locator: Translations
@@ -12,28 +12,21 @@ en:
         other: History
         zero: History
     attributes:
-      track:
-        user: "User"
-        key: "Action"
-        trackable: "Resource"
-        trackable_type: "Resource type"
-        trackable_id: "Resource ID"
-        owner: "Owner"
-        created_at: "Date"
-        trackable_changes: "Changes"
+      user:
+        password_confirmation: ''
   admin:
     actions:
       activate:
         link: Activate
       batch_destroy:
-        confirmation: "Are you sure you want to delete the selected records?"
-        link: "Delete selected"
+        confirmation: Are you sure you want to delete the selected records?
+        link: Delete selected
         title: Multi-remove
       batch_publish:
-        link: "Publish selected"
+        link: Publish selected
         title: Multi-publish
       batch_un_publish:
-        link: "Unpublish selected"
+        link: Unpublish selected
         title: Multi-hiding
       create:
         link: Create
@@ -55,7 +48,7 @@ en:
         title: Creation
       perms:
         link: Rights
-        title: "Editing access rights"
+        title: Editing access rights
       preview:
         link: Preview
       show:
@@ -68,69 +61,71 @@ en:
         title: Editing
     add: Add
     auth:
-      passwords:
-        edit:
-          button: "Change my password"
-          password: "New password"
-          password_confirmation: "Confirm your new password"
-          title: "Change your password"
-        new:
-          button: "Send me reset password instructions"
-          title: "Forgot your password?"
       profile: Profile
+      sign_out: Sign out
       sessions:
-        button: "Sign in"
-        title: "Sign in"
-      sign_out: "Sign out"
+        title: Sign in
+        button: Sign in
+      passwords:
+        new:
+          title: Forgot your password?
+          button: Send me reset password instructions
+        edit:
+          title: Change your password
+          button: Change my password
+          password: New password
+          password_confirmation: Confirm your new password
     avatar: Picture
     batch_actions:
-      status:
-        few: "%{action} - %{count} records"
-        many: "%{action} - %{count} records"
-        one: "%{action} - %{count} record"
-        other: "%{action} - %{count} records"
-        zero: "%{action} - 0 records"
       title: Action
-    cache_clear: "Clear cache"
-    cant_be_deleted: "Can not delete"
-    choose: "Select %{attr}"
+      status:
+        zero: '%{action} - 0 records'
+        one: '%{action} - %{count} record'
+        few: '%{action} - %{count} records'
+        many: '%{action} - %{count} records'
+        other: '%{action} - %{count} records'
+    cache_clear: Clear cache
+    cant_be_deleted: Can not delete
+    choose: Select %{attr}
     close: Close
     columns_hider:
-      button: "Adjust the table"
-      title: "Setting the display of columns"
+      button: Adjust the table
+      title: Setting the display of columns
     comments:
       add: Comment
-      title_content: "Comments (%{count})"
+      title_content: Comments (%{count})
     delete: Remove
-    delete_confirmation: "Are you sure you want to delete this?"
+    delete_confirmation: Are you sure you want to delete this?
     empty: Empty
     exit: Output
     fileupload:
-      button: "Select the file"
-      buttons: "Select the files"
+      button: Select the file
+      buttons: Select the files
+      delete: Delete file
+      drop_here: Drag and drop files here
+      main_image: Set Main
+      max_size: Max size
       crop: Crop
-      delete: "Delete file"
-      drop_here: "Drag and drop files here"
-      main_image: "Set Main"
-      max_size: "Max size"
       rotate: Rotate
     form:
-      base: Base
       cancel: Cancel
-      details: More
       save: Save
-      save_and_add_another: "Save and add new"
-      save_and_edit: "Save and continue editing"
-      save_and_edit_next: "Save and next."
-      save_and_edit_prev: "Save and prev."
+      save_and_add_another: Save and add new
+      save_and_edit: Save and continue editing
+      save_and_edit_next: Save and next.
+      save_and_edit_prev: Save and prev.
+      details: More
+      base: Base
+      keywords: ''
     gender:
       female: Female
       male: Male
-    geo_autocomplete: "Enter the address"
+      undefined: ''
+    geo_autocomplete: Enter the address
     group:
       kind:
         admin: Administrative
-        default: "By default"
+        default: By default
         private: Reserved
         public: Public
     keywords: Keywords
@@ -140,31 +135,31 @@ en:
       ru: Ru
       uk: Uk
     index_view:
-      table: 'Table view'
-      tree: 'Tree view with sorting'
-      grid: 'Grid view'
-    loading: "Loading ..."
+      table: Table view
+      tree: Tree view with sorting
+      grid: Grid view
+    loading: Loading ...
     locators:
-      all_terms: All
-      complete: Ready
-      edit_file: "Edit the file"
-      edit_files: "Edit files"
+      edit_file: Edit the file
+      edit_files: Edit files
       file: File
-      filter: "type text to filter"
-      incomplete: Empty
-      key: Key
       locale: Locale
-      prepare: "Prepare localization files"
-      restart: "Update localization"
-      title: "Edit location"
-      translate_incomplete: "Translate all incomplete (google)"
-      update_file: "Update File"
+      prepare: Prepare localization files
+      restart: Update localization
+      title: Edit location
+      update_file: Update File
+      all_terms: All
+      incomplete: Empty
+      complete: Ready
+      key: Key
+      filter: type text to filter
+      translate_incomplete: Translate all incomplete (google)
     navigation:
-      dashboard: Dashboard
       system: System
       users: Members
-    no_results_text: "Nothing found"
-    photo: "Main picture"
+      dashboard: Dashboard
+    no_results_text: Nothing found
+    photo: Main picture
     pictures: Image
     preview: Preview
     role:
@@ -181,21 +176,10 @@ en:
       cancel: Clean
       submit: Filter
       title: Search
-    set_main: "Make the main image"
+    set_main: Make the main image
     show:
       attr: Attribute
       value: Value
-    structure:
-      kind:
-        group: Group
-        main: Main
-        posts: Blog
-        redirect: Redirect
-        static_page: "Static page"
-      position:
-        bottom: Bottom
-        default: Default
-        menu: Menu
     table:
       actions: Activity
     user:
@@ -206,30 +190,39 @@ en:
         moderator: Moderator
         redactor: Editor
       state:
-        active: "Most Active"
+        active: Most Active
         deleted: Removed
         pending: Inactive
         suspended: Frozen
+    structure:
+      kind:
+        group: Group
+        main: Main
+        posts: Blog
+        redirect: Redirect
+        static_page: Static page
+      position:
+        bottom: Bottom
+        default: Default
+        menu: Menu
     js:
       empty: Empty
       add_link: Create?
-      button_description: Description
-      button_name_add: Add
-      button_name_cancel: Reset
-      button_name_remove: Remove
+      add: ''
+      remove: ''
       save: Save
       cancel: Cancel
       clear: Reset
       confirm: Confirm
-      create_product: "Create a new product"
-      day: "Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday"
-      day_short: "Sun, Mon, Tue, Wed, Thu, Fri, Sat"
-      delete_nested_elements: "Can not delete"
+      create_product: Create a new product
+      day: Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
+      day_short: Sun, Mon, Tue, Wed, Thu, Fri, Sat
+      delete_nested_elements: Can not delete
       edit: Edit
-      month: "January,February,March,April,May,June,July,August,September,October,November,December"
+      month: January,February,March,April,May,June,July,August,September,October,November,December
       name: Name
-      no_results: "Nothing found"
-      search: "Searching ..."
+      no_results: Nothing found
+      search: Searching ...
       value: Value
       fileupload:
         error: Error
@@ -243,82 +236,84 @@ en:
           maxNumberOfFiles: Max number of files exceeded
           uploadedBytes: Uploaded bytes exceed file size
           emptyResult: Empty file upload result
-
   attributes:
+    map: Location
     address: Address
     country: Country
     country_id: Country
-    created_at: "Created at"
+    created_at: Created at
     description: Description
     footmarks_count: Likes
     is_visible: Display
-    map: Location
     name: Name
-    parent: "Parent element"
-    parent_id: "Parent element"
-    password: Password
+    parent: Parent element
+    parent_id: Parent element
     position: Position
     region: Region
     region_id: Region
-    remember_me: Remember
     reviews_count: Views
-    slug: Alias
     synonyms: Synonyms
     title: Title
-    updated_at: "Updated at"
+    updated_at: Updated at
     user: User
     user_id: User
+    updater: ''
+    updater_id: ''
+    remember_me: Remember
+    password: Password
+    slug: Alias
   attrs:
     en: Eng.
     it: Italian
     ru: Rus.
     uk: Ukr.
     de: Deutsch
-  errors:
-    messages:
-      carrierwave_integrity_error: "Not an image."
-      carrierwave_processing_error: "Cannot resize image."
-      size_too_big: "is too big (should be at most %{file_size})"
-      size_too_small: "is too small (should be at least %{file_size})"
-      wrong_size: "is the wrong size (should be %{file_size})"
+    fr: ''
   flash:
     admin:
       actions:
         create:
-          error: "%{resource_name} - while creating errors occurred: %{errors}"
-          notice: "%{resource_name} was successfully created."
+          error: '%{resource_name} - while creating errors occurred: %{errors}'
+          notice: '%{resource_name} was successfully created.'
         destroy:
-          error: "%{resource_name} - record could not be deleted."
-          notice: "%{resource_name} - record was successfully deleted."
+          error: '%{resource_name} - record could not be deleted.'
+          notice: '%{resource_name} - record was successfully deleted.'
         update:
-          error: "%{resource_name} - while updating errors occurred: %{errors}"
-          notice: "%{resource_name} - record was successfully changed."
+          error: '%{resource_name} - while updating errors occurred: %{errors}'
+          notice: '%{resource_name} - record was successfully changed.'
       controller_name:
         update:
           success: products
       locators:
-        prepared: "Translations successfully prepared"
-        restart: "Translations successfully reloaded"
-        update_error: "An error occurred while updating data"
-        updated: "Translation successfully updated"
+        prepared: Translations successfully prepared
+        restart: Translations successfully reloaded
+        update_error: An error occurred while updating data
+        updated: Translation successfully updated
       permissions:
-        failure: "Update Error"
-        success: "Rights successfully updated"
+        failure: Update Error
+        success: Rights successfully updated
   simple_form:
     buttons:
       cancel: Cancel
-    creating: "Creating ..."
+    creating: Creating ...
     error_notification:
-      default_message: "When you save any errors"
-    "no": "No"
+      default_message: When you save any errors
+    'no': 'No'
     required:
-      mark: "*"
+      mark: '*'
       text: mandatory
-    updating: "Update ..."
-    "yes": "Yes"
+    updating: Update ...
+    'yes': 'Yes'
   will_paginate:
-    page_gap: "..."
-    pagination_info: "<b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b>"
-    pagination_info_empty: "0 total"
-    next_label: "→"
-    previous_label: "←"
+    page_gap: '...'
+    pagination_info: <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b>
+    pagination_info_empty: 0 total
+    next_label: →
+    previous_label: ←
+  errors:
+    messages:
+      wrong_size: is the wrong size (should be %{file_size})
+      size_too_small: is too small (should be at least %{file_size})
+      size_too_big: is too big (should be at most %{file_size})
+      carrierwave_processing_error: Cannot resize image.
+      carrierwave_integrity_error: Not an image.
