@@ -7,7 +7,7 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
     ajax_opts =
       url: url
       data: params
-      type: 'PUT'
+      type: 'PATCH'
       dataType: 'json'
     delete params.name
     delete params.value

@@ -86,7 +86,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def batch
-    raise 'No ids specified for batch action' unless params[:ids].present?
+    raise 'No ids specified for batch action' unless params[:by_ids].present?
     batch_action = params[:batch_action].to_sym
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }

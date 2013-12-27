@@ -24,6 +24,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   #settings default_order: true, history: true
   settings history: {sidebar: true}#, comments: {list: true}
+  settings history: {sidebar: true}, comments: true
 
   belongs_to :collection
 

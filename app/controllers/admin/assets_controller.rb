@@ -72,8 +72,8 @@ class Admin::AssetsController < ApplicationController
     assetable_klass = params[:assetable_type].constantize
     assoc = assetable_klass.reflect_on_association(params[:method].to_sym)
     if params[:assetable_id].to_i.zero?
-      base = assoc.scope ? assoc.klass.instance_exec(&assoc.scope) : assoc.klass
-      base.where(assetable_type: assetable_klass.name, assetable_id: 0).new(asset_params)
+      assoc_scope = assoc.scope ? assoc.klass.instance_exec(&assoc.scope) : assoc.klass
+      assoc_scope.where(assetable_type: assetable_klass.name, assetable_id: 0).new(asset_params)
     else
       assetable = assetable_klass.find(params[:assetable_id])
       if assoc.collection?

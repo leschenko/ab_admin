@@ -104,13 +104,6 @@ ru:
       title: "Настройка отображения колонок"
     comments: 
       add: "Комментировать"
-      author: Author
-      body: Body
-      errors: 
-        empty_text: "Комментарий не был сохранен из-за отсутствия контента"
-      no_comments_yet: "Еще нету комментариев"
-      resource: Resource
-      title: Comment
       title_content: "Комментариев (%{count})"
     delete: "Удалить"
     delete_confirmation: "Вы уверены, что хотите удалить это?"

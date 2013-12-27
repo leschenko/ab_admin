@@ -20,7 +20,7 @@ FactoryGirl.define do
 
   factory :picture do
     data File.open(File.expand_path('../files/rails.png', __FILE__))
-    association :assetable, factory: :structure
+    association :assetable, factory: :structure_page
     is_main true
 
     before(:create) do |instance|

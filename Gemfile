@@ -33,7 +33,6 @@ gem 'ruby-progressbar'
 
 
 gem 'globalize', '~> 4.0.0.alpha.2'
-gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '01708cd5a39'
 gem 'devise-encryptable'
 gem 'configatron'
 gem 'ruby-progressbar'

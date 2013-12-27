@@ -100,13 +100,6 @@ en:
       title: "Setting the display of columns"
     comments:
       add: Comment
-      author: Author
-      body: Body
-      errors:
-        empty_text: "Comment was not saved because of the lack of content"
-      no_comments_yet: "No comments yet"
-      resource: Resource
-      title: Comment
       title_content: "Comments (%{count})"
     delete: Remove
     delete_confirmation: "Are you sure you want to delete this?"

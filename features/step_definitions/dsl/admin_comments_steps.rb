@@ -7,14 +7,14 @@ end
 
 Given /^comment "(.*?)" exists$/ do |comment|
   AdminComment.create(resource_id: @product.id, resource_type: 'Product', body: comment) do |c|
-    c.author = @me
+    c.user = @me
   end
 end
 
 When(/^I add admin comment "(.*?)" with attachment$/) do |comment|
   within '#new_admin_comment' do
     fill_in 'admin_comment_body', with: comment
-    attach_file 'file', Rails.root.join('../../spec/factories/files/rails.png')
+    attach_file 'data', Rails.root.join('../../spec/factories/files/rails.png')
     click_button 'Comment'
   end
 end
