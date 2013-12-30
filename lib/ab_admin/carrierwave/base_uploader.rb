@@ -159,10 +159,11 @@ module AbAdmin
         end
       end
 
-      def watermark(path_to_file, gravity='SouthEast')
+      def watermark(watermark_path, gravity='SouthEast')
         manipulate! do |img|
-          logo = ::MiniMagick::Image.open(path_to_file)
-          img.composite(logo) { |c| c.gravity gravity }
+          resolved_path = watermark_path.is_a?(Symbol) ? send(watermark_path) : watermark_path
+          watermark_image = ::MiniMagick::Image.open(resolved_path)
+          img.composite(watermark_image) { |c| c.gravity gravity }
         end
       end
 
