@@ -23,17 +23,6 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
 
-gem 'bootstrap-sass'
-gem 'bootstrap-wysihtml5-rails'
-gem 'will_paginate'
-gem 'will_paginate-bootstrap'
-gem 'nested_form', '~> 0.2.2'
-gem 'simple_form'
-gem 'gon'
-gem 'i18n-js'
-gem 'ruby-progressbar'
-
-
 gem 'globalize', '~> 4.0.0.alpha.2'
 gem 'devise-encryptable'
 gem 'configatron'
@@ -43,12 +32,16 @@ gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'protected_attributes'
 
+gem 'bootstrap-sass'
 gem 'bootstrap-wysihtml5-rails'
-gem 'fancybox2-rails'
 gem 'select2-rails'
 gem 'jquery-fileupload-rails'
 gem 'russian'
 gem 'gon'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'nested_form', '~> 0.2.2'
+gem 'simple_form'
 gem 'i18n-js'
 gem 'ckeditor'
 
@@ -73,7 +66,6 @@ group :test do
   gem 'guard-cucumber'
   gem 'rb-fsevent', require: false
   gem 'growl', require: false
-  gem 'debugger'
 end
 
 group :development do
