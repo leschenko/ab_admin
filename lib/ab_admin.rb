@@ -146,6 +146,9 @@ module AbAdmin
 
   mattr_accessor :locale
 
+  mattr_accessor :uploads_dir
+  @@uploads_dir = 'uploads'
+
   extend Utils
 
   def self.setup

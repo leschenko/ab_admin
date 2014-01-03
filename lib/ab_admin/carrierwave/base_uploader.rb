@@ -98,7 +98,7 @@ module AbAdmin
       # prevent large number of subdirectories
       def store_dir
         str_id = model.id.to_s.rjust(4, '0')
-        "uploads/#{model.class.to_s.underscore}/#{str_id[0..2]}/#{str_id[3..-1]}"
+        [AbAdmin.uploads_dir, model.class.to_s.underscore, str_id[0..2], str_id[3..-1]].join('/')
       end
 
       # Strips out all embedded information from the image
