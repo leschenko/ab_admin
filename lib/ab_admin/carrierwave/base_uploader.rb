@@ -83,8 +83,13 @@ module AbAdmin
       def rename_via_move(new_file_name)
         dir = File.dirname(path)
 
-        moves = versions.values.unshift(self).map { |v| [File.join(dir, v.full_filename), File.join(dir, v.full_filename(new_file_name))] }
-        return false unless moves.all?{|move| File.exists?(move[0]) }
+        moves = []
+        versions.values.unshift(self).each do |v|
+          from_path = File.join(dir, v.full_filename)
+          to_path = File.join(dir, v.full_filename(new_file_name))
+          return false if from_path == to_path || !File.exists?(from_path)
+          moves << [from_path, to_path]
+        end
         moves.each { |move| FileUtils.mv(*move) }
 
         write_internal_identifier new_file_name
