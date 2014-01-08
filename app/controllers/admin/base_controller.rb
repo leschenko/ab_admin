@@ -11,6 +11,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 
+  defaults finder: :friendly_find
+
   has_scope :by_ids, type: :array
 
   helper_method :admin?, :moderator?

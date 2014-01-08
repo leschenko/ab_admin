@@ -107,6 +107,14 @@ module AbAdmin
             break token unless to_adapter.find_first({column => token})
           end
         end
+
+        def friendly_find(id_param)
+          if respond_to?(:friendly)
+            friendly.find(id_param)
+          else
+            find(id_param)
+          end
+        end
       end
 
       def compare_key
