@@ -23,7 +23,7 @@ gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
 
-gem 'globalize', '~> 4.0.0.alpha.2'
+gem 'globalize', '~> 4.0.0'
 gem 'devise-encryptable'
 gem 'configatron'
 gem 'ruby-progressbar'
