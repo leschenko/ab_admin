@@ -5,8 +5,8 @@ module AbAdmin
     autoload :Logger, 'ab_admin/utils/logger'
     autoload :Mysql, 'ab_admin/utils/mysql'
 
-    def load_files!(path = 'lib/utils')
-      Dir[Rails.root.join("#{path}/**/*.rb")].each do |path|
+    def load_files!(base_path = 'lib/utils')
+      Dir[Rails.root.join("#{base_path}/**/*.rb")].each do |path|
         require_dependency path
       end
     end
