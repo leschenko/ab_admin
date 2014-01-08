@@ -32,10 +32,6 @@ gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'protected_attributes'
 
-gem 'bootstrap-sass'
-gem 'bootstrap-wysihtml5-rails'
-gem 'select2-rails'
-gem 'jquery-fileupload-rails'
 gem 'russian'
 gem 'gon'
 gem 'will_paginate'
@@ -44,6 +40,12 @@ gem 'nested_form', '~> 0.2.2'
 gem 'simple_form'
 gem 'i18n-js'
 gem 'ckeditor'
+
+gem 'bootstrap-sass'
+gem 'bootstrap-wysihtml5-rails'
+gem 'select2-rails'
+gem 'jquery-fileupload-rails'
+gem 'fancybox2-rails'
 
 group :development, :test do
   gem 'rspec-rails'
