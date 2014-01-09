@@ -74,6 +74,10 @@ module AbAdmin
         base.join(' - ')
       end
 
+      def include_fv
+        "<script type='text/javascript'>window.fv = #{fv.to_h.to_json}</script>".html_safe
+      end
+
       def admin_comments
         render 'admin/admin_comments/comments'
       end

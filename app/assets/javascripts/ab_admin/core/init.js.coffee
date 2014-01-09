@@ -57,7 +57,7 @@ $ ->
   inputSetToggle()
   inputBtnClose()
 
-  if window.gon?.bg_color
-    $('body').css('background-color', "##{window.gon.bg_color.replace(/^#/, '')}")
+  if window.fv?.bg_color
+    $('body').css('background-color', "##{window.fv.bg_color.replace(/^#/, '')}")
 
-  initHotkeys() if window.gon?.hotkeys
+  initHotkeys() if window.fv?.hotkeys

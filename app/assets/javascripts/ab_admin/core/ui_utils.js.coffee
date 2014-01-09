@@ -28,7 +28,7 @@ window.initTooltip = ->
     placement: 'right'
 
 window.initEditor = ->
-  return if gon.test
+  return if fv.test
   $('form .do_wysihtml5').each ->
     $el = $(this)
     return if $el.hasClass('wysihtml5_done')

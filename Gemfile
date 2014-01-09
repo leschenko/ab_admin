@@ -33,7 +33,6 @@ gem 'rest-client'
 gem 'protected_attributes'
 
 gem 'russian'
-gem 'gon'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'nested_form', '~> 0.2.2'

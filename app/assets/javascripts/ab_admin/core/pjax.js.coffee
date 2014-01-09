@@ -26,7 +26,7 @@ $ ->
       e.preventDefault()
       window.location = $(this).data('href')
 
-  unless gon.test
+  unless fv.test
     $(document).on 'submit', '.pjax-form', (e) ->
       $el = $(this)
       if $.support.pjax

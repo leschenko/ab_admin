@@ -1,6 +1,6 @@
 class window.Select2Bridge
   constructor: (@el) ->
-    return if gon.test && !gon.enable_fancy_select
+    return if fv.test && !fv.enable_fancy_select
     @el.prop('required', null)
     @modal = $('#modal_form')
     @el.select2 @buildOptions()
@@ -78,7 +78,7 @@ class window.Select2Bridge
       placeholder: ' '
       allowClear: true
       escapeMarkup: (m) -> m
-    opts.minimumResultsForSearch = 10 unless gon.test || @el.data('add')
+    opts.minimumResultsForSearch = 10 unless fv.test || @el.data('add')
     opts
 
   initAjaxInput: ->

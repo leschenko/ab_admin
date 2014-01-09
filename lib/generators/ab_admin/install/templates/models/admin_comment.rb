@@ -3,4 +3,3 @@ class AdminComment < ActiveRecord::Base
 
   attr_accessible :body, :resource_id, :resource_type
 end
-

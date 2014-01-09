@@ -9,6 +9,7 @@ class Admin::BaseController < ::InheritedResources::Base
   before_action :authenticate_user!, :require_require_admin_access, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
 
+  attr_accessor :fv
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 
   defaults finder: :friendly_find
@@ -19,7 +20,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :fv
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -295,15 +296,16 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def set_user_vars
+    self.fv = OpenStruct.new
     I18n.locale = AbAdmin.locale
-    gon.locale = I18n.locale
-    gon.bg_color = current_user.bg_color
-    gon.admin = admin?
-    gon.hotkeys = settings[:hotkeys]
-    gon.env = Rails.env
+    fv.locale = I18n.locale
+    fv.bg_color = current_user.bg_color
+    fv.admin = admin?
+    fv.hotkeys = settings[:hotkeys]
+    fv.env = Rails.env
     if AbAdmin.test_env?
-      gon.test = true
-      AbAdmin.test_settings.each { |k, v| gon.set_variable k, v }
+      fv.test = true
+      AbAdmin.test_settings.each { |k, v| fv.set_variable k, v }
     end
   end
 

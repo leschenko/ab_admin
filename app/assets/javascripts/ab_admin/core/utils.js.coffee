@@ -1,6 +1,6 @@
-window.gon ||= {}
+window.fv ||= {}
 window.I18n ||= {}
-I18n.locale = window.gon.locale || 'ru'
+I18n.locale = window.fv.locale || 'ru'
 window.locale_path = if I18n.locale == 'ru' then '' else "/#{I18n.locale}"
 
 _.sum = (obj) ->
@@ -139,7 +139,7 @@ window.to_fixed = (val, prec = 2) ->
 
 window.log = (objects...) ->
   window.logging = true
-  unless window.gon?.no_log
+  unless window.fv?.no_log
     console.log '== debug ==='
     objects = objects[0] if objects.length == 1
     console.log objects
