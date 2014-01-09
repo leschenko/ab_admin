@@ -34,7 +34,7 @@ module AbAdmin
         end
 
         def clean!
-          where(:created_at.lt => 1.week.ago).where('assetable_id IS NULL OR assetable_id = 0').destroy_all
+          where('assetable_id IS NULL OR assetable_id = 0 AND created_at < ?', 1.week.ago).destroy_all
         end
       end
 
