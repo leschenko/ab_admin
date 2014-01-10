@@ -12,7 +12,7 @@
 //= require bootstrap
 //= require ab_admin/jquery_nested_form
 //= require ab_admin/bootstrap-tab-multi
-//= require ab_admin/bootstrap-datetimepicker/bootstrap-datetimepicker.min
+//= require ab_admin/bootstrap-datetimepicker/bootstrap-datetimepicker
 //= require ab_admin/bootstrap-datetimepicker/locales/bootstrap-datetimepicker.ru.js
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales/ru
