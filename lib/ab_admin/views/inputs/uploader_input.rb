@@ -17,6 +17,7 @@ module AbAdmin
           }
           @options.reverse_merge!(defaults)
           @options[:sortable] = @options[:multiple] unless @options.has_key?(:sortable)
+          @options[:asset_template] ||= @options[:file_type]
           @options[:container_class] = container_class
         end
 
@@ -36,7 +37,7 @@ module AbAdmin
               options: @options,
               js_options: js_options,
               assets: uploader_values,
-              asset_template: "#{theme_path}/#{@options[:file_type]}"
+              asset_template: "#{theme_path}/#{@options[:asset_template]}"
           }
           template.render(partial: "#{theme_path}/container", locals: locals)
         end
@@ -44,11 +45,12 @@ module AbAdmin
         def container_class
           classes = Array(@options[:container_class])
           classes << (@options[:multiple] ? 'fileupload-multiple' : 'fileupload-single')
-          classes << "fileupload-#{@options[:file_type]}_file_type"
-          classes << "fileupload-#{@options[:theme]}_theme" if @options[:theme]
-          classes << 'fileupload-sortable' if @options[:sortable]
           classes << "fileupload-klass-#{@assoc.klass.name}"
           classes << "fileupload-record-#{object.fileupload_guid}"
+          classes << "fileupload-theme-#{@options[:theme]}" if @options[:theme]
+          classes << "fileupload-file_type-#{@options[:file_type]}"
+          classes << "fileupload-asset_template-#{@options[:asset_template]}"
+          classes << 'fileupload-sortable' if @options[:sortable]
           classes << 'error' if @options[:error]
           classes
         end
@@ -70,6 +72,7 @@ module AbAdmin
           {
             container_id: @options[:container_id],
             file_type: @options[:file_type],
+            asset_template: @options[:asset_template],
             multiple: @options[:multiple],
             sort_url: template.sort_admin_assets_path(klass: @assoc.klass.name),
             extensions: @options[:extensions],

@@ -41,7 +41,7 @@
   &.error .help-inline {
     color: #b94a48;
   }
-  &.fileupload-image_file_type {
+  &.fileupload-file_type-image {
     .asset {
       float: left;
       overflow: hidden;
@@ -77,7 +77,7 @@
       display: none;
     }
   }
-  &.fileupload-file_file_type {
+  &.fileupload-file_type-file {
     .asset {
       margin-bottom: 10px;
       z-index: 2;

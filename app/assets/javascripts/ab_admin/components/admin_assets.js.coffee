@@ -16,7 +16,7 @@ class window.AdminAssets
     @el = $('#' + @options.container_id)
     @el.data('AdminAssets', this)
     @list = @el.find('.fileupload-list')
-    @template = Handlebars.compile($("##{@options.file_type}_template").html())
+    @template = Handlebars.compile($("##{@options.asset_template}_template").html())
     @initFileupload()
     @initHandlers()
 
