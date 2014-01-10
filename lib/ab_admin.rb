@@ -148,8 +148,10 @@ module AbAdmin
   mattr_accessor :locale
 
   mattr_accessor :fileupload_url
-  #@@fileupload_url = '/sunrise/fileupload'
   @@fileupload_url = '/admin/assets'
+
+  mattr_accessor :uploads_dir
+  @@uploads_dir = 'uploads'
 
   extend Utils
 

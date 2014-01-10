@@ -31,7 +31,7 @@ class window.Locator
       $input_from = $cont.find('textarea:disabled')
       window.google_t($input_from.val(), $input_to, self.from_locale, self.to_locale)
 
-    $('.filter_field').change ->
+    $('.filter_field').keyup ->
       $el = $(this)
       ind = $el.closest('th').index() + 1
       text = $el.val().replace(/'/, '\'')

@@ -30,7 +30,7 @@ class Admin::AssetsController < ApplicationController
   end
 
   def batch_edit
-    @assets = Asset.find(params[:ids])
+    @assets = Asset.includes(:translations).find(params[:ids])
     render layout: false
   end
 

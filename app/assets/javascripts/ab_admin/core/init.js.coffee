@@ -9,13 +9,7 @@
 #= require ab_admin/core/view_layout
 
 $ ->
-  if $('#list')[0]
-    window.viewType = 'list'
-  else if $('form.simple_form')[0]
-    window.viewType = 'form'
-
   $(document).on 'admin:init', (e) ->
-    return unless window.viewType == 'list'
     clonePagination()
 
     $(document).trigger('admin:list_init')
@@ -23,12 +17,11 @@ $ ->
     $('.per_page').click ->
       $.cookie('pp', $(this).data('val'))
 
-    $('#list').on 'click', 'tr.list_edit .form_cancel', (e) ->
+    $('#list').on 'click', 'tr.list_edit .form_cancel', ->
       e.preventDefault()
       $(this).closest('tr').remove()
 
-  $(document).on 'admin:init', (e) ->
-    return unless window.viewType == 'form'
+  $(document).on 'admin:init', ->
     $form = $('form.simple_form')
     window.resource_id = $form.data('id')
     $form.trigger('admin:form_init')
@@ -37,7 +30,7 @@ $ ->
     initPopover()
     initTooltip()
 
-  $(document).on 'admin:form_init', 'form', (e) ->
+  $(document).on 'admin:form_init', 'form', ->
     initEditor()
     initFancySelect()
     initPickers()

@@ -84,8 +84,13 @@ module AbAdmin
       def rename_via_move(new_file_name)
         dir = File.dirname(path)
 
-        moves = versions.values.unshift(self).map { |v| [File.join(dir, v.full_filename), File.join(dir, v.full_filename(new_file_name))] }
-        return false unless moves.all?{|move| File.exists?(move[0]) }
+        moves = []
+        versions.values.unshift(self).each do |v|
+          from_path = File.join(dir, v.full_filename)
+          to_path = File.join(dir, v.full_filename(new_file_name))
+          return false if from_path == to_path || !File.exists?(from_path)
+          moves << [from_path, to_path]
+        end
         moves.each { |move| FileUtils.mv(*move) }
 
         write_internal_identifier new_file_name
@@ -99,7 +104,7 @@ module AbAdmin
       # prevent large number of subdirectories
       def store_dir
         str_id = model.id.to_s.rjust(4, '0')
-        "uploads/#{model.class.to_s.underscore}/#{str_id[0..2]}/#{str_id[3..-1]}"
+        [AbAdmin.uploads_dir, model.class.to_s.underscore, str_id[0..2], str_id[3..-1]].join('/')
       end
 
       # Strips out all embedded information from the image
@@ -160,10 +165,11 @@ module AbAdmin
         end
       end
 
-      def watermark(path_to_file, gravity='SouthEast')
+      def watermark(watermark_path, gravity='SouthEast')
         manipulate! do |img|
-          logo = ::MiniMagick::Image.open(path_to_file)
-          img.composite(logo) { |c| c.gravity gravity }
+          resolved_path = watermark_path.is_a?(Symbol) ? send(watermark_path) : watermark_path
+          watermark_image = ::MiniMagick::Image.open(resolved_path)
+          img.composite(watermark_image) { |c| c.gravity gravity }
         end
       end
 
