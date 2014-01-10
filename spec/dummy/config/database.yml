@@ -7,19 +7,19 @@ login: &login
   password:
 
 development:
-  database: ab_admin_dummy_master
+  database: ab_admin_dummy
   <<: *login
 
 test: &test
-  database: ab_admin_dummy_master_test
+  database: ab_admin_dummy_test
   <<: *login
 
 staging:
-  database: ab_admin_dummy_master
+  database: ab_admin_dummy
   <<: *login
 
 production:
-  database: ab_admin_dummy_master
+  database: ab_admin_dummy
   <<: *login
 
 cucumber:
