@@ -39,7 +39,7 @@ module AbAdmin
       def token_data(method, options={})
         assoc = self.class.reflect_on_association(method)
         scope = send(method)
-        scope = scope.reorder(assoc.options[:through] => :position) if options[:sortable]
+        scope = scope.reorder("#{assoc.options[:through]}.position") if options[:sortable]
         records = Array(scope)
         data = records.map(&:for_input_token)
         data = {
