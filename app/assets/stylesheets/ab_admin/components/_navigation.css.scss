@@ -1,9 +1,10 @@
 .downloads {
-  margin-top: 9px;
+  line-height: 14px;
   a {
     font-size: 14px;
     text-transform: uppercase;
     margin-right: 5px;
+    vertical-align: bottom;
     i {
       padding-right: 5px;
     }
@@ -18,7 +19,7 @@
   .pagination_info {
     display: inline-block;
     vertical-align: top;
-    padding: 10px;
+    padding: 5px;
   }
 }
 

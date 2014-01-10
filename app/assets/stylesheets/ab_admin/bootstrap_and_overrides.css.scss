@@ -27,6 +27,10 @@ img {
   background-color: white;
 }
 
+.pagination ul > li > a, .pagination ul > li > span {
+  padding: 6px 14px;
+}
+
 .breadcrumb {
   padding: 10px 14px;
   margin-bottom: 10px;
