@@ -9,7 +9,7 @@ When /^I check (\d+) products in the list$/ do |n|
 end
 
 Then /^I should see confirmation dialog$/ do
-  find('#confirmation_dialog').should be_visible
+  page.should have_selector('.bootbox.modal.fade.in')
 end
 
 When /^I choose batch action "(.*?)"$/ do |action|

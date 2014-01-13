@@ -25,7 +25,7 @@ Feature: Batch actions
     And I am on the admin products page
     When I check 2 products in the list
     And I choose batch action "Delete selected"
-    And I follow "Confirm"
+    And I follow "OK"
     Then I should be on the admin products page
     And I should see 1 item in the list
 
@@ -63,7 +63,7 @@ Feature: Batch actions
     And I am on the admin products page
     When I check 2 products in the list
     And I choose batch action "Deativate"
-    And I follow "Confirm"
+    And I follow "OK"
     Then I should be on the admin products page
     And I should see 1 published item in the list
 
