@@ -9,7 +9,7 @@ gem 'cancan', '~> 1.6.7'
 gem 'ransack'
 gem 'awesome_nested_set'
 gem 'galetahub-enum_field', '~> 0.2.0', require: 'enum_field'
-gem 'friendly_id'
+gem 'simple_slug'
 
 gem 'configatron'
 gem 'inherited_resources', '~> 1.4.0'

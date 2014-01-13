@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-pjax'
   s.add_dependency 'ransack'
   s.add_dependency 'has_scope'
-  s.add_dependency 'friendly_id'
+  s.add_dependency 'simple_slug'
   s.add_dependency 'devise', '~> 3.2.2'
   s.add_dependency 'cancan'
   s.add_dependency 'galetahub-enum_field'

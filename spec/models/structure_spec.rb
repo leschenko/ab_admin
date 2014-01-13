@@ -7,7 +7,7 @@ describe Structure do
 
   it { should respond_to(:structure_type) }
   it { should respond_to(:position_type) }
-  it { should respond_to(:friendly_id_config) }
+  it { should respond_to(:simple_slug_options) }
 
   describe 'associations' do
     it { should have_many(:visible_children).class_name('Structure') }

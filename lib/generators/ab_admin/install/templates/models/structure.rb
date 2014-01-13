@@ -12,8 +12,7 @@ class Structure < ActiveRecord::Base
   attr_accessible *all_translated_attribute_names
 
   include AbAdmin::Concerns::AdminAddition
-  extend FriendlyId
-  friendly_id :title, use: :slugged
+  simple_slug :title
 
   default_scope -> { nested_set.includes(:translations) }
 
