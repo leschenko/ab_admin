@@ -60,6 +60,7 @@ module AbAdmin
     autoload :HeadOptions, 'ab_admin/controllers/head_options'
     autoload :Tree, 'ab_admin/controllers/tree'
     autoload :CanCanManagerResource, 'ab_admin/controllers/can_can_manager_resource'
+    autoload :Fv, 'ab_admin/controllers/fv'
   end
 
   module Mailers

@@ -3,13 +3,14 @@ class Admin::BaseController < ::InheritedResources::Base
 
   layout :set_layout
 
+  include AbAdmin::Controllers::Fv
   include AbAdmin::Controllers::Callbacks
+
   define_admin_callbacks :save, :create
 
   before_action :authenticate_user!, :require_require_admin_access, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
 
-  attr_accessor :fv
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
 
   defaults finder: :friendly_find
@@ -20,7 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :fv
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -296,7 +297,6 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def set_user_vars
-    self.fv = OpenStruct.new
     I18n.locale = AbAdmin.locale
     fv.locale = I18n.locale
     fv.bg_color = current_user.bg_color
