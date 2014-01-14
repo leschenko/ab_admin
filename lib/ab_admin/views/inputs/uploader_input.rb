@@ -83,7 +83,8 @@ module AbAdmin
             fileupload: {
               url: AbAdmin.fileupload_url,
               maxNumberOfFiles: @options[:max_files],
-              maxFileSize: @options[:max_size].megabytes.to_i,
+              maxFileSize: @options[:max_size].try(:megabytes),
+              minFileSize: @options[:min_size].try(:megabytes),
               formData: {
                 assetable_type: object.class.name,
                 assetable_id: object.id,
