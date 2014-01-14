@@ -16,6 +16,7 @@ class window.AdminAssets
     @el = $('#' + @options.container_id)
     @el.data('AdminAssets', this)
     @list = @el.find('.fileupload-list')
+    @files_in_progress = 0
     @template = Handlebars.compile($("##{@options.asset_template}_template").html())
     @initFileupload()
     @initHandlers()
@@ -26,12 +27,16 @@ class window.AdminAssets
       dropZone: @el
       pasteZone: @el
       processfail: @showErrors
+      send: @addFileInProgress
+      getNumberOfFiles: =>
+        @files_in_progress + @list.find('.asset').length
       done: (e, data) =>
         @list.empty() unless @options.multiple
         @list.append @template(data.result.asset)
-      start: ->
+      start: =>
         toggleLoading(true)
-      always: ->
+      always: =>
+        @removeFileInProgress()
         toggleLoading(false)
 
     if @options.extensions
@@ -44,6 +49,12 @@ class window.AdminAssets
       [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
     bootbox.alert(errors)
 
+  addFileInProgress: =>
+    @files_in_progress += 1
+
+  removeFileInProgress: =>
+    @files_in_progress = Math.max(0, @files_in_progress - 1)
+
   initHandlers: ->
     @initRemove()
     @initRotate()
@@ -54,7 +65,7 @@ class window.AdminAssets
     @initCrop() if @options.crop
 
   initRemove: ->
-    @el.on 'ajax:complete', '.fileupload .destroy_asset', ->
+    @el.on 'ajax:complete', '.destroy_asset', ->
       $(this).closest("div.asset").remove()
 
   initRotate: ->

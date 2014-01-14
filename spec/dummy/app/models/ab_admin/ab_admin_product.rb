@@ -68,7 +68,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       '<b>Capture block input</b>'.html_safe
     end
     field :picture, as: :uploader
-    field :pictures, as: :uploader, edit_meta: true, crop: true
+    field :pictures, as: :uploader, edit_meta: true, crop: true, max_files: 2
     field :attachment_files, as: :uploader, file_type: 'file'
     #field :map, as: :map
   end
