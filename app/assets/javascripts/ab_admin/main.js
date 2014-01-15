@@ -7,7 +7,6 @@
 //= require underscore.min
 //= require jquery.cookie
 //= require jquery.pjax.min
-//= require jquery.ui.nestedSortable
 //= require jquery.hotkeys
 //= require bootstrap
 //= require ab_admin/jquery_nested_form
