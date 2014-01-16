@@ -1,7 +1,6 @@
 //= require i18n
 //= require i18n/translations
 //= require jquery.min
-//= require ab_admin/jquery-ui.min
 //= require jquery_ujs
 //= require handlebars.min
 //= require underscore.min
@@ -20,6 +19,7 @@
 //= require ab_admin/bootbox.min
 //= require select2
 //= require fancybox
+//= require ab_admin/jquery-ui-1.10.3.custom.min
 //= require jquery.ui.nestedSortable
 //= require ab_admin/components/sortable_tree
 //= require ab_admin/components/google_translate
