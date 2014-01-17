@@ -225,10 +225,6 @@ ru:
       search: Идет поиск...
       value: Значение
       fileupload:
-        error: Ошибка
-        start: Старт,
-        cancel: Отмена
-        destroy: Удалить
         errors:
           maxFileSize: Файл слишком велик
           minFileSize: Файл слишком мал
