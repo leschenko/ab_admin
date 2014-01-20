@@ -108,7 +108,7 @@ $.fn.toggleClassRadio = (class_name = 'active', state = undefined) ->
     $(this).toggleClass(class_name, state).siblings().removeClass(class_name)
 
 $.parseQuery = ->
-  $.parseQueryParams window.location.search.replace("?", "").parseQuery()
+  $.parseQueryParams window.location.search.replace("?", "")
 
 $.parseQueryParams = (string) ->
   h = {}

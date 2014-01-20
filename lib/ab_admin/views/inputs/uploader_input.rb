@@ -56,7 +56,7 @@ module AbAdmin
         end
 
         def theme_path
-          ['admin/fileupload', @options[:theme]].compact.join('/')
+          [@options[:views_path] || 'admin/fileupload', @options[:theme]].compact.join('/')
         end
 
         def uploader_values
