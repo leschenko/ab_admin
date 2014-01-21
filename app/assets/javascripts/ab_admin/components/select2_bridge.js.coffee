@@ -148,11 +148,3 @@ class window.Select2Bridge
 
     data = {q: term, class: @el.data('class'), token: true, page: page}
     _.extend(data, cond)
-
-
-#    $('#district_location_id').select2("data", {id: 123, text: '123'})
-#    $el.change (data) ->
-#      log data.val
-#    createSearchChoice: (term) ->
-#      log term
-#      {id: 3, text: '123'}
