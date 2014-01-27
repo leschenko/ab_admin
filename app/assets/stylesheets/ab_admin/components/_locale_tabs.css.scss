@@ -4,7 +4,7 @@
 }
 // icons
 .locale_tabs {
-  @each $lang in ru, uk, en, it, de, fr {
+  @each $lang in ru, uk, en, it, de, fr, es {
     li {
       a.ico_#{$lang} {
           background-position: 10px center;
