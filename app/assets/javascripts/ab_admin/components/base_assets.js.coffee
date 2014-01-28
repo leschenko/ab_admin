@@ -49,12 +49,12 @@ class window.BaseAssets
 
   initRemove: ->
     @el.on 'ajax:complete', '.destroy_asset', ->
-      $(this).closest('.asset').remove()
+      $(this).closest('.fileupload-asset').remove()
 
   initRotate: ->
     self = this
     @el.on 'click', '.rotate_image', ->
-      $asset = $(this).closest('.asset')
+      $asset = $(this).closest('.fileupload-asset')
       $.post "/admin/assets/#{$asset.data('id')}/rotate", (data) ->
         $asset.replaceWith self.template(data.asset)
 
@@ -62,13 +62,13 @@ class window.BaseAssets
     self = this
     @el.on 'click', '.main_image', ->
       log 'initMainImage'
-      $asset = $(this).closest('.asset')
+      $asset = $(this).closest('.fileupload-asset')
       klass_css = "fileupload-klass-#{self.options.klass}"
       record_css = "fileupload-record-#{self.options.fileupload.formData.guid}"
       $single_list = $(".fileupload.fileupload-single.#{record_css}.#{klass_css} .fileupload-list")
 
       $.post "/admin/assets/#{$asset.data('id')}/main", ->
-        $single_list.find('.asset').appendTo(self.list)
+        $single_list.find('.fileupload-asset').appendTo(self.list)
         $asset.appendTo($single_list)
 
   initSortable: ->

@@ -41,7 +41,7 @@ class window.AdminAssets extends BaseAssets
 
   initEditMeta: ->
     @el.find('.fileupload-edit-button').show().click =>
-      ids = @el.find('.fileupload-list .asset').map(-> $(this).data('id')).get()
+      ids = @el.find('.fileupload-list .fileupload-asset').map(-> $(this).data('id')).get()
       unless ids[0]
         bootbox.alert 'Upload images first'
       $.get '/admin/assets/batch_edit', {ids: ids}, (data) =>

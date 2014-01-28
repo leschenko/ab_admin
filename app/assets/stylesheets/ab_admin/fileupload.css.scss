@@ -42,7 +42,7 @@
     color: #b94a48;
   }
   &.fileupload-file_type-image {
-    .asset {
+    .fileupload-asset {
       float: left;
       overflow: hidden;
       margin: 3px;
@@ -78,7 +78,7 @@
     }
   }
   &.fileupload-file_type-file {
-    .asset {
+    .fileupload-asset {
       margin-bottom: 10px;
       z-index: 2;
       position: relative;

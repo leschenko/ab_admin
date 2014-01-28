@@ -1,4 +1,4 @@
-.asset id="asset_#{image.id}" data-id=image.id
+.fileupload-asset id="asset_#{image.id}" data-id=image.id
   = link_to icon('remove', true), admin_asset_path(image), remote: true, method: :delete, title: t('admin.delete'), class: 'destroy_asset', \
      data: {confirm: t('admin.delete_confirmation')}
   .main_image title=t('admin.fileupload.main_image') = icon('home', true)
