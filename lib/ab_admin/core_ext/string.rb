@@ -26,7 +26,7 @@ class String
   end
 
   def is_number?
-    true if Float(self) rescue false
+    self =~ /^[-+]?[0-9]+\.[0-9]+$/
   end
 
   def to_utc
