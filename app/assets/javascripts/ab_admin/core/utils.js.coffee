@@ -140,7 +140,7 @@ window.to_fixed = (val, prec = 2) ->
 window.log = (objects...) ->
   window.logging = true
   unless window.fv?.no_log
-    console.log '== debug ==='
+#    console.log '== debug ==='
     objects = objects[0] if objects.length == 1
     console.log objects
   window.logging = false

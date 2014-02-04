@@ -5,7 +5,7 @@
 //= require handlebars.min
 //= require underscore.min
 //= require jquery.cookie
-//= require jquery.pjax.min
+//= require jquery.pjax
 //= require jquery.hotkeys
 //= require bootstrap
 //= require ab_admin/jquery_nested_form
