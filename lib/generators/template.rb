@@ -1,38 +1,44 @@
-# init gems list
-gem 'slim'
 gem 'rails-i18n'
+gem 'slim'
+
+gem 'inherited_resources'
+gem 'has_scope'
+gem 'rack-pjax'
+#gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
+#gem 'polyamorous', github: 'activerecord-hackery/polyamorous', branch: 'rails-4.1'
 
 gem 'devise'
 gem 'devise-encryptable'
-gem 'cancan', '~> 1.6.7'
+gem 'cancan', github: 'ryanb/cancan'
 
+gem 'protected_attributes'
+gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
-gem 'awesome_nested_set'
-gem 'galetahub-enum_field', '~> 0.2.0', require: 'enum_field'
 gem 'simple_slug'
+gem 'awesome_nested_set'
+gem 'globalize', '~> 4.0.0'
 
-gem 'configatron'
-gem 'inherited_resources', '~> 1.4.0'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'multi_json'
-gem 'ruby-progressbar'
-
-gem 'rack-pjax'
+gem 'configatron', '~> 2.13'
 gem 'simple_form'
-gem 'bootstrap-sass', '2.0.4'
-gem 'will_paginate', '>= 3.0.3'
+gem 'will_paginate'
+gem 'will_paginate-bootstrap'
+gem 'bootstrap-sass'
 gem 'bootstrap-wysihtml5-rails'
-gem 'fancybox2-rails'
-gem 'will_paginate-bootstrap', '0.2.1'
 gem 'select2-rails'
-gem 'gon'
+gem 'jquery-fileupload-rails'
+gem 'fancybox2-rails'
 gem 'i18n-js'
 
-gem 'globalize3', github: 'globalize/globalize', ref: '6ad3de9f257a'
-gem 'sunrise-file-upload', github: 'leschenko/sunrise-file-upload', branch: 'master', ref: '6aad0cf'
-gem 'turbo-sprockets-rails3', group: :assets
-gem 'ab_admin', github: 'leschenko/ab_admin', ref: 'ab57386', branch: 'master'
+gem 'ruby-progressbar'
+gem 'ruby2xlsx'
+gem 'rest-client'
+gem 'russian'
+gem 'nested_form', '~> 0.2.2'
+gem 'puma', require: false
+
+gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'rails4'
 
 ckeditor = yes?('Install ckeditor?')
 
@@ -47,36 +53,17 @@ if gem_adds
   gem 'dalli'
   gem 'exception_notification'
   gem 'redis-actionpack'
-  gem 'ruby2xlsx'
-  gem 'cache_digests'
-  gem 'russian'
   gem 'activevalidators', '~> 1.9.0'
-  gem 'nested_form', '0.2.2'
-  gem 'has_scope'
-  gem 'squeel'
-  gem 'fancybox2-rails'
-  gem 'rest-client'
 
   gem_group :development, :test do
-    gem 'rspec-rails'
-    gem 'cucumber-rails', require: false
-
-    gem 'factory_girl_rails'
     gem 'quiet_assets'
+    gem 'rspec-rails'
+    gem 'factory_girl_rails'
     gem 'forgery'
-
-    gem 'guard-rspec'
-    gem 'guard-spork'
-    gem 'guard-cucumber'
-    gem 'rb-fsevent', require: false
-    gem 'growl'
   end
 
   gem_group :development do
-    gem 'pry-rails'
-    gem 'pry-doc'
     gem 'slim-rails'
-    gem 'thin', require: false
     gem 'annotate'
     gem 'letter_opener'
     gem 'better_errors'
@@ -84,21 +71,14 @@ if gem_adds
   end
 
   gem_group :test do
-    gem 'spork', '1.0.0rc4'
     gem 'database_cleaner'
-    gem 'shoulda-matchers'
     gem 'fuubar'
-    gem 'capybara'
-    gem 'connection_pool'
-  end
-
-  gem_group :staging, :production do
-    gem 'unicorn', require: false
+    gem 'guard-rspec'
   end
 end
 
 # run bundle install
-run('bundle install --binstubs')
+run('bundle install')
 #run('bundle install --path=vendor/bundle --binstubs')
 
 # create database
@@ -138,7 +118,7 @@ if ckeditor
 end
 
 # run db seed
-if gem_adds && yes?('Export i18n js locales?')
+if yes?('Export i18n js locales?')
   rake('i18n:js:export')
 end
 

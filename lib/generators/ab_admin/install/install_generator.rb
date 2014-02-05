@@ -48,7 +48,7 @@ module AbAdmin
 
       def autoload_paths
         log :autoload_paths, 'models/defaults'
-        sentinel = /\.autoload_paths\s+\+=\s+\%W\(\#\{config\.root\}\/extras\)\s*$/
+        sentinel = "class Application < Rails::Application\n"
 
         code = 'config.autoload_paths += %W(#{config.root}/app/models/defaults #{config.root}/app/models/ab_admin)'
 

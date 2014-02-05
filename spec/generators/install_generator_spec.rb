@@ -46,4 +46,8 @@ describe AbAdmin::Generators::InstallGenerator do
     assert_file 'config/routes.rb', /devise_for :users, ::AbAdmin::Devise\.config/, /root to:/
   end
 
+  it 'should add autoload_paths' do
+    assert_file 'config/application.rb', %r|app/models/defaults|, %r|app/models/ab_admin|
+  end
+
 end
