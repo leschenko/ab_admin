@@ -67,7 +67,7 @@ module AbAdmin
       end
 
       def case_value(value)
-        if %w(true false 1 0).include?(value) || value.to_s.is_number?
+        if %w(true false).include?(value) || value.to_s.is_number?
           YAML::load(value)
         else
           value
