@@ -144,6 +144,8 @@ module AbAdmin
 
   mattr_accessor :footer_notes
 
+  mattr_accessor :default_url_options
+
   mattr_accessor :locale
 
   mattr_accessor :uploads_dir
