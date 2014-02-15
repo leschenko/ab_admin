@@ -121,7 +121,3 @@ end
 if yes?('Export i18n js locales?')
   rake('i18n:js:export')
 end
-
-remove_file 'public/index.html'
-
-
