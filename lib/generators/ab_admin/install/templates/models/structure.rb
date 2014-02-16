@@ -16,7 +16,7 @@ class Structure < ActiveRecord::Base
 
   default_scope -> { nested_set.includes(:translations) }
 
-  def should_generate_new_friendly_id?
+  def should_generate_new_slug?
     slug.blank? && new_record?
   end
 end
