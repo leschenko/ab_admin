@@ -10,7 +10,6 @@ module AbAdmin
         enumerated_attribute :structure_type, id_attribute: :kind
         enumerated_attribute :position_type, id_attribute: :position
 
-        validates_presence_of :title
         validates_numericality_of :position, only_integer: true
 
         has_one :static_page, dependent: :destroy
