@@ -154,6 +154,8 @@ module AbAdmin
   mattr_accessor :uploads_dir
   @@uploads_dir = 'uploads'
 
+  mattr_accessor :base_url
+
   extend Utils
 
   def self.setup

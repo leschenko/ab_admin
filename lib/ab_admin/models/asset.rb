@@ -126,8 +126,7 @@ module AbAdmin
       end
 
       def full_url(*args)
-        host = Rails.application.config.action_mailer.default_url_options[:host] || 'www.example.com'
-        "//#{host}#{data.url(*args)}"
+        AbAdmin.full_url data.url(*args)
       end
 
       def cropper_geometry=(value)
