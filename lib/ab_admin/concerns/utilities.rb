@@ -17,8 +17,8 @@ module AbAdmin
           Rails.cache.fetch("by_class_#{name}_#{scope}", expires_in: 60) { unscoped.send(scope).maximum(:updated_at).to_i }
         end
 
-        def full_truncate
-          destroy_all
+        def full_truncate(with_destroy=true)
+          destroy_all if with_destroy
           truncate!
           const_get(:Translation).truncate! if respond_to?(:translates?) && translates?
         end
