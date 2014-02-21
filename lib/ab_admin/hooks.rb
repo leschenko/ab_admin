@@ -5,11 +5,13 @@ end
 require 'i18n/core_ext/kernel/surpress_warnings'
 
 ActiveSupport::XmlMini.backend = 'Nokogiri'
+
 InheritedResources.flash_keys = Responders::FlashResponder.flash_keys = AbAdmin.flash_keys
 Responders::FlashResponder.namespace_lookup = true
-YAML::ENGINE.yamler = 'psych'
+
 ::SimpleForm.wrapper_mappings ||= {}
 ::SimpleForm.wrapper_mappings[:capture_block] = ::SimpleForm.wrapper_mappings[:uploader] = AbAdmin::Views::ContentOnlyWrapper.instance
+
 CarrierWave::SanitizedFile.sanitize_regexp = /[^[:word:]\.\-\+]/
 
 Time::DATE_FORMATS[:api] = '%d.%m.%Y'
