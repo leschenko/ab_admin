@@ -1,4 +1,4 @@
-class AdminMenu < AbAdmin::MenuBuilder
+class AdminMenu < AbAdmin::Menu::Builder
   draw do
     model Collection
 

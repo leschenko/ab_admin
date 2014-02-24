@@ -6,7 +6,7 @@ Feature: Admin menu
     And i18n key "admin.navigation.for_admin" with value "for admin"
     And a menu configuration of:
     """
-      AbAdmin::MenuBuilder.draw do
+      AbAdmin::Menu::Builder.draw do
         model User
         group :system do
           model Structure
