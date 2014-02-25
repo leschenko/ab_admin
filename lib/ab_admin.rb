@@ -10,7 +10,6 @@ require 'ab_admin/engine'
 module AbAdmin
   autoload :Utils, 'ab_admin/utils'
   autoload :Devise, 'ab_admin/devise'
-  autoload :MenuBuilder, 'ab_admin/menu_builder'
   autoload :AbstractResource, 'ab_admin/abstract_resource'
 
   module Config
@@ -25,6 +24,14 @@ module AbAdmin
     autoload :ActionItem, 'ab_admin/config/base'
     autoload :CustomAction, 'ab_admin/config/base'
     autoload :OptionalDisplay, 'ab_admin/config/optional_display'
+  end
+
+  module Menu
+    autoload :Builder, 'ab_admin/menu/builder'
+    autoload :AbstractBuilder, 'ab_admin/menu/abstract_builder'
+    autoload :Group, 'ab_admin/menu/group'
+    autoload :BaseGroup, 'ab_admin/menu/base_group'
+    autoload :Item, 'ab_admin/menu/item'
   end
 
   module Utils
@@ -145,6 +152,8 @@ module AbAdmin
   @@test_settings = {}
 
   mattr_accessor :footer_notes
+
+  mattr_accessor :default_url_options
 
   mattr_accessor :locale
 

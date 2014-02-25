@@ -27,17 +27,18 @@ class Hash
     result
   end
 
-  def deep_diff(other_hash)
-    other_hash.each_pair do |k, v|
-      if self[k].is_a?(Hash) && v.is_a?(Hash)
-        self[k] = self[k].deep_diff(v)
-        self.delete(k) if self[k].empty?
-        self[k]
-      else
-        self.delete(k)
+  def deep_diff(b)
+    a = self
+    (a.keys | b.keys).inject({}) do |diff, k|
+      if a[k] != b[k]
+        if a[k].respond_to?(:deep_diff) && b[k].respond_to?(:deep_diff)
+          diff[k] = a[k].deep_diff(b[k])
+        else
+          diff[k] = [a[k], b[k]]
+        end
       end
+      diff
     end
-    self
   end
 
   def deep_add(other_hash)

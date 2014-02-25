@@ -11,7 +11,6 @@ module AbAdmin
         enumerated_attribute :structure_type
         enumerated_attribute :position_type
 
-        validates_presence_of :title
         validates_numericality_of :position_type_id, only_integer: true
         validates_numericality_of :structure_type_id, only_integer: true
 

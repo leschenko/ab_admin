@@ -13,8 +13,9 @@ module AbAdmin
       end
 
       module ClassMethods
-        def for_input_token(r, attr='name_ru')
-          {id: r.id, text: r[attr].to_s}
+        def for_input_token(r, attr=nil)
+          text = attr ? r[attr] : (r['name_ru'] || r['name'])
+          {id: r.id, text: text}
         end
       end
 

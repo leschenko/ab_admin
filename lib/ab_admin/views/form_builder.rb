@@ -18,7 +18,10 @@ module AbAdmin
 
       def input(attribute_name, options = {}, &block)
         options[:collection] = options[:collection].call if options[:collection].is_a?(Proc)
-        if options[:fancy] || (options[:collection] && options[:collection].to_a.length > 30)
+        
+        is_select = options[:as].nil? || options[:as] == :select
+        is_large_collection = options[:collection] && options[:collection].to_a.length > 30
+        if options[:fancy] || (is_select && is_large_collection)
           options[:input_html] ||= {}
           options[:input_html][:class] = "#{options[:input_html][:class]} fancy_select"
         end

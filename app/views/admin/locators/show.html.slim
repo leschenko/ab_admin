@@ -3,11 +3,10 @@ table.table.table-striped.table-bordered style='width: 1050px;'
     tr
       th= t('admin.locators.locale')
       th= t('admin.locators.file')
-  - locale_regexp = Regexp.new(I18n.available_locales.join('|'))
   - @files.each do |path|
     - filename = File.basename(path)
     tr class=cycle('odd', 'even')
-      td= filename[locale_regexp]
+      td= filename.to_s[/\w+/]
       td= link_to filename, edit_admin_locators_path(filename: filename)
 
 =' link_to t('admin.locators.prepare'), prepare_admin_locators_path, class: 'btn btn-warning', method: :post

@@ -105,7 +105,10 @@ class Admin::BaseController < ::InheritedResources::Base
   protected
 
   def default_url_options
-    {format: nil}
+    options = {format: nil}
+    options.update instance_exec(&AbAdmin.default_url_options) if AbAdmin.default_url_options
+    options.update instance_exec(&settings[:default_url_options]) if settings[:default_url_options]
+    options
   end
 
   def apply_batch_action(item, batch_action)
