@@ -39,7 +39,7 @@ module AbAdmin
             data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
             return template.input_set(title) { data_fields + geo_input(prefix, options[:js_options]) }
           when :token
-            options[:label] ||= object.class.han(attribute_name.to_s.sub(/^token_|_id$/, ''))
+            options[:label] = object.class.han(attribute_name.to_s.sub(/^token_|_id$/, '')) unless options.key?(:label)
           when :association, :tree_select
             unless options[:reflection]
               if options[:as] == :tree_select
