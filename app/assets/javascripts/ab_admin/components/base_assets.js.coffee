@@ -20,6 +20,7 @@ class window.BaseAssets
       done: (e, data) =>
         @list.empty() unless @options.multiple
         @list.append @template(data.result.asset)
+        @el.trigger('ab_admin:fileupload:done', [data.result.asset])
       start: =>
         toggleLoading(true)
       always: =>
@@ -38,8 +39,8 @@ class window.BaseAssets
     @files_in_progress = Math.max(0, @files_in_progress - 1)
 
   showErrors: (e, data) ->
-    log 'showErrors'
-    log data
+    errors = _.map(data.files,(file) -> [file.name, file.error].join(' - ')).join(', ')
+    alert(errors)
 
   initHandlers: ->
     @initRemove()
