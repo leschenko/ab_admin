@@ -132,5 +132,8 @@ module AbAdmin
       Rails.env.test? || Rails.env.cucumber?
     end
 
+    def friendly_token
+      SecureRandom.base64(16).tr('+/=', 'xyz').slice(0, 10)
+    end
   end
 end

@@ -103,7 +103,7 @@ module AbAdmin
 
         def generate_token(column=:guid)
           loop do
-            token = ::Devise.friendly_token
+            token = AbAdmin.friendly_token
             break token unless to_adapter.find_first({column => token})
           end
         end
@@ -123,7 +123,7 @@ module AbAdmin
 
       def generate_token(column=:guid)
         begin
-          self[column] = ::Devise.friendly_token
+          self[column] = AbAdmin.friendly_token
         end while self.class.exists?(column => self[column])
         self[column]
       end

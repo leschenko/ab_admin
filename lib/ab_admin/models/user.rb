@@ -37,7 +37,7 @@ module AbAdmin
       end
 
       def generate_password!
-        raw_password = AbAdmin.test_env? ? '654321' : ::Devise.friendly_token[0..7]
+        raw_password = AbAdmin.test_env? ? '654321' : AbAdmin.friendly_token
         self.password = self.password_confirmation = raw_password
         self.save(validate: false)
         raw_password

@@ -59,9 +59,8 @@ module AbAdmin
       end
 
       module InstanceMethods
-        # Generate unique key
         def fileupload_guid
-          @fileupload_guid ||= SecureRandom.base64(16).tr('+/=', 'xyz').slice(0, 10)
+          @fileupload_guid ||= AbAdmin.friendly_token
         end
 
         def fileupload_guid=(value)
