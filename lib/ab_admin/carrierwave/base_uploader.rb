@@ -47,7 +47,7 @@ module AbAdmin
 
       # use secure token in the filename for non processed image
       def secure_token
-        model.data_secure_token ||= SecureRandom.urlsafe_base64.first(20).downcase
+        model.data_secure_token ||= AbAdmin.friendly_token(20).downcase
       end
 
       def store_model_filename(record)
@@ -77,7 +77,7 @@ module AbAdmin
       end
 
       def normalize_filename(raw_filename)
-        I18n.transliterate(raw_filename).parameterize('_').downcase
+        I18n.transliterate(raw_filename).parameterize('_').gsub('-', '_').downcase
       end
 
       # rename files via move
