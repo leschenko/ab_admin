@@ -19,7 +19,7 @@ class Admin::AssetsController < ApplicationController
 
   def destroy
     @asset.destroy!
-    respond_with(@asset, location: nil)
+    head :ok
   end
 
   def sort
