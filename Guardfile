@@ -2,7 +2,7 @@ notification :growl
 ignore [/vendor/, /public/, /etc/]
 
 group :rspec do
-  guard 'rspec', all_on_start: false, all_after_pass: false, cli: ('--tag @focus' if ENV['FOCUS']) do
+  guard 'rspec', all_on_start: false, all_after_pass: false, failed_mode: :keep, cmd: "rspec #{'--tag @focus' if ENV['FOCUS']}" do
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$}) { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch('spec/spec_helper.rb') { 'spec' }
