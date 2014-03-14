@@ -99,8 +99,9 @@ describe AbAdmin::CarrierWave::BaseUploader do
         UploaderSpecImage.stub_build_filename = 'Тест . - + ='
         @image = create(:main_uploader_spec_image, assetable: @assetable)
         @image.store_model_filename(@assetable)
-        File.basename(@image.data.url).should == 'test_-_abc.png'
+        File.basename(@image.data.url).should == 'test__abc.png'
       end
+
 
       it 'skip rename when have missing files' do
         @image = create(:main_uploader_spec_image, assetable: @assetable)

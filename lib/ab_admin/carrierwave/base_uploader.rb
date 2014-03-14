@@ -77,7 +77,7 @@ module AbAdmin
       end
 
       def normalize_filename(raw_filename)
-        I18n.transliterate(raw_filename).parameterize('_').gsub('-', '_').downcase
+        I18n.transliterate(raw_filename).parameterize('_').gsub(/[\-_]+/, '_').downcase
       end
 
       # rename files via move

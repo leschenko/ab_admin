@@ -18,9 +18,9 @@ class window.BaseAssets
       getNumberOfFiles: =>
         @files_in_progress + @list.find('.asset').length
       done: (e, data) =>
-        @list.empty() unless @options.multiple
-        @list.append @template(data.result.asset)
-        @el.trigger('ab_admin:fileupload:done', [data.result.asset])
+        asset = data.result.asset
+        @renderAsset(asset)
+        @el.trigger('ab_admin:fileupload:done', [asset])
       start: =>
         toggleLoading(true)
       always: =>
@@ -37,6 +37,13 @@ class window.BaseAssets
 
   removeFileInProgress: =>
     @files_in_progress = Math.max(0, @files_in_progress - 1)
+
+  renderAsset: (asset) ->
+    @list.empty() unless @options.multiple
+    @list.append @assetHtml(asset)
+
+  assetHtml: (asset) ->
+    @template(asset)
 
   showErrors: (e, data) ->
     errors = _.map(data.files,(file) -> [file.name, file.error].join(' - ')).join(', ')
@@ -57,7 +64,7 @@ class window.BaseAssets
     @el.on 'click', '.rotate_image', ->
       $asset = $(this).closest('.fileupload-asset')
       $.post "/admin/assets/#{$asset.data('id')}/rotate", (data) ->
-        $asset.replaceWith self.template(data.asset)
+        $asset.replaceWith self.assetHtml(data.asset)
 
   initMainImage: ->
     self = this
