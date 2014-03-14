@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131031173609) do
+ActiveRecord::Schema.define(version: 20140314113218) do
 
   create_table "admin_comments", force: true do |t|
     t.integer  "user_id"
@@ -70,11 +70,13 @@ ActiveRecord::Schema.define(version: 20131031173609) do
   create_table "catalogues", force: true do |t|
     t.string   "name"
     t.integer  "parent_id"
-    t.integer  "lft",        default: 0
-    t.integer  "rgt",        default: 0
-    t.integer  "depth",      default: 0
+    t.integer  "lft",                    default: 0
+    t.integer  "rgt",                    default: 0
+    t.integer  "depth",                  default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "products_count",         default: 0
+    t.integer  "visible_products_count", default: 0
   end
 
   add_index "catalogues", ["lft", "rgt"], name: "index_catalogues_on_lft_and_rgt", using: :btree
@@ -109,10 +111,11 @@ ActiveRecord::Schema.define(version: 20131031173609) do
   add_index "collection_translations", ["locale"], name: "index_collection_translations_on_locale", using: :btree
 
   create_table "collections", force: true do |t|
-    t.boolean  "is_visible",     default: true, null: false
-    t.integer  "products_count", default: 0
+    t.boolean  "is_visible",             default: true, null: false
+    t.integer  "products_count",         default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "visible_products_count", default: 0
   end
 
   create_table "header_translations", force: true do |t|
@@ -138,6 +141,16 @@ ActiveRecord::Schema.define(version: 20131031173609) do
   end
 
   add_index "headers", ["headerable_type", "headerable_id"], name: "index_headers_on_headerable_type_and_headerable_id", unique: true, using: :btree
+
+  create_table "product_catalogues", force: true do |t|
+    t.integer  "product_id"
+    t.integer  "catalogue_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "product_catalogues", ["catalogue_id"], name: "index_product_catalogues_on_catalogue_id", using: :btree
+  add_index "product_catalogues", ["product_id"], name: "index_product_catalogues_on_product_id", using: :btree
 
   create_table "product_translations", force: true do |t|
     t.integer  "product_id",  null: false

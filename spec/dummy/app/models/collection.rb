@@ -3,6 +3,7 @@ class Collection < ActiveRecord::Base
   attr_accessible :name, :description, :name_en, :description_en, :name_ru, :description_ru, :products_attributes
 
   has_many :products
+  has_many :visible_products, -> { where(is_visible: true) }, class_name: 'Product'
 
   has_one :picture, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
   has_many :pictures, -> { where(is_main: false) }, as: :assetable, dependent: :destroy

@@ -3,6 +3,9 @@ class Product < ActiveRecord::Base
 
   belongs_to :collection
 
+  has_many :product_catalogues, dependent: :destroy
+  has_many :catalogues, through: :product_catalogues
+
   has_one :picture, -> { where(is_main: true) }, as: :assetable, dependent: :destroy
   has_many :pictures, -> { where(is_main: false) }, as: :assetable, dependent: :destroy
   has_many :attachment_files, -> { where(is_main: false) }, as: :assetable, dependent: :destroy

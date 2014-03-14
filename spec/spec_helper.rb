@@ -46,6 +46,7 @@ RSpec.configure do |config|
   config.before(:each) { reset_email }
 
   config.use_transactional_fixtures = false
+  #config.backtrace_clean_patterns = []
 
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction

@@ -56,28 +56,24 @@ module AbAdmin
           end
         end
 
-        def update_counter_column(col, ass)
-          assoc = assoc_count = reflect_on_association(ass)
+        def update_counter_column(col, assoc_method)
+          assoc = assoc_count = reflect_on_association(assoc_method)
           if assoc
             add_from = ''
+            add_cond = ['1=1']
             if assoc.options[:through]
               assoc_count = reflect_on_association(assoc.options[:through])
-              if assoc.klass.quoted_table_name == quoted_table_name
-                add_cond = '1=1'
-              else
+              unless assoc.klass.table_name.to_s == table_name.to_s
                 add_from = "INNER JOIN #{assoc.klass.quoted_table_name} ON #{assoc_count.klass.quoted_table_name}.#{assoc.foreign_key} = #{assoc.klass.quoted_table_name}.id"
-                add_cond = assoc.sanitized_conditions || '1=1'
               end
-            elsif assoc.type
-              add_cond = "#{assoc.klass.quoted_table_name}.#{assoc.type} = '#{name}'"
-            else
-              add_cond = assoc.sanitized_conditions || '1=1'
             end
+            add_cond << "#{assoc.klass.quoted_table_name}.#{assoc.type} = '#{name}'" if assoc.type
+            add_cond += assoc.klass.instance_exec(&assoc.scope).where_values.map(&:to_sql) if assoc.scope
             count_klass = assoc_count.klass
             query = <<-SQL
                 UPDATE #{quoted_table_name} SET #{col} = (SELECT COUNT(#{count_klass.quoted_table_name}.id)
                   FROM #{count_klass.quoted_table_name} #{add_from}
-                  WHERE #{quoted_table_name}.id = #{count_klass.quoted_table_name}.#{assoc_count.foreign_key} AND #{add_cond})
+                  WHERE #{quoted_table_name}.id = #{count_klass.quoted_table_name}.#{assoc_count.foreign_key} AND #{add_cond.join(' AND ')})
             SQL
             connection.execute(query)
           end
