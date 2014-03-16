@@ -197,13 +197,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def button_scopes
-    self.class.button_scopes ||= begin
-      res = {}
-      self.class.scopes_configuration.except(:ids).each do |k, v|
-        res[k] = v if v[:type] == :default
-      end
-      res
-    end
+    self.class.button_scopes ||= self.class.scopes_configuration.except(:ids).find_all{|_, s| s[:type] == :boolean }.to_h
   end
 
   def add_breadcrumbs
