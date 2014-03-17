@@ -117,7 +117,8 @@ module AbAdmin
         image = item.send(options[:assoc])
         return nil unless image
         version = options[:version] || image.class.thumb_size
-        popover_data = {content: "<img class='image_link_popover popover_#{options[:assoc]}' src='#{image.url}'></img>", title: AbAdmin.display_name(item)}
+        popover_content = "<img class='image_link_popover popover_#{options[:assoc]}' src='#{image.url(options[:full_version])}'></img>"
+        popover_data = {content: popover_content, title: AbAdmin.display_name(item)}
 
         html_options = options.delete(:html_options) || {}
         html_options.reverse_merge!(rel: 'popover', remote: options[:remote], data: popover_data)
