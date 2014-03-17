@@ -8,13 +8,12 @@ class Admin::AssetsController < ApplicationController
 
   def create
     @asset = build_asset(params[:asset])
-
     @asset.guid = params[:guid]
     @asset.data = prepared_data
     @asset.user = current_user
-    @asset.save
+    @asset.save!
 
-    respond_with(@asset, location: nil)
+    render json: @asset
   end
 
   def destroy
