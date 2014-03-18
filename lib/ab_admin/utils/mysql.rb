@@ -12,6 +12,16 @@ module AbAdmin
           transaction { connection.execute("TRUNCATE TABLE #{quoted_table_name};") }
         end
 
+        # remove duplicate records by columns
+        def remove_duplicates(*cols)
+          conds = cols.map { |col| "#{table_name}.#{col} = t.#{col}" }.join(' AND ')
+          query = <<-SQL
+            DELETE FROM #{table_name} USING #{table_name}, #{table_name} AS t WHERE #{table_name}.id < t.id AND #{conds}
+          SQL
+          connection.execute(query)
+        end
+
+
         # Disables key updates for model table
         def disable_keys
           connection.execute("ALTER TABLE #{quoted_table_name} DISABLE KEYS")
