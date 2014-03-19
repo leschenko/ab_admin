@@ -33,7 +33,7 @@ class Ability
     default
     can :manage, Dashboard
     can [:read, :create], AdminComment
-    can :destroy, AdminComment, author_id: @user.id
+    can :destroy, AdminComment, user_id: @user.id
     cannot :destroy, User, id: @user.id
   end
 
