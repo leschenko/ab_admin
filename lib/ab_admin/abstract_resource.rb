@@ -83,10 +83,10 @@ module AbAdmin
       end
 
       def batch_action(name, options={}, &block)
-        if !options
-          instance.batch_action_list.reject!{|a| a.name == name }
+        if options
+          instance.batch_action_list << AbAdmin::Config::BatchAction.new(name.to_sym, options, &block)
         else
-          instance.batch_action_list << AbAdmin::Config::BatchAction.new(name, options, &block)
+          instance.batch_action_list.reject!{|a| a.name == name.to_sym }
         end
       end
 
