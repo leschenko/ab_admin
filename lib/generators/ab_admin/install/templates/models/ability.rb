@@ -7,12 +7,7 @@ class Ability
     @user = user
 
     if @user
-      case @user.user_role_type.id
-        when ::UserRoleType.default.id then default
-        when ::UserRoleType.redactor.id then redactor
-        when ::UserRoleType.moderator.id then moderator
-        when ::UserRoleType.admin.id then admin
-      end
+      send(@user.user_role_type.code)
     else
       guest
     end
