@@ -42,13 +42,7 @@ module AbAdmin
             options[:label] = object.class.han(attribute_name.to_s.sub(/^token_|_id$/, '')) unless options.key?(:label)
           when :association, :tree_select
             unless options[:reflection]
-              if options[:as] == :tree_select
-                options[:collection] ||= begin
-                  reflection = object.class.reflect_on_association(attribute_name)
-                  records = reflection.klass.all(reflection.options.slice(:conditions, :order))
-                  reflection.klass.nested_opts_with_parent(records, object)
-                end
-              end
+              options[:collection] ||= fetch_nested_options(attribute_name) if options[:as] == :tree_select
               return association(attribute_name, options.merge(as: :select))
             end
           when :checkbox_tree
@@ -107,6 +101,13 @@ module AbAdmin
       end
 
       protected
+
+      def fetch_nested_options(attribute_name)
+        reflection = object.class.reflect_on_association(attribute_name)
+        records = reflection.klass
+        records = records.instance_exec(&reflection.scope) if reflection.scope
+        reflection.klass.nested_opts_with_parent(records.all, object)
+      end
 
       def object_plural
         object_name.to_s.pluralize
