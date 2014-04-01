@@ -55,8 +55,8 @@ module AbAdmin
       Rack::Utils.escape_html(raw_html.no_html.squish)
     end
 
-    #AbAdmin.normalize_html('<!--das asd as as as--><script>asd</script><div>dasd</div><p>asdasd</p>')
-    #=> "<p>dasd</p><p>asdasd</p>"
+    # html like: '<!-- html comment --><script>script content</script><div>div content</div><p>p content</p>'
+    # normalized to: "<p>div content</p><p>p content</p>"
     def normalize_html(raw_html)
       @@sanitizer ||= Sanitizer.new
       @@sanitizer.normalize_html(raw_html)
