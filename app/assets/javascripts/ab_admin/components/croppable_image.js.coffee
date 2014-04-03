@@ -28,5 +28,5 @@ class window.CroppableImage
     $asset = $("#asset_#{asset_id}")
     geometry = [@cropData['w'], @cropData['h'], @cropData['x'], @cropData['y']].join(',')
     $.post "/admin/assets/#{$asset.data('id')}/crop", {geometry: geometry}, (data) =>
-      $asset.replaceWith @el.data('AdminAssets').template(data.asset)
+      $asset.replaceWith @el.data('assets').template(data.asset)
       $.fancybox.close()
