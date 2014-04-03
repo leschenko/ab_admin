@@ -63,6 +63,7 @@ WillPaginate::ActionView::LinkRenderer.class_exec do
 
     url_params = @base_url_params.dup
     add_current_page_param(url_params, page)
+    url_params[param_name.to_sym] = nil if url_params[param_name.to_sym].to_i < 2
 
     link = @template.url_for(url_params)
     @options[:no_uri] ? link.split('?').first : link
