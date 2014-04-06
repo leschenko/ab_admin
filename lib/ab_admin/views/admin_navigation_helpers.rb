@@ -74,8 +74,9 @@ module AbAdmin
             item_link_to_can? :show, item, icon('info-sign', true), resource_path(item),
                               class: 'btn btn-info', title: t('admin.actions.show.link')
           when :preview
-            if path = preview_resource_path(item)
-              link_to icon('eye-open', true), path, class: 'btn btn-small btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
+            preview_path = preview_resource_path(item)
+            if preview_path
+              link_to icon('eye-open', true), preview_path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
             end
           when :history
             item_link_to_can? :history, item, icon('book', true), history_resource_path(item),
