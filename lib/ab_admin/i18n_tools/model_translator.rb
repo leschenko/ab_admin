@@ -28,7 +28,7 @@ module AbAdmin
               attributes = model.columns.map(&:name)
               attributes.concat(model.translated_attribute_names.map(&:to_s)) if model.translates?
               attributes.reject! { |el| IGNORE_COLUMNS.include?(el) }
-              h[model.model_name.underscore] = attributes.each_with_object({}) do |attr, o|
+              h[model.model_name.i18n_key.to_s] = attributes.each_with_object({}) do |attr, o|
                 o[attr] = ha(model, attr, locale).presence || attr
                 model.reflect_on_all_associations.map(&:name).map(&:to_s).reject { |a| a =~ /^translation/ }.each do |assoc|
                   o[assoc] = ha(model, assoc, locale)
