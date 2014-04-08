@@ -38,7 +38,7 @@ gem 'russian'
 gem 'nested_form', '~> 0.2.2'
 gem 'puma', require: false
 
-gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'rails4'
+gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'master'
 
 ckeditor = yes?('Install ckeditor?')
 
