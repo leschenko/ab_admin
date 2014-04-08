@@ -9,7 +9,7 @@ gem 'rack-pjax'
 
 gem 'devise'
 gem 'devise-encryptable'
-gem 'cancan', github: 'ryanb/cancan'
+gem 'cancancan', '~> 1.7'
 
 gem 'protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
