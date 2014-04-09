@@ -32,7 +32,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
 
   def reload
     I18n.reload!
-    Locator.reload_checker.expire
+    Locator.reload_checker.expire if Locator.respond_to?(:reload_checker)
     flash[:notice] = I18n.t('flash.admin.locators.restart')
     redirect_to admin_locators_path
   end
