@@ -232,7 +232,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def search_collection
     params[:q] ||= {}
-    params[:q][:s] ||= 'id desc'
+    params[:q][:s] ||= settings[:default_order] || 'id desc'
     @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
     @search.result(distinct: true)
   end

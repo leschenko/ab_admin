@@ -7,7 +7,7 @@ module AbAdmin
         prev_id = params[:prev_id].to_i
         next_id = params[:next_id].to_i
 
-        render text: 'Do nothing' and return if parent_id.zero? && prev_id.zero? && next_id.zero?
+        head(:bad_request) and return if parent_id.zero? && prev_id.zero? && next_id.zero?
 
         if prev_id.zero? && next_id.zero?
           resource.move_to_child_of resource_class.find(parent_id)
@@ -17,7 +17,7 @@ module AbAdmin
           resource.move_to_left_of resource_class.find(next_id)
         end
 
-        render(nothing: true)
+        head :ok
       end
 
     end

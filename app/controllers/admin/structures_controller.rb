@@ -21,6 +21,6 @@ class Admin::StructuresController < Admin::BaseController
   end
 
   def settings
-    {index_view: 'tree'}
+    {index_view: 'tree', default_order: 'lft'}
   end
 end
