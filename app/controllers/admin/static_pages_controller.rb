@@ -3,7 +3,7 @@ class Admin::StaticPagesController < Admin::BaseController
 
   defaults singleton: true
 
-  belongs_to :structure
+  belongs_to :structure, finder: :friendly_find
 
   def settings
     {}
