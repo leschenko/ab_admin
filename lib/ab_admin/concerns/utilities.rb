@@ -103,6 +103,10 @@ module AbAdmin
             break token unless to_adapter.find_first({column => token})
           end
         end
+
+        def friendly_find(*args)
+          find(*args)
+        end
       end
 
       def compare_key
