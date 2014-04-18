@@ -7,6 +7,12 @@ namespace :assets do
     name = (ENV['CLASS'] || ENV['class'] || 'Asset').to_s
     klass = name.safe_constantize
 
+    if ENV['VERSIONS']
+      versions = ENV['VERSIONS'].split(',').map(&:to_sym)
+    else
+      versions = []
+    end
+
     raise "Cannot find a constant with the #{name} specified in the argument string" if klass.nil?
 
     bar = ProgressBar.create(title: name, total: klass.count, format: '%c of %C - %a %e |%b>>%i| %p%% %t')
@@ -14,7 +20,7 @@ namespace :assets do
 
     klass.find_each do |item|
       begin
-        item.data.recreate_versions!
+        item.data.recreate_versions!(*versions)
         bar.increment
       rescue => e
         puts "ERROR recreate_versions for #{name} - #{item.id}: #{e.message}"
