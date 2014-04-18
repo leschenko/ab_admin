@@ -1,17 +1,14 @@
-APP_ROOT = File.expand_path(File.dirname(File.dirname(__FILE__)))
-
-ENV['BUNDLE_GEMFILE'] = File.expand_path('../Gemfile', File.dirname(__FILE__))
-require 'bundler/setup'
+APP_ROOT = File.expand_path('../../..', __FILE__)
 
 require 'redis'
-worker_processes 2
+worker_processes 4
 
 #user "unprivileged_user", "unprivileged_group"
 
 working_directory APP_ROOT
 
 listen "#{APP_ROOT}/tmp/sockets/unicorn.sock", backlog: 64
-listen 8080, tcp_nopush: true
+#listen 8080, tcp_nopush: true
 
 timeout 90
 
@@ -22,7 +19,7 @@ stdout_path "#{APP_ROOT}/log/unicorn.stdout.log"
 
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
-  GC.copy_on_write_friendly = true
+    GC.copy_on_write_friendly = true
 
 before_fork do |server, worker|
   defined?(ActiveRecord::Base) and
@@ -45,8 +42,8 @@ after_fork do |server, worker|
   # addr = "127.0.0.1:#{9293 + worker.nr}"
   # server.listen(addr, tries: -1, delay: 5, tcp_nopush: true)
 
-  defined?(ActiveRecord::Base) and
-      ActiveRecord::Base.establish_connection
+  ActiveRecord::Base.establish_connection if defined?(ActiveRecord::Base)
+  Resque.redis.client.reconnect if defined?(Resque)
 
   $redis = Redis.connect
 end

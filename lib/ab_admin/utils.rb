@@ -57,9 +57,9 @@ module AbAdmin
 
     # html like: '<!-- html comment --><script>script content</script><div>div content</div><p>p content</p>'
     # normalized to: "<p>div content</p><p>p content</p>"
-    def normalize_html(raw_html)
+    def normalize_html(raw_html, &block)
       @@sanitizer ||= Sanitizer.new
-      @@sanitizer.normalize_html(raw_html)
+      @@sanitizer.normalize_html(raw_html, &block)
     end
 
     def url_helpers
@@ -86,11 +86,17 @@ module AbAdmin
     class Sanitizer
       include ActionView::Helpers::SanitizeHelper
 
+      CLEAN_HTML_COMMENTS_REGEXP = /&lt;\!--.*?--&gt;/m
+      CLEAN_COMMENTS_REGEXP = /&lt;\!--.*?--&gt;/m
+      CLEAN_LINE_BREAKS_REGEXP = /[^>]\r\n/
+
       def normalize_html(raw_html)
         return '' if raw_html.blank?
-        html = sanitize(raw_html.gsub(/<!--(.*?)-->[\n]?/m, ''))
+        cleaned_html = raw_html.gsub(CLEAN_HTML_COMMENTS_REGEXP, '').gsub(CLEAN_COMMENTS_REGEXP, '').gsub(CLEAN_LINE_BREAKS_REGEXP, '<br/>')
+        html = sanitize(cleaned_html)
         doc = Nokogiri::HTML.fragment(html)
         #doc.xpath('comment()').each { |c| c.remove }
+        yield doc if block_given?
         doc.search('div').each { |el| el.name = 'p' }
         doc.to_html
       end

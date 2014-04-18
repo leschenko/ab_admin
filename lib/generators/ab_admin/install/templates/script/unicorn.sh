@@ -17,15 +17,16 @@
 
 set -u
 set -e
-# Example init script, this can be used with nginx, too,
-# since nginx and unicorn accept the same signals
 
-# Feel free to change any of the following variables for your app:
-rvm_trust_rvmrcs_flag=1
 APP_ROOT=<%= app_path %>
 PID=$APP_ROOT/tmp/pids/unicorn.pid
-ENV=production
-CMD="$APP_ROOT/bin/unicorn -D -E $ENV -c $APP_ROOT/config/unicorn_config.rb"
+RAILS_ENV=${RAILS_ENV:-"production"}
+
+RVM_RUBY=`cat $APP_ROOT/.ruby-version`
+RVM_GEMSET=`cat $APP_ROOT/.ruby-gemset`
+BUNDLE_PATH=/usr/local/rvm/wrappers/ruby-$RVM_RUBY@$RVM_GEMSET/bundle
+
+CMD="$BUNDLE_PATH exec unicorn -D -E $RAILS_ENV -c $APP_ROOT/config/unicorn/$RAILS_ENV.rb"
 
 old_pid="$PID.oldbin"
 
