@@ -86,8 +86,8 @@ module AbAdmin
     class Sanitizer
       include ActionView::Helpers::SanitizeHelper
 
-      CLEAN_HTML_COMMENTS_REGEXP = /&lt;\!--.*?--&gt;/m
-      CLEAN_COMMENTS_REGEXP = /&lt;\!--.*?--&gt;/m
+      CLEAN_HTML_COMMENTS_REGEXP = /(&lt;|<)\!--.*?--(&gt;|>)/m
+      CLEAN_COMMENTS_REGEXP = /(&lt;|<)\!--.*?--(&gt;|>)/m
       CLEAN_LINE_BREAKS_REGEXP = /[^>]\r\n/
 
       def normalize_html(raw_html)
