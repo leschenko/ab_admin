@@ -91,7 +91,7 @@ module AbAdmin
 
       def normalize_html(raw_html)
         return '' if raw_html.blank?
-        cleaned_html = raw_html.gsub(CLEAN_HTML_COMMENTS_REGEXP, '').gsub(CLEAN_LINE_BREAKS_REGEXP, '<br/>')
+        cleaned_html = raw_html.gsub(CLEAN_HTML_COMMENTS_REGEXP, '')#.gsub(CLEAN_LINE_BREAKS_REGEXP, '<br/>')
         html = sanitize(cleaned_html)
         doc = Nokogiri::HTML.fragment(html)
         #doc.xpath('comment()').each { |c| c.remove }
