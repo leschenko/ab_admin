@@ -260,8 +260,9 @@ it:
     it: Italiana.
     ru: rus.
     uk: Ukr.
-    de: ''
-    fr: ''
+    de: De
+    fr: Fr
+    es: Es
   flash:
     admin:
       actions:

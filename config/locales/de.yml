@@ -268,7 +268,8 @@ de:
     ru: Rus.
     uk: Ukr.
     de: Deutsch
-    fr: ''
+    fr: Fr
+    es: Es
   flash:
     admin:
       actions:
