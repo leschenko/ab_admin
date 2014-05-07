@@ -9,7 +9,7 @@ module AbAdmin
       end
 
       def model(model, options={})
-        title = model.model_name.human(count: 9)
+        title = options[:title] || model.model_name.human(count: 9)
         path = options[:url] || "/admin/#{model.model_name.plural}"
         @menu_tree << Item.new(title, path, options)
       end
