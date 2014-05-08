@@ -2,6 +2,14 @@ require 'ruby2xlsx'
 
 module AbAdmin
   module Utils
+    class Default
+      extend ActiveModel::Naming
+
+      def self.human_attribute_name(*)
+        ''
+      end
+    end
+
     class XlsDocument < Ruby2xlsx::Base
       include AbAdmin::Utils::EvalHelpers
 
@@ -65,7 +73,7 @@ module AbAdmin
             count += 1
           end
         else
-          items = Array.wrap(@source)
+          items = @source.respond_to?(:to_a) ? @source.to_a : Array.wrap(@source)
           @klass ||= items.first.class unless items.empty?
           @klass ||= Default
 
