@@ -20,23 +20,30 @@ end
 module ActiveModel
   module MassAssignmentSecurity
     class Sanitizer
-      def sanitize(attributes, authorizers)
-        sanitized_attributes = attributes.reject { |key, value| authorizers.all? { |auth| auth.deny?(key) } }
-        #debug_protected_attribute_removal(attributes, sanitized_attributes)
+
+      def sanitize(klass, attributes, authorizers)
+        rejected = []
+        sanitized_attributes = attributes.reject do |key, value|
+          rejected << key if authorizers.all? { |authorizer| authorizer.deny?(key) }
+        end
+        process_removed_attributes(klass, rejected) unless rejected.empty?
         sanitized_attributes
       end
+
     end
   end
 end
 
 module ActiveModel
   module MassAssignmentSecurity
+
     def sanitize_for_mass_assignment(attributes, roles = nil)
-      _mass_assignment_sanitizer.sanitize(attributes, mass_assignment_authorizer(roles))
+      _mass_assignment_sanitizer.sanitize(self.class, attributes, mass_assignment_authorizer(roles))
     end
 
     def mass_assignment_authorizer(roles)
       Array(roles).map { |role| self.class.active_authorizer[role || :default] }
     end
+
   end
 end
