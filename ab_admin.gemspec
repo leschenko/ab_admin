@@ -32,9 +32,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
   s.add_dependency 'coffee-rails'
-  s.add_dependency 'sass-rails', '~> 4.0.3'
-  s.add_dependency 'sprockets', '~> 2.11.0'
-  s.add_dependency 'sprockets-rails', '~> 2.1.3'
+  s.add_dependency 'sass-rails'
+  s.add_dependency 'sprockets', '2.11.0'
 
   s.add_dependency 'bootstrap-sass', '~> 2.3.2.2'
   s.add_dependency 'bootstrap-wysihtml5-rails'
