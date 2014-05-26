@@ -381,7 +381,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def default_serializer_options
-    {root: resource_class.model_name.plural}
+    if resource_class
+      {root: resource_class.model_name.plural}
+    else
+      {root: false}
+    end
   end
 
 end
