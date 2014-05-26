@@ -129,6 +129,12 @@ module AbAdmin
         AbAdmin.full_url data.url(*args)
       end
 
+      def url_on_fly(version)
+        file_url = url(version)
+        data.recreate_versions!(version) unless Rails.root.join("public/#{file_url}").exist?
+        file_url
+      end
+
       def cropper_geometry=(value)
         geometry = (value || '').to_s.split(',')
 
