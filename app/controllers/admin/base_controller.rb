@@ -197,7 +197,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def button_scopes
-    self.class.button_scopes ||= self.class.scopes_configuration.except(:ids).find_all{|_, s| s[:type] == :boolean }.to_h
+    self.class.button_scopes ||= self.class.scopes_configuration.except(:by_ids).find_all{|_, s| s[:type] == :boolean }.to_h
   end
 
   def add_breadcrumbs
@@ -378,6 +378,10 @@ class Admin::BaseController < ::InheritedResources::Base
     else
       head :unauthorized
     end
+  end
+
+  def default_serializer_options
+    {root: resource_class.model_name.plural}
   end
 
 end
