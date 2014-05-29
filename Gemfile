@@ -19,7 +19,7 @@ gem 'cancancan', '~> 1.7'
 gem 'protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
-gem 'simple_slug', github: 'leschenko/simple_slug', ref: 'b9b17a3'
+gem 'simple_slug', '~> 0.1.0'
 gem 'awesome_nested_set'
 gem 'globalize', '~> 4.0.0'
 
@@ -53,7 +53,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'launchy'
   gem 'forgery'
-  gem 'debugger'
+  gem 'byebug'
 end
 
 group :test do
