@@ -15,8 +15,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '~> 4.0.2'
-  #s.add_dependency 'rails', '~> 4.1.0.beta1'
+  s.add_dependency 'rails', '~> 4.1.1'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'slim'
@@ -34,24 +33,18 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'sass-rails'
+  s.add_dependency 'sprockets', '2.11.0'
 
   s.add_dependency 'bootstrap-sass', '~> 2.3.2.2'
   s.add_dependency 'bootstrap-wysihtml5-rails'
   s.add_dependency 'will_paginate'
   s.add_dependency 'will_paginate-bootstrap', '~> 0.2.5'
   s.add_dependency 'nested_form', '~> 0.2.2'
-  s.add_dependency 'simple_form'
+  s.add_dependency 'simple_form', '~> 3.0.2'
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
 
   s.add_development_dependency 'mysql2'
-  #s.add_development_dependency 'rspec-rails'
-  #s.add_development_dependency 'shoulda-matchers'
-  #s.add_development_dependency 'factory_girl_rails'
-  #s.add_development_dependency 'database_cleaner'
-  #s.add_development_dependency 'fuubar'
   s.add_development_dependency 'generator_spec'
-  #s.add_development_dependency 'forgery'
   s.add_development_dependency 'capybara'
-  #s.add_development_dependency 'connection_pool'
 end
