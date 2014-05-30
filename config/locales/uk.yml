@@ -1,312 +1,301 @@
-ru:
-  _no: Ні
-  _yes: Так
+uk:
+  _no: "Ні"
+  _yes: "Так"
   activerecord:
     models:
-      locator: Переклади
-      settings: Настройки
+      locator: "Переклади"
+      settings: "Настройки"
       track:
-        few: История
-        many: История
-        one: История
-        other: История
-        zero: История
+        few: "История"
+        many: "История"
+        one: "История"
+        other: "История"
+        zero: "История"
     attributes:
       user:
-        password_confirmation: Пароль еще раз
+        password_confirmation: "Пароль еще раз"
   admin:
     actions:
       activate:
-        link: Активировать
+        link: "Активировать"
       batch_destroy:
-        confirmation: Вы уверены что хотите удалить выбранные записи?
-        link: Удалить выбранные
-        title: Мульти-удаление
+        confirmation: "Вы уверены что хотите удалить выбранные записи?"
+        link: "Удалить выбранные"
+        title: "Мульти-удаление"
       batch_publish:
-        link: Опубликовать выбранные
-        title: Мульти-публикация
+        link: "Опубликовать выбранные"
+        title: "Мульти-публикация"
       batch_un_publish:
-        link: Снять с публикации выбранные
-        title: Мульти-скрытие
+        link: "Снять с публикации выбранные"
+        title: "Мульти-скрытие"
       create:
-        link: Создать
-        title: Создание
+        link: "Создать"
+        title: "Создание"
       destroy:
-        link: Удалить
-        title: Удаление
+        link: "Удалить"
+        title: "Удаление"
       edit:
-        link: Редактировать
-        title: Редактирование
+        link: "Редактировать"
+        title: "Редактирование"
       history:
-        link: История
-        title: История
+        link: "История"
+        title: "История"
       index:
-        link: Список
-        title: Список
+        link: "Список"
+        title: "Список"
       new:
-        link: Создать
-        title: Создание
+        link: "Создать"
+        title: "Создание"
       perms:
-        link: Права
-        title: Редактирование прав доступа
+        link: "Права"
+        title: "Редактирование прав доступа"
       preview:
-        link: Предпросмотр
+        link: "Предпросмотр"
       show:
-        link: Просмотр
-        title: Детали
+        link: "Просмотр"
+        title: "Детали"
       suspend:
-        link: Бан
+        link: "Бан"
       update:
-        link: Редактировать
-        title: Редактирование
-    add: Добавить
+        link: "Редактировать"
+        title: "Редактирование"
+    add: "Добавить"
     auth:
-      profile: Профиль
-      sign_out: Выход
+      profile: "Профиль"
+      sign_out: "Выход"
       sessions:
-        title: Вход
-        button: Войти
+        title: "Вход"
+        button: "Войти"
       passwords:
         new:
-          title: Забыли пароль?
-          button: Выслать инструкции
+          title: "Забыли пароль?"
+          button: "Выслать инструкции"
         edit:
-          title: Изменение пароля
-          button: Изменить пароль
-          password: Новый пароль
-          password_confirmation: Новый пароль еще раз
-    avatar: Аватар
+          title: "Изменение пароля"
+          button: "Изменить пароль"
+          password: "Новый пароль"
+          password_confirmation: "Новый пароль еще раз"
+    avatar: "Аватар"
     batch_actions:
-      title: Действия
+      title: "Действия"
       status:
-        zero: '%{action} - 0 записей'
-        one: '%{action} - %{count} запись'
-        few: '%{action} - %{count} записи'
-        many: '%{action} - %{count} записей'
-        other: '%{action} - %{count} записей'
-    cache_clear: Очистить кэш
-    cant_be_deleted: Удаление невозможно
-    choose: Выберите %{attr}
-    close: Закрыть
+        zero: "%{action} - 0 записей"
+        one: "%{action} - %{count} запись"
+        few: "%{action} - %{count} записи"
+        many: "%{action} - %{count} записей"
+        other: "%{action} - %{count} записей"
+    cache_clear: "Очистить кэш"
+    cant_be_deleted: "Удаление невозможно"
+    choose: "Выберите %{attr}"
+    close: "Закрыть"
     columns_hider:
-      button: Столбцы
-      title: Настройка отображения колонок
+      button: "Столбцы"
+      title: "Настройка отображения колонок"
     comments:
-      add: Комментировать
-      title_content: Комментариев (%{count})
-    delete: Удалить
-    delete_confirmation: Вы уверены, что хотите удалить это?
-    empty: Пусто
-    exit: Выход
+      add: "Комментировать"
+      title_content: "Комментариев (%{count})"
+    delete: "Удалить"
+    delete_confirmation: "Вы уверены, что хотите удалить это?"
+    empty: "Пусто"
+    exit: "Выход"
     fileupload:
-      button: Выберите файл
-      buttons: Выберите файлы
-      delete: Удалить файл
-      drop_here: или бросьте файл(ы) сюда
-      main_image: Сделать главным
-      max_size: Макс разм.
-      crop: Обрезать
-      rotate: Повернуть
+      button: "Выберите файл"
+      buttons: "Выберите файлы"
+      delete: "Удалить файл"
+      drop_here: "или бросьте файл(ы) сюда"
+      main_image: "Сделать главным"
+      max_size: "Макс разм."
+      crop: "Обрезать"
+      rotate: "Повернуть"
     form:
-      cancel: Отмена
-      save: Сохранить
-      save_and_add_another: Сохранить & новый
-      save_and_edit: Применить
-      save_and_edit_next: Сохранить и след.
-      save_and_edit_prev: Сохранить и пред.
-      details: Подробнее
-      base: Основное
-      keywords: Мета теги
+      cancel: "Отмена"
+      save: "Сохранить"
+      save_and_add_another: "Сохранить & новый"
+      save_and_edit: "Применить"
+      save_and_edit_next: "Сохранить и след."
+      save_and_edit_prev: "Сохранить и пред."
+      details: "Подробнее"
+      base: "Основное"
+      keywords: "Мета теги"
     gender:
-      female: Женский
-      male: Мужской
-      undefined: Неизвестно
-    geo_autocomplete: Введите адрес
+      female: "Женский"
+      male: "Мужской"
+      undefined: "Неизвестно"
+    geo_autocomplete: "Введите адрес"
     group:
       kind:
-        admin: Административная
-        default: По умолчанию
-        private: Приватная
-        public: Публичная
-    keywords: Ключевые слова
+        admin: "Административная"
+        default: "По умолчанию"
+        private: "Приватная"
+        public: "Публичная"
+    keywords: "Ключевые слова"
     langs:
       en: En
       it: It
       ru: Ru
       uk: Uk
     index_view:
-      table: Отображение таблицей
-      tree: Отображение деревом с сортировкой
-      grid: Отображение плиткой
-    loading: Загрузка...
+      table: "Отображение таблицей"
+      tree: "Отображение деревом с сортировкой"
+      grid: "Отображение плиткой"
+    loading: "Загрузка..."
     locators:
-      edit_file: Редактировать файл
-      edit_files: Редактировать файлы
-      file: Файл
-      locale: Локаль
-      prepare: Подготовить файлы локализации
-      restart: Обновить локализацию
-      title: Редактирование локализации
-      update_file: Обновить файл
-      all_terms: Все
-      incomplete: Пустые
-      complete: Готовые
-      key: Ключ
-      filter: введите текст для фильтрации
-      translate_incomplete: Перевести все пустые (google)
+      edit_file: "Редактировать файл"
+      edit_files: "Редактировать файлы"
+      file: "Файл"
+      locale: "Локаль"
+      prepare: "Подготовить файлы локализации"
+      restart: "Обновить локализацию"
+      title: "Редактирование локализации"
+      update_file: "Обновить файл"
+      all_terms: "Все"
+      incomplete: "Пустые"
+      complete: "Готовые"
+      key: "Ключ"
+      filter: "введите текст для фильтрации"
+      translate_incomplete: "Перевести все пустые (google)"
     navigation:
-      system: Система
-      users: Пользователи
+      system: "Система"
+      users: "Пользователи"
       dashboard: Dashboard
-    no_results_text: Ничего не найдено
-    photo: Главное изображение
-    pictures: Изображения
-    preview: Предпросмотр
+    no_results_text: "Ничего не найдено"
+    photo: "Главное изображение"
+    pictures: "Изображения"
+    preview: "Предпросмотр"
     role:
       kind:
         admin: admin
         default: default
         group: group
         user: user
-    save: Сохранить
+    save: "Сохранить"
     scopes:
-      un_visible: Скрытые
-      visible: Опубликованные
+      un_visible: "Скрытые"
+      visible: "Опубликованные"
     search:
-      cancel: Очистить
-      submit: Уточнить
-      title: Поиск
-    set_main: Сделать главным изображением
+      cancel: "Очистить"
+      submit: "Уточнить"
+      title: "Поиск"
+    set_main: "Сделать главным изображением"
     show:
-      attr: Атрибут
-      value: Значение
+      attr: "Атрибут"
+      value: "Значение"
     table:
-      actions: Действия
+      actions: "Действия"
     user:
       role:
-        admin: Админ
-        default: Клиент
-        guest: Гость
-        moderator: Модератор
-        redactor: Редактор
+        admin: "Админ"
+        default: "Клиент"
+        guest: "Гость"
+        moderator: "Модератор"
+        redactor: "Редактор"
       state:
-        active: Активен
-        deleted: Удален
-        pending: Неактивирован
-        suspended: Заморожен
+        active: "Активен"
+        deleted: "Удален"
+        pending: "Неактивирован"
+        suspended: "Заморожен"
     structure:
       kind:
-        group: Группа страницек
-        main: Главная
-        posts: Журнал
-        redirect: Перенаправление
-        static_page: Текстовая страница
+        group: "Группа страницек"
+        main: "Главная"
+        posts: "Журнал"
+        redirect: "Перенаправление"
+        static_page: "Текстовая страница"
       position:
-        bottom: Снизу
-        default: По умолчанию
-        menu: Меню
+        bottom: "Снизу"
+        default: "По умолчанию"
+        menu: "Меню"
     js:
-      empty: Пусто
-      add_link: Создать?
-      add: Добавить
-      remove: Удалить
-      save: Сохнанить
-      cancel: Отмена
-      clear: Сброс
-      confirm: Подтвердить
-      day: Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота
-      day_short: Вс,Пн,Вт,Ср,Чт,Пт,Сб
-      delete_nested_elements: Невозможно удалить
-      edit: Редактировать
-      month: Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь
-      name: Название
-      no_results: Ничего не найдено
-      search: Идет поиск...
-      value: Значение
+      empty: "Пусто"
+      add_link: "Создать?"
+      add: "Добавить"
+      remove: "Удалить"
+      save: "Сохнанить"
+      cancel: "Отмена"
+      clear: "Сброс"
+      confirm: "Подтвердить"
+      day: "Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота"
+      day_short: "Вс,Пн,Вт,Ср,Чт,Пт,Сб"
+      delete_nested_elements: "Невозможно удалить"
+      edit: "Редактировать"
+      month: "Январь,Февраль,Март,Апрель,Май,Июнь,Июль,Август,Сентябрь,Октябрь,Ноябрь,Декабрь"
+      name: "Название"
+      no_results: "Ничего не найдено"
+      search: "Идет поиск..."
+      value: "Значение"
       fileupload:
         errors:
-          maxFileSize: Файл слишком велик
-          minFileSize: Файл слишком мал
-          acceptFileTypes: Тип файла не допускается
-          maxNumberOfFiles: Превышено максимальное количество файлов
-          uploadedBytes: Превышен максимальный размер файла
-          emptyResult: Пустой результат загрузки файла
+          maxFileSize: "Файл слишком велик"
+          minFileSize: "Файл слишком мал"
+          acceptFileTypes: "Тип файла не допускается"
+          maxNumberOfFiles: "Превышено максимальное количество файлов"
+          uploadedBytes: "Превышен максимальный размер файла"
+          emptyResult: "Пустой результат загрузки файла"
   attributes:
-    map: Местоположение
-    address: Адрес
-    country: Страна
-    country_id: Страна
-    created_at: Дата создания
-    description: Описание
-    footmarks_count: Лайков
-    is_visible: Отображать
-    name: Название
-    parent: Родительский элемент
-    parent_id: Родительский элемент
-    position: Позиция
-    region: Регион
-    region_id: Регион
-    reviews_count: Просмотров
-    synonyms: Синонимы
-    title: Название
-    updated_at: Дата изменения
-    user: Пользователь
-    user_id: Пользователь
-    updater: Обновил
-    updater_id: Обновил
-    remember_me: Запомнить
-    password: Пароль
-    slug: Алиас
+    map: "Местоположение"
+    created_at: "Дата создания"
+    description: "Описание"
+    is_visible: "Отображать"
+    name: "Название"
+    position: "Позиция"
+    title: "Название"
+    updated_at: "Дата изменения"
+    user: "Пользователь"
+    user_id: "Пользователь"
+    updater: "Обновил"
+    updater_id: "Обновил"
+    remember_me: "Запомнить"
+    password: "Пароль"
   attrs:
-    en: анг.
-    it: итал.
-    ru: рус.
-    uk: укр.
-    de: нем.
-    fr: фран.
-    es: исп.
+    en: "анг."
+    it: "итал."
+    ru: "рус."
+    uk: "укр."
+    de: "нем."
+    fr: "фран."
+    es: "исп."
   flash:
     admin:
       actions:
         create:
-          error: '%{resource_name} - при сохранении возникли ошибки: %{errors}'
-          notice: '%{resource_name} - запись успешно создана.'
+          error: "%{resource_name} - при сохранении возникли ошибки: %{errors}"
+          notice: "%{resource_name} - запись успешно создана."
         destroy:
-          error: '%{resource_name} - запись не может быть удалена'
-          notice: '%{resource_name} - запись была успешно удалена.'
+          error: "%{resource_name} - запись не может быть удалена"
+          notice: "%{resource_name} - запись была успешно удалена."
         update:
-          error: '%{resource_name} - при сохранении возникли ошибки: %{errors}'
-          notice: '%{resource_name} - запись была успешно изменена.'
+          error: "%{resource_name} - при сохранении возникли ошибки: %{errors}"
+          notice: "%{resource_name} - запись была успешно изменена."
       locators:
-        prepared: Переводы успешно подготовлены
-        restart: Переводы успешно перезагружены
-        update_error: Возникли ошибки при обновлении данных
-        updated: Перевод успешно обновлен
+        prepared: "Переводы успешно подготовлены"
+        restart: "Переводы успешно перезагружены"
+        update_error: "Возникли ошибки при обновлении данных"
+        updated: "Перевод успешно обновлен"
       permissions:
-        failure: Ошибка обновления
-        success: Права успешно обновлены
+        failure: "Ошибка обновления"
+        success: "Права успешно обновлены"
   simple_form:
     buttons:
-      cancel: Отмена
-    creating: Создание...
+      cancel: "Отмена"
+    creating: "Создание..."
     error_notification:
-      default_message: При сохранении возникли ошибки
-    'no': Нет
+      default_message: "При сохранении возникли ошибки"
+    'no': "Нет"
     required:
-      mark: '*'
-      text: обязательное
-    updating: Обновление...
-    'yes': Да
+      mark: "*"
+      text: "обязательное"
+    updating: "Обновление..."
+    'yes': "Да"
   will_paginate:
-    page_gap: '&hellip;'
-    pagination_info: <b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b>
+    page_gap: "&hellip;"
+    pagination_info: "<b>%{from}&nbsp;-&nbsp;%{to}</b> из <b>%{count}</b>"
     pagination_info_empty: 0 всего
-    next_label: →
-    previous_label: ←
+    next_label: "→"
+    previous_label: "←"
   errors:
     messages:
-      wrong_size: неправильный размер (должно быть %{file_size})
-      size_too_small: слишком маленький размер (должно быть не менее %{file_size})
-      size_too_big: слишком большой размер (должно быть не более %{file_size})
-      carrierwave_processing_error: Невозможно переконвертировать
-      carrierwave_integrity_error: Не является рисунком
+      wrong_size: "неправильный размер (должно быть %{file_size})"
+      size_too_small: "слишком маленький размер (должно быть не менее %{file_size})"
+      size_too_big: "слишком большой размер (должно быть не более %{file_size})"
+      carrierwave_processing_error: "Невозможно переконвертировать"
+      carrierwave_integrity_error: "Не является рисунком"

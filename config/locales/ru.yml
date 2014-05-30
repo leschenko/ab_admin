@@ -111,7 +111,7 @@ ru:
       cancel: Отмена
       save: Сохранить
       save_and_add_another: Сохранить & новый
-      save_and_edit: Применить
+      save_and_edit: Сохранить & редактировать
       save_and_edit_next: Сохранить и след.
       save_and_edit_prev: Сохранить и пред.
       details: Подробнее
@@ -233,21 +233,11 @@ ru:
           emptyResult: Пустой результат загрузки файла
   attributes:
     map: Местоположение
-    address: Адрес
-    country: Страна
-    country_id: Страна
     created_at: Дата создания
     description: Описание
-    footmarks_count: Лайков
     is_visible: Отображать
     name: Название
-    parent: Родительский элемент
-    parent_id: Родительский элемент
     position: Позиция
-    region: Регион
-    region_id: Регион
-    reviews_count: Просмотров
-    synonyms: Синонимы
     title: Название
     updated_at: Дата изменения
     user: Пользователь
@@ -256,7 +246,6 @@ ru:
     updater_id: Обновил
     remember_me: Запомнить
     password: Пароль
-    slug: Алиас
   attrs:
     en: анг.
     it: итал.

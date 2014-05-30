@@ -79,11 +79,11 @@ en:
     batch_actions:
       title: Action
       status:
-        zero: '%{action} - 0 records'
-        one: '%{action} - %{count} record'
-        few: '%{action} - %{count} records'
-        many: '%{action} - %{count} records'
-        other: '%{action} - %{count} records'
+        zero: "%{action} - 0 records"
+        one: "%{action} - %{count} record"
+        few: "%{action} - %{count} records"
+        many: "%{action} - %{count} records"
+        other: "%{action} - %{count} records"
     cache_clear: Clear cache
     cant_be_deleted: Can not delete
     choose: Select %{attr}
@@ -224,10 +224,6 @@ en:
       search: Searching ...
       value: Value
       fileupload:
-        error: Error
-        start: Start
-        cancel: Cancel
-        destroy: Delete
         errors:
           maxFileSize: File is too big
           minFileSize: File is too small
@@ -237,21 +233,11 @@ en:
           emptyResult: Empty file upload result
   attributes:
     map: Location
-    address: Address
-    country: Country
-    country_id: Country
     created_at: Created at
     description: Description
-    footmarks_count: Likes
     is_visible: Display
     name: Name
-    parent: Parent element
-    parent_id: Parent element
     position: Position
-    region: Region
-    region_id: Region
-    reviews_count: Views
-    synonyms: Synonyms
     title: Title
     updated_at: Updated at
     user: User
@@ -260,7 +246,6 @@ en:
     updater_id: ''
     remember_me: Remember
     password: Password
-    slug: Alias
   attrs:
     en: Eng.
     it: Italian
@@ -273,14 +258,14 @@ en:
     admin:
       actions:
         create:
-          error: '%{resource_name} - while creating errors occurred: %{errors}'
-          notice: '%{resource_name} was successfully created.'
+          error: "%{resource_name} - while creating errors occurred: %{errors}"
+          notice: "%{resource_name} was successfully created."
         destroy:
-          error: '%{resource_name} - record could not be deleted.'
-          notice: '%{resource_name} - record was successfully deleted.'
+          error: "%{resource_name} - record could not be deleted."
+          notice: "%{resource_name} - record was successfully deleted."
         update:
-          error: '%{resource_name} - while updating errors occurred: %{errors}'
-          notice: '%{resource_name} - record was successfully changed.'
+          error: "%{resource_name} - while updating errors occurred: %{errors}"
+          notice: "%{resource_name} - record was successfully changed."
       locators:
         prepared: Translations successfully prepared
         restart: Translations successfully reloaded
@@ -297,16 +282,16 @@ en:
       default_message: When you save any errors
     'no': 'No'
     required:
-      mark: '*'
+      mark: "*"
       text: mandatory
     updating: Update ...
     'yes': 'Yes'
   will_paginate:
-    page_gap: '...'
-    pagination_info: <b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b>
+    page_gap: "..."
+    pagination_info: "<b>%{from}&nbsp;-&nbsp;%{to}</b> of <b>%{count}</b>"
     pagination_info_empty: 0 total
-    next_label: →
-    previous_label: ←
+    next_label: "→"
+    previous_label: "←"
   errors:
     messages:
       wrong_size: is the wrong size (should be %{file_size})
