@@ -214,7 +214,6 @@ ru:
       cancel: Отмена
       clear: Сброс
       confirm: Подтвердить
-      create_product: Создать новый товар
       day: Воскресенье,Понедельник,Вторник,Среда,Четверг,Пятница,Суббота
       day_short: Вс,Пн,Вт,Ср,Чт,Пт,Сб
       delete_nested_elements: Невозможно удалить
@@ -278,9 +277,6 @@ ru:
         update:
           error: '%{resource_name} - при сохранении возникли ошибки: %{errors}'
           notice: '%{resource_name} - запись была успешно изменена.'
-      controller_name:
-        update:
-          success: products
       locators:
         prepared: Переводы успешно подготовлены
         restart: Переводы успешно перезагружены

@@ -214,7 +214,6 @@ de:
       cancel: Cancellation
       clear: Reset
       confirm: Confirm
-      create_product: Create a new product
       day: Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday
       day_short: Sun, Mon, Tue, Wed, Thu, Fri, Sat
       delete_nested_elements: Can not delete
@@ -282,9 +281,6 @@ de:
         update:
           error: '%{resource_name} - while updating errors occurred: %{errors}'
           notice: '%{resource_name} - record was successfully changed.'
-      controller_name:
-        update:
-          success: products
       locators:
         prepared: Translations successfully prepared
         restart: Translations successfully reloaded

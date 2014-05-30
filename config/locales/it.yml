@@ -207,7 +207,6 @@ it:
       cancel: Cancellazione
       clear: Reset
       confirm: Confermare
-      create_product: Creazione di un nuovo prodotto
       day: ''
       day_short: Dom, Lun, Mar, mer, gio, ven, sab
       delete_nested_elements: Impossibile eliminare
@@ -275,9 +274,6 @@ it:
         update:
           error: '%{resource_name} mentre gli errori di mantenimento si è verificato.'
           notice: '%{resource_name} è stata modificata correttamente.'
-      controller_name:
-        update:
-          success: prodotti
       locators:
         prepared: Traduzioni con successo preparati
         restart: Traduzioni successo ricaricate
