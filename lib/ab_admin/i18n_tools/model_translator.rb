@@ -35,7 +35,8 @@ module AbAdmin
                 end
                 if model.new.respond_to?("#{attr}_#{locale.to_s}".to_sym)
                   @locales.each do |locale_1|
-                    o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{I18n.t(locale_1, scope: [:attrs])})"
+                    attr_suffix = I18n.t(locale_1, scope: [:attrs], default: locale_1.to_s.humanize)
+                    o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{attr_suffix})"
                   end
                 end
               end.sort.to_hash
