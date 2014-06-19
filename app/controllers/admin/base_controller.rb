@@ -147,8 +147,12 @@ class Admin::BaseController < ::InheritedResources::Base
     base.class_eval do
       before_create :bind_current_user
       before_save :bind_current_updater
-      before_save { track_action if settings[:history] }
+      before_save :track_current_action
     end
+  end
+
+  def track_current_action(*)
+    track_action if settings[:history]
   end
 
   def interpolation_options
