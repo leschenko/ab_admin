@@ -8,7 +8,7 @@ module AbAdmin
 
       argument :name, type: :string, default: 'fake'
 
-      def create_migration
+      def create_glob_migration
         migration_template 'migration.erb', "db/migrate/#{migration_name}.rb"
       end
 
