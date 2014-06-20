@@ -61,7 +61,10 @@ class Admin::AssetsController < ApplicationController
   end
 
   def prepared_data
-    params[:data].original_filename = "blob.#{params[:data].content_type.split('/').last}" if params[:data].original_filename == 'blob'
+    if %w(blob undefined).include? params[:data].original_filename
+      extension = params[:data].content_type.split('/').last
+      params[:data].original_filename = "original.#{extension}"
+    end
     params[:data]
   end
 
