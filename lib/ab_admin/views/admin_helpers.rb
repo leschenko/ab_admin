@@ -24,17 +24,21 @@ module AbAdmin
       def admin_editable(item, attr, options=nil)
         options = {} unless options.is_a?(Hash)
         options[:type] ||= 'select' if options[:source]
-        options[:type] ||= case attr.to_s
-                             when /_at$/
-                               'date'
-                             when /^is_/
-                               'select'
-                             when /description|body|content/
-                               'textarea'
-                             else
-                               'text'
-                           end
-        options[:source] ||= {'true' => 'yes', 'false' => 'no'} if options[:type] == 'select'
+        
+        case attr.to_s
+          when /_at$/
+            options[:type] ||= 'date'
+          when /^is_/
+            options[:type] ||= 'select'
+            options[:source] ||= {1 => 'yes', 0 => 'no'}
+            options[:value] ||= item[attr] ? 1 : 0
+            options[:title] ||= item[attr] ? 'yes' : 'no'
+          when /description|body|content/
+            options[:type] ||= 'textarea'
+          else
+            options[:type] ||= 'text'
+        end
+
         data = {
             type: options[:type],
             source: options[:source].try(:to_json),

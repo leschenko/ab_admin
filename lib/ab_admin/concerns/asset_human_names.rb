@@ -14,7 +14,15 @@ module AbAdmin
       def make_asset_human_names
         asset_human_names_list.each do |assoc|
           Array(send(assoc)).each do |asset|
-            asset.store_model_filename(self)
+            begin
+              asset.store_model_filename(self)
+            rescue Errno::ENOENT => e
+              if Rails.env.production? && (defined? ExceptionNotifier)
+                ExceptionNotifier.notify_exception(e, data: {email: asset.attributes})
+              else
+                raise e
+              end
+            end
           end
         end
       end
