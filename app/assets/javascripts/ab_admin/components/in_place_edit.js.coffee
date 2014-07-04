@@ -4,10 +4,11 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
   @options.url = (params) =>
     params[@options.model] ||= {}
     params[@options.model][params.name] = value
+    params._method = 'PATCH'
     ajax_opts =
       url: url
       data: params
-      type: 'PATCH'
+      type: 'POST'
       dataType: 'json'
     delete params.name
     delete params.value
@@ -27,3 +28,8 @@ $(document).on 'admin:init', (e) ->
       autoclose: true
       todayBtn: true
       language: I18n.locale
+    ajaxOptions:
+      xhrFields:
+        withCredentials: true
+      headers:
+        Accept: 'application/json'
