@@ -14,7 +14,7 @@ module AbAdmin
     def bm(message = 'Benchmarking', options = {})
       result = nil
       ms = Benchmark.ms { result = yield }
-      Rails.logger.info '%s (%.3fms)' % [message, ms]
+      (options[:logger] || Rails.logger).info '%s (%.3fms)' % [message, ms]
       result
     end
 
