@@ -1,3 +1,12 @@
+### 0.5.0
+
+* backwards incompatible changes
+  * removed custom time and date formats (`:api`, `:path`, `:compare`, `:compare_date`)
+  * remove `russian` gem and related hook,
+    for proper day names add `Russian::LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e|%-d)(.*)(%B)/ if defined? Russian`
+    or use gem from github
+
+
 ### 0.4.0
 
 * enhancements
