@@ -1,8 +1,10 @@
-require 'will_paginate/view_helpers/action_view'
+# add `:large` option with make pagination on large tables easier, because `SELECT *` is slow with large `OFFSET`:
+#   first it fetch ids of the records using `SELECT id`
+#   and in the second query it fetch records
 module WillPaginate
   module ActiveRecord
     module RelationMethods
-      attr_accessor :paginate_limit, :paginate_offset, :paginate_ids
+      attr_accessor :paginate_limit, :paginate_offset
 
       def per_page(value = nil)
         if value.nil?
@@ -24,7 +26,7 @@ module WillPaginate
     module Pagination
       def paginate(options)
         options = options.dup
-        pagenum = options.fetch(:page) { raise ArgumentError, ':page parameter required' }
+        page_number = options.fetch(:page) { raise ArgumentError, ':page parameter required' }
         per_page = options.delete(:per_page) || self.per_page
         total = options.delete(:total_entries)
         large = options.delete(:large)
@@ -32,7 +34,7 @@ module WillPaginate
         count_options = options.delete(:count)
         options.delete(:page)
 
-        rel = limit(per_page.to_i).page(pagenum)
+        rel = limit(per_page.to_i).page(page_number)
         rel = rel.apply_finder_options(options) if options.any?
         rel.wp_count_options = count_options if count_options
         rel.total_entries = total.to_i unless total.blank?
@@ -50,22 +52,5 @@ module WillPaginate
         end
       end
     end
-  end
-end
-
-WillPaginate::ViewHelpers.pagination_options[:no_uri] = false
-WillPaginate::ActionView::LinkRenderer.class_exec do
-  def url(page)
-    @base_url_params ||= begin
-      url_params = merge_get_params(default_url_params)
-      merge_optional_params(url_params)
-    end
-
-    url_params = @base_url_params.dup
-    add_current_page_param(url_params, page)
-    url_params[param_name.to_sym] = nil if url_params[param_name.to_sym].to_i < 2
-
-    link = @template.url_for(url_params)
-    @options[:no_uri] ? link.split('?').first : link
   end
 end
