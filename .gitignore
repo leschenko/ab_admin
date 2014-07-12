@@ -11,8 +11,6 @@ spec/dummy/public/uploads/
 spec/dummy/app/helpers
 spec/dummy/app/assets/javascripts/i18n/translations.js
 spec/dummy/public/javascripts/ckeditor
-spec/dummy/public/uploads_new
-spec/dummy0
 spec/factories/files/silicon_valley.jpg
 lib/generators/ab_admin/ckeditor_assets/templates/ckeditor
 rerun.txt
@@ -29,4 +27,3 @@ TODO
 .rspec
 .DS_Store
 rerun.txt
-spec/dummy0
