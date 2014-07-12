@@ -1,12 +1,4 @@
-module Globalize
-  mattr_accessor :available_locales
-
-  def self.valid_locale?(loc)
-    return false unless loc
-    available_locales.include?(loc.to_sym)
-  end
-end
-
+# add accessors with locale suffix like `title_en`, `title_de`
 Globalize::ActiveRecord::ClassMethods.module_eval do
   def define_translations_reader_with_locale_suffix(name)
     define_translations_reader_without_locale_suffix(name)

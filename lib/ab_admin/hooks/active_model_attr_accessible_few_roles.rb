@@ -1,3 +1,4 @@
+# enable to pass few roles to `attr_accessible` method which is very useful in defining `default` and `admin` attributes
 module ActiveModel
   module MassAssignmentSecurity
     module ClassMethods
