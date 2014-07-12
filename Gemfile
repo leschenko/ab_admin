@@ -44,7 +44,6 @@ gem 'ruby-progressbar'
 gem 'quiet_assets'
 gem 'ruby2xlsx'
 gem 'rest-client'
-gem 'russian'
 gem 'nested_form', '~> 0.2.2'
 gem 'ckeditor'
 
