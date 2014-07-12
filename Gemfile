@@ -63,7 +63,7 @@ group :test do
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'connection_pool'
-  gem 'fuubar'
+  gem 'fuubar', '~> 2.0.0.rc1'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'rb-fsevent', require: false

@@ -32,12 +32,12 @@ describe AbAdmin::Concerns::Fileuploads do
 
     it 'change guid' do
       @structure.fileupload_guid = 'other guid'
-      @structure.fileupload_changed?.should be_true
+      @structure.fileupload_changed?.should be_truthy
       @structure.fileupload_guid.should == 'other guid'
     end
 
     it 'not be multiple' do
-      @structure.fileupload_multiple?('picture').should be_false
+      @structure.fileupload_multiple?('picture').should be_falsey
     end
 
     it 'find uploaded asset or build new record' do

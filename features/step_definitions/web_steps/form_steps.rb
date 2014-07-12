@@ -94,7 +94,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   with_scope(parent) do
     field_checked = find_field(label)['checked']
 
-    field_checked.should be_true
+    field_checked.should be_truthy
   end
 end
 
@@ -102,7 +102,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   with_scope(parent) do
     field_checked = find_field(label)['checked']
 
-    field_checked.should be_false
+    field_checked.should be_falsey
   end
 end
 

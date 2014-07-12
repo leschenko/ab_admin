@@ -16,8 +16,8 @@ describe PictureUploader do
   end
   
   context 'the thumb version' do
-    it 'should scale down a landscape image to be exactly 100 by 100 pixels' do
-      @uploader.thumb.should have_dimensions(80, 80)
+    it 'should scale down a landscape image to be exactly 80 by 80 pixels' do
+      @uploader.thumb.dimensions.should == [80, 80]
     end
   end
   

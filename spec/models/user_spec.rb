@@ -84,7 +84,7 @@ describe User do
     describe 'auth' do
       it '#generate_password!' do
         new_pass = @user.generate_password!
-        @user.valid_password?(new_pass).should be_true
+        @user.valid_password?(new_pass).should be_truthy
       end
 
       it 'activate user' do

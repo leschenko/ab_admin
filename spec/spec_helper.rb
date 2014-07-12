@@ -32,12 +32,16 @@ Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
 Dir["#{File.dirname(__FILE__)}/shared_behaviors/**/*.rb"].each { |f| require f }
 
 RSpec.configure do |config|
-  require 'rspec/expectations'
+  config.expect_with :rspec do |c|
+    c.syntax = [:should, :expect]
+  end
+  config.mock_with :rspec do |mocks|
+    mocks.syntax = [:expect, :should]
+  end
+
   config.include RSpec::Matchers
   config.include AbAdmin::Engine.routes.url_helpers
   config.include Warden::Test::Helpers
-
-  config.mock_with :rspec
 
   config.extend ControllerMacros, type: :controller
   config.include FactoryGirl::Syntax::Methods
