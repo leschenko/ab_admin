@@ -37,7 +37,10 @@ module AbAdmin
       end
 
       def all_models
-        Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').each { |file| require file }
+        Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').each do |file|
+          next if file =~ /(?:concerns|shared)\//
+          require file
+        end
         ActiveRecord::Base.subclasses.find_all { |model| model.table_exists? }
       end
 
