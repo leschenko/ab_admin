@@ -189,7 +189,7 @@ module AbAdmin
 
       def id_link(item, options={})
         if options.is_a?(TrueClass) || options.is_a?(FalseClass)
-          ActiveSupport::Deprecation.warn("`id_link(item, edit: false)` use instead of`id_link(item, false)`")
+          ActiveSupport::Deprecation.warn("use `id_link(item, edit: false)` instead of`id_link(item, false)`")
           options = {edit: edit}
         end
         options.reverse_merge!(edit: true, title: item.id)
