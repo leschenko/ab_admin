@@ -246,11 +246,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def per_page
-    return params[:per_page] if params[:per_page].present?
-    if current_index_view == 'tree'
-      params[:per_page] = 1000
+    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i
+    if request_per_page.zero?
+      params[:per_page] = current_index_view == 'tree' ? 1000 : 50
     else
-      params[:per_page] = cookies[:pp] || 50
+      params[:per_page] = request_per_page
     end
   end
 
