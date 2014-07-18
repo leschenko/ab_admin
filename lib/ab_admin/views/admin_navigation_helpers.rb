@@ -187,14 +187,19 @@ module AbAdmin
         end
       end
 
-      def id_link(item, edit=true)
-        opts = {remote: settings[:list_edit], class: 'resource_id_link'}
-        if edit && can?(:edit, item)
-          link_to item.id, edit_resource_path(item), opts
+      def id_link(item, options={})
+        if options.is_a?(TrueClass) || options.is_a?(FalseClass)
+          ActiveSupport::Deprecation.warn("`id_link(item, edit: false)` use instead of`id_link(item, false)`")
+          options = {edit: edit}
+        end
+        options.reverse_merge!(edit: true, title: item.id)
+        link_html = {remote: settings[:list_edit], class: 'resource_id_link'}
+        if options[:edit] && can?(:edit, item)
+          link_to options[:title], edit_resource_path(item), link_html
         elsif can?(:read, item)
-          link_to item.id, resource_path(item), opts
+          link_to options[:title], resource_path(item), link_html
         else
-          item.id
+          options[:title]
         end
       end
 
