@@ -17,7 +17,7 @@ module AbAdmin
       def model_attrs
         @model_attrs ||= begin
           models.each_with_object({}) do |m, h|
-            h[m.name] = m.translated_attribute_names.map { |attr| ":#{attr} => :#{get_type(attr)}" }.join(', ')
+            h[m.name] = m.translated_attribute_names.map { |attr| "#{attr}: :#{get_type(attr)}" }.join(', ')
           end
         end
       end
