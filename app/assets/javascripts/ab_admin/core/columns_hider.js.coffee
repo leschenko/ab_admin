@@ -62,6 +62,7 @@ class window.ColumnsHider
       @showAll()
       for i in @data[@collection_name]
         @hideByIndex(i + 1)
+      $(document).trigger('admin:refresh_columns')
 
   hideByIndex: (i) ->
     $("#list > thead > tr > th:nth-child(#{i}), #list > tbody > tr > td:nth-child(#{i})").hide()
