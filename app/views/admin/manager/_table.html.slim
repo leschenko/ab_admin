@@ -22,7 +22,7 @@
       - collection.each do |item|
         tr id=dom_id(item, 'list')
           = batch_action_item(item)
-          td= id_link(item, is_edit_link)
+          td= id_link(item, edit: is_edit_link)
           - table_builder.fields.each do |field|
             td
               - if field.options[:editable] && field.data.is_a?(Symbol)
