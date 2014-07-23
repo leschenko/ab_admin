@@ -108,7 +108,7 @@ module AbAdmin
 
     def display_name(resource)
       return unless resource
-      resource.send(display_name_method_for(resource))
+      resource.send(display_name_method_for(resource)).to_s.no_html
     end
 
     def safe_display_name(resource)
