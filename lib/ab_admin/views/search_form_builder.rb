@@ -23,7 +23,7 @@ module AbAdmin
           end
 
           if collection.first.try(:respond_to?, :id)
-            collection.map{|r| [AbAdmin.display_name(r), r.id] }
+            collection = collection.map{|r| [AbAdmin.display_name(r), r.id] }
           end
 
           options[:input_html] ||= {}
