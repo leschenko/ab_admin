@@ -3,7 +3,7 @@ class window.ColumnsHider
     @store_key = 'cols'
     @data_el = $('#columns_hider_data')
     @column_names = @columnNames()
-    @collection_name = $('html').attr('id').replace(/^controller_/, '')
+    @collection_name = window.location.href.match(/admin\/([^\/]+)/)[1]
     @data = @getData()
     @initDefaults()
     @initButtons()
