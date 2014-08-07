@@ -7,7 +7,7 @@
         = batch_action_toggle
         th= list_sort_link(:id)
         - table_builder.fields.each do |field|
-          th
+          th class=('hide_cell' if field.options[:hidden])
             - if field.options[:sortable] && !field.options[:image]
               - if field.options[:sortable].is_a?(TrueClass)
                 = list_sort_link field.name
