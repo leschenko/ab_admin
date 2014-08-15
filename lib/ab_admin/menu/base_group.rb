@@ -10,8 +10,8 @@ module AbAdmin
 
       def model(model, options={})
         title = options[:title] || model.model_name.human(count: 9)
-        path = options[:url] || "/admin/#{model.model_name.plural}"
-        @menu_tree << Item.new(title, path, options)
+        url = options[:url] || "/admin/#{model.model_name.plural}"
+        @menu_tree << Item.new(title, url, options)
       end
 
       def group(title, options={}, &block)
