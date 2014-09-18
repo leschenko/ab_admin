@@ -8,8 +8,15 @@ class window.Select2Bridge
     @initSortable() if @el.data('sortable')
 
   initHandlers: ->
-    @el.select2('container').on 'click', '.select2-choices a', (e) ->
+    @el.select2('container').on 'click', '.select2-choices a', (e) =>
       e.stopPropagation()
+      $el = $(e.currentTarget)
+      if $el.data('remote')
+        e.preventDefault()
+        @modal.data('target', this)
+        fn = =>
+          @modal.modal()
+        $.get $el.attr('href'), {modal: true}, fn, 'script'
 
   buildOptions: ->
     @options = _.defaults(@el.data('select2_opts') || {},  @defaults())
@@ -23,8 +30,8 @@ class window.Select2Bridge
     else if @el.data('class')
       @initAjaxInput()
     if @el.data('add')
-      @initCreateChoiseOnce()
-      @initCreateChoise()
+      @initCreateChoiceOnce()
+      @initCreateChoice()
     @options
 
   initSortable: ->
@@ -35,11 +42,11 @@ class window.Select2Bridge
       update: =>
         @el.select2 'onSortEnd'
 
-  initCreateChoise: ->
+  initCreateChoice: ->
     @options.createSearchChoice = (term, data) =>
-      @clearCreateChoise()
+      @clearCreateChoice()
       @cont = @el.select2('container')
-      @btn_add = $("<div class='btn btn-info btn-mini select2-create-choise'>#{I18n.t('admin.js.add')} - #{term}</div>")
+      @btn_add = $("<div class='btn btn-info btn-mini select2-create-choice'>#{I18n.t('admin.js.add')} - #{term}</div>")
       @btn_add.prependTo @cont
       @btn_add.click =>
         @modal.data('target', this)
@@ -49,29 +56,29 @@ class window.Select2Bridge
         $.get @el.data('add'), {modal: true}, fn, 'script'
       null
 
-  initCreateChoiseOnce: ->
-    return if Select2Bridge.initedCreateChoiseOnce
+  initCreateChoiceOnce: ->
+    return if Select2Bridge.initedCreateChoiceOnce
     @modal.on 'ajax:success', 'form', =>
       @modal.modal('hide')
       that = @modal.data('target')
-      new_item = window.ab_admin_last_created
-      that.addItem(new_item)
-      that.clearCreateChoise()
+      item = window.ab_admin_last_created || window.ab_admin_last_updated
+      that.addItem(item)
+      that.clearCreateChoice()
       @el.data("select2-change-triggered", true)
-      @el.trigger('change', [new_item])
+      @el.trigger('change', [item])
       @el.data("select2-change-triggered", false)
-    Select2Bridge.initedCreateChoiseOnce = true
+    Select2Bridge.initedCreateChoiceOnce = true
 
   addItem: (item) ->
     if @el.data('select2').opts.multiple
-      data = @el.select2('data')
+      data = _.reject(@el.select2('data'), (i) -> i.id == item.id)
       data.push item
       @el.select2('data', data)
     else
       @el.select2('data', item)
 
-  clearCreateChoise: ->
-    @el.select2('container').children('.select2-create-choise').remove()
+  clearCreateChoice: ->
+    @el.select2('container').children('.select2-create-choice').remove()
 
   defaults: ->
     opts =

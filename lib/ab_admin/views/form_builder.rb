@@ -100,6 +100,11 @@ module AbAdmin
         HTML
       end
 
+      # ugly check for nested form
+      def nested?
+        object_name.include?('_attributes][')
+      end
+
       protected
 
       def fetch_nested_options(attribute_name)
