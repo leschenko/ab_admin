@@ -1,12 +1,18 @@
-<%
-  el_id = dom_id(resource, 'list')
-  form_wrap_id = dom_id(resource, 'list_edit')
-  html = %[<tr id="#{form_wrap_id}" class="list_edit warning"><td>#{render('form')}</td></tr>].html_safe
-%>
-$('#<%= form_wrap_id %>').remove();
-$('#<%= el_id %>').after('<%= j html %>');
-$('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
-$('#<%= form_wrap_id %> form').trigger('admin:form_init');
-$('#<%= el_id %>').scrollToEl();
+<% if params[:modal] %>
+  var $form = $('#modal_form');
+  $form.html("<%= j render 'modal_form_layout' %>");
+  $form.find('form').trigger('admin:form_init');
+<% else %>
+  <%
+    el_id = dom_id(resource, 'list')
+    form_wrap_id = dom_id(resource, 'list_edit')
+    html = %[<tr id="#{form_wrap_id}" class="list_edit warning"><td>#{render('form')}</td></tr>].html_safe
+  %>
+  $('#<%= form_wrap_id %>').remove();
+  $('#<%= el_id %>').after('<%= j html %>');
+  $('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
+  $('#<%= form_wrap_id %> form').trigger('admin:form_init');
+  $('#<%= el_id %>').scrollToEl();
+<% end %>
 
 <%= render 'admin/shared/flash', flash: flash %>

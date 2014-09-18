@@ -1,8 +1,12 @@
-<%
-  form_wrap_id = dom_id(resource, 'list_edit')
-  html = render('table', collection: [resource]).match(/<tbody>(.*)<\/tbody>/m)[1].html_safe
-%>
-$('#<%= form_wrap_id %>').remove();
-$('#<%= dom_id(resource, 'list') %>').replaceWith('<%= j html %>');
-$(document).trigger('admin:list_init');
-$('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
+<% unless params[:modal] %>
+  <%
+    form_wrap_id = dom_id(resource, 'list_edit')
+    html = render('table', collection: [resource]).match(/<tbody>(.*)<\/tbody>/m)[1].html_safe
+  %>
+  $('#<%= form_wrap_id %>').remove();
+  $('#<%= dom_id(resource, 'list') %>').replaceWith('<%= j html %>');
+  $(document).trigger('admin:list_init');
+  $('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
+<% end %>
+
+window.ab_admin_last_updated = <%= raw resource.for_input_token.to_json %>;
