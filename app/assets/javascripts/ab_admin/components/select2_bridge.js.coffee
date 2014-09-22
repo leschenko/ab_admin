@@ -15,7 +15,7 @@ class window.Select2Bridge
         e.preventDefault()
         @modal.data('target', this)
         fn = =>
-          @modal.modal()
+          @runModal()
         $.get $el.attr('href'), {modal: true}, fn, 'script'
 
   buildOptions: ->
@@ -33,6 +33,10 @@ class window.Select2Bridge
       @initCreateChoiceOnce()
       @initCreateChoice()
     @options
+
+  runModal: ->
+    @el.trigger('select2.modal_open')
+    @modal.modal()
 
   initSortable: ->
     @el.select2('container').find('ul.select2-choices').sortable
@@ -52,7 +56,7 @@ class window.Select2Bridge
         @modal.data('target', this)
         fn = =>
           $('#modal_form form input[name$="[name]"]').val(term)
-          @modal.modal()
+          @runModal()
         $.get @el.data('add'), {modal: true}, fn, 'script'
       null
 
@@ -92,7 +96,7 @@ class window.Select2Bridge
 
   initAjaxInput: ->
     if @el.data('image')
-      @buildimageOptions()
+      @buildImageOptions()
     if @el.data('result')
       @options.formatResult = (item) => fetchTemplate(@el.data('result'))(item)
     if @el.data('selection')
@@ -112,7 +116,7 @@ class window.Select2Bridge
         results: data
         more: data.length > 0
 
-  buildimageOptions: ->
+  buildImageOptions: ->
     @options.formatResult = (item) ->
       html = '<div class="fancy_select-result">'
       html += "<img src='#{item.image}' alt='#{item.text}'>" if item.image
