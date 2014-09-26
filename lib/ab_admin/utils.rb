@@ -57,8 +57,8 @@ module AbAdmin
 
     # html like: '<!-- html comment --><script>script content</script><div>div content</div><p>p content</p>'
     # normalized to: "<p>div content</p><p>p content</p>"
-    def normalize_html(raw_html, &block)
-      @@sanitizer ||= Sanitizer.new
+    def normalize_html(raw_html, options = {}, &block)
+      @@sanitizer ||= Sanitizer.new(options)
       @@sanitizer.normalize_html(raw_html, &block)
     end
 
@@ -89,10 +89,14 @@ module AbAdmin
       CLEAN_HTML_COMMENTS_REGEXP = /(&lt;|<)\!--.*?--(&gt;|>)/m
       CLEAN_LINE_BREAKS_REGEXP = /[^>]\r\n/
 
+      def initialize(options = {})
+        @options = options
+      end
+
       def normalize_html(raw_html)
         return '' if raw_html.blank?
         cleaned_html = raw_html.gsub(CLEAN_HTML_COMMENTS_REGEXP, '')#.gsub(CLEAN_LINE_BREAKS_REGEXP, '<br/>')
-        html = sanitize(cleaned_html)
+        html = sanitize(cleaned_html, @options[:sanitize] || {})
         doc = Nokogiri::HTML.fragment(html)
         #doc.xpath('comment()').each { |c| c.remove }
         yield doc if block_given?
