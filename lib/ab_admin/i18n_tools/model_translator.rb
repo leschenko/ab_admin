@@ -39,7 +39,7 @@ module AbAdmin
                     o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{attr_suffix})"
                   end
                 end
-              end.sort.to_hash
+              end.sort.to_h
             end
             @models_i18n_hash[locale]['activerecord']['attributes'] = models_hash
           end

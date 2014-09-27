@@ -30,7 +30,7 @@ module AbAdmin
       def new_changes
         exclude_attrs = respond_to?(:translated_attribute_names) ? translated_attribute_names.dup : []
         exclude_attrs << :updated_at
-        changes.except(*exclude_attrs).map { |k, v| [k, v.last] }.to_hash
+        changes.except(*exclude_attrs).map { |k, v| [k, v.last] }.to_h
       end
 
       def admin_comments_count_non_zero

@@ -54,11 +54,12 @@ class Array
     !(self & other).empty?
   end
 
-  def to_hash
-    h = {}
-    each { |k, v| h[k] = v }
-    h
-  end
+  # def to_hash
+  #   ActiveSupport::Deprecation.warn('Array#to_hash is deprecated, use Array#to_h or Hash[] instead')
+  #   h = {}
+  #   each { |k, v| h[k] = v }
+  #   h
+  # end
 
   def val_detect(attr, val)
     detect{|v| v[attr] == val }
