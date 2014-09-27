@@ -19,15 +19,15 @@ Gem::Specification.new do |s|
   s.add_dependency 'jquery-rails'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'slim'
-  s.add_dependency 'inherited_resources', '~> 1.4.1'
+  s.add_dependency 'inherited_resources', '~> 1.4'
   s.add_dependency 'rack-pjax'
   s.add_dependency 'ransack'
   s.add_dependency 'has_scope'
   s.add_dependency 'simple_slug'
-  s.add_dependency 'devise', '~> 3.2.2'
+  s.add_dependency 'devise', '~> 3.3'
   s.add_dependency 'cancancan', '~> 1.7'
   s.add_dependency 'galetahub-enum_field'
-  s.add_dependency 'awesome_nested_set', '~> 3.0.0.rc.3'
+  s.add_dependency 'awesome_nested_set', '~> 3.0.1'
 
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
@@ -45,6 +45,4 @@ Gem::Specification.new do |s|
   s.add_dependency 'ruby-progressbar'
 
   s.add_development_dependency 'mysql2'
-  s.add_development_dependency 'generator_spec'
-  s.add_development_dependency 'capybara'
 end

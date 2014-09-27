@@ -9,12 +9,10 @@ gem 'slim'
 gem 'inherited_resources'
 gem 'has_scope'
 gem 'rack-pjax'
-#gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
-#gem 'polyamorous', github: 'activerecord-hackery/polyamorous', branch: 'rails-4.1'
 
 gem 'devise'
 gem 'devise-encryptable'
-gem 'cancancan', '~> 1.7'
+gem 'cancancan'
 
 gem 'protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
@@ -56,14 +54,14 @@ group :development, :test do
 end
 
 group :test do
-  gem 'childprocess', '0.3.6'
   gem 'cucumber-rails', require: false
-  gem 'capybara', '~> 2.2.0'
+  gem 'capybara'
+  gem 'generator_spec'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers'
   gem 'database_cleaner'
   gem 'connection_pool'
-  gem 'fuubar', '~> 2.0.0.rc1'
+  gem 'fuubar'
   gem 'guard-rspec'
   gem 'guard-cucumber'
   gem 'rb-fsevent', require: false
