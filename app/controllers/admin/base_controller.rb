@@ -57,7 +57,7 @@ class Admin::BaseController < ::InheritedResources::Base
       failure.html { render :edit }
       success.js { render layout: false }
       failure.js { render :edit, layout: false }
-      unless Admin::ManagerController.mimes_for_respond_to[:json]
+      unless respond_to_format?(:json)
         success.json { head :no_content }
         failure.json { head :unprocessable }
       end
@@ -103,6 +103,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   protected
+
+  def respond_to_format?(format)
+    self.class.mimes_for_respond_to[format]
+  end
 
   def default_url_options
     options = {format: nil}
