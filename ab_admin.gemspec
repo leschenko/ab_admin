@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
   s.add_dependency 'rails', '~> 4.0.2'
-  #s.add_dependency 'rails', '~> 4.1.0.beta1'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'slim'
@@ -25,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'ransack'
   s.add_dependency 'has_scope'
   s.add_dependency 'simple_slug'
-  s.add_dependency 'devise', '~> 3.3'
+  s.add_dependency 'devise', '~> 3.2'
   s.add_dependency 'cancancan', '~> 1.7'
   s.add_dependency 'galetahub-enum_field'
   s.add_dependency 'awesome_nested_set', '~> 3.0.1'
@@ -43,6 +42,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'simple_form'
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
+  s.add_dependency 'sprockets-rails', '~> 2.0'
 
   s.add_development_dependency 'mysql2'
 end
