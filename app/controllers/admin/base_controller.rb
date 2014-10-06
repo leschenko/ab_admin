@@ -306,7 +306,7 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.env = Rails.env
     if AbAdmin.test_env?
       fv.test = true
-      AbAdmin.test_settings.each { |k, v| fv.set_variable k, v }
+      AbAdmin.test_settings.each { |k, v| fv.send(k, v) }
     end
   end
 
