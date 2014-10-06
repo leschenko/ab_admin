@@ -299,3 +299,5 @@ en:
       size_too_big: is too big (should be at most %{file_size})
       carrierwave_processing_error: Cannot resize image.
       carrierwave_integrity_error: Not an image.
+  unauthorized:
+    default: You are not authorized to access this page.

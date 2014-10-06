@@ -299,3 +299,5 @@ ru:
       size_too_big: слишком большой размер (должно быть не более %{file_size})
       carrierwave_processing_error: Невозможно переконвертировать
       carrierwave_integrity_error: Не является рисунком
+  unauthorized:
+    default: "Нет прав для просмотра"
