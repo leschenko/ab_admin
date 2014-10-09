@@ -25,6 +25,10 @@ class window.Select2Bridge
     if @el.data('tags')
       @options.tokenSeparators = [',']
       @options.tags = @el.data('tags')
+    if @el.data('data')
+      data = @el.data('data')
+      data = _.map(data, (el) -> {id: el, text: el.toString()} ) if data[0] && !_.isObject(data[0])
+      @options.data = data
     else if @el.data('collection')
       @options.data = @el.data('collection')
     else if @el.data('class')
@@ -32,6 +36,10 @@ class window.Select2Bridge
     if @el.data('add')
       @initCreateChoiceOnce()
       @initCreateChoice()
+    if @el.data('create-search-choice')
+      @options.createSearchChoice = (term) ->
+        log 'createSearchChoice'
+        {id: term, text: term}
     @options
 
   runModal: ->
@@ -91,7 +99,7 @@ class window.Select2Bridge
       placeholder: ' '
       allowClear: true
       escapeMarkup: (m) -> m
-    opts.minimumResultsForSearch = 10 unless fv.test || @el.data('add')
+    opts.minimumResultsForSearch = 10 unless fv.test || @el.data('add') || @el.data('create-search-choice')
     opts
 
   initAjaxInput: ->
