@@ -36,6 +36,10 @@ module AbAdmin
         unlock_access! if access_locked?
       end
 
+      def active?
+        active_for_authentication?
+      end
+
       def generate_password!
         raw_password = AbAdmin.test_env? ? '654321' : AbAdmin.friendly_token
         self.password = self.password_confirmation = raw_password

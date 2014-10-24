@@ -27,7 +27,7 @@ table.table.table-striped.index_table#list
         td= pretty_data item.created_at
         td.actions
           = item_index_actions(item)
-          - if item.active_for_authentication?
+          - if item.active?
             = link_to t('admin.actions.suspend.link'), suspend_admin_user_path(item), method: :post, class: 'btn btn-warning'
           - else
             = link_to icon('ok', true), activate_admin_user_path(item), method: :post, class: 'btn btn-success', title: t('admin.actions.activate.link')
