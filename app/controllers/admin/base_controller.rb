@@ -289,6 +289,8 @@ class Admin::BaseController < ::InheritedResources::Base
       new_resource_path(return_to: params[:return_to])
     elsif params[:_add_edit]
       edit_resource_path(resource, return_to: params[:return_to])
+    elsif params[:_save_and_show]
+      resource_path(resource, return_to: params[:return_to])
     elsif params[:_add_edit_next] || params[:_add_edit_prev]
       rec = resource.next_prev_by_url(end_of_association_chain.accessible_by(current_ability).unscoped.base, params[:return_to], !!params[:_add_edit_prev])
       if rec
