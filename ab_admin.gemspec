@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '~> 4.1.1'
+  s.add_dependency 'rails', '~> 4.1.7'
   s.add_dependency 'jquery-rails'
   s.add_dependency 'rails-i18n'
   s.add_dependency 'slim'
@@ -31,7 +31,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'mini_magick'
   s.add_dependency 'coffee-rails'
   s.add_dependency 'sass-rails'
-  s.add_dependency 'sprockets', '2.11.0'
 
   s.add_dependency 'bootstrap-sass', '~> 2.3.2.2'
   s.add_dependency 'bootstrap-wysihtml5-rails', '~> 0.3.1.24'
