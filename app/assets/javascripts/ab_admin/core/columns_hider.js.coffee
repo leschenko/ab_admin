@@ -3,7 +3,8 @@ class window.ColumnsHider
     @store_key = 'cols'
     @data_el = $('#columns_hider_data')
     @column_names = @columnNames()
-    @collection_name = window.location.href.match(/admin\/([^\/]+)/)[1]
+    @collection_name = window.location.href.match(/admin\/([^\/]+)/)?[1]
+    return unless @collection_name
     @data = @getData()
     @initDefaults()
     @initButtons()
