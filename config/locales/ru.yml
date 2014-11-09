@@ -128,7 +128,6 @@ ru:
         default: По умолчанию
         private: Приватная
         public: Публичная
-    keywords: Ключевые слова
     langs:
       en: En
       it: It

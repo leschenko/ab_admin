@@ -14,7 +14,7 @@
   = f.input :picture, as: :uploader
   = f.input :pictures, as: :uploader
 
-  = input_set t('admin.keywords') do
+  = input_set t('admin.form.keywords') do
     = render 'admin/headers/form', f: f
 
   = f.hidden_field :fileupload_guid if f.object.new_record?
