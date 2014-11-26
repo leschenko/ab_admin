@@ -64,7 +64,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
       field :name
       field :description, as: :text
     end
-    field :test, as: :capture_block do
+    field :test do
       '<b>Capture block input</b>'.html_safe
     end
     field :picture, as: :uploader

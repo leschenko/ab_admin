@@ -13,7 +13,6 @@ module AbAdmin
       map_type :editor, to: ::AbAdmin::Views::Inputs::EditorInput
       map_type :date_picker, :time_picker, :datetime_picker, to: ::AbAdmin::Views::Inputs::DateTimePickerInput
       map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
-      map_type :capture_block, to: ::AbAdmin::Views::Inputs::CaptureBlockInput
       map_type :uploader, to: ::AbAdmin::Views::Inputs::UploaderInput
 
       def input(attribute_name, options = {}, &block)
