@@ -12,7 +12,10 @@
         - else
           = input_set node.title, node.options do
             - node.fields.each do |field|
-              = f.render_dsl_node field
+              - if field.block && field.options[:as] == :capture_block
+                = instance_exec(f, &field.block)
+              - else
+                = f.render_dsl_node field
       - else
         = f.render_dsl_node node
 
