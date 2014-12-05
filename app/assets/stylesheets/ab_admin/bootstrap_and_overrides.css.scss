@@ -109,6 +109,7 @@ ul.nav li.dropdown:hover ul.dropdown-menu {
   margin-bottom: 5px;
   .nav > li > a {
     color: #f5f5f5;
+    display: inline-block;
   }
   .nav .active > a, .nav .active > a:hover {
     color: #f5f5f5;
