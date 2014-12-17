@@ -242,7 +242,7 @@ class Admin::BaseController < ::InheritedResources::Base
     params[:q] ||= {}
     params[:q][:s] ||= settings[:default_order] || 'id desc'
     @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
-    @search.result(distinct: true)
+    @search.result(distinct: @search.object.joins_values.present?)
   end
 
   def collection
