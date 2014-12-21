@@ -5,7 +5,8 @@
   * remove `russian` gem and related hook,
     for proper day names add `Russian::LOCALIZE_MONTH_NAMES_MATCH = /(%d|%e|%-d)(.*)(%B)/ if defined? Russian`
     or use gem from github
-  * remove Hash#to_hash method
+  * removed Hash#to_hash method
+  * removed `capture_block` input, because `simple_form` provide it natively
 
 * deprecation
   * Deprecated second bool argument in `id_link` helper, use `id_link(item, edit: false)` instead
