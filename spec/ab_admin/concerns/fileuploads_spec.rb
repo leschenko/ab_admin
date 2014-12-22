@@ -6,19 +6,19 @@ describe AbAdmin::Concerns::Fileuploads do
   end
 
   it 'return asset class' do
-    Structure.fileupload_klass('picture').should == Picture
+    expect(Structure.fileupload_klass('picture')).to eq Picture
   end
   
   it 'find asset by guid' do
     asset = Structure.fileupload_find('picture', @picture.guid)
-    asset.should == @picture
+    expect(asset).to eq @picture
   end
 
   it 'update asset target_id by guid' do
     Structure.fileupload_update(1000, @picture.guid, :picture)
     @picture.reload
-    @picture.assetable_id.should == 1000
-    @picture.guid.should be_nil
+    expect(@picture.assetable_id).to eq 1000
+    expect(@picture.guid).to be_nil
   end
 
   context 'instance methods' do
@@ -27,23 +27,23 @@ describe AbAdmin::Concerns::Fileuploads do
     end
 
     it 'generate guid' do
-      @structure.fileupload_guid.should_not be_blank
+      expect(@structure.fileupload_guid).not_to be_blank
     end
 
     it 'change guid' do
       @structure.fileupload_guid = 'other guid'
-      @structure.fileupload_changed?.should be_truthy
-      @structure.fileupload_guid.should == 'other guid'
+      expect(@structure.fileupload_changed?).to be_truthy
+      expect(@structure.fileupload_guid).to eq 'other guid'
     end
 
     it 'not be multiple' do
-      @structure.fileupload_multiple?('picture').should be_falsey
+      expect(@structure.fileupload_multiple?('picture')).to be_falsey
     end
 
     it 'find uploaded asset or build new record' do
       picture = @structure.fileupload_asset(:picture)
-      picture.should_not be_nil
-      picture.should be_new_record
+      expect(picture).not_to be_nil
+      expect(picture).to be_new_record
     end
 
     it 'return fileuploads columns' do

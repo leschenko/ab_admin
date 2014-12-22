@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe AbAdmin do
   it 'should be a module' do
-    AbAdmin.should be_a(Module)
+    expect(AbAdmin).to be_a(Module)
   end
   
   context 'configuration' do
@@ -15,9 +15,9 @@ describe AbAdmin do
     end
     
     it 'should store configuration' do
-      AbAdmin.flash_keys.should == [:test, :test2]
-      AbAdmin.title_splitter.should == ' -> '
-      AbAdmin.site_name.should == 'Test'
+      expect(AbAdmin.flash_keys).to eq [:test, :test2]
+      expect(AbAdmin.title_splitter).to eq ' -> '
+      expect(AbAdmin.site_name).to eq 'Test'
     end
   end
 end
