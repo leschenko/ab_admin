@@ -21,7 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -251,8 +251,11 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def per_page
     request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?
-    max_per_page = settings[:max_per_page] || AbAdmin.max_per_page
     params[:per_page] = [request_per_page || AbAdmin.view_default_per_page[current_index_view.to_sym], max_per_page].min
+  end
+
+  def max_per_page
+    settings[:max_per_page] || AbAdmin.max_per_page
   end
 
   def set_layout
