@@ -9,7 +9,7 @@
   .pagination_info= pagination_info collection
 .btn-toolbar.pull-right.pjax_links
   .btn-group
-    - [50, 100, 500, 1000].each do |c|
+    - per_page_variants.each do |c|
       a.btn.per_page data-val=c href=url_for(params.merge(per_page: c)) class=('active' if c == collection.per_page) = c
 
 - if pjax? && flash.present?

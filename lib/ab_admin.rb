@@ -169,11 +169,14 @@ module AbAdmin
   @@default_per_page = 50
 
   mattr_accessor :view_default_per_page
-  @@view_default_per_page = Hash.new{ AbAdmin.default_per_page }
+  @@view_default_per_page = Hash.new { AbAdmin.default_per_page }
   @@view_default_per_page[:tree] = 1000
 
   mattr_accessor :max_per_page
   @@max_per_page = Float::INFINITY
+
+  mattr_accessor :per_page_variants
+  @@per_page_variants = [50, 100, 500, 1000]
 
   extend Utils
 

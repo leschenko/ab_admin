@@ -133,6 +133,10 @@ module AbAdmin
         image_tag_if(item.send(assoc).try(:url, size))
       end
 
+      def per_page_variants
+        AbAdmin.per_page_variants.map{|variant| [variant, max_per_page].min }.uniq
+      end
+
       # input_set 'title', legend_class: 'do_sort', label_class: 'label-info' do
       def input_set(title, options={}, &block)
         options.reverse_merge!(class: "inputs well well-small clearfix #{options.delete(:legend_class) || 'do_sort'}", id: options.delete(:legend_id))
