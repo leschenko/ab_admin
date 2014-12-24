@@ -250,12 +250,9 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def per_page
-    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i
-    if request_per_page.zero?
-      params[:per_page] = current_index_view == 'tree' ? 1000 : 50
-    else
-      params[:per_page] = request_per_page
-    end
+    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?
+    max_per_page = settings[:max_per_page] || AbAdmin.max_per_page
+    params[:per_page] = [request_per_page || AbAdmin.view_default_per_page[current_index_view.to_sym], max_per_page].min
   end
 
   def set_layout
