@@ -2,9 +2,8 @@
 #toggle_sidebar_on.btn.btn-large = icon('chevron-right')
 h3= t('admin.search.title')
 = search_admin_form_for @search, url: collection_path do |f|
-  - cache [I18n.locale, 'search_form_inside', resource_class.name, params[:q].hash, current_user.user_role_id] do
-    = render 'search_form', f: f
-    br
-    div
-      = f.submit t('admin.search.submit'), class: 'btn btn-success btn-large'
-      = f.submit t('admin.search.cancel'), class: 'btn', id: 'search_cancel'
+  = render 'search_form', f: f
+  br
+  div
+    = f.submit t('admin.search.submit'), class: 'btn btn-success btn-large'
+    = f.submit t('admin.search.cancel'), class: 'btn', id: 'search_cancel'
