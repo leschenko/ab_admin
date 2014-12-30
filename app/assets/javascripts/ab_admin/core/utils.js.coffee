@@ -161,9 +161,9 @@ window.storeData = (key, data) ->
     str = JSON.stringify(data)
   else
     str = '' + data
-  if window.localStorage
+  try
     window.localStorage[key] = str
-  else
+  catch
     $.cookie(key, str, {path: '/'})
 
 window.fetchData = (key) ->
