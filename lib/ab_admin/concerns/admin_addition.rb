@@ -27,6 +27,10 @@ module AbAdmin
         "#{self.class.model_name.human(count: 1)} ##{self.id} #{AbAdmin.safe_display_name(self)}"
       end
 
+      def translated_any(attr)
+        send(attr).presence || translations.detect { |r| r.send(attr).present? }.try!(attr)
+      end
+
       def new_changes
         exclude_attrs = respond_to?(:translated_attribute_names) ? translated_attribute_names.dup : []
         exclude_attrs << :updated_at
