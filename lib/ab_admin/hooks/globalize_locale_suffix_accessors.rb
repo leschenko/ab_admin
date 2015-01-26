@@ -22,6 +22,7 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
 
     Globalize.available_locales.each do |locale|
       define_method :"#{name}_#{locale}=" do |value|
+        changed_attributes
         @changed_attributes[:"#{name}_#{locale}"] = value unless value == read_attribute(name, {locale: locale})
         write_attribute(name, value, {locale: locale})
       end
