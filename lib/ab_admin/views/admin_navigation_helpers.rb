@@ -10,6 +10,7 @@ module AbAdmin
         options[:html][:class] ||= 'pjax-form'
         options[:builder] ||= ::AbAdmin::Views::SearchFormBuilder
         options[:method] ||= :get
+        options[:as] ||= 'q'
         form_for([:admin, object].flatten, *(args << options), &block)
       end
 
