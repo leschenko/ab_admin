@@ -16,7 +16,7 @@ class window.AdminAssets extends BaseAssets
   showErrors: (e, data) ->
     errors = _.map(data.files,(file) ->
       [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
-    bootbox.alert(errors)
+    bootbox.alert("<h3>#{errors}</h3>")
 
   initHandlers: ->
     super

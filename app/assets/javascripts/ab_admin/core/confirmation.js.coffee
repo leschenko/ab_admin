@@ -1,5 +1,5 @@
 $.rails.allowAction = (element) ->
-  message = element.data("confirm")
+  message = "<h3>#{element.data("confirm")}</h3>"
   return true unless message
   bootbox.confirm message, (answer) ->
     element.data('confirm', null).click() if answer
