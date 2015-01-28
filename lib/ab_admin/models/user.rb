@@ -47,16 +47,20 @@ module AbAdmin
         raw_password
       end
 
-      def moderator?
-        has_role?(:admin) || has_role?(:moderator)
-      end
-
       def admin_access?
         moderator?
       end
 
       def default?
         has_role?(:default)
+      end
+
+      def redactor?
+        has_role?(:redactor)
+      end
+
+      def moderator?
+        has_role?(:admin) || has_role?(:moderator)
       end
 
       def admin?
