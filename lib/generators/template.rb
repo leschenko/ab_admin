@@ -33,7 +33,6 @@ gem 'ruby-progressbar'
 gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'nested_form', '~> 0.2.2'
-gem 'puma', require: false
 
 gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'master'
 
