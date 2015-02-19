@@ -37,7 +37,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate'
   s.add_dependency 'will_paginate-bootstrap', '~> 0.2.5'
   s.add_dependency 'nested_form', '~> 0.2.2'
-  s.add_dependency 'simple_form', '~> 3.0.2'
+  s.add_dependency 'simple_form'
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
 
