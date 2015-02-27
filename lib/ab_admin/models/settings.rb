@@ -27,17 +27,28 @@ module AbAdmin
 
       def initialize
         @data = {}
-        @editable_path = find_editable_path
         @paths = find_paths
       end
 
-      def find_editable_path
-        path = editable_paths.detect { |path| File.exists?(path) }
-        path or raise("Create settings file for editing: #{editable_paths.join(' or ')}")
+      def editable
+        return {} unless  editable_path
+        YAML.load_file(editable_path) rescue {}
       end
 
-      def find_paths
-        base_paths.dup.unshift(@editable_path).find_all { |path| File.exists?(path) }
+      def save(raw_config)
+        config = {}
+        raw_config.each do |root_key, root_value|
+          if root_value.is_a?(Hash)
+            config[root_key] ||= {}
+            root_value.each do |key, value|
+              config[root_key][key] = typecast_value(value)
+            end
+          else
+            config[root_key] = typecast_value(root_value)
+          end
+        end
+        return unless editable_path
+        File.open(editable_path, 'w') { |file| file.write config.to_yaml } and self.class.load_config
       end
 
       def all
@@ -47,26 +58,17 @@ module AbAdmin
         @data
       end
 
-      def editable
-        YAML.load_file(@editable_path) rescue {}
+      private
+
+      def editable_path
+        @editable_path ||= editable_paths.detect { |path| File.exists?(path) }
       end
 
-      def save(raw_config)
-        conf = {}
-        raw_config.each do |root_key, root_value|
-          if root_value.is_a?(Hash)
-            conf[root_key] ||= {}
-            root_value.each do |key, value|
-              conf[root_key][key] = case_value(value)
-            end
-          else
-            conf[root_key] = case_value(root_value)
-          end
-        end
-        File.open(@editable_path, 'w') { |file| file.write conf.to_yaml } and self.class.load_config
+      def find_paths
+        base_paths.dup.unshift(editable_path).compact.find_all { |path| File.exists?(path) }
       end
 
-      def case_value(value)
+      def typecast_value(value)
         if %w(true false).include?(value) || value.to_s.is_number?
           YAML::load(value)
         else
