@@ -14,7 +14,6 @@ module AbAdmin
       map_type :date_picker, :time_picker, :datetime_picker, to: ::AbAdmin::Views::Inputs::DateTimePickerInput
       map_type :token, to: ::AbAdmin::Views::Inputs::TokenInput
       map_type :uploader, to: ::AbAdmin::Views::Inputs::UploaderInput
-      # :capture_block input evaluate block in view context
 
       def input(attribute_name, options = {}, &block)
         options[:collection] = options[:collection].call if options[:collection].is_a?(Proc)
