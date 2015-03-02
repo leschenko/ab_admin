@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
     post 'translate' => AbAdmin::I18nTools::TranslateApp
 
-    controller 'manager' do
+    controller 'manager', constraints: {format: /(html|js|json|xml|csv|xls|xlsx)/} do
       scope '(/:parent_resource/:parent_resource_id)/:model_name' do
         get '/new', to: :new, as: 'new'
         post '/batch', to: :batch, as: 'batch'
