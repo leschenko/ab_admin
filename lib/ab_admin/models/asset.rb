@@ -48,7 +48,8 @@ module AbAdmin
       end
 
       def thumb_url
-        data.url(self.thumb_size) if image?
+        return unless image?
+        data.versions[thumb_size] ? data.url(thumb_size) : data.url
       end
 
       def format_created_at
