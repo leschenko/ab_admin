@@ -21,7 +21,7 @@ module AbAdmin
           @options[:container_class] = container_class
         end
 
-        def input
+        def input(wrapper_options=nil)
           title = options[:title] || object.class.han(attribute_name)
           template.capture do
             if @options[:unwrapped]
