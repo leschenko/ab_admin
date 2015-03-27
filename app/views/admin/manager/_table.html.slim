@@ -16,7 +16,7 @@
                 = list_sort_link field.name, opts
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
-        th=t 'admin.table.actions'
+        th= t 'admin.table.actions'
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
