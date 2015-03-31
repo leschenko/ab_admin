@@ -15,7 +15,7 @@ $ ->
     $(document).trigger('admin:list_init')
 
     $('.per_page').click ->
-      $.cookie('pp', $(this).data('val'))
+      $.cookie('pp', $(this).data('val'), {path: window.location.pathname})
 
     $('#list').on 'click', 'tr.list_edit .form_cancel', ->
       e.preventDefault()
