@@ -248,7 +248,7 @@ class Admin::BaseController < ::InheritedResources::Base
   def collection
     @collection ||= begin
       result = search_collection
-      result = result.paginate(page: params[:page], per_page: per_page, large: true) unless action_name == 'batch'
+      result = result.paginate(page: params[:page], per_page: per_page, large: true) if action_name != 'batch' && !settings[:skip_pagination]
       result
     end
   end
