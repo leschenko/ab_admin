@@ -24,7 +24,7 @@ module AbAdmin
 
       module ClassMethods
         def tracking_enabled?
-          tracking_enabled && Activity.tracking_enabled
+          tracking_enabled && Track.tracking_enabled
         end
       end
     end
