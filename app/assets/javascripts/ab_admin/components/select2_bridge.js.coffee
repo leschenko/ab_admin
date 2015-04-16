@@ -143,26 +143,27 @@ class window.Select2Bridge
 
   fetchAjaxParams: (term, page) =>
     cond = {}
-    if @el.data('c')
+    condData = JSON.parse(@el.attr('data-c') || null)
+    if condData
       for kind in ['with', 'without']
-        if @el.data('c')[kind]
+        if condData[kind]
           cond[kind] ||= {}
-          for attr, id of @el.data('c')[kind]
+          for attr, id of condData[kind]
             value = $('#' + id).val()
             cond[kind][attr] = value if value
 
       for kind in ['with_term', 'without_term']
-        if @el.data('c')[kind]
+        if condData[kind]
           kind_key = kind.replace(/_term$/, '')
           cond[kind_key] ||= {}
-          for attr, value of @el.data('c')[kind]
+          for attr, value of condData[kind]
             cond[kind_key][attr] = value if value
 
       for kind in ['with_selector', 'without_selector']
-        if @el.data('c')[kind]
+        if condData[kind]
           kind_key = kind.replace(/_selector$/, '')
           cond[kind_key] ||= {}
-          for attr, value of @el.data('c')[kind]
+          for attr, value of condData[kind]
             selectors = value.split(/\s+/)
             value = @el.closest(selectors[1] || 'html').find(selectors[0]).val()
             cond[kind_key][attr] = value if value
