@@ -25,7 +25,7 @@
       - normalized_index_views.each do |index_view|
         = index_view_link(index_view)
 
-  - if can? :export, resource_class
+  - if can?(:export, resource_class) && !settings[:skip_export]
     .btn-group.downloads
       = icon('download-alt')
       /- %w(csv xls json).each do |format|
