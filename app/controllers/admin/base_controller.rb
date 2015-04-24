@@ -181,8 +181,15 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name)),
-     search: true, batch: true, hotkeys: true}
+    {
+        index_view: 'table',
+        sidebar: collection_action?,
+        well: (collection_action? || %w(show history).include?(action_name)),
+        search: true,
+        batch: true,
+        hotkeys: true,
+        list_dblclick: true
+    }
   end
 
   def action_items
@@ -313,6 +320,7 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.bg_color = current_user.bg_color
     fv.admin = admin?
     fv.hotkeys = settings[:hotkeys]
+    fv.list_dblclick = settings[:list_dblclick]
     fv.env = Rails.env
     if AbAdmin.test_env?
       fv.test = true
@@ -401,5 +409,4 @@ class Admin::BaseController < ::InheritedResources::Base
       {root: false}
     end
   end
-
 end
