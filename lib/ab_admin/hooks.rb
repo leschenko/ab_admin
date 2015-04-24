@@ -1,7 +1,7 @@
 #
 # ***** IMPORTANT *****
 #
-# This file contains some monkeypatching staff and is not required by default.
+# This file requires hook files with some monkeypatching staff and it is not required by default.
 # Please, read code and comments before usage.
 #
 Dir["#{File.dirname(__FILE__)}/hooks/*.rb"].sort.each do |path|

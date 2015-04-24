@@ -2,7 +2,6 @@ require 'devise'
 
 module AbAdmin
   module Devise
-
     def self.config
       {
         controllers: {
@@ -35,6 +34,5 @@ module AbAdmin
     class PasswordsController < ::Devise::PasswordsController
       include ::AbAdmin::Devise::Controller
     end
-
   end
 end
