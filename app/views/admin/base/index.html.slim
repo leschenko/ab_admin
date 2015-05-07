@@ -1,4 +1,3 @@
-/- if settings[:index_view] == 'table'
 = form_tag url_for(action: :batch), id: 'batch_action_form', class: 'pjax-form' do
   input name='batch_action' id='batch_action' type='hidden'
   = render 'admin/shared/content_actions'
@@ -14,6 +13,5 @@
         a.btn.per_page data-val=c href=url_for(params.merge(per_page: c)) class=('active' if c == collection.per_page) = c
 
 - if pjax? && flash.present?
-  - flash.each do |type, message|
-    = javascript_tag %[flash("#{j message}", "#{type}")]
+  script type='text/javascript' = render partial: 'admin/shared/flash', formats: :js, local_assigns: {flash: flash}
 
