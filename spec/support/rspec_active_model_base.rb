@@ -13,6 +13,7 @@ class RspecActiveModelBase
   self.base_class = self
 
   delegate :[], to: :attributes
+  alias_method :_read_attribute, :[]
 
   def initialize(attributes = {})
     @id = attributes[:id]
