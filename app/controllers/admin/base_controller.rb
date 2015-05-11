@@ -322,6 +322,10 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.hotkeys = settings[:hotkeys]
     fv.list_dblclick = settings[:list_dblclick]
     fv.env = Rails.env
+    if resource_class.respond_to?(:model_name)
+      fv.resource_plural = resource_class.model_name.plural
+      fv.resource_singular = resource_class.model_name.singular
+    end
     if AbAdmin.test_env?
       fv.test = true
       AbAdmin.test_settings.each { |k, v| fv[k] = v }
