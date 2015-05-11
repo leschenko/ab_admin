@@ -14,10 +14,19 @@ module AbAdmin
 
         <<-HTML.html_safe
       <li class="dropdown">
-        <a class="dropdown-toggle" href="#{@options[:url] || '#'}" >#{@title}<b class="caret"></b></a>
+        <a class="dropdown-toggle" href="#{@options[:url] || '#'}" >#{title(template)}<b class="caret"></b></a>
         <ul class="dropdown-menu">#{render_nested(template)}</ul>
       <li>
         HTML
+      end
+
+      private
+
+      def title(template)
+        return @title unless @options[:badge]
+        badge = call_method_or_proc_on(template, @options[:badge])
+        return @title if !badge || badge == 0
+        "#{@title}&nbsp;<span class='badge badge-#{@options[:badge_type] || 'important'}'>#{badge}</span>".html_safe
       end
     end
   end

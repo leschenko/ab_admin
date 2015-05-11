@@ -9,5 +9,5 @@ table.table.table-striped.table-bordered style='width: 1050px;'
       td= filename.to_s[/\w+/]
       td= link_to filename, edit_admin_locators_path(filename: filename)
 
-=' link_to t('admin.locators.prepare'), prepare_admin_locators_path, class: 'btn btn-warning', method: :post
-=' link_to t('admin.locators.restart'), reload_admin_locators_path, class: 'btn btn-primary', method: :post
+=> link_to t('admin.locators.prepare'), prepare_admin_locators_path, class: 'btn btn-warning', method: :post
+=> link_to t('admin.locators.restart'), reload_admin_locators_path, class: 'btn btn-primary', method: :post

@@ -37,3 +37,5 @@ class window.Locator
       text = $el.val().replace(/'/, '\'')
       $('#locale_data tr').hide()
       $("#locale_data td:nth-child(#{ind}):contains('#{text}')").parent().show()
+
+    $('.filter_field[value]').keyup()

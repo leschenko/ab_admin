@@ -1,7 +1,5 @@
 module AbAdmin
   class AbstractResource
-    #unloadable
-
     include Singleton
 
     unless self.const_defined?(:ACTIONS)
@@ -165,7 +163,5 @@ module AbAdmin
     def has_module?(module_constant)
       model.included_modules.include?(module_constant)
     end
-
   end
-
 end

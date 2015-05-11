@@ -9,7 +9,7 @@ describe AbAdmin::Concerns::AdminAddition do
 
     it 'return only new values' do
       @product.price = 200
-      expect(@product.new_changes).to eq({'price' => 200})
+      expect(@product.new_changes).to eq({'price' => '200'})
     end
 
     it 'omit translated attrs without locale suffix' do

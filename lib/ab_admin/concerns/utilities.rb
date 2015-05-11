@@ -20,7 +20,7 @@ module AbAdmin
         def full_truncate(with_destroy=true)
           destroy_all if with_destroy
           truncate!
-          const_get(:Translation).truncate! if respond_to?(:translates?) && translates?
+          const_get(:Translation).truncate! if try!(:translates?)
         end
 
         def all_ids
@@ -90,6 +90,7 @@ module AbAdmin
         end
 
         def all_columns_names
+          ActiveSupport::Deprecation.warn('#all_columns_names is deprecated without replacement')
           if translates?
             column_names + all_translated_attribute_names + translated_attribute_names.map(&:to_s)
           else

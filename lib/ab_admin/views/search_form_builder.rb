@@ -8,7 +8,7 @@ module AbAdmin
       def input(attr, options={})
         field_type = field_type(attr, options)
         content_tag :div, class: "clearfix #{field_type} #{options[:wrapper_class]}" do
-          send("#{field_type}_field", attr, options)
+          public_send("#{field_type}_field", attr, options)
         end
       end
 
@@ -89,17 +89,13 @@ module AbAdmin
       end
 
       def presence_field(attr, options={})
-        content_tag(:div, class: 'pull-left') do
-          content_tag(:label, class: 'checkbox inline') do
-            param = "#{attr}_present"
-            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
-          end +
-          content_tag(:label, class: 'checkbox inline') do
-            param = "#{attr}_null"
-            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline') + I18n.t('simple_form.no')
-          end
-        end + label(attr, options[:label], class: 'right-label')
+        yes_no_field(attr, {yes: %w(present 1), no: %w(present 0)}, options)
       end
+
+      def null_field(attr, options={})
+        yes_no_field(attr, {yes: %w(null 0), no: %w(null 1)}, options)
+      end
+
 
       def hidden_field(attr, options={})
         hidden_field_tag("q[#{attr}_eq]", options[:value], options)
@@ -119,7 +115,7 @@ module AbAdmin
         if input_type
           return :select if options[:collection]
           return :string if input_type == :text
-        elsif @object.klass.translates? && @object.klass.translated?(attr)
+        elsif @object.klass.try!(:translates?) && @object.klass.translated?(attr)
           options[:value_attr] = "translations_#{attr}"
           return :string
         elsif assoc = @object.klass.reflect_on_association(attr.to_sym)
@@ -136,6 +132,21 @@ module AbAdmin
           else
             input_type or raise "No available input type for #{attr}"
         end
+      end
+
+      private
+
+      def yes_no_field(attr, predicates, options={})
+        content_tag(:div, class: 'pull-left') do
+          content_tag(:label, class: 'checkbox inline') do
+            param = "#{attr}_#{predicates[:yes][0]}"
+            check_box_tag("q[#{param}]", predicates[:yes][1], params[:q][param] == predicates[:yes][1], class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
+          end +
+          content_tag(:label, class: 'checkbox inline') do
+            param = "#{attr}_#{predicates[:no][0]}"
+            check_box_tag("q[#{param}]", predicates[:no][1], params[:q][param] == predicates[:no][1], class: 'inline') + I18n.t('simple_form.no')
+          end
+        end + label(attr, options[:label], class: 'right-label')
       end
     end
   end

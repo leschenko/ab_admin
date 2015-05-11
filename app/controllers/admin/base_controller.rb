@@ -181,8 +181,15 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name)),
-     search: true, batch: true, hotkeys: true}
+    {
+        index_view: 'table',
+        sidebar: collection_action?,
+        well: (collection_action? || %w(show history).include?(action_name)),
+        search: true,
+        batch: true,
+        hotkeys: true,
+        list_dblclick: true
+    }
   end
 
   def action_items
@@ -248,7 +255,7 @@ class Admin::BaseController < ::InheritedResources::Base
   def collection
     @collection ||= begin
       result = search_collection
-      result = result.paginate(page: params[:page], per_page: per_page, large: true) unless action_name == 'batch'
+      result = result.paginate(page: params[:page], per_page: per_page, large: true) if action_name != 'batch' && !settings[:skip_pagination]
       result
     end
   end
@@ -313,7 +320,12 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.bg_color = current_user.bg_color
     fv.admin = admin?
     fv.hotkeys = settings[:hotkeys]
+    fv.list_dblclick = settings[:list_dblclick]
     fv.env = Rails.env
+    if resource_class.respond_to?(:model_name)
+      fv.resource_plural = resource_class.model_name.plural
+      fv.resource_singular = resource_class.model_name.singular
+    end
     if AbAdmin.test_env?
       fv.test = true
       AbAdmin.test_settings.each { |k, v| fv[k] = v }
@@ -401,5 +413,4 @@ class Admin::BaseController < ::InheritedResources::Base
       {root: false}
     end
   end
-
 end

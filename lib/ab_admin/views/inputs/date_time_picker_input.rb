@@ -2,8 +2,7 @@ module AbAdmin
   module Views
     module Inputs
       class DateTimePickerInput < ::SimpleForm::Inputs::Base
-
-        def input
+        def input(wrapper_options=nil)
           input_html_options[:value] ||= formated_value
           input_html_classes << input_type
           @builder.text_field(attribute_name, input_html_options)
@@ -38,7 +37,6 @@ module AbAdmin
               "#{attribute_name}_4i"
           end
         end
-
       end
     end
   end

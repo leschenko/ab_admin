@@ -24,10 +24,11 @@ module AbAdmin
       private
 
       def title(template)
-        return @title unless @options[:badge_counter]
-        badge_counter = call_method_or_proc_on(template, @options[:badge_counter])
-        return @title if !badge_counter || badge_counter.zero?
-        "#{@title}&nbsp;<span class='badge badge-#{@options[:badge_type] || 'important'}'>#{badge_counter}</span>".html_safe
+        ActiveSupport::Deprecation.warn('Menu item :badge_counter option is deprecated, use :badge instead') if @options[:badge_counter]
+        return @title unless @options[:badge]
+        badge = call_method_or_proc_on(template, @options[:badge])
+        return @title if !badge || badge == 0
+        "#{@title}&nbsp;<span class='badge badge-#{@options[:badge_type] || 'important'}'>#{badge}</span>".html_safe
       end
     end
   end

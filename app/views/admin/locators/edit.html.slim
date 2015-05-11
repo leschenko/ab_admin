@@ -20,9 +20,9 @@ table.table.table-bordered.table-striped
       th = locale_file.locale
       th = I18n.default_locale
     tr
-      - 3.times do
+      - [:key_contains, :edit_locale_contains, :main_locale_contains].each do |param|
         th
-          input.filter_field type='text' placeholder=t('admin.locators.filter')
+          input.filter_field type='text' value=params[param] placeholder=t('admin.locators.filter')
   = form_tag(admin_locators_path, method: :put) do
     tbody#locale_data
       = hidden_field_tag 'edit_locale_name', locale_file.locale

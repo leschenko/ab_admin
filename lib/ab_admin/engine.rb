@@ -30,7 +30,6 @@ module AbAdmin
         ActionController::Base.helper AbAdmin::Views::AdminNavigationHelpers
         ActionController::Base.helper AbAdmin::Views::ManagerHelpers
       end
-
     end
   end
 end
