@@ -10,7 +10,7 @@
   %>
   $('#<%= form_wrap_id %>').remove();
   $('#<%= el_id %>').after('<%= j html %>');
-  $('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
+  $('#<%= form_wrap_id %> td:first').attr('colspan', $('#<%= form_wrap_id %>').prev('tr').find('> td').length);
   $('#<%= form_wrap_id %> form').trigger('admin:form_init');
   $('#<%= el_id %>').scrollToEl();
 <% end %>
