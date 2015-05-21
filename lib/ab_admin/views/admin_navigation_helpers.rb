@@ -158,6 +158,17 @@ module AbAdmin
         end
       end
 
+      def item_index_actions_panel(item)
+        content = "#{item_index_actions(item)}#{capture{yield item} if block_given?}"
+        <<-HTML.html_safe
+          <td class="actions_panel">
+            <div class="actions_panel-wrap_outer">
+              <div class="actions_panel-wrap_inner">#{content}</div>
+            </div>
+          </td>
+        HTML
+      end
+
       def item_index_actions(item)
         actions = resource_action_items.map do |act|
           short_action_link(act, item)

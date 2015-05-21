@@ -22,6 +22,7 @@
       - collection.each do |item|
         tr id=dom_id(item, 'list') class=(table_builder.options[:row_class].call(item) if table_builder.options[:row_class])
           = batch_action_item(item)
+          = item_index_actions_panel(item)
           td= id_link(item, edit: is_edit_link)
           - table_builder.fields.each do |field|
             td
@@ -31,4 +32,3 @@
                 = item_image_link(item, assoc: field.name)
               - else
                 = admin_pretty_data call_method_or_proc_on(item, field.data)
-          td.actions= item_index_actions(item)
