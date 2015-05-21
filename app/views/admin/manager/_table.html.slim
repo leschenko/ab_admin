@@ -6,6 +6,7 @@
       tr.pjax_links
         = batch_action_toggle
         th= list_sort_link(:id)
+        th.actions_panel
         - table_builder.fields.each do |field|
           th class=('hide_cell' if field.options[:hidden])
             - if field.options[:sortable] && !field.options[:image]
@@ -16,14 +17,13 @@
                 = list_sort_link field.name, opts
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
-        th= t 'admin.table.actions'
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
         tr id=dom_id(item, 'list') class=(table_builder.options[:row_class].call(item) if table_builder.options[:row_class])
           = batch_action_item(item)
-          = item_index_actions_panel(item)
           td= id_link(item, edit: is_edit_link)
+          = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
             td
               - if field.options[:editable] && field.data.is_a?(Symbol)

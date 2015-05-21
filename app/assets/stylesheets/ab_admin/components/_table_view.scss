@@ -88,6 +88,9 @@ table.index_table {
   .actions_panel {
     width: 0px !important;
     vertical-align: bottom !important;
+    padding: 0;
+    margin: 0;
+    border: none;
     .actions_panel-wrap_outer {
       position: relative;
       top: 0px;
@@ -102,7 +105,7 @@ table.index_table {
       left: 100px;
       width: auto;
       height: 20px;
-      margin-top: 25px;
+      margin-top: 20px;
       padding: 5px 12px;
       background: #f6f6f6;
       border-radius: 0 0 10px 10px;
