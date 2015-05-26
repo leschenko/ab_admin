@@ -69,6 +69,11 @@ module AbAdmin
             end
             add_cond << "#{assoc.klass.quoted_table_name}.#{assoc.type} = '#{name}'" if assoc.type
             add_cond += assoc.klass.instance_exec(&assoc.scope).where_values.map(&:to_sql) if assoc.scope
+            if assoc.klass.default_scopes.present?
+              assoc.klass.default_scopes.each do |scope|
+                add_cond += assoc.klass.instance_exec(&scope.instance_variable_get(:@scope)).where_values.map(&:to_sql)
+              end
+            end
             count_klass = assoc_count.klass
             query = <<-SQL
                 UPDATE #{quoted_table_name} SET #{col} = (SELECT COUNT(#{count_klass.quoted_table_name}.id)
