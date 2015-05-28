@@ -134,8 +134,6 @@ module AbAdmin
         end
       end
 
-      private
-
       def yes_no_field(attr, predicates, options={})
         content_tag(:div, class: 'pull-left') do
           content_tag(:label, class: 'checkbox inline') do
