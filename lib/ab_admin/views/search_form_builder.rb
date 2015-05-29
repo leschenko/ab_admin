@@ -89,11 +89,11 @@ module AbAdmin
       end
 
       def presence_field(attr, options={})
-        yes_no_field(attr, {yes: %w(present 1), no: %w(present 0)}, options)
+        yes_no_field(attr, options.merge(predicates: {yes: %w(present 1), no: %w(present 0)}))
       end
 
       def null_field(attr, options={})
-        yes_no_field(attr, {yes: %w(null 0), no: %w(null 1)}, options)
+        yes_no_field(attr, options.merge(predicates: {yes: %w(null 0), no: %w(null 1)}))
       end
 
 
@@ -134,7 +134,8 @@ module AbAdmin
         end
       end
 
-      def yes_no_field(attr, predicates, options={})
+      def yes_no_field(attr, options={})
+        predicates = options[:predicates]
         content_tag(:div, class: 'pull-left') do
           content_tag(:label, class: 'checkbox inline') do
             param = "#{attr}_#{predicates[:yes][0]}"
