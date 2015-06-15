@@ -46,4 +46,4 @@ class window.CroppableImage
     @cropData['y'] = Math.ceil(@cropData['y'] * w_factor) if @cropData['y'] > 0
 
     @cropData['w'] = Math.ceil(@current_size['w'] * w_factor )
-    @cropData['h'] = Math.ceil(this.cropData['h'] * h_factor )
+    @cropData['h'] = Math.ceil(@cropData['h'] * h_factor )
