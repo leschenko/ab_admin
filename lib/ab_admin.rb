@@ -132,6 +132,8 @@ module AbAdmin
   mattr_accessor :site_name
   @@site_name = 'AbAdmin'
 
+  mattr_accessor :body_css_class
+
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
 
