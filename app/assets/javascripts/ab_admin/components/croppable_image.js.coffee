@@ -11,7 +11,7 @@ class window.CroppableImage
     @options.onSelect = @setCropData
     @options.onChange = @setCropData
     $img = $('.fancybox-image:first')
-    @options['trueSize'] = [$img[0].naturalWidth, $img[0].naturalHeight]
+    @options.trueSize = [$img[0].naturalWidth, $img[0].naturalHeight]
     $img.Jcrop @options
     $('.fancybox-nav').hide()
 
