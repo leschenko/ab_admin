@@ -1,5 +1,5 @@
 - if tmpl = admin_partial_name(table_builder)
-  = render tmpl
+  = render partial: tmpl, locals: local_assigns
 - else
   table.table.table-striped.index_table#list
     thead

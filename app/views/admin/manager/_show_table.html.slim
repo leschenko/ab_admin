@@ -1,5 +1,5 @@
 - if tmpl = admin_partial_name(show_builder)
-  = render tmpl
+  = render partial: tmpl, locals: local_assigns
 - else
   - show_builder.fields.each do |field|
     tr
