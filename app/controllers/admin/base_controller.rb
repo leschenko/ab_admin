@@ -236,7 +236,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def search_collection
     params[:q] ||= {}
-    params[:q][:s] ||= settings[:default_order] || 'id desc'
+    nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
+    params[:q][:s] ||= settings[:default_order] || ('id desc' unless nested)
     @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
     @search.result(distinct: true)
   end
