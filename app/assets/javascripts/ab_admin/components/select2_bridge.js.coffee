@@ -168,5 +168,12 @@ class window.Select2Bridge
             value = @el.closest(selectors[1] || 'html').find(selectors[0]).val()
             cond[kind_key][attr] = value if value
 
-    data = {q: term, class: @el.data('class'), token: true, page: page}
+    data =
+      q: term
+      class: @el.data('class')
+      token: true
+      page: page,
+      order: @el.data('order')
+      sort_mode: @el.data('sortMode')
+
     _.extend(data, cond)
