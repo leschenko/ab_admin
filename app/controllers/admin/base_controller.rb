@@ -94,11 +94,10 @@ class Admin::BaseController < ::InheritedResources::Base
     raise 'No ids specified for batch action' unless params[:by_ids].present?
     batch_action = params[:batch_action].to_sym
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
-      batch_action_collection_method = :"#{batch_action}_collection"
-      if resource_class.respond_to?(batch_action_collection_method)
+      if batch_action.to_s.end_with?('_collection')
         count = collection.size
-        resource_class.public_send(batch_action_collection_method, collection)
-        collection.each { |item| track_action!("batch_#{batch_action_collection_method}", item) } if settings[:history]
+        resource_class.public_send(batch_action, collection)
+        collection.each { |item| track_action!("batch_#{batch_action}", item) } if settings[:history]
       else
         count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
       end
