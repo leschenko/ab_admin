@@ -1,3 +1,4 @@
+require 'benchmark'
 class Admin::BaseController < ::InheritedResources::Base
   use Rack::Pjax, only: :index
 
@@ -95,14 +96,14 @@ class Admin::BaseController < ::InheritedResources::Base
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       batch_action_collection_method = :"#{batch_action}_collection"
       if resource_class.respond_to?(batch_action_collection_method)
-        @count = collection.size
+        count = collection.size
         resource_class.public_send(batch_action_collection_method, collection)
         collection.each { |item| track_action!("batch_#{batch_action_collection_method}", item) } if settings[:history]
       else
-        @count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
+        count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
       end
-      @batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
-      flash[:success] = I18n.t('admin.batch_actions.status', count: @count, action: @batch_action_name)
+      batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
+      flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action_name)
     else
       raise CanCan::AccessDenied
     end
