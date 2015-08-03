@@ -1,4 +1,3 @@
-require 'benchmark'
 class Admin::BaseController < ::InheritedResources::Base
   use Rack::Pjax, only: :index
 
