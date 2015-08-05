@@ -11,7 +11,6 @@ describe Admin::UsersController, type: :controller do
         expect(arg.map(&:id)).to match_array user_ids
       end
       allow(User).to receive_message_chain(:batch_actions, :include?).with(:destroy_collection) {true}
-      allow(User).to receive(:destroy_collection)
       get :batch, by_ids: user_ids, batch_action: 'destroy_collection'
     end
 
