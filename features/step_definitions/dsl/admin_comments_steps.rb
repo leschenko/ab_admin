@@ -27,6 +27,7 @@ Then(/^I should see "(.*?)" comment with attachment$/) do |comment|
 end
 
 When(/^I add admin comment "(.*?)" in the list$/) do |comment|
+  find("#list_product_#{@product.id}").hover
   find("#list_product_#{@product.id} .list_admin_comments_link").click
   within "#list_admin_comments_product_#{@product.id}" do
     fill_in 'admin_comment_body', with: comment

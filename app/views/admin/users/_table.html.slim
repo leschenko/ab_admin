@@ -3,6 +3,7 @@ table.table.table-striped.index_table#list
     tr.pjax_links
       = batch_action_toggle
       th= list_sort_link(:id)
+      th.actions_panel
       th= list_sort_link(:email)
       th= ha :avatar
       th= list_sort_link(:user_role_id)
@@ -11,12 +12,16 @@ table.table.table-striped.index_table#list
       th= list_sort_link(:phone)
       th= list_sort_link(:skype)
       th= list_sort_link(:created_at)
-      th=t 'admin.table.actions'
   tbody
     - collection.each do |item|
       tr
         = batch_action_item(item)
         td= id_link(item)
+        = item_index_actions_panel(item) do
+          - if item.active?
+            = link_to t('admin.actions.suspend.link'), suspend_admin_user_path(item), method: :post, class: 'btn btn-warning'
+          - else
+            = link_to icon('ok', true), activate_admin_user_path(item), method: :post, class: 'btn btn-success', title: t('admin.actions.activate.link')
         td= mail_to item.email
         td= item_image_link(item, assoc: :avatar)
         td= item.user_role_type.try(:title)
@@ -25,9 +30,3 @@ table.table.table-striped.index_table#list
         td= item.phone
         td= skype_link item.skype
         td= pretty_data item.created_at
-        td.actions
-          = item_index_actions(item)
-          - if item.active?
-            = link_to t('admin.actions.suspend.link'), suspend_admin_user_path(item), method: :post, class: 'btn btn-warning'
-          - else
-            = link_to icon('ok', true), activate_admin_user_path(item), method: :post, class: 'btn btn-success', title: t('admin.actions.activate.link')

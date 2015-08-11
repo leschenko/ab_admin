@@ -1,4 +1,4 @@
-@dsl @javascript
+@dsl @javascript @focus
 Feature: Editing records in the list
 
   Background:
@@ -13,7 +13,8 @@ Feature: Editing records in the list
     And I am on the admin products page
 
   Scenario: Saving record with valid attributes
-    Given I click "Edit"
+    Given I hover first item
+    And I click "Edit"
     Then I should be on the admin products page
     And I fill in "Sku" with "new_sofa" within "#list"
     And I submit form
@@ -21,6 +22,7 @@ Feature: Editing records in the list
     And I should not see "Save"
 
   Scenario: Saving record with invalid attributes
+    Given I hover first item
     Given I click "Edit"
     Then I should be on the admin products page
     And I fill in "Sku" with "" within "#list"
