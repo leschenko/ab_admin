@@ -370,11 +370,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def bind_current_user(*args)
-    resource.user_id = current_user.id if resource.respond_to?(:user_id)
+    resource.user_id = current_user.id if !settings[:skip_bind_current_user] && resource.respond_to?(:user_id)
   end
 
   def bind_current_updater(*args)
-    resource.updater_id = current_user.id if resource.respond_to?(:updater_id)
+    resource.updater_id = current_user.id if !settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
   end
 
   # roles logic
