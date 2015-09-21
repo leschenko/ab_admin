@@ -48,11 +48,20 @@ describe AbAdmin::Concerns::Utilities do
 
     it 'with assoc conditions' do
       collection = create(:collection)
-      2.times { create(:product, collection: collection, is_visible: false) }
-      2.times { create(:product, collection: collection, is_visible: true) }
+      create(:product, collection: collection, is_visible: false)
+      create(:product, collection: collection, is_visible: true)
       expect{
         Collection.update_counter_column(:visible_products_count, :visible_products)
-      }.to change{ collection.reload.visible_products_count }.from(0).to(2)
+      }.to change{ collection.reload.visible_products_count }.from(0).to(1)
+    end
+
+    it 'consider default scope' do
+      collection = create(:collection)
+      create(:product, collection: collection, is_visible: true)
+      create(:product, collection: collection, is_visible: true, is_deleted: true)
+      expect{
+        Collection.update_counter_column(:visible_products_count, :visible_products)
+      }.to change{ collection.reload.visible_products_count }.from(0).to(1)
     end
 
     context 'has_many through' do
@@ -74,5 +83,4 @@ describe AbAdmin::Concerns::Utilities do
       end
     end
   end
-
 end
