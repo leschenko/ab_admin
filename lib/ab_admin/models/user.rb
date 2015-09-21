@@ -32,7 +32,7 @@ module AbAdmin
       end
 
       def activate!
-        confirm! unless confirmed?
+        confirm unless confirmed?
         unlock_access! if access_locked?
       end
 
