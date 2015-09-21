@@ -41,5 +41,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
 
-  s.add_development_dependency 'mysql2'
+  s.add_development_dependency 'mysql2', '~> 0.3.19'
 end
