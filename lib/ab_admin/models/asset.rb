@@ -25,7 +25,7 @@ module AbAdmin
 
       module ClassMethods
         def move_to(index, id)
-          update_all(['sort_order = ?', index], ['id = ?', id.to_i])
+          where(id: id.to_i).update_all(sort_order: index)
         end
 
         def ext_list
@@ -90,7 +90,7 @@ module AbAdmin
       end
 
       def main!
-        self.class.update_all('is_main=0', ['assetable_type=? AND assetable_id=? AND type=?', assetable_type, assetable_id, type])
+        self.class.where(assetable_type: assetable_type, assetable_id: assetable_id, type: type).update_all(is_main: false)
         update_column(:is_main, true)
         refresh_assetable
         self
