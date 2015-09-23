@@ -4,10 +4,10 @@ describe Header do
   it 'don\'t allow html' do
     header = create(:header, title: 'test <b>html</b>', h1: 'test <b>html</b>', keywords: 'test <b>html</b>',
                     description: 'test <b>html</b>', seo_block: 'test html')
-    header.title.should == 'test html'
-    header.h1.should == 'test html'
-    header.keywords.should == 'test html'
-    header.description.should == 'test html'
-    header.seo_block.should == 'test html'
+    expect(header.title).to eq 'test html'
+    expect(header.h1).to eq 'test html'
+    expect(header.keywords).to eq 'test html'
+    expect(header.description).to eq 'test html'
+    expect(header.seo_block).to eq 'test html'
   end
 end

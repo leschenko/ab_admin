@@ -10,6 +10,7 @@ module AbAdmin
         options[:html][:class] ||= 'pjax-form'
         options[:builder] ||= ::AbAdmin::Views::SearchFormBuilder
         options[:method] ||= :get
+        options[:as] ||= 'q'
         form_for([:admin, object].flatten, *(args << options), &block)
       end
 
@@ -155,6 +156,17 @@ module AbAdmin
           per_page = (params[:per_page] || resource_class.per_page).to_i
           t('will_paginate.pagination_info', from: offset + 1, to: [offset + per_page, total_entries].min, count: total_entries).html_safe
         end
+      end
+
+      def item_index_actions_panel(item)
+        content = "#{item_index_actions(item)}#{capture{yield item} if block_given?}"
+        <<-HTML.html_safe
+          <td class="actions_panel">
+            <div class="actions_panel-wrap_outer">
+              <div class="actions_panel-wrap_inner">#{content}</div>
+            </div>
+          </td>
+        HTML
       end
 
       def item_index_actions(item)

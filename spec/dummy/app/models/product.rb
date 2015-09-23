@@ -28,6 +28,8 @@ class Product < ActiveRecord::Base
 
   #include AbAdmin::Concerns::HasTracking
 
+  default_scope -> { where(is_deleted: false) }
+
   def publish!
     update_column(:is_visible, true)
   end

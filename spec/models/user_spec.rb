@@ -37,13 +37,13 @@ describe User do
     end
 
     it 'search for managers' do
-      User.managers.should_not include(@user)
+      expect(User.managers).not_to include(@user)
       User.managers.should include(@moderator)
     end
 
     it 'search for active users' do
       User.active.should include(@user)
-      User.managers.should_not include(@inactive)
+      expect(User.managers).not_to include(@inactive)
     end
   end
 
@@ -63,70 +63,70 @@ describe User do
     end
 
     it '#title' do
-      @inactive.name.should == @inactive.email
-      @user.name.should == @user.full_name
+      expect(@inactive.name).to eq @inactive.email
+      expect(@user.name).to eq @user.full_name
     end
 
     it '#full_name' do
-      @user.full_name.should == "#{@user.first_name} #{@user.last_name}"
+      expect(@user.full_name).to eq "#{@user.first_name} #{@user.last_name}"
     end
 
     it 'set user defaults' do
-      @inactive.user_role_id.should == ::UserRoleType.default.id
-      @inactive.locale.should == 'ru'
-      @inactive.time_zone.should == 'Kiev'
+      expect(@inactive.user_role_id).to eq ::UserRoleType.default.id
+      expect(@inactive.locale).to eq 'ru'
+      expect(@inactive.time_zone).to eq 'Kiev'
     end
 
     it 'generate login' do
-      @inactive.login.should == 'test'
+      expect(@inactive.login).to eq 'test'
     end
 
     describe 'auth' do
       it '#generate_password!' do
         new_pass = @user.generate_password!
-        @user.valid_password?(new_pass).should be_truthy
+        expect(@user.valid_password?(new_pass)).to be_truthy
       end
 
       it 'activate user' do
         @inactive.activate!
-        @inactive.locked_at.should be_nil
+        expect(@inactive.locked_at).to be_nil
       end
 
       it 'activate! user' do
         @inactive.activate!
         @inactive.reload
-        @inactive.locked_at.should be_nil
-        @inactive.should be_confirmed
+        expect(@inactive.locked_at).to be_nil
+        expect(@inactive).to be_confirmed
       end
 
       it 'should set default role' do
         @inactive.reload
         @inactive.user_role_id = nil
         @inactive.save
-        @inactive.user_role_id.should == ::UserRoleType.default.id
+        expect(@inactive.user_role_id).to eq ::UserRoleType.default.id
       end
 
       it 'active for authentication' do
-        @user.should be_active_for_authentication
+        expect(@user).to be_active_for_authentication
       end
 
       it 'suspend user' do
         @user.suspend!
-        @user.locked_at.should_not be_blank
+        expect(@user.locked_at).not_to be_blank
       end
 
       describe 'roles' do
         it 'default' do
-          @user.should be_default
+          expect(@user).to be_default
         end
 
         it 'moderator' do
-          @moderator.should be_moderator
-          @admin.should be_moderator
+          expect(@moderator).to be_moderator
+          expect(@admin).to be_moderator
         end
 
         it 'admin' do
-          @admin.should be_admin
+          expect(@admin).to be_admin
         end
       end
     end

@@ -17,15 +17,15 @@ gem 'cancancan'
 gem 'protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
-gem 'simple_slug', '~> 0.1.0'
+gem 'simple_slug'
 gem 'awesome_nested_set'
-gem 'globalize', '~> 4.0.0'
+gem 'globalize', '~> 5.0.0'
 
 gem 'carrierwave'
 gem 'mini_magick'
 # 3.0 is broken -  creates new `configatron` instance in every namespace
 gem 'configatron', '~> 2.13'
-gem 'simple_form', '~> 3.0.2'
+gem 'simple_form'
 gem 'coffee-rails'
 gem 'sass-rails'
 gem 'uglifier'
@@ -71,8 +71,4 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
-end
-
-group :production do
-  gem 'puma'
 end

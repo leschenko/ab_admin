@@ -84,8 +84,52 @@ table.index_table {
   form.simple_form {
     margin: 0;
   }
+
+  .actions_panel {
+    width: 0px !important;
+    vertical-align: bottom !important;
+    padding: 0;
+    margin: 0;
+    border: none;
+    .actions_panel-wrap_outer {
+      position: relative;
+      top: 0px;
+      bottom: 0px;
+      height: 100%;
+      padding: 0 0 20px 0
+    }
+
+    .actions_panel-wrap_inner {
+      display: none;
+      position: absolute;
+      left: 100px;
+      width: auto;
+      height: 20px;
+      margin-top: 20px;
+      padding: 5px 12px;
+      background: #f6f6f6;
+      border-radius: 0 0 10px 10px;
+      box-shadow: 0 3px 5px #bbb;
+      border: #ccc 1px solid;
+      border-top: none;
+      z-index: 10;
+      text-align: center;
+      white-space: nowrap;
+      > * {
+        margin-top: -10px;
+      }
+      .hide_pane {
+        display: none;
+      }
+    }
+  }
+
+  tr:hover > td > .actions_panel-wrap_outer > .actions_panel-wrap_inner {
+    display: block;
+  }
 }
 
 #batch_action_form {
   margin-bottom: 10px;
 }
+

@@ -20,7 +20,7 @@ module AbAdmin
         def full_truncate(with_destroy=true)
           destroy_all if with_destroy
           truncate!
-          const_get(:Translation).truncate! if respond_to?(:translates?) && translates?
+          const_get(:Translation).truncate! if try!(:translates?)
         end
 
         def all_ids
@@ -68,12 +68,17 @@ module AbAdmin
               end
             end
             add_cond << "#{assoc.klass.quoted_table_name}.#{assoc.type} = '#{name}'" if assoc.type
-            add_cond += assoc.klass.instance_exec(&assoc.scope).where_values.map(&:to_sql) if assoc.scope
+            add_cond << assoc.klass.instance_exec(&assoc.scope).to_sql[/WHERE(.*?)(?:(?:ORDER|LIMIT).*)?$/, 1] if assoc.scope
+            if assoc.klass.default_scopes.present?
+              assoc.klass.default_scopes.each do |scope|
+                add_cond << scope.call.to_sql[/WHERE(.*?)(?:(?:ORDER|LIMIT).*)?$/, 1]
+              end
+            end
             count_klass = assoc_count.klass
             query = <<-SQL
                 UPDATE #{quoted_table_name} SET #{col} = (SELECT COUNT(#{count_klass.quoted_table_name}.id)
                   FROM #{count_klass.quoted_table_name} #{add_from}
-                  WHERE #{quoted_table_name}.id = #{count_klass.quoted_table_name}.#{assoc_count.foreign_key} AND #{add_cond.join(' AND ')})
+                  WHERE #{quoted_table_name}.id = #{count_klass.quoted_table_name}.#{assoc_count.foreign_key} AND #{add_cond.reject(&:blank?).join(' AND ')})
             SQL
             connection.execute(query)
           end
@@ -90,6 +95,7 @@ module AbAdmin
         end
 
         def all_columns_names
+          ActiveSupport::Deprecation.warn('#all_columns_names is deprecated without replacement')
           if translates?
             column_names + all_translated_attribute_names + translated_attribute_names.map(&:to_s)
           else

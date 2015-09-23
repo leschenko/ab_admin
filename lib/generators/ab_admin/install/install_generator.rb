@@ -21,10 +21,8 @@ module AbAdmin
 
         template('config/logrotate-config', 'config/logrotate-config')
         template('config/nginx.conf', 'config/nginx.conf')
-        template('script/unicorn.sh', 'script/unicorn.sh')
         template('config/settings.yml', 'config/settings/settings.yml')
         template('config/settings.yml', 'config/settings/settings.local.yml')
-        copy_file('config/unicorn/production.rb', 'config/unicorn/production.rb')
         copy_file('config/robots.txt', 'config/robots.txt')
         copy_file('gitignore', '.gitignore')
       end

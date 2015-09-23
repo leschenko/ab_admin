@@ -11,17 +11,17 @@ module AbAdmin
               file_type: 'image',
               container_id: "#{attribute_name}_#{object.fileupload_guid}",
               multiple: @assoc.collection?,
-              extensions: @assoc.klass.ext_list,
               max_size: @assoc.klass.try(:max_size),
               error: @builder.error(attribute_name)
           }
           @options.reverse_merge!(defaults)
+          @options[:extensions] = @assoc.klass.ext_list if @assoc.klass.ext_list
           @options[:sortable] = @options[:multiple] unless @options.has_key?(:sortable)
           @options[:asset_template] ||= @options[:file_type]
           @options[:container_class] = container_class
         end
 
-        def input
+        def input(wrapper_options=nil)
           title = options[:title] || object.class.han(attribute_name)
           template.capture do
             if @options[:unwrapped]

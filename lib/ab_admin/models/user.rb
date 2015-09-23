@@ -32,7 +32,7 @@ module AbAdmin
       end
 
       def activate!
-        confirm! unless confirmed?
+        confirm unless confirmed?
         unlock_access! if access_locked?
       end
 
@@ -47,16 +47,20 @@ module AbAdmin
         raw_password
       end
 
-      def moderator?
-        has_role?(:admin) || has_role?(:moderator)
-      end
-
       def admin_access?
         moderator?
       end
 
       def default?
         has_role?(:default)
+      end
+
+      def redactor?
+        has_role?(:redactor)
+      end
+
+      def moderator?
+        has_role?(:admin) || has_role?(:moderator)
       end
 
       def admin?

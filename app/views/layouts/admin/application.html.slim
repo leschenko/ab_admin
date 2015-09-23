@@ -9,7 +9,7 @@ html id="controller_#{controller_name}"
     = javascript_include_tag 'ab_admin/application'
     = csrf_meta_tags
     = yield(:head)
-  body id="action_#{action_name}" class="resource_#{resource_collection_name}"
+  body id="action_#{action_name}" class="resource_#{resource_collection_name} #{AbAdmin.body_css_class}"
     #wrap
       = render 'layouts/admin/navigation'
       #main role="main"

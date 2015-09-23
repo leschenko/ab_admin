@@ -132,6 +132,8 @@ module AbAdmin
   mattr_accessor :site_name
   @@site_name = 'AbAdmin'
 
+  mattr_accessor :body_css_class
+
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
 
@@ -163,6 +165,19 @@ module AbAdmin
   @@uploads_dir = 'uploads'
 
   mattr_accessor :base_url
+
+  mattr_accessor :default_per_page
+  @@default_per_page = 50
+
+  mattr_accessor :view_default_per_page
+  @@view_default_per_page = Hash.new { AbAdmin.default_per_page }
+  @@view_default_per_page[:tree] = 1000
+
+  mattr_accessor :max_per_page
+  @@max_per_page = Float::INFINITY
+
+  mattr_accessor :per_page_variants
+  @@per_page_variants = [50, 100, 500, 1000]
 
   extend Utils
 

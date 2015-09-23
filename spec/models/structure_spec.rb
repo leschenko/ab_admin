@@ -39,29 +39,29 @@ describe Structure do
     end
 
     it 'set parent model' do
-      @structure.parent.should == @root
+      expect(@structure.parent).to eq @root
     end
 
     it 'moveable' do
-      @structure.should be_moveable
+      expect(@structure).to be_moveable
     end
 
     it 'not moveable if root' do
-      @root.should_not be_moveable
+      expect(@root).not_to be_moveable
     end
 
     it 'moveable if new record' do
-      Structure.new.should be_moveable
+      expect(Structure.new).to be_moveable
     end
 
     it 'return deep parent' do
       child = build(:structure_page, parent: @structure)
-      child.deep_parent.should == @root
+      expect(child.deep_parent).to eq @root
     end
 
     it 'count descendants' do
-      @structure.descendants_count.should == 0
-      @root.descendants_count.should == 1
+      expect(@structure.descendants_count).to eq 0
+      expect(@root.descendants_count).to eq 1
     end
   end
 

@@ -1,11 +1,12 @@
 - if tmpl = admin_partial_name(table_builder)
-  = render tmpl
+  = render partial: tmpl, locals: local_assigns
 - else
   table.table.table-striped.index_table#list
     thead
       tr.pjax_links
         = batch_action_toggle
         th= list_sort_link(:id)
+        th.actions_panel
         - table_builder.fields.each do |field|
           th class=('hide_cell' if field.options[:hidden])
             - if field.options[:sortable] && !field.options[:image]
@@ -16,13 +17,13 @@
                 = list_sort_link field.name, opts
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
-        th=t 'admin.table.actions'
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
-        tr id=dom_id(item, 'list')
+        tr id=dom_id(item, 'list') class=(table_builder.options[:row_class].call(item) if table_builder.options[:row_class])
           = batch_action_item(item)
           td= id_link(item, edit: is_edit_link)
+          = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
             td
               - if field.options[:editable] && field.data.is_a?(Symbol)
@@ -31,4 +32,3 @@
                 = item_image_link(item, assoc: field.name)
               - else
                 = admin_pretty_data call_method_or_proc_on(item, field.data)
-          td.actions= item_index_actions(item)

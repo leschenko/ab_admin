@@ -2,7 +2,7 @@
   .span5
     strong
       - if comment.user_id
-        =' link_to comment.user_name, admin_user_path(id: comment.user_id), target: '_blank'
+        => link_to comment.user_name, admin_user_path(id: comment.user_id), target: '_blank'
     div.muted= l(comment.created_at, format: :long)
     div= comment.body
 

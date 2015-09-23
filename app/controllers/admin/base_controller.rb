@@ -21,7 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -93,7 +93,13 @@ class Admin::BaseController < ::InheritedResources::Base
     raise 'No ids specified for batch action' unless params[:by_ids].present?
     batch_action = params[:batch_action].to_sym
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
-      count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
+      if batch_action.to_s.end_with?('_collection')
+        count = collection.size
+        resource_class.public_send(batch_action, collection)
+        collection.each { |item| track_action!("batch_#{batch_action}", item) } if settings[:history]
+      else
+        count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
+      end
       batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
       flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action_name)
     else
@@ -181,8 +187,15 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {index_view: 'table', sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name)),
-     search: true, batch: true, hotkeys: true}
+    {
+        index_view: 'table',
+        sidebar: collection_action?,
+        well: (collection_action? || %w(show history).include?(action_name)),
+        search: true,
+        batch: true,
+        hotkeys: true,
+        list_dblclick: true
+    }
   end
 
   def action_items
@@ -240,22 +253,27 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def search_collection
     params[:q] ||= {}
-    params[:q][:s] ||= settings[:default_order] || 'id desc'
+    nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
+    params[:q][:s] ||= settings[:default_order] || ('id desc' unless nested)
     @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
-    @search.result(distinct: true)
+    @search.result(distinct: @search.object.joins_values.present?)
   end
 
   def collection
-    @collection ||= search_collection.paginate(page: params[:page], per_page: per_page, large: true)
+    @collection ||= begin
+      result = search_collection
+      result = result.paginate(page: params[:page], per_page: per_page, large: true) if action_name != 'batch' && !settings[:skip_pagination]
+      result
+    end
   end
 
   def per_page
-    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i
-    if request_per_page.zero?
-      params[:per_page] = current_index_view == 'tree' ? 1000 : 50
-    else
-      params[:per_page] = request_per_page
-    end
+    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?
+    params[:per_page] = [request_per_page || AbAdmin.view_default_per_page[current_index_view.to_sym], max_per_page].min
+  end
+
+  def max_per_page
+    settings[:max_per_page] || AbAdmin.max_per_page
   end
 
   def set_layout
@@ -309,7 +327,12 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.bg_color = current_user.bg_color
     fv.admin = admin?
     fv.hotkeys = settings[:hotkeys]
+    fv.list_dblclick = settings[:list_dblclick]
     fv.env = Rails.env
+    if resource_class.respond_to?(:model_name)
+      fv.resource_plural = resource_class.model_name.plural
+      fv.resource_singular = resource_class.model_name.singular
+    end
     if AbAdmin.test_env?
       fv.test = true
       AbAdmin.test_settings.each { |k, v| fv[k] = v }
@@ -347,11 +370,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def bind_current_user(*args)
-    resource.user_id = current_user.id if resource.respond_to?(:user_id)
+    resource.user_id = current_user.id if !settings[:skip_bind_current_user] && resource.respond_to?(:user_id)
   end
 
   def bind_current_updater(*args)
-    resource.updater_id = current_user.id if resource.respond_to?(:updater_id)
+    resource.updater_id = current_user.id if !settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
   end
 
   # roles logic
@@ -397,5 +420,4 @@ class Admin::BaseController < ::InheritedResources::Base
       {root: false}
     end
   end
-
 end

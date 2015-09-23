@@ -12,7 +12,7 @@
     .btn-group.pjax_links
       - button_scopes.each do |name, opts|
         - active = params[opts[:as]]
-        a.btn href=url_for(opts[:as] => (active ? nil : 1)) class=('active' if active) = t "admin.scopes.#{name}"
+        a.btn href=url_for(opts[:as] => (active ? nil : 1)) class=('active' if active) = t "admin.scopes.#{name}", default: name
 
   a.btn.pull-left#columns_hider_show href="#columns_hider" data-toggle='modal' = t 'admin.columns_hider.button'
 
@@ -25,7 +25,7 @@
       - normalized_index_views.each do |index_view|
         = index_view_link(index_view)
 
-  - if can? :export, resource_class
+  - if can?(:export, resource_class) && !settings[:skip_export]
     .btn-group.downloads
       = icon('download-alt')
       /- %w(csv xls json).each do |format|

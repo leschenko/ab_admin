@@ -21,3 +21,7 @@ Given /^I see search form with "(.*?)" filters$/ do |filters|
     step %{I see search form with "#{filter}" filter}
   end
 end
+
+Given(/^I hover first item$/) do
+  all('#list tr td').first.hover
+end

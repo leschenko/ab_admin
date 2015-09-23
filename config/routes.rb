@@ -33,24 +33,24 @@ Rails.application.routes.draw do
 
     post 'translate' => AbAdmin::I18nTools::TranslateApp
 
-    controller 'manager' do
+    controller 'manager', constraints: {format: /(html|js|json|xml|csv|xls|xlsx)/} do
       scope '(/:parent_resource/:parent_resource_id)/:model_name' do
-        get '/new', to: :new, as: 'new'
-        post '/batch', to: :batch, as: 'batch'
-        post '/rebuild', to: :rebuild, as: 'rebuild'
-        match '/custom_action', to: :custom_action, as: 'collection_action', via: :all
+        get '/new', action: :new, as: 'new'
+        post '/batch', action: :batch, as: 'batch'
+        post '/rebuild', action: :rebuild, as: 'rebuild'
+        match '/custom_action', action: :custom_action, as: 'collection_action', via: :all
 
         scope ':id' do
-          get '/edit', to: :edit, as: 'edit'
-          get '/history', to: :history, as: 'history'
-          match '/custom_action', to: :custom_action, as: 'member_action', via: :all
-          get '/', to: :show, as: 'show'
-          patch '/', to: :update, as: 'update'
-          delete '/', to: :destroy, as: 'destroy'
+          get '/edit', action: :edit, as: 'edit'
+          get '/history', action: :history, as: 'history'
+          match '/custom_action', action: :custom_action, as: 'member_action', via: :all
+          get '/', action: :show, as: 'show'
+          patch '/', action: :update, as: 'update'
+          delete '/', action: :destroy, as: 'destroy'
         end
 
-        get '/', to: :index, as: 'index'
-        post '/', to: :create, as: 'create'
+        get '/', action: :index, as: 'index'
+        post '/', action: :create, as: 'create'
       end
     end
 

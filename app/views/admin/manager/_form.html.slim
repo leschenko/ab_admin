@@ -1,5 +1,5 @@
 - if tmpl = admin_partial_name(form_builder)
-  = render tmpl
+  = render partial: tmpl, locals: local_assigns
 - else
   = admin_form_for resource do |f|
     - form_builder.fields.each do |node|

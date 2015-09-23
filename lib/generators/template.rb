@@ -4,19 +4,17 @@ gem 'slim'
 gem 'inherited_resources'
 gem 'has_scope'
 gem 'rack-pjax'
-#gem 'ransack', github: 'activerecord-hackery/ransack', branch: 'rails-4.1'
-#gem 'polyamorous', github: 'activerecord-hackery/polyamorous', branch: 'rails-4.1'
 
 gem 'devise'
 gem 'devise-encryptable'
-gem 'cancancan', '~> 1.7'
+gem 'cancancan'
 
 gem 'protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
 gem 'awesome_nested_set'
-gem 'globalize', '~> 4.0.0'
+gem 'globalize', '~> 5.0.0'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -35,7 +33,6 @@ gem 'ruby-progressbar'
 gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'nested_form', '~> 0.2.2'
-gem 'puma', require: false
 
 gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'master'
 
@@ -52,7 +49,6 @@ if gem_adds
   gem 'dalli'
   gem 'exception_notification'
   gem 'redis-actionpack'
-  gem 'activevalidators', '~> 1.9.0'
 
   gem_group :development, :test do
     gem 'quiet_assets'

@@ -19,13 +19,13 @@ FactoryGirl.find_definitions
 
 Capybara.configure do |config|
   config.default_selector = :css
-  config.default_wait_time = 5
+  config.default_max_wait_time = 5
   config.exact_options = true
   config.ignore_hidden_elements = false
   config.visible_text_only = true
 end
 
-BCrypt::Engine::DEFAULT_COST = 1
+# BCrypt::Engine::DEFAULT_COST = 1
 
 require File.join(SPEC_PATH, 'support/shared_connection')
 
