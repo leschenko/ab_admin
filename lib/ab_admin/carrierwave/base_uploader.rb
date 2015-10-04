@@ -101,6 +101,10 @@ module AbAdmin
 
       private :write_internal_identifier, :store_filename, :model_filename
 
+      def rmagick_included?
+        self.class.included_modules.map(&:to_s).include?('CarrierWave::RMagick')
+      end
+
       # prevent large number of subdirectories
       def store_dir
         str_id = model.id.to_s.rjust(4, '0')
@@ -141,7 +145,7 @@ module AbAdmin
 
         unless degrees.blank?
           manipulate! do |img|
-            img.rotate(degrees.to_s)
+            rmagick_included? ? img.rotate!(degrees.to_i) : img.rotate(degrees.to_s)
             img = yield(img) if block_given?
             img
           end
