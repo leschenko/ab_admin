@@ -91,7 +91,11 @@ module AbAdmin
       end
 
       def main!
-        self.class.where(assetable_type: assetable_type, assetable_id: assetable_id, type: type).update_all(is_main: false)
+        cond = {assetable_type: assetable_type, type: type}
+        if assetable_id.to_i.nonzero? || guid.presence
+          cond.merge!(assetable_id.to_i.zero? ? {guid: guid} : {assetable_id: assetable_id})
+          self.class.where(cond).update_all(is_main: false)
+        end
         update_column(:is_main, true)
         refresh_assetable
         self
