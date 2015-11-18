@@ -145,10 +145,15 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def batch_action_list
     self.class.batch_action_list ||= begin
-      resource_class.batch_actions.map do |a|
-        opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
-        AbAdmin::Config::BatchAction.new(a, opts)
+      list =
+        resource_class.batch_actions.map do |a|
+          opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
+          AbAdmin::Config::BatchAction.new(a, opts)
+        end
+      resource_class.complex_batch_actions.each do |name, opts|
+        list << AbAdmin::Config::BatchAction.new(name, opts)
       end
+      list
     end
   end
 

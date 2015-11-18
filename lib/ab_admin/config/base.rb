@@ -110,11 +110,14 @@ module AbAdmin
     end
 
     class BatchAction
-      attr_reader :name, :options, :data, :title
+      attr_reader :name, :options, :data, :title, :form
 
       def initialize(name, options={}, &block)
         @name = name
         @options = options
+        if options.has_key?(:form)
+          @form = options[:form].is_a?(String) ? options[:form] : "##{name}_batch_form"
+        end
         @title = options[:title] || I18n.t("admin.actions.batch_#{name}.link")
         @data = block_given? ? block : name.to_sym
       end

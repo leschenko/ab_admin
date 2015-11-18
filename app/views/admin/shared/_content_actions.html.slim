@@ -7,7 +7,13 @@
       ul.dropdown-menu
         - batch_action_list.each do |batch_action|
           li
-            a.batch_action_link href='#' data-action=batch_action.name data-confirm=batch_action.confirm = batch_action.title
+            a.batch_action_link(
+              href='#'
+              data-form=batch_action.form
+              data-action=batch_action.name
+              data-confirm=batch_action.confirm
+            )
+              = batch_action.title
   - unless button_scopes.blank?
     .btn-group.pjax_links
       - button_scopes.each do |name, opts|
