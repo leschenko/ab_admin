@@ -40,7 +40,9 @@ module AbAdmin
 
     class Export < BaseBuilder
       def render_options
-        {column_names: fields.map(&:name), column_data: fields.map(&:data), column_separator: options[:column_separator]}
+        {column_names: fields.map(&:name), column_data: fields.map(&:data),
+         column_separator: options[:column_separator], worksheet_name: options[:worksheet_name],
+         filename: options[:filename]}
       end
     end
 
