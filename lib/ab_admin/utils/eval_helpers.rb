@@ -88,7 +88,7 @@ module AbAdmin
         exec = options[:exec].nil? ? true : options[:exec]
         case symbol_or_proc
           when Symbol, String
-            obj.send(symbol_or_proc.to_sym)
+            obj.send(symbol_or_proc.to_sym, *options[:attrs])
           when Proc
             if exec
               obj.instance_exec(&symbol_or_proc)

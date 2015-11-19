@@ -95,10 +95,10 @@ class Admin::BaseController < ::InheritedResources::Base
     if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
       if batch_action.to_s.end_with?('_collection')
         count = collection.size
-        resource_class.public_send(batch_action, collection)
+        resource_class.public_send(batch_action, collection, *[params[:batch_params]].compact)
         collection.each { |item| track_action!("batch_#{batch_action}", item) } if settings[:history]
       else
-        count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action) ? c + 1 : c }
+        count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action, *[params[:batch_params]].compact) ? c + 1 : c }
       end
       batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
       flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action_name)
@@ -121,14 +121,14 @@ class Admin::BaseController < ::InheritedResources::Base
     options
   end
 
-  def apply_batch_action(item, batch_action)
-    success = item.send(batch_action)
+  def apply_batch_action(item, batch_action, batch_params = nil)
+    success = item.send(batch_action, *batch_params)
     track_action!("batch_#{batch_action}", item) if settings[:history]
     success
   end
 
   def allow_batch_action?(batch_action)
-    resource_class.batch_actions.include?(batch_action)
+    batch_action_list.detect { |a| a.name == batch_action }
   end
 
   def redirect_to_back_or_root
@@ -150,7 +150,7 @@ class Admin::BaseController < ::InheritedResources::Base
           opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
           AbAdmin::Config::BatchAction.new(a, opts)
         end
-      resource_class.complex_batch_actions.each do |name, opts|
+      Array(resource_class.complex_batch_actions).each do |name, opts|
         list << AbAdmin::Config::BatchAction.new(name, opts)
       end
       list
