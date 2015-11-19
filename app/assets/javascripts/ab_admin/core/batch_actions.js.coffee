@@ -20,7 +20,6 @@ $ ->
 
     submitBatch = (el, $extraData = null) ->
       return unless batchIds().length
-      # debugger
       $el = $(el)
       action = $el.data('action')
       $('#batch_action').val(action)
