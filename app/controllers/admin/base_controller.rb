@@ -150,7 +150,7 @@ class Admin::BaseController < ::InheritedResources::Base
           opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
           AbAdmin::Config::BatchAction.new(a, opts)
         end
-      Array(resource_class.complex_batch_actions).each do |name, opts|
+      Hash(resource_class.complex_batch_actions).each do |name, opts|
         list << AbAdmin::Config::BatchAction.new(name, opts)
       end
       list
