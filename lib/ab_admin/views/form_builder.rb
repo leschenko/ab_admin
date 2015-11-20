@@ -68,12 +68,13 @@ module AbAdmin
         link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), class: 'btn btn-danger btn-mini pull-right'
       end
 
-      def locale_tabs(&block)
-        loc_html = {}
-        Globalize.available_locales.each do |l|
-          loc_html[l] = template.capture { block.call(l) }
+      def locale_tabs(options={}, &block)
+        locale_html = {}
+        options[:locales] ||= Globalize.available_locales
+        options[:locales].each do |l|
+          locale_html[l] = template.capture { block.call(l) }
         end
-        template.render 'admin/shared/locale_tabs', loc_html: loc_html
+        template.render 'admin/shared/locale_tabs', locale_html: locale_html, locales: options[:locales]
       end
 
       def save_buttons

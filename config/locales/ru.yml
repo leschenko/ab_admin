@@ -110,6 +110,7 @@ ru:
     form:
       cancel: Отмена
       save: Сохранить
+      saving: Сохранение
       save_and_add_another: Сохранить & новый
       save_and_edit: Сохранить & редактировать
       save_and_edit_next: Сохранить и след.
