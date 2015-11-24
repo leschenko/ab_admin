@@ -1,9 +1,9 @@
 class window.Select2Bridge
-  constructor: (@el) ->
+  constructor: (@el, init = true) ->
     return if fv.test && !fv.enable_fancy_select
     @el.prop('required', null)
     @modal = $('#modal_form')
-    @el.select2 @buildOptions()
+    @el.select2(@buildOptions()) if init
     @initHandlers()
     @initSortable() if @el.data('sortable')
 
