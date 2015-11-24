@@ -17,6 +17,14 @@ When /^I choose batch action "(.*?)"$/ do |action|
   find('.dropdown-menu a', text: action).click
 end
 
+When /^I set zoom (\d+)/ do |zoom|
+  fill_in 'batch_params_zoom', with: zoom
+end
+
+When /^I submit batch action form/ do
+  find('.js-batch_form_submit').click
+end
+
 Then /^I should see (\d+) item in the list$/ do |n|
   all('#list tbody tr').count.should == n.to_i
 end
@@ -24,4 +32,9 @@ end
 Then /^I should see (\d+) published item in the list$/ do |n|
   all('#list .badge-success').count.should == n.to_i
 end
+
+Then /^I should see (\d+) items in the list with zoom (\d+)$/ do |items_count, zoom|
+  expect(page).to have_selector('#list tr td:nth-child(9)', text: zoom, count: items_count)
+end
+
 

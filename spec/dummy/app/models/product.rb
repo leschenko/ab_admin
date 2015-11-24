@@ -38,4 +38,8 @@ class Product < ActiveRecord::Base
     update_column(:is_visible, false)
   end
 
+  def set_zoom(batch_params)
+    update_column(:zoom, batch_params[:zoom])
+  end
+
 end
