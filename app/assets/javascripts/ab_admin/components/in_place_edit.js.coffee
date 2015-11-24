@@ -42,3 +42,9 @@ $(document).on 'admin:init', (e) ->
         withCredentials: true
       headers:
         Accept: 'application/json'
+$ ->
+  _.each $('.editable'), (el) ->
+    $el = $(el)
+    return unless $el.data('type') == 'select2'
+    options = new window.Select2Bridge($el, false).buildOptions()
+    $el.data('select2', options)
