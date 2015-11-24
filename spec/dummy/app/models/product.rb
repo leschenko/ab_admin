@@ -30,6 +30,10 @@ class Product < ActiveRecord::Base
 
   default_scope -> { where(is_deleted: false) }
 
+  def self.un_publish_collection(collection)
+    collection.update_all(is_visible: false)
+  end
+
   def publish!
     update_column(:is_visible, true)
   end

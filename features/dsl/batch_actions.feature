@@ -67,6 +67,20 @@ Feature: Batch actions
     Then I should be on the admin products page
     And I should see 1 published item in the list
 
+  Scenario: Custom collection batch action
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        batch_action :un_publish_collection, title: 'Un Publish'
+      end
+      """
+    And I am on the admin products page
+    When I check 3 products in the list
+    And I choose batch action "Un Publish"
+    Then I should be on the admin products page
+    And I should see 0 published item in the list
+
+
   Scenario: Custom batch action with batch_params
     Given a configuration of:
       """
