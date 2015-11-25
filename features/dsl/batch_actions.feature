@@ -110,8 +110,8 @@ Feature: Batch actions
     When I check 2 products in the list
     And I choose batch action "Set zoom"
     Then I should see fancybox with set_zoom_batch_form
-    And I set zoom 15
+    And I set zoom 20
     And I submit batch action form
     Then I should be on the admin products page
-    And I should see 2 items in the list with zoom 15
+    And I should see 2 items in the list with zoom 20
 

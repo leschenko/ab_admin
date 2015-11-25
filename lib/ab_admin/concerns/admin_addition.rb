@@ -9,7 +9,6 @@ module AbAdmin
         scope :by_ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) } unless respond_to?(:by_ids)
 
         class_attribute :batch_actions, instance_writer: false
-        class_attribute :complex_batch_actions, instance_writer: false
         self.batch_actions = [:destroy]
       end
 

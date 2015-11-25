@@ -121,7 +121,7 @@ class Admin::BaseController < ::InheritedResources::Base
     options
   end
 
-  def apply_batch_action(item, batch_action, batch_params = nil)
+  def apply_batch_action(item, batch_action, *batch_params)
     success = item.send(batch_action, *batch_params)
     track_action!("batch_#{batch_action}", item) if settings[:history]
     success
@@ -145,15 +145,14 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def batch_action_list
     self.class.batch_action_list ||= begin
-      list =
-        resource_class.batch_actions.map do |a|
-          opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
-          AbAdmin::Config::BatchAction.new(a, opts)
+      resource_class.batch_actions.map do |a|
+        opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
+        if a.is_a?(Hash)
+          opts.merge!(a.except(:name))
+          a = a[:name]
         end
-      Hash(resource_class.complex_batch_actions).each do |name, opts|
-        list << AbAdmin::Config::BatchAction.new(name, opts)
+        AbAdmin::Config::BatchAction.new(a, opts)
       end
-      list
     end
   end
 
