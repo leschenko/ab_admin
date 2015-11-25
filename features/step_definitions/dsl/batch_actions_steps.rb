@@ -33,6 +33,10 @@ Then /^I should see (\d+) published item in the list$/ do |n|
   all('#list .badge-success').count.should == n.to_i
 end
 
+Then /^I should see fancybox with set_zoom_batch_form$/ do
+  expect(page).to have_selector('.fancybox-inner #set_zoom_batch_form')
+end
+
 Then /^I should see (\d+) items in the list with zoom (\d+)$/ do |items_count, zoom|
   expect(page).to have_selector('#list tr td:nth-child(9)', text: zoom, count: items_count)
 end

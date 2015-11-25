@@ -46,4 +46,8 @@ class Product < ActiveRecord::Base
     update_column(:zoom, batch_params[:zoom])
   end
 
+  def self.set_zoom_collection(collection, batch_params)
+    collection.update_all(zoom: batch_params[:zoom])
+  end
+
 end
