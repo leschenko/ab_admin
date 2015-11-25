@@ -68,9 +68,9 @@ class ::Admin::ManagerController < ::Admin::BaseController
     manager.default_action_items_for(action_name.to_sym, for_resource) + manager.action_items_for(action_name.to_sym)
   end
 
-  def apply_batch_action(item, batch_action, batch_params = nil)
+  def apply_batch_action(item, batch_action, *batch_params)
     data = manager.batch_action_list.detect{|a| a.name == batch_action }.data
-    success = call_method_or_proc_on item,  data, exec: false, attrs: [batch_params].compact
+    success = call_method_or_proc_on item,  data, exec: false, attrs: batch_params
     track_action!("batch_#{batch_action}", item) if settings[:history]
     success
   end
