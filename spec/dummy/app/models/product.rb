@@ -30,12 +30,24 @@ class Product < ActiveRecord::Base
 
   default_scope -> { where(is_deleted: false) }
 
+  def self.un_publish_collection(collection)
+    collection.update_all(is_visible: false)
+  end
+
   def publish!
     update_column(:is_visible, true)
   end
 
   def un_publish!
     update_column(:is_visible, false)
+  end
+
+  def set_zoom(batch_params)
+    update_column(:zoom, batch_params[:zoom])
+  end
+
+  def self.set_zoom_collection(collection, batch_params)
+    collection.update_all(zoom: batch_params[:zoom])
   end
 
 end

@@ -67,3 +67,51 @@ Feature: Batch actions
     Then I should be on the admin products page
     And I should see 1 published item in the list
 
+  Scenario: Custom collection batch action
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        batch_action :un_publish_collection, title: 'Un Publish'
+      end
+      """
+    And I am on the admin products page
+    When I check 3 products in the list
+    And I choose batch action "Un Publish"
+    Then I should be on the admin products page
+    And I should see 0 published item in the list
+
+
+  Scenario: Custom batch action with batch_params
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        batch_action :set_zoom, title: 'Set zoom', form: true
+        table partial: 'table_with_set_zoom_batch_form'
+      end
+      """
+    And I am on the admin products page
+    When I check 2 products in the list
+    And I choose batch action "Set zoom"
+    Then I should see fancybox with set_zoom_batch_form
+    And I set zoom 15
+    And I submit batch action form
+    Then I should be on the admin products page
+    And I should see 2 items in the list with zoom 15
+
+  Scenario: Custom batch action with batch_params as collection
+    Given a configuration of:
+      """
+      class AbAdminProduct < AbAdmin::AbstractResource
+        batch_action :set_zoom_collection, title: 'Set zoom', form: '#set_zoom_batch_form'
+        table partial: 'table_with_set_zoom_batch_form'
+      end
+      """
+    And I am on the admin products page
+    When I check 2 products in the list
+    And I choose batch action "Set zoom"
+    Then I should see fancybox with set_zoom_batch_form
+    And I set zoom 20
+    And I submit batch action form
+    Then I should be on the admin products page
+    And I should see 2 items in the list with zoom 20
+
