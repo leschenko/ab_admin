@@ -6,12 +6,16 @@ describe Admin::UsersController, type: :controller do
     let(:users) { create_list(:user, 3) }
 
     it 'collection batch action' do
+      User.batch_actions = User.batch_actions + [:destroy_collection]
       user_ids = users.map(&:id)
       expect(User).to receive(:destroy_collection) do |arg|
         expect(arg.map(&:id)).to match_array user_ids
       end
-      allow(User).to receive_message_chain(:batch_actions, :include?).with(:destroy_collection) {true}
       get :batch, by_ids: user_ids, batch_action: 'destroy_collection'
+    end
+
+    after :all do
+      User.batch_actions.delete(:destroy_collection)
     end
 
   end
