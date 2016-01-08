@@ -9,6 +9,7 @@ require 'generator_spec/test_case'
 require 'capybara/rspec'
 require 'connection_pool'
 require 'shoulda/matchers'
+require 'ab_admin/models/validations/all'
 
 require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
@@ -68,5 +69,4 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
-
 end

@@ -8,6 +8,9 @@ require 'ab_admin/core_ext'
 require 'ab_admin/engine'
 
 module AbAdmin
+  DOMAINNAME_REGEXP = /\A(?:[0-9a-z]\.|[0-9a-z][0-9a-z\-]*[0-9a-z]+\.)+[a-z]{2,6}\z/
+  EMAIL_REGEXP = /\A[_A-Za-z0-9\-\+]+(?:\.[_A-Za-z0-9\-\+]+)*@(?:[0-9a-z]\.|[0-9a-z][0-9a-z\-]*[0-9a-z]+\.)+[a-z]{2,6}\z/
+
   autoload :Utils, 'ab_admin/utils'
   autoload :Devise, 'ab_admin/devise'
   autoload :AbstractResource, 'ab_admin/abstract_resource'
