@@ -88,6 +88,7 @@ module AbAdmin
         end + label(attr, options[:label], class: 'right-label')
       end
 
+      # Rails 4.2: Should be used only for string columns because of https://github.com/activerecord-hackery/ransack/issues/617
       def presence_field(attr, options={})
         yes_no_field(attr, options.merge(predicates: {yes: %w(present 1), no: %w(present 0)}))
       end
@@ -95,7 +96,6 @@ module AbAdmin
       def null_field(attr, options={})
         yes_no_field(attr, options.merge(predicates: {yes: %w(null 0), no: %w(null 1)}))
       end
-
 
       def hidden_field(attr, options={})
         hidden_field_tag("q[#{attr}_eq]", options[:value], options)
