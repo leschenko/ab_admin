@@ -66,10 +66,10 @@ module AbAdmin
       Rails.application.routes.url_helpers
     end
 
-    def full_url(path)
+    def full_url(path, protocol='http://')
       return path if path =~ %r{^(http|//)}
       host = AbAdmin.base_url || Rails.application.config.action_mailer.default_url_options[:host] || 'www.example.com'
-      "http://#{host}#{path}"
+      "#{protocol}#{host}#{path}"
     end
 
     def js_date_data
