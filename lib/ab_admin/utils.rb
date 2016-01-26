@@ -68,7 +68,8 @@ module AbAdmin
 
     def full_url(path, protocol='http://')
       return path if path =~ %r{^(http|//)}
-      host = AbAdmin.base_url || Rails.application.config.action_mailer.default_url_options[:host] || 'www.example.com'
+      duo = Rails.application.config.action_mailer.default_url_options
+      host = AbAdmin.base_url || [duo[:host], duo[:port]].compact.join(':') || 'www.example.com'
       "#{protocol}#{host}#{path}"
     end
 
