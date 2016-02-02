@@ -52,7 +52,7 @@ module AbAdmin
       private
 
       def make_trackable
-        self.name ||= trackable.han
+        self.name ||= trackable.han.first(250)
         self.trackable_changes = trackable.changes.except(:updated_at)
       end
 
