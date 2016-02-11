@@ -27,3 +27,7 @@
   }
   margin: 20px 0;
 }
+
+.colored_tabs {
+  @include colored_tabs(#999);
+}
