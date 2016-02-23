@@ -6,15 +6,16 @@ module AbAdmin
       included do
         extend ActiveModel::Naming
         extend ActiveRecord::Translation
-        class_attribute :base_class, :base_paths, :editable_paths
+        class_attribute :base_class, :base_dir, :base_paths, :editable_paths
         self.base_class = self
+        self.base_dir = Rails.root.join('config', 'settings')
         self.base_paths = [
-            Rails.root.join('config', 'settings', 'settings.yml'),
-            Rails.root.join('config', 'settings', "#{Rails.env}.yml")
+            File.join(base_dir, 'settings.yml'),
+            File.join(base_dir, "#{Rails.env}.yml")
         ]
         self.editable_paths = [
-            Rails.root.join('config', 'settings', "#{Rails.env}.local.yml"),
-            Rails.root.join('config', 'settings', 'settings.local.yml')
+            File.join(base_dir, "#{Rails.env}.local.yml"),
+            File.join(base_dir, 'settings.local.yml')
         ]
       end
 
