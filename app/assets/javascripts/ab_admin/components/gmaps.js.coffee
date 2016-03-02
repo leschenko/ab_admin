@@ -85,7 +85,7 @@ class window.GeoInput
     marker_defaults =
       position: @point,
       map: @map,
-      draggable: true
+      draggable: !@options.disabled
 
     @options.marker_options ||= {}
     _.defaults(@options.marker_options, marker_defaults)

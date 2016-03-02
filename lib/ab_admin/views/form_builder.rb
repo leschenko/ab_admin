@@ -31,12 +31,18 @@ module AbAdmin
           end
         end
 
+        attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
+
+        options[:disabled] = disabled_attribute?(attribute_name) unless options.has_key?(:disabled)
+
         case options[:as]
           when :map
             title = options[:title] || I18n.t("admin.#{attribute_name}", default: object.class.han(attribute_name))
             prefix = options[:prefix] || object.class.model_name.singular
-            data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join.html_safe
-            return template.input_set(title) { data_fields + geo_input(prefix, options[:js_options]) }
+            data_fields = [:lat, :lon, :zoom].map { |attr| hidden_field(attr) }.join unless options[:disabled]
+            options[:js_options] ||= {}
+            options[:js_options][:disabled] = options[:disabled]
+            return template.input_set(title) { data_fields.to_s.html_safe + geo_input(prefix, options[:js_options]) }
           when :token
             options[:label] = object.class.han(attribute_name.to_s.sub(/^token_|_id$/, '')) unless options.key?(:label)
           when :association, :tree_select
@@ -49,9 +55,22 @@ module AbAdmin
             return template.render 'admin/shared/inputs/checkbox_tree', attribute_name: attribute_name, reflection: reflection, f: self
         end
 
-        attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
-
         super(attribute_name, options, &block)
+      end
+
+      def disable_all
+        @disable_all = true
+      end
+
+      def disable_not_accessible_for(roles)
+        @disable_not_accessible_for = roles
+      end
+
+      def disabled_attribute?(attribute_name)
+        return true if @disable_all
+        return unless @disable_not_accessible_for
+        @accessible_attributes ||= object.class.attr_accessible.values_at(*@disable_not_accessible_for).map(&:to_a).flatten
+        !@accessible_attributes.include?(attribute_name.to_s)
       end
 
       def render_dsl_node(node, options={})
@@ -59,12 +78,14 @@ module AbAdmin
       end
 
       def link_to_add_assoc(assoc, options={})
+        return if @disable_all
         model = @object.class.reflect_on_association(assoc).klass
         title = [@template.icon('plus', true), I18n.t('admin.add'), options[:title] || model.model_name.human].join(' ').html_safe
         link_to_add title, assoc, class: "btn btn-primary #{options[:class]}"
       end
 
       def link_to_remove_assoc
+        return if @disable_all
         link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), class: 'btn btn-danger btn-mini pull-right'
       end
 
@@ -87,7 +108,7 @@ module AbAdmin
         <<-HTML.html_safe
         <script src="//maps.googleapis.com/maps/api/js?sensor=false&libraries=places&language=#{I18n.locale}" type="text/javascript"></script>
         <div class="geo_input" id="#{prefix}_geo_input">
-          <div class="control-group">
+          <div class="control-group #{'hidden' if js_options[:disabled]}">
             <label class="control-label" for="#{input_name}">#{I18n.t('admin.geo_autocomplete')}</label>
             <div class="controls">
               <input type="text" name="#{input_name}" id="#{input_name}" class="geo_ac string">
