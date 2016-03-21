@@ -19,6 +19,17 @@ class Hash
     self
   end
 
+  def deep_transform_values!(&block)
+    self.each_key do |key|
+      if self[key].is_a?(Hash)
+        self[key] = self[key].deep_transform_values!(&block)
+      else
+        self[key] = block.call(self[key])
+      end
+    end
+    self
+  end
+
   def clear_values
     result = {}
     self.each_key do |key|
