@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 def insert_user
   User.truncate!
   password = Rails.env.production? ? Devise.friendly_token : (1..8).to_a.join

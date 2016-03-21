@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'mime/types'
 require 'mini_magick'
 require 'carrierwave/processing/mini_magick'
