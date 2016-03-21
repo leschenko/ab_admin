@@ -58,8 +58,15 @@ module AbAdmin
         super(attribute_name, options, &block)
       end
 
+      def input_field(attribute_name, options = {})
+        options[:disabled] = disabled_attribute?(attribute_name) unless options.has_key?(:disabled)
+        super(attribute_name, options)
+      end
+
       def disable_all
         @disable_all = true
+        @defaults ||= {}
+        @defaults[:disabled] = true
       end
 
       def disable_not_accessible_for(roles)
