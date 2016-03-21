@@ -16,6 +16,7 @@ module AbAdmin
         end
 
         def save(path, data)
+          data.deep_transform_values! { |v| AbAdmin.normalize_html(v) }
           File.write path, data.deep_stringify_keys.to_yaml.sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
         end
 
