@@ -80,6 +80,7 @@ module AbAdmin
             sortable: @options[:sortable],
             edit_meta: @options[:edit_meta],
             crop: @options[:crop],
+            disabled: @options[:disabled],
             fileupload: {
               url: AbAdmin.fileupload_url,
               maxNumberOfFiles: @options[:max_files],

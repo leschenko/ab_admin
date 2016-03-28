@@ -1,15 +1,16 @@
 .fileupload id=options[:container_id] class=options[:container_class]
   = options[:error]
   .fileupload-list.clearfix= render partial: asset_template, collection: assets
-  .fileupload-upload
-    .fileupload-button.pull-left
-      .btn= options[:button_title] || I18n.t("admin.fileupload.button#{'s' if options[:multiple]}")
-      = file_field_tag 'data', multiple: options[:multiple]
-    .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
+  - unless options[:disabled]
+    .fileupload-upload
+      .fileupload-button.pull-left
+        .btn= options[:button_title] || I18n.t("admin.fileupload.button#{'s' if options[:multiple]}")
+        = file_field_tag 'data', multiple: options[:multiple]
+      .fileupload-edit-button.btn.pull-left= t('admin.actions.edit.link')
 
-    .fileupload-info
-      - if options[:extensions]
-        .fileupload-info-extensions= options[:extensions].join(', ')
-      .fileupload-info-max_size== "#{t('admin.fileupload.max_size')}: <b>#{options[:max_size]}</b> MB"
+      .fileupload-info
+        - if options[:extensions]
+          .fileupload-info-extensions= options[:extensions].join(', ')
+        .fileupload-info-max_size== "#{t('admin.fileupload.max_size')}: <b>#{options[:max_size]}</b> MB"
 
 = init_js("new AdminAssets(#{js_options.to_json})")

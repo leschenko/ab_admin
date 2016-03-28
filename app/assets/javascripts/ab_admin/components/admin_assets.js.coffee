@@ -18,6 +18,10 @@ class window.AdminAssets extends BaseAssets
       [file.name, "<b>#{file.error}</b>"].join(' - ')).join('<br/>')
     bootbox.alert("<h3>#{errors}</h3>")
 
+  initDisabled: ->
+    super
+    @initFancybox() if $.fn.fancybox
+
   initHandlers: ->
     super
     @initFancybox() if $.fn.fancybox

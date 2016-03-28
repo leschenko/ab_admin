@@ -3,6 +3,15 @@ class window.BaseAssets
     @el = $('#' + @options.container_id)
     @el.data('assets', this)
     @list = @el.find('.fileupload-list')
+    if @options.disabled
+      @initDisabled()
+    else
+      @initEnabled()
+
+  initDisabled: ->
+    @el.find('.destroy_asset, .rotate_image, .main_image').hide()
+
+  initEnabled: ->
     @files_in_progress = 0
     @template = Handlebars.compile($("##{@options.asset_template}_template").html())
     @initFileupload()
