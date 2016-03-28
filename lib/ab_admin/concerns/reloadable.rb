@@ -8,7 +8,6 @@ module AbAdmin
       end
 
       module ClassMethods
-
         def has_reload_check(key=nil, logger=nil, &block)
           self.reload_checker = ::AbAdmin::Concerns::Reloadable::Reloader.new(key, logger, &block)
         end
@@ -16,7 +15,6 @@ module AbAdmin
         def check_reload
           self.reload_checker.check
         end
-
       end
 
       class Reloader
