@@ -6,7 +6,7 @@ class Asset < ActiveRecord::Base
   attr_accessible *all_translated_attribute_names
 
   validates_presence_of :data
-	
-	default_scope -> { order("#{quoted_table_name}.sort_order") }
+
+  default_scope -> { order("#{quoted_table_name}.sort_order") }
 
 end
