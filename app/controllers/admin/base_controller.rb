@@ -105,7 +105,7 @@ class Admin::BaseController < ::InheritedResources::Base
             end
             Track.import(tracks)
           else
-            collection.each { |item| track_action!("batch_#{batch_action}", item) } if settings[:history]
+            collection.each { |item| track_action!("batch_#{batch_action}", item) }
           end
         end
       else
