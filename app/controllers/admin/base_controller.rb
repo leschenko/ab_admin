@@ -97,13 +97,9 @@ class Admin::BaseController < ::InheritedResources::Base
         count = collection.size
         resource_class.public_send(batch_action, collection, *[params[:batch_params]].compact)
         if settings[:history]
-          if Gem::Specification::find_all_by_name('activerecord-import').any?
+          if Object.const_defined?('ActiveRecord::Import') && Track.respond_to?(:import)
             tracks = collection.map { |item| track_action("batch_#{batch_action}", item) }
-            tracks.each do |track|
-              track.run_callbacks(:save) { false }
-              track.run_callbacks(:create) { false }
-            end
-            Track.import(tracks)
+            Track.import_from_batch_collection_action(tracks)
           else
             collection.each { |item| track_action!("batch_#{batch_action}", item) }
           end
