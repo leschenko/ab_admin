@@ -22,6 +22,16 @@ module AbAdmin
         scope :recently, -> { order('id DESC') }
       end
 
+      module ClassMethods
+        def import_from_batch_collection_action(tracks)
+          tracks.each do |track|
+            track.run_callbacks(:save) { false }
+            track.run_callbacks(:create) { false }
+          end
+          ::Track.import(tracks)
+        end
+      end
+
       def action_title(params = {})
         parts = key.split('.')
         lookups = []

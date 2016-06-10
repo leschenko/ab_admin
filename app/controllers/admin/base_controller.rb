@@ -96,7 +96,14 @@ class Admin::BaseController < ::InheritedResources::Base
       if batch_action.to_s.end_with?('_collection')
         count = collection.size
         resource_class.public_send(batch_action, collection, *[params[:batch_params]].compact)
-        collection.each { |item| track_action!("batch_#{batch_action}", item) } if settings[:history]
+        if settings[:history]
+          if Object.const_defined?('ActiveRecord::Import') && Track.respond_to?(:import)
+            tracks = collection.map { |item| track_action("batch_#{batch_action}", item) }
+            Track.import_from_batch_collection_action(tracks)
+          else
+            collection.each { |item| track_action!("batch_#{batch_action}", item) }
+          end
+        end
       else
         count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action, *[params[:batch_params]].compact) ? c + 1 : c }
       end
