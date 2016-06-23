@@ -27,9 +27,9 @@ window.initTooltip = ->
     animation: false
     placement: 'right'
 
-window.initEditor = ->
+window.initEditor = (baseSelector='form') ->
   return if fv.test
-  $('form .do_wysihtml5').each ->
+  $("#{baseSelector} .do_wysihtml5").each ->
     $el = $(this)
     return if $el.hasClass('wysihtml5_done')
     editor = $el.wysihtml5({html: true, locale: 'ru'}).data('wysihtml5').editor
