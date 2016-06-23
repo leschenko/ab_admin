@@ -14,6 +14,6 @@ WillPaginate::ActionView::LinkRenderer.class_exec do
     url_params[param_name.to_sym] = nil if url_params[param_name.to_sym].to_i < 2
 
     link = @template.url_for(url_params)
-    @options[:no_uri] ? link.split('?').first : link
+    @options[:no_uri] ? link.split('?').first : link.sub(/\?\z/, '')
   end
 end
