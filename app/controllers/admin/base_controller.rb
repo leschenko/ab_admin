@@ -31,13 +31,13 @@ class Admin::BaseController < ::InheritedResources::Base
       format.csv do
         authorize! :export, resource_class
         doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
-        send_data(doc.render, filename: doc.filename, type: Mime::CSV, disposition: 'attachment')
+        send_data(doc.render, filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
       end
-      if defined?(Mime::XLSX)
+      if Mime[:xlsx]
         format.xls do
           authorize! :export, resource_class
           doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
-          send_data(doc.render, filename: doc.filename, type: Mime::XLSX, disposition: 'attachment')
+          send_data(doc.render, filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
         end
       end
     end
@@ -139,7 +139,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def redirect_to_back_or_root
-    redirect_to request.env['HTTP_REFERER'] ? :back : admin_root_path
+    redirect_back fallback_location: admin_root_path
   end
 
   def track_action(key=nil, item=nil)
@@ -263,10 +263,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def search_collection
-    params[:q] ||= {}
+    query = params[:q].try!{|q| q.permit!.to_h } || {}
     nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
-    params[:q][:s] ||= settings[:default_order] || ('id desc' unless nested)
-    @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(params[:q].no_blank)
+    query[:s] ||= settings[:default_order] || ('id desc' unless nested)
+    @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(query.no_blank)
     @search.result(distinct: @search.object.joins_values.present?)
   end
 

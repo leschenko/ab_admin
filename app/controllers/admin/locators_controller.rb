@@ -9,7 +9,7 @@ class ::Admin::LocatorsController < ::Admin::BaseController
   end
 
   def update
-    if Locator.save(@file, {params[:edit_locale_name] => params[:locale_hash]})
+    if Locator.save(@file, {params[:edit_locale_name] => params.require(:locale_hash).permit!.to_h})
       flash[:notice] = I18n.t('flash.admin.locators.updated')
       redirect_to admin_locators_path
     else

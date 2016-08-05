@@ -36,8 +36,8 @@
       = icon('download-alt')
       /- %w(csv xls json).each do |format|
       - %w(csv xls).each do |format|
-        - next if format == 'xls' && !defined?(Mime::XLSX)
-        = link_to format, params.merge(per_page: 10_000, format: format), id: "export_#{format}"
+        - next if format == 'xls' && !Mime[:xlsx]
+        = link_to format, params.permit(:q, :s).merge(per_page: 10_000, format: format), id: "export_#{format}"
 
   - if @search && settings[:sort_buttons]
     .btn-group

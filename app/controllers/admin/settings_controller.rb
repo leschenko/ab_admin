@@ -4,9 +4,9 @@ class ::Admin::SettingsController < ::Admin::BaseController
   defaults resource_class: Settings
 
   def update
-    Settings.instance.save(params[:settings])
+    Settings.instance.save(params.require(:settings).permit!.to_h)
     Settings.reload_checker.expire
-    redirect_to :back
+    redirect_back fallback_location: admin_root_url
   end
 
   def cache_clear

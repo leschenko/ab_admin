@@ -3,12 +3,12 @@ class Admin::UsersController < Admin::BaseController
 
   def activate
     resource.activate!
-    redirect_to :back
+    redirect_back fallback_location: admin_users_url
   end
 
   def suspend
     resource.suspend!
-    redirect_to :back
+    redirect_back fallback_location: admin_users_url
   end
 
   private
