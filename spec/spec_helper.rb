@@ -46,7 +46,7 @@ RSpec.configure do |config|
 
   config.extend ControllerMacros, type: :controller
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include MailerMacros
   config.before(:each) { reset_email }
 
@@ -68,5 +68,12 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+end
+
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
   end
 end
