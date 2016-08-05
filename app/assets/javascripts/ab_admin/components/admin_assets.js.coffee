@@ -52,7 +52,7 @@ class window.AdminAssets extends BaseAssets
         bootbox.dialog(data, [
           {label: I18n.t('admin.js.cancel'), class: ' '},
           {label: I18n.t('admin.js.save'), class: 'btn-primary btn-large fileupload-edit-submit', callback: -> $('form.fileupload-edit-form').submit()}
-        ])
+        ], {animate: false})
         max_h = $(window).height() - 100
         $('.bootbox.modal').css
           height: max_h

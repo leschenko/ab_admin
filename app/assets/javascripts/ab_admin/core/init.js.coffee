@@ -8,6 +8,8 @@
 #= require ab_admin/core/columns_hider
 #= require ab_admin/core/view_layout
 
+$.fx.off = true if fv.test
+
 $ ->
   $(document).on 'admin:init', (e) ->
     clonePagination()
