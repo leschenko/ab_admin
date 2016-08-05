@@ -41,7 +41,7 @@ module AbAdmin
           next if file =~ /(?:concerns|shared)\//
           require file
         end
-        ActiveRecord::Base.subclasses.find_all { |model| model.table_exists? }
+        ActiveRecord::Base.subclasses.find_all { |model| model.data_source_exists? }
       end
 
       def conn

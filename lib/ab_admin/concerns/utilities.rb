@@ -29,7 +29,7 @@ module AbAdmin
 
         def all_models
           Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').each { |file| require file }
-          ActiveRecord::Base.descendants.find_all { |model| model.table_exists? }
+          ActiveRecord::Base.descendants.find_all { |model| model.data_source_exists? }
           #ActiveRecord::Base.descendants.find_all { |model| model.descends_from_active_record? }
         end
 
