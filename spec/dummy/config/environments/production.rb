@@ -20,7 +20,7 @@ Dummy::Application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_files = true
+  config.public_file_server.enabled = true
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
@@ -34,6 +34,7 @@ Dummy::Application.configure do
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
+  config.assets.quiet = true
 
   # Specifies the header that your server uses for sending files.
   # config.action_dispatch.x_sendfile_header = "X-Sendfile" # for apache

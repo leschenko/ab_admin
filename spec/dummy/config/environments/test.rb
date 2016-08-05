@@ -13,8 +13,8 @@ Dummy::Application.configure do
   config.eager_load = false
 
   # Configure static asset server for tests with Cache-Control for performance.
-  config.serve_static_files  = true
-  config.static_cache_control = "public, max-age=3600"
+  config.public_file_server.enabled  = true
+  config.public_file_server.headers = {'Cache-Control' => 'public, max-age=3600'}
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -33,4 +33,6 @@ Dummy::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.assets.quiet = true
 end

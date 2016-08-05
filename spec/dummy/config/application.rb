@@ -38,7 +38,6 @@ module Dummy
     dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)
     config.eager_load_paths += dirs
 
-    config.active_record.raise_in_transactional_callbacks = true
     config.action_mailer.default_url_options = {host: 'localhost:3000'}
   end
 end
