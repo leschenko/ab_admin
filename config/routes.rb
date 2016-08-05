@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
-
   namespace :admin do
-    root to: 'dashboards#index'
+    root to: 'dashboards#index', as: :root
     get 'dashboards', as: 'dashboards'
 
     resources :structures do
@@ -33,27 +32,23 @@ Rails.application.routes.draw do
 
     post 'translate' => AbAdmin::I18nTools::TranslateApp
 
-    controller 'manager', constraints: {format: /(html|js|json|xml|csv|xls|xlsx)/} do
-      scope '(/:parent_resource/:parent_resource_id)/:model_name' do
-        get '/new', action: :new, as: 'new'
-        post '/batch', action: :batch, as: 'batch'
-        post '/rebuild', action: :rebuild, as: 'rebuild'
-        match '/custom_action', action: :custom_action, as: 'collection_action', via: :all
+    scope '(/:parent_resource/:parent_resource_id)/:model_name', controller: 'manager', constraints: {format: /(html|js|json|xml|csv|xls|xlsx)/} do
+      get '/new', action: :new, as: 'new'
+      post '/batch', action: :batch, as: 'batch'
+      post '/rebuild', action: :rebuild, as: 'rebuild'
+      match '/custom_action', action: :custom_action, as: 'collection_action', via: :all
 
-        scope ':id' do
-          get '/edit', action: :edit, as: 'edit'
-          get '/history', action: :history, as: 'history'
-          match '/custom_action', action: :custom_action, as: 'member_action', via: :all
-          get '/', action: :show, as: 'show'
-          patch '/', action: :update, as: 'update'
-          delete '/', action: :destroy, as: 'destroy'
-        end
-
-        get '/', action: :index, as: 'index'
-        post '/', action: :create, as: 'create'
+      scope ':id' do
+        get '/edit', action: :edit, as: 'edit'
+        get '/history', action: :history, as: 'history'
+        match '/custom_action', action: :custom_action, as: 'member_action', via: :all
+        get '/', action: :show, as: 'show'
+        patch '/', action: :update, as: 'update'
+        delete '/', action: :destroy, as: 'destroy'
       end
+
+      get '/', action: :index, as: 'index'
+      post '/', action: :create, as: 'create'
     end
-
   end
-
 end
