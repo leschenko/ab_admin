@@ -1,9 +1,9 @@
 # add accessors with locale suffix like `title_en`, `title_de`
-Globalize::ActiveRecord::ClassMethods.module_eval do
-  def define_translations_reader_with_locale_suffix(name)
+module GlobalizeAccessorsWithLocaleSuffix
+  def define_translations_reader(name)
     translation_attributes = class_variable_defined?(:@@translation_attributes) ? class_variable_get(:@@translation_attributes) : []
 
-    define_translations_reader_without_locale_suffix(name)
+    super(name)
 
     Globalize.available_locales.each do |locale|
       method_name = "#{name}_#{locale}"
@@ -15,10 +15,8 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
     class_variable_set(:@@translation_attributes, translation_attributes)
   end
 
-  alias_method_chain :define_translations_reader, :locale_suffix
-
-  def define_translations_writer_with_locale_suffix(name)
-    define_translations_writer_without_locale_suffix(name)
+  def define_translations_writer(name)
+    super(name)
 
     Globalize.available_locales.each do |locale|
       define_method :"#{name}_#{locale}=" do |value|
@@ -28,8 +26,10 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
       end
     end
   end
+end
 
-  alias_method_chain :define_translations_writer, :locale_suffix
+Globalize::ActiveRecord::ClassMethods.module_eval do
+  prepend GlobalizeAccessorsWithLocaleSuffix
 end
 
 Globalize::ActiveRecord::InstanceMethods.module_eval do
