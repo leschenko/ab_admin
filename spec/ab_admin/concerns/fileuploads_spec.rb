@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AbAdmin::Concerns::Fileuploads do
+RSpec.describe AbAdmin::Concerns::Fileuploads do
   before(:all) do
     @picture = create(:picture)
   end
@@ -50,5 +50,4 @@ describe AbAdmin::Concerns::Fileuploads do
       @structure.fileuploads_columns.should include(:picture)
     end
   end
-
 end

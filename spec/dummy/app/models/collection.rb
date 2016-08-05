@@ -11,6 +11,7 @@ class Collection < ActiveRecord::Base
 
   fileuploads :picture, :pictures, :attachment_files
   translates :name, :description
+  attr_accessible *all_translated_attribute_names
 
   scope :visible, -> { where(is_visible: true) }
   scope :un_visible, -> { where(is_visible: false) }

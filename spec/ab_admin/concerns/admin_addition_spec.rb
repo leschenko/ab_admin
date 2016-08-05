@@ -1,7 +1,6 @@
 require 'spec_helper'
 
-describe AbAdmin::Concerns::AdminAddition do
-
+RSpec.describe AbAdmin::Concerns::AdminAddition do
   describe '#new_changes' do
     before do
       @product = create(:product, name: 'test', price: 100)
@@ -22,5 +21,4 @@ describe AbAdmin::Concerns::AdminAddition do
       expect(@product.new_changes).to eq({'name_ru' => 'new name'})
     end
   end
-
 end

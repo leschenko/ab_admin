@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'carrierwave/test/matchers'
 
-describe PictureUploader do
+RSpec.describe PictureUploader do
   include CarrierWave::Test::Matchers
   
   before do

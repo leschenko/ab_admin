@@ -28,7 +28,7 @@ class UploaderSpecModel < RspecActiveModelBase
 end
 
 
-describe AbAdmin::CarrierWave::BaseUploader do
+RSpec.describe AbAdmin::CarrierWave::BaseUploader do
   before :all do
     UploaderSpecImageUploader.enable_processing = true
     @assetable = UploaderSpecModel.new(id: 1)
@@ -273,6 +273,5 @@ describe AbAdmin::CarrierWave::BaseUploader do
       end
     end
   end
-
 end
 

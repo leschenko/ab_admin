@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe AbAdmin::Concerns::Utilities do
+RSpec.describe AbAdmin::Concerns::Utilities do
   describe 'token generation' do
     it 'generate uniq token' do
       expect(Product.generate_token(:token)).not_to be_blank

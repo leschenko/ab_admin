@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'generator_spec/test_case'
 
-describe AbAdmin::Generators::CkeditorAssetsGenerator do
+RSpec.describe AbAdmin::Generators::CkeditorAssetsGenerator do
   include GeneratorSpec::TestCase
   destination File.expand_path('../../tmp', __FILE__)
 
@@ -15,5 +15,4 @@ describe AbAdmin::Generators::CkeditorAssetsGenerator do
     assert_directory 'public/javascripts/ckeditor'
     assert_file 'public/javascripts/ckeditor/init.js', /CKEDITOR/
   end
-
 end

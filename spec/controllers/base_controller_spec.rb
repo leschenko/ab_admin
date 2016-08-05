@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Admin::BaseController, type: :controller do
+RSpec.describe Admin::BaseController, type: :controller do
   describe '#per_page' do
     before do
       AbAdmin.default_per_page = 30
@@ -23,12 +23,12 @@ describe Admin::BaseController, type: :controller do
     end
 
     it 'return user request per_page' do
-      get :index, per_page: 11
+      get :index, params: {per_page: 11}
       expect(controller.send(:per_page)).to eq 11
     end
 
     it 'allow value only less than max' do
-      get :index, per_page: 9999
+      get :index, params: {per_page: 9999}
       expect(controller.send(:per_page)).to eq 1000
     end
 
@@ -40,7 +40,7 @@ describe Admin::BaseController, type: :controller do
 
     it 'return view default per_page' do
       allow_any_instance_of(Admin::BaseController).to receive(:settings).and_return({max_per_page: 40})
-      get :index, per_page: 9999
+      get :index, params: {per_page: 9999}
       expect(controller.send(:per_page)).to eq 40
     end
   end

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Structure do
+RSpec.describe Structure, type: :model do
   it_should_behave_like 'headerable'
   it_should_behave_like 'nested_set'
 

@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'generator_spec/test_case'
 
-describe AbAdmin::Generators::ResourceGenerator do
+RSpec.describe AbAdmin::Generators::ResourceGenerator do
   include GeneratorSpec::TestCase
   destination File.expand_path('../../tmp', __FILE__)
   arguments %w(Header)

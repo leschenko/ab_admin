@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Header do
+RSpec.describe Header, type: :model do
   it 'don\'t allow html' do
     header = create(:header, title: 'test <b>html</b>', h1: 'test <b>html</b>', keywords: 'test <b>html</b>',
                     description: 'test <b>html</b>', seo_block: 'test html')
