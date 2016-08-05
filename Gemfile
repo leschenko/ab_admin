@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'slim'
 
-gem 'inherited_resources'
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'has_scope'
 gem 'rack-pjax'
 
@@ -14,12 +14,12 @@ gem 'devise'
 gem 'devise-encryptable'
 gem 'cancancan'
 
-gem 'protected_attributes'
+gem 'protected_attributes', path: '/var/www/hub/protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
 gem 'awesome_nested_set'
-gem 'globalize', '~> 5.0.0'
+gem 'globalize', github: 'globalize/globalize'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -39,7 +39,6 @@ gem 'fancybox2-rails'
 gem 'i18n-js'
 
 gem 'ruby-progressbar'
-gem 'quiet_assets'
 gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'nested_form', '~> 0.2.2'
@@ -54,7 +53,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', require: false, github: 'olleolleolle/cucumber-rails', branch: 'feature/rails-5-railtie'
   gem 'capybara'
   gem 'generator_spec'
   gem 'selenium-webdriver'
