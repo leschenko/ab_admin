@@ -9,7 +9,6 @@ Feature: Batch edit images alt and title
     Given I am on the edit profile page
     When I click image batch edit button
     Then I should see edit image meta form
-
     When I fill in image meta
     And I submit image meta form
     Then image should store meta

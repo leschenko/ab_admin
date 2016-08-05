@@ -11,7 +11,7 @@ require 'database_cleaner'
 require 'database_cleaner/cucumber'
 DatabaseCleaner.strategy = :transaction
 Cucumber::Rails::Database.javascript_strategy = :transaction
-Cucumber::Rails::World.use_transactional_fixtures = false
+Cucumber::Rails::World.use_transactional_tests = false
 
 require 'factory_girl'
 FactoryGirl.definition_file_paths = [File.join(SPEC_PATH, 'factories')]
@@ -25,6 +25,7 @@ Capybara.configure do |config|
   config.visible_text_only = true
 end
 
+RSpec::Expectations.configuration.on_potential_false_positives = :nothing
 # BCrypt::Engine::DEFAULT_COST = 1
 
 require File.join(SPEC_PATH, 'support/shared_connection')
