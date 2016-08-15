@@ -3,7 +3,7 @@ module AbAdmin
     module Validations
       class UniqTranslationValidator < ActiveModel::EachValidator
         def validate_each(record, attribute, value)
-          ::I18n.available_locales.each do |l|
+          (options[:locales] || ::I18n.available_locales).each do |l|
             next if record.read_attribute(attribute, locale: l).blank?
             records_scope = record.class.const_get(:Translation).where("#{record.class.model_name.singular}_id != #{record.id || 0}")
             same = records_scope.where(name: record.read_attribute(attribute, locale: l), locale: l.to_s).exists?
