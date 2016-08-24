@@ -1,4 +1,4 @@
-class Product < ActiveRecord::Base
+class Product < ApplicationRecord
   attr_accessible :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom, :token, :in_stock_at
 
   belongs_to :collection

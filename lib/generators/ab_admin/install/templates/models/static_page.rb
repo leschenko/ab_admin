@@ -1,4 +1,4 @@
-class StaticPage < ActiveRecord::Base
+class StaticPage < ApplicationRecord
   attr_accessible :structure_id, :title, :content, :kind, :is_visible
 
   belongs_to :structure

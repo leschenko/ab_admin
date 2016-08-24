@@ -1,4 +1,4 @@
-class Asset < ActiveRecord::Base
+class Asset < ApplicationRecord
   include AbAdmin::Models::Asset
 
   attr_accessible :data, :is_main, :original_name, :base_filename

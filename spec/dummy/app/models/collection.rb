@@ -1,4 +1,4 @@
-class Collection < ActiveRecord::Base
+class Collection < ApplicationRecord
   attr_accessible :is_visible, :products_count
   attr_accessible :name, :description, :name_en, :description_en, :name_ru, :description_ru, :products_attributes
 

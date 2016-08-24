@@ -1,4 +1,4 @@
-class Structure < ActiveRecord::Base
+class Structure < ApplicationRecord
   include AbAdmin::Models::Structure
 
   attr_accessible :structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,

@@ -1,4 +1,4 @@
-class Catalogue < ActiveRecord::Base
+class Catalogue < ApplicationRecord
   attr_accessible :name, :parent
 
   has_many :product_catalogues, dependent: :destroy

@@ -1,4 +1,4 @@
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   devise :database_authenticatable, :confirmable, :lockable,
          :recoverable, :rememberable, :trackable, :validatable, :registerable,
          :encryptable, encryptor: :sha512
@@ -26,5 +26,4 @@ class User < ActiveRecord::Base
     return false if persisted? && password.blank?
     super
   end
-
 end

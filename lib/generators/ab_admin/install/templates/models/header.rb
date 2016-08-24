@@ -1,4 +1,4 @@
-class Header < ActiveRecord::Base
+class Header < ApplicationRecord
 
   attr_accessible :title, :keywords, :description, :h1, :seo_block
 
