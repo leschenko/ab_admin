@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 ### UTILITY METHODS ###
 def valid_user
   @user ||= {email: 'admin@example.com', password: '123456'}

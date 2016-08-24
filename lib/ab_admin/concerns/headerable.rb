@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AbAdmin
   module Concerns
     module Headerable
@@ -25,7 +24,6 @@ module AbAdmin
       def default_header
         header || build_header
       end
-
     end
   end
 end

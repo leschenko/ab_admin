@@ -1,4 +1,3 @@
-# -*- encoding : utf-8 -*-
 module AbAdmin
   module Controllers
     module HeadOptions

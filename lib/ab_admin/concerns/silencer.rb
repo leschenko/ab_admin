@@ -1,8 +1,6 @@
-# -*- encoding : utf-8 -*-
 module AbAdmin
   module Concerns
     module Silencer
-
       def no_timestamps
         original_setting = ActiveRecord::Base.record_timestamps
         ActiveRecord::Base.record_timestamps = false
@@ -28,7 +26,6 @@ module AbAdmin
           no_versions(&block)
         end
       end
-
     end
   end
 end
