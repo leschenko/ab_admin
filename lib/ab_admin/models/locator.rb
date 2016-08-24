@@ -66,7 +66,6 @@ module AbAdmin
         end
         {message: message}
       end
-
     end
   end
 end

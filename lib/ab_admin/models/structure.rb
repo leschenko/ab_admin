@@ -21,11 +21,6 @@ module AbAdmin
         scope :with_type, lambda { |structure_type| where(structure_type_id: structure_type.id) }
         scope :with_depth, lambda { |level| where(depth: level.to_i) }
         scope :with_position, lambda { |position_type| where(position_type_id: position_type.id).order('lft DESC') }
-
-        scope :with_kind, lambda { |structure_type|
-          ActiveSupport::Deprecation.warn('with_kind is deprecated, use with_type instead')
-          with_type.call(structure_type)
-        }
       end
 
       def redirect?
@@ -35,7 +30,6 @@ module AbAdmin
       def admin_title
         [title, structure_type.title, position_type.title, "#{self.class.han(:is_visible)}: #{is_visible ? '+' : '-'}"].join(' | ')
       end
-
     end
   end
 end

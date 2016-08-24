@@ -33,7 +33,6 @@ module AbAdmin
           send("seo_block_#{loc}=", sanitize(send("seo_block_#{loc}").to_s))
         end
       end
-
     end
   end
 end

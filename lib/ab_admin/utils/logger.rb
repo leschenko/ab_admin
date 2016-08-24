@@ -1,7 +1,6 @@
 module AbAdmin
   module Utils
     module Logger
-
       class ExtendedLogger < ::Logger
         def exception(e, options={})
           message = "#{e.message} #{"DATA:#{options[:data].inspect}" if options && options[:data]}"
@@ -19,7 +18,6 @@ module AbAdmin
         logger.formatter = ::Logger::Formatter.new
         logger
       end
-
     end
   end
 end

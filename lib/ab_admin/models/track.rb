@@ -65,7 +65,6 @@ module AbAdmin
         self.name ||= trackable.han.first(250)
         self.trackable_changes = trackable.changes.except(:updated_at)
       end
-
     end
   end
 end

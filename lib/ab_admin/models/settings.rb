@@ -76,7 +76,6 @@ module AbAdmin
           value
         end
       end
-
     end
   end
 end

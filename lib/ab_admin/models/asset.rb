@@ -171,7 +171,6 @@ module AbAdmin
           data.cache_stored_file!
         end
       end
-
     end
   end
 end

@@ -51,7 +51,6 @@ module AbAdmin
       rescue I18n::MissingTranslationData
         @code.to_s.humanize
       end
-
     end
   end
 end
