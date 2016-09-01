@@ -6,7 +6,7 @@ gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'slim'
 
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'inherited_resources', github: 'josevalim/inherited_resources'
 gem 'has_scope'
 gem 'rack-pjax'
 
@@ -53,7 +53,7 @@ group :development, :test do
 end
 
 group :test do
-  gem 'cucumber-rails', require: false, github: 'olleolleolle/cucumber-rails', branch: 'feature/rails-5-railtie'
+  gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'generator_spec'
   gem 'selenium-webdriver'
