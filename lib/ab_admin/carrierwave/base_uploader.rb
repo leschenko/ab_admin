@@ -183,7 +183,7 @@ module AbAdmin
       end
 
       def image?(new_file = nil)
-        (file || new_file).content_type.include? 'image'
+        AbAdmin.image_types.include?((file || new_file).content_type)
       end
 
       def dimensions
