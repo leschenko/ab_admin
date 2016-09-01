@@ -87,7 +87,7 @@ module AbAdmin
         versions.values.unshift(self).each do |v|
           from_path = File.join(dir, v.full_filename)
           to_path = File.join(dir, v.full_filename(new_file_name))
-          return false if from_path == to_path || !File.exists?(from_path)
+          next if from_path == to_path || !File.exists?(from_path)
           moves << [from_path, to_path]
         end
         moves.each { |move| FileUtils.mv(*move) }
