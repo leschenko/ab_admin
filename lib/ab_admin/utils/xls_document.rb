@@ -1,4 +1,5 @@
-require 'ruby2xlsx'
+require 'write_xlsx'
+require 'stringio'
 
 module AbAdmin
   module Utils
@@ -10,8 +11,27 @@ module AbAdmin
       end
     end
 
-    class XlsDocument < Ruby2xlsx::Base
+    class XlsDocument
       include AbAdmin::Utils::EvalHelpers
+
+      def initialize(source, options = {})
+        @source = source
+        @options = options
+        @compiled = false
+        @io = ::StringIO.new
+      end
+
+      def workbook
+        @workbook ||= ::WriteXLSX.new(@io)
+      end
+
+      def worksheet
+        @worksheet ||= add_worksheet(worksheet_name)
+      end
+
+      def add_worksheet(*args)
+        @worksheet = workbook.add_worksheet(*args)
+      end
 
       def default_columns
         @default_columns ||= @klass.column_names
@@ -26,7 +46,7 @@ module AbAdmin
       end
 
       def filename
-        @filename ||= [@options[:filename] || "#{@klass.model_name.plural}-#{Time.now.strftime('%Y-%m-%d')}", '.xls'].join
+        @filename ||= [@options[:filename] || "#{@klass.model_name.plural}-#{Time.now.strftime('%Y-%m-%d')}", '.xlsx'].join
       end
 
       def render
@@ -55,8 +75,8 @@ module AbAdmin
         bold = workbook.add_format(bold: 1)
         worksheet.write('A1', columns_names, bold)
 
-        super
-
+        workbook.close
+        @io.string
       end
 
       def worksheet_name
