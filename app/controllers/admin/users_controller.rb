@@ -46,4 +46,11 @@ class Admin::UsersController < Admin::BaseController
     resource
   end
 
+  def permitted_params
+    attrs = [:password, :password_confirmation, :email, :remember_me,
+             :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
+             :time_zone, :locale, :bg_color, :gender]
+    attrs << [:user_role_id] if admin?
+    params.permit(user: attrs)
+  end
 end

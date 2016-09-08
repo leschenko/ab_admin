@@ -3,12 +3,12 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :registerable,
          :encryptable, encryptor: :sha512
 
-  attr_accessible :password, :password_confirmation, :email, :remember_me,
-                  :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
-                  :time_zone, :locale, :bg_color, :gender
-
-
-  attr_accessible :user_role_id, as: :admin
+  # attr_accessible :password, :password_confirmation, :email, :remember_me,
+  #                 :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
+  #                 :time_zone, :locale, :bg_color, :gender
+  #
+  #
+  # attr_accessible :user_role_id, as: :admin
 
   include AbAdmin::Concerns::AdminAddition
   include AbAdmin::Models::User

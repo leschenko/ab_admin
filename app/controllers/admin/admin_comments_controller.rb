@@ -28,4 +28,8 @@ class Admin::AdminCommentsController < Admin::BaseController
   def commentable
     @commentable ||= AdminComment.find_resource(params[:resource_type], params[:resource_id])
   end
+
+  def permitted_params
+    params.permit(admin_comment: [:body, :resource_id, :resource_type])
+  end
 end

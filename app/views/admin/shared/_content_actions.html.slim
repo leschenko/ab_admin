@@ -37,7 +37,7 @@
       /- %w(csv xls json).each do |format|
       - %w(csv xlsx).each do |format|
         - next if format == 'xlsx' && !Mime[:xlsx]
-        = link_to format, params.permit(:q, :s).merge(per_page: 10_000, format: format), id: "export_#{format}"
+        = link_to format, params_for_links.merge(per_page: 10_000, format: format), id: "export_#{format}"
 
   - if @search && settings[:sort_buttons]
     .btn-group

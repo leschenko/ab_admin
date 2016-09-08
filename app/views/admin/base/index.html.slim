@@ -10,8 +10,7 @@
   .btn-toolbar.pull-right.pjax_links
     .btn-group
       - per_page_variants.each do |c|
-        a.btn.per_page data-val=c href=url_for(params.permit(:q, :s).merge(per_page: c)) class=('active' if c == collection.per_page) = c
+        a.btn.per_page data-val=c href=url_for(params_for_links.merge(per_page: c)) class=('active' if c == collection.per_page) = c
 
 - if pjax? && flash.present?
   script type='text/javascript' = render partial: 'admin/shared/flash', formats: :js, local_assigns: {flash: flash}
-

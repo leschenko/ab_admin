@@ -1,5 +1,7 @@
 class AbAdminCollection < AbAdmin::AbstractResource
 
+  permitted_params :all
+
   table do
     field :name, sortable: false
     field :description, sortable: false
@@ -31,5 +33,4 @@ class AbAdminCollection < AbAdmin::AbstractResource
     field :pictures, as: :uploader
     field :attachment_files, as: :uploader, file: true
   end
-
 end

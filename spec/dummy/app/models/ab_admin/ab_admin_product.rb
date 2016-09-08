@@ -26,6 +26,13 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   belongs_to :collection
 
+  permitted_params do
+    [
+        :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom, :token, :in_stock_at,
+        *resource_class.all_translated_attribute_names
+    ]
+  end
+
   table do
     field :sku, default_order: true
     field(:picture) { |item| item_image_link(item) }

@@ -1,6 +1,4 @@
 class Product < ApplicationRecord
-  attr_accessible :name, :description, :is_visible, :price, :sku, :collection_id, :lat, :lon, :zoom, :token, :in_stock_at
-
   belongs_to :collection
 
   has_many :product_catalogues, dependent: :destroy
@@ -12,7 +10,6 @@ class Product < ApplicationRecord
 
   fileuploads :picture, :pictures, :attachment_files
   translates :name, :description
-  attr_accessible *all_translated_attribute_names
 
   scope :visible, -> { where(is_visible: true) }
   scope :un_visible, -> { where(is_visible: false) }
@@ -49,5 +46,4 @@ class Product < ApplicationRecord
   def self.set_zoom_collection(collection, batch_params)
     collection.update_all(zoom: batch_params[:zoom])
   end
-
 end
