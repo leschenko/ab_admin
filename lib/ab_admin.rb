@@ -182,12 +182,14 @@ module AbAdmin
   mattr_accessor :per_page_variants
   @@per_page_variants = [50, 100, 500, 1000]
 
+  mattr_accessor :default_permitted_params
+  @@default_permitted_params = [:fileupload_guid]
+
   extend Utils
 
   def self.setup
     yield self
   end
-
 end
 
 

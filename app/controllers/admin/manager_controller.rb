@@ -116,6 +116,24 @@ class ::Admin::ManagerController < ::Admin::BaseController
     end
   end
 
+  def permitted_params
+    attrs = case manager.permitted_params
+              when Proc then
+                instance_exec(&manager.permitted_params)
+              when String then
+                manager.permitted_params.to_sym
+              else
+                manager.permitted_params
+            end
+
+    if attrs == :all
+      params.permit!
+    else
+      attrs = Array.wrap(attrs).map(&:to_sym) + AbAdmin.default_permitted_params
+      params.permit(resource_class.model_name.param_key => attrs)
+    end
+  end
+
   def preview_resource_path(item)
     return unless manager.preview_path
     manager.preview_path.is_a?(Proc) ? instance_exec(item, &manager.preview_path) : send(manager.preview_path, item)

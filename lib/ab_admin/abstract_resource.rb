@@ -8,7 +8,7 @@ module AbAdmin
 
     attr_accessor :model, :table, :search, :export, :form, :modal_form, :show, :preview_path, :actions, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
-                  :parent_resources, :custom_actions
+                  :parent_resources, :custom_actions, :permitted_params
 
     def initialize
       @actions = ACTIONS
@@ -56,6 +56,10 @@ module AbAdmin
 
       def preview_path(value=nil, &block)
         instance.preview_path = block_given? ? block : value
+      end
+
+      def permitted_params(*values, &block)
+        instance.permitted_params = block_given? ? block : values
       end
 
       def actions(*actions_to_keep)

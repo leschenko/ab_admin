@@ -24,7 +24,6 @@ module AbAdmin
             include InstanceMethods
             extend ClassMethods
 
-            attr_accessible :fileupload_guid
             after_create :fileuploads_update, if: :fileupload_changed?
           end
         end

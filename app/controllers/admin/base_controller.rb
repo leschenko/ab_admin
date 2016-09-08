@@ -21,7 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page, :params_for_links
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -34,7 +34,7 @@ class Admin::BaseController < ::InheritedResources::Base
         send_data(doc.render, filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
       end
       if Mime[:xlsx]
-        format.xls do
+        format.xlsx do
           authorize! :export, resource_class
           doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
           send_data(doc.render, filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
@@ -116,6 +116,10 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   protected
+
+  def params_for_links
+    params.slice(:q, :s, :model_name, :per_page, :page).permit!
+  end
 
   def respond_to_format?(format)
     self.class.mimes_for_respond_to[format]
@@ -350,7 +354,6 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
-  # utility methods
   def pjax?
     request.headers['X-PJAX']
   end
@@ -359,7 +362,6 @@ class Admin::BaseController < ::InheritedResources::Base
     request.xhr?
   end
 
-  # user role logic
   def moderator?
     user_signed_in? && current_user.moderator?
   end
@@ -380,32 +382,12 @@ class Admin::BaseController < ::InheritedResources::Base
     raise CanCan::AccessDenied unless admin?
   end
 
-  def bind_current_user(*args)
+  def bind_current_user(*)
     resource.user_id = current_user.id if !settings[:skip_bind_current_user] && resource.respond_to?(:user_id)
   end
 
-  def bind_current_updater(*args)
+  def bind_current_updater(*)
     resource.updater_id = current_user.id if !settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
-  end
-
-  # roles logic
-  def role_given?
-    fetch_role
-  end
-
-  def as_role
-    {as: fetch_role}
-  end
-
-  def get_role
-    return [:default, :moderator, :admin] if admin?
-    return [:default, :moderator] if moderator?
-    nil
-  end
-
-  def fetch_role
-    return @as_role if defined?(@as_role)
-    @as_role = get_role
   end
 
   def get_subject

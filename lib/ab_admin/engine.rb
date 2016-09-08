@@ -7,9 +7,10 @@ module AbAdmin
     end
 
     initializer 'ab_admin.setup' do
-      ::Mime::Type.register 'application/vnd.ms-excel', :xls
+      ::Mime::Type.register 'application/vnd.ms-excel', :xlsx
 
       ActiveSupport.on_load :active_record do
+        ActiveRecord::Base.send :include, ActiveModel::ForbiddenAttributesProtection
         ActiveRecord::Base.send :include, AbAdmin::CarrierWave::Glue
         ActiveRecord::Base.send :include, AbAdmin::Utils::Mysql
         ActiveRecord::Base.send :include, AbAdmin::Concerns::DeepCloneable
