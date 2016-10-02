@@ -37,6 +37,6 @@ Feature: Export
 
   Scenario: Export to xls format
     When I am on the admin products page
-    And I follow "export_xls"
+    And I follow "export_xlsx"
     Then I should not see an error
 

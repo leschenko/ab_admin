@@ -8,6 +8,7 @@ Feature: Resource history tracking
     Given a configuration of:
     """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         settings history: true
         batch_action(:un_publish) { |item| item.un_publish! }
       end

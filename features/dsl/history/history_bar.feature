@@ -12,6 +12,7 @@ Feature: Resource history sidebar
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         settings history: {sidebar: true}
       end
       """
@@ -25,6 +26,7 @@ Feature: Resource history sidebar
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         settings history: {sidebar: true}
       end
       """

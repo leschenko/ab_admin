@@ -7,6 +7,8 @@ Feature: In place edit
     And a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
+
         table do
           field :sku, editable: true
           field :name

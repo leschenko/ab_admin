@@ -8,6 +8,8 @@ Feature: Form
     Given a configuration of:
     """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :sku, :price, :is_visible, :collection_id, *Product.all_translated_attribute_names
+
         form do
           group :base do
             field :sku
@@ -24,7 +26,7 @@ Feature: Form
       """
     When I am on the new admin product page
     And I fill in the following:
-      | Sku                    | sofa         |
+      | * Sku                  | sofa         |
       | Price                  | 567          |
       | Display (checkbox)     | check        |
       | product_name_en        | Sofa         |
@@ -37,6 +39,7 @@ Feature: Form
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
       end
       """
     And "app/views/admin/products/_form.html.slim" contains:
@@ -48,7 +51,7 @@ Feature: Form
         = f.save_buttons
       """
     When I am on the new admin product page
-    And I fill in "Identifier" with "pid-1"
+    And I fill in "* Identifier" with "pid-1"
     And I submit form
     Then I should be on the admin products page
     And I should see "pid-1"
@@ -57,6 +60,7 @@ Feature: Form
     Given a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         form partial: 'admin/products/form_custom'
       end
       """
@@ -69,7 +73,7 @@ Feature: Form
         = f.save_buttons
       """
     When I am on the new admin product page
-    And I fill in "Identifier" with "pid-1"
+    And I fill in "* Identifier" with "pid-1"
     And I submit form
     Then I should be on the admin products page
     And I should see "pid-1"

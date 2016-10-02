@@ -9,6 +9,7 @@ Feature: Resource history page
     And a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         settings history: true
       end
       """

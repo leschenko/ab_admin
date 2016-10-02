@@ -7,6 +7,7 @@ Feature: Editing records in the list
     And a configuration of:
       """
       class AbAdminProduct < AbAdmin::AbstractResource
+        permitted_params :all
         settings list_edit: true
       end
       """

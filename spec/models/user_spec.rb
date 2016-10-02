@@ -14,20 +14,6 @@ RSpec.describe User, type: :model do
     it { should_not allow_value(5).for(:user_role_id) }
   end
 
-  describe 'attributes' do
-    it 'allow mass assignment of user data attributes' do
-      [:password, :password_confirmation, :email, :remember_me,
-       :login, :first_name, :last_name, :patronymic, :phone, :skype, :web_site, :address, :birthday,
-       :time_zone, :locale, :bg_color].each do |attr|
-        should allow_mass_assignment_of(attr)
-      end
-    end
-    it 'allow mass assignment of user_role_id, trust_state only for admin' do
-      should_not allow_mass_assignment_of(:user_role_id)
-      should allow_mass_assignment_of(:user_role_id).as(:admin)
-    end
-  end
-
   describe 'scopes' do
     before :all do
       @user = create(:default_user)

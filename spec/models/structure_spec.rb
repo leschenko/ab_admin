@@ -17,15 +17,6 @@ RSpec.describe Structure, type: :model do
     it { should validate_numericality_of(:position_type_id).only_integer  }
   end
 
-  describe 'attributes' do
-    it 'allow mass assignment for structure data attributes' do
-      [:structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,
-       :structure_type, :position_type, :slug, :parent].each do |attr|
-        should allow_mass_assignment_of(attr)
-      end
-    end
-  end
-
   context 'acts_as_nested_set' do
     before(:all) do
       @root = create(:structure_main)
