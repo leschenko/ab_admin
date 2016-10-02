@@ -7,7 +7,7 @@ class Admin::AssetsController < ApplicationController
   respond_to :json
 
   def create
-    @asset = build_asset(params[:asset])
+    @asset = build_asset(permitted_params)
     @asset.guid = params[:guid]
     @asset.data = prepared_data
     @asset.user = current_user
@@ -52,6 +52,10 @@ class Admin::AssetsController < ApplicationController
 
   protected
 
+  def permitted_params
+    params[:asset].try!(:permit, :data, :is_main, :original_name, :base_filename, *Asset.all_translated_attribute_names)
+  end
+
   def find_asset
     @asset = Asset.find(params[:id])
   end
@@ -85,5 +89,4 @@ class Admin::AssetsController < ApplicationController
       end
     end
   end
-
 end

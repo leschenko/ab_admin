@@ -30,6 +30,6 @@ class Admin::AdminCommentsController < Admin::BaseController
   end
 
   def permitted_params
-    params.permit(admin_comment: [:body, :resource_id, :resource_type])
+    params[:admin_comment].try!(:permit, :body, :resource_id, :resource_type, *AbAdmin.default_permitted_params)
   end
 end

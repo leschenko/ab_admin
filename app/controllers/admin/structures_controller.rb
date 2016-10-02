@@ -3,9 +3,6 @@ class Admin::StructuresController < Admin::BaseController
 
   load_and_authorize_resource
 
-  #has_scope :visible
-  #has_scope :un_visible
-
   protected
 
   def resource_action_items
@@ -22,5 +19,12 @@ class Admin::StructuresController < Admin::BaseController
 
   def settings
     {index_view: 'tree', default_order: 'lft'}
+  end
+
+  def permitted_params
+    attrs = [:structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,
+             :structure_type, :position_type, :slug, *AbAdmin.default_permitted_params,
+             *Structure.all_translated_attribute_names, header_attributes: [:id, *Header.all_translated_attribute_names]]
+    params[:structure].try!(:permit, *attrs)
   end
 end

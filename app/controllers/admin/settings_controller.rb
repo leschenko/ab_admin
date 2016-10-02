@@ -31,5 +31,4 @@ class ::Admin::SettingsController < ::Admin::BaseController
   def resource
     Settings.instance
   end
-
 end
