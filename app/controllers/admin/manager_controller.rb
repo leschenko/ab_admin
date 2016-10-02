@@ -120,17 +120,17 @@ class ::Admin::ManagerController < ::Admin::BaseController
     attrs = case manager.permitted_params
               when Proc then
                 instance_exec(&manager.permitted_params)
-              when String then
-                manager.permitted_params.to_sym
               else
-                manager.permitted_params
+                Array(manager.permitted_params)
             end
 
-    if attrs == :all
-      params.permit!
+    resource_params = params[resource_class.model_name.param_key]
+    return {} unless resource_params
+    if attrs.first == :all
+      resource_params.permit!
     else
-      attrs = Array.wrap(attrs).map(&:to_sym) + AbAdmin.default_permitted_params
-      params.permit(resource_class.model_name.param_key => attrs)
+      attrs = attrs + AbAdmin.default_permitted_params
+      resource_params.permit(*attrs)
     end
   end
 

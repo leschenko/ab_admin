@@ -117,6 +117,10 @@ class Admin::BaseController < ::InheritedResources::Base
 
   protected
 
+  def build_resource_params
+    permitted_params || params[resource_class.model_name.param_key]
+  end
+
   def params_for_links
     params.slice(:q, :s, :model_name, :per_page, :page).permit!
   end
