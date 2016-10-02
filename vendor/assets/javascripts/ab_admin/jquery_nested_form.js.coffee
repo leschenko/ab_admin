@@ -6,7 +6,7 @@ $ ->
     context = ($el.closest('.fields').closestChild('input:not([id$="_destroy"]), textarea, select').eq(0).attr('name') || '').replace(new RegExp('\[[a-z_]+\]$'), '')
     if context
       parent_names = context.match(/[a-z_]+_attributes/g) or []
-      parent_ids = context.match(/(new_)?[0-9]+/g) or []
+      parent_ids = context.match(/[0-9]+/g) or []
       i = 0
 
       while i < parent_names.length
@@ -16,7 +16,7 @@ $ ->
         i++
     regexp = new RegExp("new_" + assoc, "g")
     new_id = (new Date().getTime()).toString().substr(-10, 10)
-    content = content.replace(regexp, "new_" + new_id)
+    content = content.replace(regexp, new_id)
 
     guid = $(content).find('[name$="[fileupload_guid]"]').val()
     content = content.replace(new RegExp(guid, 'g'), new_id) if guid
