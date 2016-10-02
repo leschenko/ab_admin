@@ -64,7 +64,6 @@ class Array
   def val_detect(attr, val)
     detect{|v| v[attr] == val }
   end
-
 end
 
 #module Enumerable

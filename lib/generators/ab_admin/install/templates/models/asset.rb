@@ -1,9 +1,7 @@
 class Asset < ApplicationRecord
   include AbAdmin::Models::Asset
 
-  attr_accessible :data, :is_main, :original_name, :base_filename
   translates :name, :alt
-  attr_accessible *all_translated_attribute_names
 
   validates_presence_of :data
 

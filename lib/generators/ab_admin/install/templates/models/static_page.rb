@@ -1,6 +1,4 @@
 class StaticPage < ApplicationRecord
-  attr_accessible :structure_id, :title, :content, :kind, :is_visible
-
   belongs_to :structure
 
   has_many :pictures, as: :assetable, dependent: :destroy
@@ -12,6 +10,5 @@ class StaticPage < ApplicationRecord
 
   fileuploads :pictures, :attachment_files
   translates :title, :content
-  attr_accessible *all_translated_attribute_names
 
 end
