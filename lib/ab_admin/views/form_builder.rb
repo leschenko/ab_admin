@@ -70,14 +70,16 @@ module AbAdmin
       end
 
       def disable_not_accessible_for(roles)
+        ActiveSupport::Deprecation.warn('#disable_not_accessible_for is deprecated without replacement')
         @disable_not_accessible_for = roles
       end
 
       def disabled_attribute?(attribute_name)
-        return true if @disable_all
-        return unless @disable_not_accessible_for
-        @accessible_attributes ||= object.class.attr_accessible.values_at(*@disable_not_accessible_for).map(&:to_a).flatten
-        !@accessible_attributes.include?(attribute_name.to_s)
+        @disable_all
+        # return true if @disable_all
+        # return unless @disable_not_accessible_for
+        # @accessible_attributes ||= object.class.attr_accessible.values_at(*@disable_not_accessible_for).map(&:to_a).flatten
+        # !@accessible_attributes.include?(attribute_name.to_s)
       end
 
       def render_dsl_node(node, options={})

@@ -50,5 +50,3 @@ Globalize::ActiveRecord::InstanceMethods.module_eval do
     attributes.delete_if { |attr| translation_attributes.include? attr }
   end
 end
-
-Globalize::ActiveRecord::Translation.attr_accessible :locale

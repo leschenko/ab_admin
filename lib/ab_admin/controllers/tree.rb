@@ -1,7 +1,6 @@
 module AbAdmin
   module Controllers
     module Tree
-
       def rebuild
         parent_id = params[:parent_id].to_i
         prev_id = params[:prev_id].to_i
@@ -19,7 +18,6 @@ module AbAdmin
 
         head :ok
       end
-
     end
   end
 end

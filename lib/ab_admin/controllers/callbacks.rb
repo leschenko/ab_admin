@@ -9,11 +9,11 @@ module AbAdmin
 
       protected
 
-      #def build_resource
-      #  object = super
-      #  run_build_callbacks object
-      #  object
-      #end
+      def build_resource
+       object = get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, resource_params))
+       # run_build_callbacks object
+       object
+      end
 
       def create_resource(object)
         run_create_callbacks object do
@@ -28,7 +28,7 @@ module AbAdmin
       end
 
       def update_resource(object, attributes)
-        object.assign_attributes(*attributes)
+        object.assign_attributes(attributes)
 
         #run_update_callbacks object do
           save_resource(object)
