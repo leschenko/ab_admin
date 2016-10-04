@@ -28,7 +28,7 @@ module AbAdmin
         return name unless search
 
         options = args.first.is_a?(Hash) ? args.shift.dup : {}
-        search_params = params[:q] || {}.with_indifferent_access
+        search_params = (params[:q] || {}).to_h.with_indifferent_access
         attr_name = (options.delete(:column) || attribute).to_s
         default_order = options.delete :default_order
 
