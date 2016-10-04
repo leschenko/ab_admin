@@ -39,7 +39,7 @@ module AbAdmin
       def ac_select_field(attr, options={})
         klass = options[:klass]
         options[:param] ||= "#{options[:value_attr] || attr}_eq"
-        pre_select = params.val(:q, options[:param]) ? klass.where(id: params[:q][options[:param]]).map(&:for_input_token) : []
+        pre_select = params[:q].try!(:[], options[:param]) ? klass.where(id: params[:q][options[:param]]).map(&:for_input_token) : []
         options[:input_html] ||= {}
         options[:input_html].deep_merge! class: 'fancy_select', data: {class: klass.name, pre: pre_select.to_json}
         string_field attr, options
