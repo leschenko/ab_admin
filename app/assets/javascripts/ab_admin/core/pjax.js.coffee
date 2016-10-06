@@ -1,5 +1,6 @@
-window.toggleLoading = (is_loading=true) ->
-  $('#loading').toggle(is_loading)
+window.toggleLoading = (isLoading=true) ->
+  $('#loading').toggle(isLoading)
+  $.rails.enableFormElements($('#search_form')) unless isLoading
 
 $ ->
   $(document).on 'click', '.pjax, .pagination a, .pjax_links a', (e) ->
