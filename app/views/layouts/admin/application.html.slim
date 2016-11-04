@@ -8,6 +8,8 @@ html id="controller_#{controller_name}"
     = include_fv
     = javascript_include_tag 'ab_admin/application'
     = csrf_meta_tags
+    - if AbAdmin.favicon_path
+      link rel="icon" type="image/x-icon" href=AbAdmin.favicon_path
     = yield(:head)
   body id="action_#{action_name}" class="resource_#{resource_collection_name} #{AbAdmin.body_css_class}"
     #wrap

@@ -137,6 +137,8 @@ module AbAdmin
 
   mattr_accessor :body_css_class
 
+  mattr_accessor :favicon_path
+
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
 
