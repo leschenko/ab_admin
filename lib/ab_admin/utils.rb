@@ -5,6 +5,13 @@ module AbAdmin
     autoload :Logger, 'ab_admin/utils/logger'
     autoload :Mysql, 'ab_admin/utils/mysql'
 
+    def all_models
+      Kernel.suppress_warnings do
+        Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').reject { |path| path =~ /concerns|shared/ }.each { |file| require file }
+      end
+      ActiveRecord::Base.direct_descendants
+    end
+
     def load_files!(base_path = 'lib/utils')
       Dir[Rails.root.join("#{base_path}/**/*.rb")].each do |path|
         require_dependency path
