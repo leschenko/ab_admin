@@ -29,8 +29,6 @@ Rails.application.configure do
   config.assets.debug = true
   config.assets.quiet = true
 
-  config.active_record.mass_assignment_sanitizer = :strict
-
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
   # config.file_watcher = ActiveSupport::EventedFileUpdateChecker

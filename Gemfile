@@ -14,7 +14,6 @@ gem 'devise'
 gem 'devise-encryptable'
 gem 'cancancan'
 
-gem 'protected_attributes', github: 'leschenko/protected_attributes'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
