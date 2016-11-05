@@ -11,9 +11,9 @@ RSpec.describe AbAdmin::Concerns::AdminAddition do
       expect(@product.new_changes).to eq({'price' => '200'})
     end
 
-    it 'omit translated attrs without locale suffix' do
-      @product.name = 'new ame'
-      expect(@product.new_changes).to be_blank
+    it 'translated attrs without locale suffix' do
+      @product.name = 'new name'
+      expect(@product.new_changes).to eq({'name_en' => 'new name'})
     end
 
     it 'translated attrs with locale suffix' do

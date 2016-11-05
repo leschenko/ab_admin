@@ -16,8 +16,6 @@ module GlobalizeAccessorsWithLocaleSuffix
 
     Globalize.available_locales.each do |locale|
       define_method :"#{name}_#{locale}=" do |value|
-        changed_attributes
-        @changed_attributes[:"#{name}_#{locale}"] = value unless value == read_attribute(name, {locale: locale})
         write_attribute(name, value, {locale: locale})
       end
     end
@@ -26,16 +24,4 @@ end
 
 Globalize::ActiveRecord::ClassMethods.module_eval do
   prepend GlobalizeAccessorsWithLocaleSuffix
-end
-
-module GlobalizeFixResetAttribute
-  def _reset_attribute name
-    old_value = record.changed_attributes[name]
-    record.original_changed_attributes.except!(name)
-    record.send("#{name}=", old_value)
-  end
-end
-
-Globalize::ActiveRecord::AdapterDirty.module_eval do
-  prepend GlobalizeFixResetAttribute
 end

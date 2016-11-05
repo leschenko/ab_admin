@@ -32,9 +32,17 @@ module AbAdmin
       end
 
       def new_changes
-        exclude_attrs = respond_to?(:translated_attribute_names) ? translated_attribute_names.dup : []
-        exclude_attrs << :updated_at
-        changes.except(*exclude_attrs).map { |k, v| [k, v.last] }.to_h
+        excluded_attrs = [:updated_at]
+        excluded_attrs += translated_attribute_names if self.class.translates?
+        all_changes = changes.except(*excluded_attrs).map { |k, v| [k, v[1]] }.to_h
+        if self.class.translates?
+          globalize.dirty.each do |attr, changes|
+            changes.each do |change|
+              all_changes["#{attr}_#{change[0]}"] = send("#{attr}_#{change[0]}")
+            end
+          end
+        end
+        all_changes
       end
 
       def admin_comments_count_non_zero
