@@ -157,6 +157,9 @@ module AbAdmin
   mattr_accessor :test_settings
   @@test_settings = {}
 
+  mattr_accessor :footer
+  @@footer = true
+
   mattr_accessor :footer_notes
 
   mattr_accessor :default_url_options
