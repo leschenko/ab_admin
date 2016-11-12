@@ -35,7 +35,6 @@ gem 'fancybox2-rails'
 gem 'i18n-js'
 
 gem 'ruby-progressbar'
-gem 'ruby2xlsx'
 gem 'rest-client'
 gem 'nested_form', '~> 0.2.2'
 
