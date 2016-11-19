@@ -25,3 +25,16 @@ end
 Globalize::ActiveRecord::ClassMethods.module_eval do
   prepend GlobalizeAccessorsWithLocaleSuffix
 end
+
+
+module GlobalizeFixResetAttribute
+  def _reset_attribute name
+    old_value = record.changed_attributes[name]
+    record.original_changed_attributes.except!(name)
+    record.send("#{name}=", old_value)
+  end
+end
+
+Globalize::ActiveRecord::AdapterDirty.module_eval do
+  prepend GlobalizeFixResetAttribute
+end
