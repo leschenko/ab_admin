@@ -28,7 +28,7 @@ module AbAdmin
 
       def models
         @models ||= begin
-          all_translated.reject { |m| conn.table_exists? m.translations_table_name }
+          all_translated.reject { |m| conn.data_source_exists? m.translations_table_name }
         end
       end
 
@@ -41,7 +41,7 @@ module AbAdmin
           next if file =~ /(?:concerns|shared)\//
           require file
         end
-        ActiveRecord::Base.subclasses.find_all { |model| model.data_source_exists? }
+        ActiveRecord::Base.subclasses.find_all { |model| model.connection.data_source_exists?(model.table_name) }
       end
 
       def conn
