@@ -33,15 +33,23 @@ module AbAdmin
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
+      def base_filename_part
+        if version_name
+          version_name.to_s.start_with?('retina_') ? "#{version_name.to_s.sub(/^retina_/, '')}@2x" : version_name.to_s
+        else
+          secure_token
+        end
+      end
+
       def full_filename(for_file=filename)
         ext = File.extname(for_file)
         human_filename_part = for_file.chomp(ext)
-        tech_filename_part = "#{version_name || secure_token}#{ext}"
+        tech_filename_part = "#{base_filename_part}#{ext}"
         human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
       end
 
       def full_original_filename
-        "#{version_name || secure_token}#{File.extname(store_filename)}"
+        "#{base_filename_part}#{File.extname(store_filename)}"
       end
 
       # use secure token in the filename for non processed image
