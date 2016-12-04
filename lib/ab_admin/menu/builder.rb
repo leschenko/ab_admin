@@ -4,8 +4,9 @@ module AbAdmin
       include ::Singleton
 
       def self.draw(&block)
-        I18n.locale = AbAdmin.locale if AbAdmin.locale
-        instance.instance_eval &block if block_given?
+        I18n.with_locale AbAdmin.locale do
+          instance.instance_eval &block if block_given?
+        end
       end
 
       def self.render(*args)
