@@ -3,7 +3,8 @@
     = f.input :title, locale: l
     = f.input :redirect_url, locale: l, as: :string
 
-  = f.input :slug
+  - Structure.simple_slug_columns.each do |column|
+    = f.input column
   - if @structure.moveable?
     = f.input :parent, as: :tree_select
   = f.input :structure_type_id, collection: StructureType.all
