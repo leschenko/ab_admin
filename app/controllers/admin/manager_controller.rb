@@ -136,7 +136,9 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def preview_resource_path(item)
     return unless manager.preview_path
-    manager.preview_path.is_a?(Proc) ? instance_exec(item, &manager.preview_path) : send(manager.preview_path, item)
+    I18n.with_locale I18n.default_locale do
+      manager.preview_path.is_a?(Proc) ? instance_exec(item, &manager.preview_path) : send(manager.preview_path, item)
+    end
   end
 
   def admin_partial_name(builder)
