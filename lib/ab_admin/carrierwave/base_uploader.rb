@@ -1,13 +1,11 @@
 require 'mime/types'
 require 'mini_magick'
 require 'carrierwave/processing/mini_magick'
-require 'carrierwave/processing/mime_types'
 
 module AbAdmin
   module CarrierWave
     class BaseUploader < ::CarrierWave::Uploader::Base
       include ::CarrierWave::MiniMagick
-      include ::CarrierWave::MimeTypes
       include AbAdmin::Utils::EvalHelpers
 
       class_attribute :transliterate
@@ -18,8 +16,6 @@ module AbAdmin
       before :cache, :save_original_name
 
       storage :file
-
-      process :set_content_type
 
       with_options if: :image? do |img|
         img.process :strip
@@ -138,7 +134,7 @@ module AbAdmin
 
         unless percentage.blank?
           manipulate! do |img|
-            img.quality(percentage.to_s)
+            img.quality percentage.to_s
             img = yield(img) if block_given?
             img
           end
