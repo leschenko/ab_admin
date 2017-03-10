@@ -90,7 +90,7 @@ module AbAdmin
 
       # rename files via move
       def rename_via_move(new_file_name)
-        unless human_filenames
+        if human_filenames
           dir = File.dirname(path)
 
           moves = []
@@ -105,7 +105,7 @@ module AbAdmin
 
         write_internal_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")
-        retrieve_from_store!(new_file_name) unless human_filenames
+        retrieve_from_store!(new_file_name) if human_filenames
 
         new_file_name
       end

@@ -5,11 +5,10 @@ module AbAdmin
 
       module ClassMethods
         def ab_admin_uploader(uploader=nil, options={}, &block)
-          options = { mount_on: :data_file_name }.merge(options)
+          options.reverse_merge!(mount_on: :data_file_name)
+          options.merge!(validate_integrity: false, validate_processing: false, validate_download: false) unless uploader.try!(:enable_processing)
           
           mount_uploader(:data, uploader, options, &block)
-          
-          validates_processing_of :data
         end
 
         def sunrise_uploader(*args)
