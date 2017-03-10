@@ -105,7 +105,8 @@ module AbAdmin
 
         write_internal_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")
-        retrieve_from_store!(new_file_name)
+        retrieve_from_store!(new_file_name) unless human_filenames
+
         new_file_name
       end
 
