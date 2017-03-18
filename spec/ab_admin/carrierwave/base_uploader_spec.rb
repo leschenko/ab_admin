@@ -101,14 +101,6 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
         @image.store_model_filename(@assetable)
         expect(File.basename(@image.data.url)).to eq 'test__abc.png'
       end
-
-
-      it 'skip rename when have missing files' do
-        @image = create(:main_uploader_spec_image, assetable: @assetable)
-        FileUtils.mv @image.data.path, @image.data.path.sub('abc.png', 'new_abc.png')
-        expect(@image.store_model_filename(@assetable)).to be_falsey
-        expect(File.basename(@image.data.url)).to eq 'abc.png'
-      end
     end
 
     describe '#rename!' do
