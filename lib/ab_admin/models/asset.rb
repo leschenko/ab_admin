@@ -49,7 +49,7 @@ module AbAdmin
 
       def thumb_url
         return unless image?
-        data.versions[thumb_size] ? data.url(thumb_size) : data.url
+        data.versions[thumb_size] ? url(thumb_size) : url
       end
 
       def format_created_at
@@ -131,7 +131,7 @@ module AbAdmin
       end
 
       def full_url(*args)
-        AbAdmin.full_url data.url(*args)
+        AbAdmin.full_url url(*args)
       end
 
       def url_on_fly(version)

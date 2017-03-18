@@ -8,8 +8,9 @@ module AbAdmin
       include ::CarrierWave::MiniMagick
       include AbAdmin::Utils::EvalHelpers
 
-      class_attribute :transliterate
+      class_attribute :transliterate, :human_filenames
       self.transliterate = true
+      self.human_filenames = true
 
       attr_accessor :internal_identifier
 
@@ -25,6 +26,10 @@ module AbAdmin
 
       process :set_model_info
 
+      def strict_filename(for_file=filename)
+        "#{version_name || secure_token}#{File.extname(for_file).downcase}"
+      end
+
       def save_original_name(file)
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
@@ -38,7 +43,11 @@ module AbAdmin
       end
 
       def full_filename(for_file=filename)
-        ext = File.extname(for_file)
+        human_filenames ? human_full_filename(for_file) : strict_filename(for_file)
+      end
+
+      def human_full_filename(for_file=filename)
+        ext = File.extname(for_file).downcase
         human_filename_part = for_file.chomp(ext)
         tech_filename_part = "#{base_filename_part}#{ext}"
         human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
@@ -63,7 +72,7 @@ module AbAdmin
       alias_method :store_filename, :filename
 
       def filename
-        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
+        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
       end
 
       def write_internal_identifier(internal_identifier)
@@ -76,7 +85,7 @@ module AbAdmin
       def model_filename(base_filename, record)
         custom_file_name = model.build_filename(base_filename, record)
         return unless custom_file_name
-        normalize_filename(custom_file_name) + File.extname(base_filename)
+        normalize_filename(custom_file_name) + File.extname(base_filename).downcase
       end
 
       def normalize_filename(raw_filename)
@@ -86,20 +95,23 @@ module AbAdmin
 
       # rename files via move
       def rename_via_move(new_file_name)
-        dir = File.dirname(path)
+        if human_filenames
+          dir = File.dirname(path)
 
-        moves = []
-        versions.values.unshift(self).each do |v|
-          from_path = File.join(dir, v.full_filename)
-          to_path = File.join(dir, v.full_filename(new_file_name))
-          return false if from_path == to_path || !File.exists?(from_path)
-          moves << [from_path, to_path]
+          moves = []
+          versions.values.unshift(self).each do |v|
+            from_path = File.join(dir, v.full_filename)
+            to_path = File.join(dir, v.full_filename(new_file_name))
+            next if from_path == to_path || !File.exists?(from_path)
+            moves << [from_path, to_path]
+          end
+          moves.each { |move| FileUtils.mv(*move) }
         end
-        moves.each { |move| FileUtils.mv(*move) }
 
         write_internal_identifier new_file_name
         model.send("write_#{mounted_as}_identifier")
-        retrieve_from_store!(new_file_name)
+        retrieve_from_store!(new_file_name) if human_filenames
+
         new_file_name
       end
 
