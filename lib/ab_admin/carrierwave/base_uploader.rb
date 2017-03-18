@@ -31,7 +31,7 @@ module AbAdmin
       process :set_model_info
 
       def strict_filename(for_file=filename)
-        "#{version_name || secure_token}#{File.extname(for_file)}"
+        "#{version_name || secure_token}#{File.extname(for_file).downcase}"
       end
 
       def save_original_name(file)
@@ -43,7 +43,7 @@ module AbAdmin
       end
 
       def human_full_filename(for_file=filename)
-        ext = File.extname(for_file)
+        ext = File.extname(for_file).downcase
         human_filename_part = for_file.chomp(ext)
         tech_filename_part = "#{version_name || secure_token}#{ext}"
         human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
@@ -68,7 +68,7 @@ module AbAdmin
       alias_method :store_filename, :filename
 
       def filename
-        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename)}")
+        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
       end
 
       def write_internal_identifier(internal_identifier)
@@ -81,7 +81,7 @@ module AbAdmin
       def model_filename(base_filename, record)
         custom_file_name = model.build_filename(base_filename, record)
         return unless custom_file_name
-        normalize_filename(custom_file_name) + File.extname(base_filename)
+        normalize_filename(custom_file_name) + File.extname(base_filename).downcase
       end
 
       def normalize_filename(raw_filename)
