@@ -157,5 +157,20 @@ module AbAdmin
         options[:collection]
       end
     end
+
+    class Scope
+      attr_reader :name, :options, :data
+
+      def initialize(name, options={}, &block)
+        @name = name
+        @options = options
+        @data = block
+      end
+
+      def apply(relation, params)
+        return relation unless params[name].present?
+        data.is_a?(Proc) ? data.call(relation, params) : relation.public_send(name)
+      end
+    end
   end
 end

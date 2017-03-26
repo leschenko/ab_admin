@@ -8,7 +8,7 @@ module AbAdmin
 
     attr_accessor :model, :table, :search, :export, :form, :modal_form, :show, :preview_path, :actions, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
-                  :parent_resources, :custom_actions, :permitted_params
+                  :parent_resources, :custom_actions, :permitted_params, :scopes
 
     def initialize
       @actions = ACTIONS
@@ -20,6 +20,7 @@ module AbAdmin
       @action_items_for = {}
       @parent_resources = []
       @custom_actions = []
+      @scopes = []
       @model = self.class.name.sub('AbAdmin', '').safe_constantize
       add_admin_addition_to_model
     end
@@ -126,6 +127,10 @@ module AbAdmin
 
       def collection_action(name, options={}, &block)
         instance.custom_actions << AbAdmin::Config::CustomAction.new(name, options.merge(collection: true), &block)
+      end
+
+      def scope(name, options={}, &block)
+        instance.scopes << AbAdmin::Config::Scope.new(name, options, &block)
       end
     end
 

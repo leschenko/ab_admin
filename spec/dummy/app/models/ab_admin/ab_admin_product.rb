@@ -33,6 +33,12 @@ class AbAdminProduct < AbAdmin::AbstractResource
     ]
   end
 
+  scope :un_visible
+
+  scope :visible do |scope|
+    scope.visible
+  end
+
   table do
     field :sku, default_order: true
     field(:picture) { |item| item_image_link(item) }

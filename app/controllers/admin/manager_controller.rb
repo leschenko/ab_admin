@@ -18,6 +18,14 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   protected
 
+  def button_scopes
+    manager.scopes.map{|scope| [scope.name, scope.options] }
+  end
+
+  def with_scopes(relation)
+    manager.scopes.inject(relation) { |result, scope| scope.apply(result, params) }
+  end
+
   def begin_of_association_chain
     parent
   end

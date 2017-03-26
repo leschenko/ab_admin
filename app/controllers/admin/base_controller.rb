@@ -274,8 +274,12 @@ class Admin::BaseController < ::InheritedResources::Base
     query = params[:q].try!{|q| q.permit!.to_h } || {}
     nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
     query[:s] ||= settings[:default_order] || ('id desc' unless nested)
-    @search = end_of_association_chain.accessible_by(current_ability).admin.ransack(query.no_blank)
+    @search = with_scopes(end_of_association_chain.accessible_by(current_ability).admin).ransack(query.no_blank)
     @search.result(distinct: @search.object.joins_values.present?)
+  end
+
+  def with_scopes(relation)
+    relation
   end
 
   def collection
