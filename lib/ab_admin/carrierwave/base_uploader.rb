@@ -1,14 +1,17 @@
 require 'mime/types'
 require 'mini_magick'
 require 'carrierwave/processing/mini_magick'
-require 'carrierwave/processing/mime_types'
+begin require 'carrierwave/processing/mime_types'; rescue LoadError; end
 
 module AbAdmin
   module CarrierWave
     class BaseUploader < ::CarrierWave::Uploader::Base
       include ::CarrierWave::MiniMagick
-      include ::CarrierWave::MimeTypes
       include AbAdmin::Utils::EvalHelpers
+      if defined? ::CarrierWave::MimeTypes
+        include ::CarrierWave::MimeTypes
+        process :set_content_type
+      end
 
       class_attribute :transliterate, :human_filenames
       self.transliterate = true
@@ -19,8 +22,6 @@ module AbAdmin
       before :cache, :save_original_name
 
       storage :file
-
-      process :set_content_type
 
       with_options if: :image? do |img|
         img.process :strip
@@ -66,6 +67,7 @@ module AbAdmin
       end
 
       alias_method :store_filename, :filename
+      alias_method :extension_white_list, :extension_whitelist
 
       def filename
         internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
