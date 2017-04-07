@@ -85,8 +85,13 @@ module AbAdmin
           when AbAdmin::Config::ActionItem
             instance_exec(item, &action.data) if action.for_context?(self)
           else
-            meth = "#{resource_instance_name}_short_action_link"
-            send(meth, action, item) if respond_to? meth
+            resource_action_link_method = "#{resource_instance_name}_short_action_link"
+            list_link_method = "#{resource_instance_name}_#{action}_list_link"
+            if respond_to?(list_link_method)
+              send(list_link_method, item)
+            elsif respond_to?(resource_action_link_method)
+              send(resource_action_link_method, action, item)
+            end
         end
       end
 
@@ -110,8 +115,13 @@ module AbAdmin
           when AbAdmin::Config::ActionItem
             instance_exec(&action.data) if action.for_context?(self)
           else
-            meth = "#{resource_instance_name}_action_link"
-            send(meth, action) if respond_to? meth
+            resource_action_link_method = "#{resource_instance_name}_action_link"
+            list_link_method = "#{resource_instance_name}_#{action}_link"
+            if respond_to?(list_link_method)
+              send(list_link_method, item)
+            elsif respond_to?(resource_action_link_method)
+              send(resource_action_link_method, action, item)
+            end
         end
       end
 
