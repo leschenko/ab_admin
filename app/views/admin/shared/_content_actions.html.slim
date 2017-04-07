@@ -19,7 +19,7 @@
       - button_scopes.each do |name, opts|
         - param_name = opts[:as] || name
         - active = params[param_name]
-        a.btn href=url_for(param_name => (active ? nil : 1)) class=('active' if active) = t "admin.scopes.#{name}", default: name
+        a.btn href=url_for(param_name => (active ? nil : 1)) class=('active' if active) = t "admin.scopes.#{name}", default: name.to_s.titleize
 
   a.btn.pull-left#columns_hider_show href="#columns_hider" data-toggle='modal' = t 'admin.columns_hider.button'
 
