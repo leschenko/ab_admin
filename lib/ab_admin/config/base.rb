@@ -118,7 +118,7 @@ module AbAdmin
         if options.has_key?(:form)
           @form = options[:form].is_a?(String) ? options[:form] : "##{name}_batch_form"
         end
-        @title = options[:title] || I18n.t("admin.actions.batch_#{name}.link")
+        @title = options[:title] || I18n.t("admin.actions.batch_#{name}.link", default: name.to_s.humanize)
         @data = block_given? ? block : name.to_sym
       end
 
