@@ -5,9 +5,23 @@ $ ->
       checked = $(this).is(":checked")
       $("#list [name='#{input_name}[]']").attr "checked", checked
       $('#list tbody tr').toggleClass('active_row', checked)
+      $('#list').data('lastChecked', null) unless checked
 
-    $(document).on 'click', '#list input.batch_check', ->
-      $(this).closest('tr').toggleClass('active_row')
+    $(document).on 'click', '#list input.batch_check', (e) ->
+      $el = $(this).closest('tr')
+      $wrap = $('#list')
+      if $el.hasClass('active_row')
+        $wrap.data('lastChecked', null)
+        $el.removeClass('active_row')
+      else
+        $el.addClass('active_row')
+        if e.shiftKey && $wrap.data('lastChecked')
+          $prev = $wrap.data('lastChecked')
+          idx = [$prev.index(), $el.index()].sort()
+          $items = $("#list > tbody > tr:eq(#{idx[0]})").nextUntil("#list > tbody > tr:eq(#{idx[1]})")
+          $items.addClass('active_row')
+          $items.find('> td:first input').attr('checked', true)
+        $wrap.data('lastChecked', $el)
 
     batchIds = ->
       $("#list [name='#{input_name}[]']:checked").map(-> $(this).val()).get()
