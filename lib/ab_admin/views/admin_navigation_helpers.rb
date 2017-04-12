@@ -118,9 +118,9 @@ module AbAdmin
             resource_action_link_method = "#{resource_instance_name}_action_link"
             list_link_method = "#{resource_instance_name}_#{action}_link"
             if respond_to?(list_link_method)
-              send(list_link_method, item)
+              send(list_link_method)
             elsif respond_to?(resource_action_link_method)
-              send(resource_action_link_method, action, item)
+              send(resource_action_link_method, action)
             end
         end
       end
