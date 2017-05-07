@@ -132,6 +132,5 @@ module AbAdmin
         self[column]
       end
     end
-
   end
 end

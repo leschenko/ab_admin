@@ -150,7 +150,7 @@ module AbAdmin
     end
 
     def friendly_token(n=10)
-      SecureRandom.base64(n * 2).tr('+/=', 'xyz').first(n)
+      SecureRandom.base64(n * 2).tr('+/=', 'xyz').first(n).downcase
     end
   end
 end
