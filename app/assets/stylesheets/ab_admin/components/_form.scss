@@ -75,9 +75,6 @@ input[type="color"],
 }
 
 #search_form {
-  select.input-small {
-    margin-right: 30px;
-  }
   .right-label {
     padding: 5px 0 0 130px;
   }
@@ -86,6 +83,32 @@ input[type="color"],
   }
   label {
     margin-top: 5px;
+  }
+  .string input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 4px;
+  }
+  .number .controls {
+    select {
+      float: left;
+    }
+    input {
+      float: right;
+    }
+  }
+  .date .controls {
+    text-align: center;
+    line-height: 2.3;
+    input:first-child {
+      float: left;
+    }
+    input {
+      float: right;
+    }
+  }
+  .select select {
+    width: 100%;
   }
 }
 

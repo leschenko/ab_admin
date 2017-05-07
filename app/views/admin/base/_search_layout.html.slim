@@ -1,6 +1,5 @@
 #toggle_sidebar_off.btn.btn-large = icon('chevron-left')
 #toggle_sidebar_on.btn.btn-large = icon('chevron-right')
-h3= t('admin.search.title')
 = search_admin_form_for @search, url: collection_path do |f|
   = render 'search_form', f: f
   br

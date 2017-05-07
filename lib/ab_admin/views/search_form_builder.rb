@@ -5,15 +5,19 @@ module AbAdmin
                :text_field_tag, :check_box_tag, :radio_button_tag, :label_tag, :select_tag,
                :options_for_select, :options_from_collection_for_select, :hidden_field_tag, to: :@template
 
+      alias_method :builder_options, :options
+
       def input(attr, options={})
         field_type = field_type(attr, options)
-        content_tag :div, class: "clearfix #{field_type} #{options[:wrapper_class]}" do
+        options[:wrapper_html] ||= {}
+        options[:wrapper_html][:class] = "clearfix #{field_type} #{options[:wrapper_html][:class]}"
+        content_tag :div, options[:wrapper_html] do
           public_send("#{field_type}_field", attr, options)
         end
       end
 
       def select_field(attr, options={})
-        label(attr, options[:label]) + content_tag(:div, class: 'controls') do
+        conditional_wrapper attr, options do
           param = options[:param] || "#{options[:value_attr] || attr}_eq"
 
           if options[:collection].is_a?(Proc)
@@ -27,12 +31,19 @@ module AbAdmin
           end
 
           options[:input_html] ||= {}
+          options[:input_html][:id] = "q_#{attr}"
+
           if options[:fancy] || collection.length > 30
             options[:input_html][:class] = [options[:input_html][:class], 'fancy_select'].join(' ')
           end
 
-          html_options = options[:input_html].merge(include_blank: true, id: "q_#{attr}")
-          select_tag("q[#{param}]", options_for_select(collection, params[:q][param]), html_options)
+          if options[:input_html][:placeholder]
+            options[:input_html][:include_blank] = false
+            options[:input_html][:prompt] ||= options[:input_html][:placeholder]
+          else
+            options[:input_html][:include_blank] = true
+          end
+          select_tag("q[#{param}]", options_for_select(collection, params[:q][param]), options[:input_html])
         end
       end
 
@@ -53,8 +64,19 @@ module AbAdmin
         end
       end
 
+      def conditional_wrapper(attr, options, &block)
+        if builder_options[:compact_labels]
+          options[:input_html] ||= {}
+          options[:input_html][:placeholder] ||= extract_label(attr, options)
+          wrapper_html = {'class' => 'controls js-tooltip', 'data-placement' => 'left', 'title' => options[:input_html][:placeholder]}
+          content_tag(:div, wrapper_html, &block)
+        else
+          label(attr, options[:label]) + content_tag(:div, class: 'controls', &block)
+        end
+      end
+
       def string_field(attr, options={})
-        label(attr, options[:label]) + content_tag(:div, class: 'controls') do
+        conditional_wrapper attr, options do
           param = options[:param] || "#{options[:value_attr] || attr}_cont"
           options[:input_html] ||= {}
           options[:input_html][:id] = "q_#{attr}"
@@ -104,6 +126,10 @@ module AbAdmin
       def label(attr, text=nil, options={})
         text ||= @object.klass.han(attr)
         super(attr, text, options)
+      end
+
+      def extract_label(attr, options)
+        options[:label].presence || @object.klass.han(attr)
       end
 
       def field_type(attr, options={})

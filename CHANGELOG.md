@@ -1,3 +1,10 @@
+### 0.7.0
+* enhancements
+  * add setting `search_form: {compact_labels: true}` to use compact labels in search form 
+* backwards incompatible changes
+  * [MARKUP] Tooltip css class 'do_tooltip' changed to 'js-tooltip', removed default tooltip position
+  * [MARKUP] Deprecated :wrapper_class option in search form, use `wrapper_html: {class: ''}` instead
+
 ### 0.5.0
 
 * backwards incompatible changes

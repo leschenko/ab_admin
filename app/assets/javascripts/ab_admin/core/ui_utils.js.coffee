@@ -23,9 +23,8 @@ window.initAcFileds = ->
       width: 220
 
 window.initTooltip = ->
-  $('.do_tooltip').tooltip
+  $('.js-tooltip').tooltip
     animation: false
-    placement: 'right'
 
 window.initEditor = (baseSelector='form') ->
   return if fv.test

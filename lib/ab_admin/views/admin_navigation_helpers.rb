@@ -9,6 +9,7 @@ module AbAdmin
         options[:html][:id] ||= 'search_form'
         options[:html][:class] ||= 'pjax-form'
         options[:builder] ||= ::AbAdmin::Views::SearchFormBuilder
+        options[:compact_labels] = settings.dig(:search_form, :compact_labels)
         options[:method] ||= :get
         options[:as] ||= 'q'
         form_for([:admin, object].flatten, *(args << options), &block)
