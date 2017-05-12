@@ -67,7 +67,7 @@ module AbAdmin
       end
 
       alias_method :store_filename, :filename
-      alias_method :extension_white_list, :extension_whitelist
+      alias_method(:extension_white_list, :extension_whitelist) if instance_methods.include?(:extension_whitelist)
 
       def filename
         internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
