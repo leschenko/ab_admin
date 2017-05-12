@@ -13,4 +13,5 @@
           .fileupload-info-extensions= options[:extensions].join(', ')
         .fileupload-info-max_size== "#{t('admin.fileupload.max_size')}: <b>#{options[:max_size]}</b> MB"
 
-= init_js("new AdminAssets(#{js_options.to_json})")
+javascript:
+  new AdminAssets(#{{js_options.to_json}});
