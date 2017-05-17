@@ -14,4 +14,9 @@
         .fileupload-info-max_size== "#{t('admin.fileupload.max_size')}: <b>#{options[:max_size]}</b> MB"
 
 javascript:
-  new AdminAssets(#{{js_options.to_json}});
+  if (document.readyState == 'complete') {
+    new AdminAssets(#{{js_options.to_json}});
+  }
+  else {
+    $(function(){new AdminAssets(#{{js_options.to_json}});});
+  }
