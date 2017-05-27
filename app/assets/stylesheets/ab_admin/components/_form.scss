@@ -72,6 +72,9 @@ input[type="color"],
   .input-large      { width: 210px; }
   .input-xlarge     { width: 270px; }
   .input-xxlarge    { width: 530px; }
+  textarea.cke_source {
+    max-width: none;
+  }
 }
 
 #search_form {
