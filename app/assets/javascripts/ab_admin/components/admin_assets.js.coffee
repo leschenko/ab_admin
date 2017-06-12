@@ -29,7 +29,7 @@ class window.AdminAssets extends BaseAssets
     @initEditMeta() if @options.edit_meta
 
   initFancybox: =>
-    @list.find(" a.fancybox")
+    @list.find("a.fancybox")
       .click (e) ->
         e.preventDefault()
       .fancybox

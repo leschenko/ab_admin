@@ -236,8 +236,16 @@ class Admin::BaseController < ::InheritedResources::Base
     %w(index search batch rebuild).include?(action_name)
   end
 
+  def self.scope(name, options={})
+    has_scope name, options.without(:badge)
+    options[:badge] = {} if options[:badge] && !options[:badge].is_a?(Hash)
+    self.button_scopes ||= []
+    self.button_scopes << [name, options]
+  end
+
   def button_scopes
-    self.class.button_scopes ||= self.class.scopes_configuration.except(:by_ids).find_all{|_, s| s[:type] == :boolean }.to_h
+    self.class.button_scopes ||= self.class.scopes_configuration.except(:by_ids).find_all{|_, s| s[:type] == :boolean }
+    self.class.button_scopes.to_h
   end
 
   def add_breadcrumbs
