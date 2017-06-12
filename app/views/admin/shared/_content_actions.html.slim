@@ -22,7 +22,9 @@
         a.btn href=url_for(param_name => (active ? nil : 1)) class=('active' if active)
           = t "admin.scopes.#{name}", default: name.to_s.titleize
           - if opts[:badge]
-            span.badge< class=("badge-#{opts[:badge][:type] || 'important'}") = resource_class.send(name).count
+            - scope_count = resource_class.send(name).count
+            - unless scope_count.zero?
+              span.badge< class=("badge-#{opts[:badge][:type] || 'important'}") = scope_count
 
   a.btn.pull-left#columns_hider_show href="#columns_hider" data-toggle='modal' = t 'admin.columns_hider.button'
 
