@@ -70,6 +70,10 @@ img {
   margin-left: 20px;
 }
 
+.control-group.ckeditor textarea {
+  max-width: none;
+}
+
 ul.nav li.dropdown:hover ul.dropdown-menu {
   display: block;
   margin: 0;
