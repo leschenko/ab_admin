@@ -78,7 +78,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     describe 'store original filename' do
       it 'stored in original_name field' do
         @image = create(:uploader_spec_image, assetable: @assetable)
-        expect(@image.original_name).to eq 'А и б.png'
+        expect(@image.original_name).to eq 'А_и_б.png'
       end
     end
 

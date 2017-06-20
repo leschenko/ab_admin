@@ -1,4 +1,4 @@
-@dsl @javascript @focus
+@dsl @javascript
 Feature: Editing records in the list
 
   Background:

@@ -3,6 +3,7 @@ Given(/^I have avatar$/) do
 end
 
 When(/^I click image batch edit button$/) do
+  page.execute_script "window.scrollBy(0,10000)"
   find('.fileupload-edit-button').click()
 end
 

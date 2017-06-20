@@ -46,6 +46,7 @@ Then /^(?:|I )should not see \/([^\/]*)\/([imxo])?$/ do |regexp,flags|
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
+  sleep 0.3
   current_path.should == path_to(page_name)
 end
 

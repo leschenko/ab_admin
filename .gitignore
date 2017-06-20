@@ -27,3 +27,4 @@ TODO
 .rspec
 .DS_Store
 rerun.txt
+.byebug_history

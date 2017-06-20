@@ -27,3 +27,9 @@ if Rails.env.development?
     end
   end
 end
+
+ActiveSupport::Deprecation.behavior = lambda do |msg, stack|
+  unless msg =~ /is not an attribute known to Active Record/
+    ActiveSupport::Deprecation::DEFAULT_BEHAVIORS[:stderr].call(msg, stack)
+  end
+end
