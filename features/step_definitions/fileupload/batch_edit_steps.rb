@@ -30,4 +30,3 @@ Then(/^image should store meta$/) do
   image.alt.should == 'Alt text'
   image.name.should == 'Title text'
 end
-
