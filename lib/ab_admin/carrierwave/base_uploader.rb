@@ -49,7 +49,7 @@ module AbAdmin
       def human_full_filename(for_file=filename)
         ext = File.extname(for_file)
         human_filename_part = for_file.chomp(ext)
-        tech_filename_part = "#{base_filename_part}#{ext.downcase}"
+        tech_filename_part = "#{base_filename_part}#{ext}"
         human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
       end
 
