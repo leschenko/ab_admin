@@ -23,7 +23,7 @@ module AbAdmin
 
       def after_sign_in_path_for(resource)
         stored_location_for(resource) ||
-            if resource.is_a?(User) && resource.moderator?
+            if resource.is_a?(User) && resource.admin_access?
               admin_root_path
             else
               super
