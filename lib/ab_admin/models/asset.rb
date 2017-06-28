@@ -30,7 +30,7 @@ module AbAdmin
 
         def ext_list
           return unless uploaders[:data]
-          uploaders[:data].new.extension_white_list
+          uploaders[:data].new.extension_whitelist
         end
 
         def clean!
