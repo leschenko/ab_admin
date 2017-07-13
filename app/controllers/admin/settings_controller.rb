@@ -11,7 +11,7 @@ class ::Admin::SettingsController < ::Admin::BaseController
 
   def cache_clear
     Rails.cache.clear
-    render nothing: true
+    head :ok
   end
 
   private
