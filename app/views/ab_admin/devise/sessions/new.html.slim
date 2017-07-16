@@ -7,4 +7,4 @@
   = f.button :submit, t('admin.auth.sessions.button'), class: 'btn-primary btn-large'
   br
   br
-  = link_to t('admin.auth.passwords.new.title'), new_password_path(resource_name)
+  = link_to t('admin.auth.passwords.new.title'), new_password_path(resource_name) if devise_mapping.recoverable?

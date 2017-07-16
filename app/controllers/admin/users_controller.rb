@@ -42,7 +42,7 @@ class Admin::UsersController < Admin::BaseController
 
   def build_resource
     super
-    resource.skip_confirmation!
+    resource.try(:skip_confirmation!)
     resource
   end
 

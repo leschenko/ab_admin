@@ -32,8 +32,8 @@ module AbAdmin
       end
 
       def activate!
-        confirm unless confirmed?
-        unlock_access! if access_locked?
+        confirm if respond_to?(:confirm) && !confirmed?
+        unlock_access! if respond_to?(:unlock_access!) && access_locked?
       end
 
       def active?
