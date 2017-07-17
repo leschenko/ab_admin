@@ -24,7 +24,7 @@
           - if opts[:badge]
             - scope_count = resource_class.send(name).count
             - unless scope_count.zero?
-              span.badge< class=("badge-#{opts[:badge][:type] || 'important'}") = scope_count
+              span.badge< class=("badge-#{opts[:badge].try(:[], :type) || 'important'}") = scope_count
 
   a.btn.pull-left#columns_hider_show href="#columns_hider" data-toggle='modal' = t 'admin.columns_hider.button'
 
