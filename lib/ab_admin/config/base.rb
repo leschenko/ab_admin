@@ -38,6 +38,10 @@ module AbAdmin
       self.partial_name = 'search_form'
     end
 
+    class Chart < BaseBuilder
+      self.partial_name = 'chart'
+    end
+
     class Export < BaseBuilder
       def render_options
         {column_names: fields.map(&:name), column_data: fields.map(&:data),
