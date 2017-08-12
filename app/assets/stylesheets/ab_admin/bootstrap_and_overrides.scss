@@ -23,10 +23,6 @@ img {
   max-width: none;
 }
 
-.thumbnail.active {
-  @extend a.thumbnail:hover
-}
-
 .pagination a {
   background-color: white;
 }
