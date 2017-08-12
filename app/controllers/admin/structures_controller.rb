@@ -22,11 +22,6 @@ class Admin::StructuresController < Admin::BaseController
   end
 
   def permitted_params
-    attrs = [:structure_type_id, :position_type_id, :parent_id, :title, :redirect_url, :is_visible,
-             :structure_type, :position_type,
-             *Structure.simple_slug_columns,
-             *AbAdmin.default_permitted_params,
-             *Structure.all_translated_attribute_names, header_attributes: [:id, *Header.all_translated_attribute_names]]
-    params[:structure].try!(:permit, *attrs)
+    params[:structure].permit!
   end
 end
