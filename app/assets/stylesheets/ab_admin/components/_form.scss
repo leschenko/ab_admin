@@ -19,7 +19,7 @@ input[type="color"],
 }
 
 .simple_form {
-  input, textarea {
+  input, textarea.text {
     width: 100%;
     max-width: 600px;
   }
@@ -144,7 +144,7 @@ textarea.do_wysihtml5 {
   width: 625px;
 }
 
-textarea {
+textarea.text {
   width: 100%;
   max-width: 600px;
   height: 90px;
