@@ -39,8 +39,19 @@ module AbAdmin
         link_to skype, "skype:#{skype.strip}?chat", options
       end
 
-      def init_js(js)
-        %Q[<script type='text/javascript'>$(function(){#{js}})</script>].html_safe
+      def init_js(js, delayed: false)
+        if delayed
+          @delayed_js ||= []
+          @delayed_js << js
+          nil
+        else
+          %Q[<script type='text/javascript'>$(function(){#{js}})</script>].html_safe
+        end
+      end
+
+      def render_delayed_js
+        return if @delayed_js.blank?
+        %Q[<script type='text/javascript'>$(function(){#{@delayed_js.join(';')}})</script>].html_safe
       end
 
       def image_tag_if(image, options={})
