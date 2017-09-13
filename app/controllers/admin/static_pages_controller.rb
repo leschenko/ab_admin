@@ -12,6 +12,6 @@ class Admin::StaticPagesController < Admin::BaseController
   end
 
   def permitted_params
-    params[:static_page].permit!
+    params[:static_page].try!(:permit!)
   end
 end
