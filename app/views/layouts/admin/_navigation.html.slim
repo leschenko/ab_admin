@@ -1,28 +1,6 @@
 header.navbar.navbar-inverse
-  nav.navbar-inner
-    .container
-      a.btn.btn-navbar data-target=".nav-collapse" data-toggle="collapse" 
-        span.icon-bar
-        span.icon-bar
-        span.icon-bar
-      a.brand href=root_path target='_blank' = AbAdmin.site_name
-      .nav-collapse.in.collapse
-        = AdminMenu.render(self)
-
-        .btn-group.pull-right
-          a.btn.dropdown-toggle data-toggle="dropdown" href="#" 
-            i.icon-user
-            = current_user.name
-            span.caret
-          ul.dropdown-menu
-            li
-              a href=edit_admin_user_path(current_user) = t 'admin.auth.profile'
-            li.divider
-            li= link_to(t('admin.auth.sign_out'), destroy_user_session_path, method: 'delete')
-
+  = render 'admin/shared/main_menu'
   ul.breadcrumb
-    li.resource_actions
-      - action_items.each do |act|
-        = action_link(act)
+    li.resource_actions= render 'admin/shared/action_items'
     = render 'admin/shared/breadcrumbs'
 

@@ -1,0 +1,12 @@
+- action_items.group_by{|ai| ai.is_a?(AbAdmin::Config::ActionItem) && ai.options[:group] }.each do |group, action_items|
+  - if group
+    .btn-group
+      a.btn.dropdown-toggle data-toggle="dropdown" href="#"
+        = group.to_s.humanize
+        span.caret
+      ul.dropdown-menu
+        - action_items.each do |action_item|
+          li= action_link(action_item)
+  - else
+    - action_items.each do |action_item|
+      = action_link(action_item)
