@@ -23,7 +23,11 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def with_scopes(relation)
-    manager.scopes.inject(relation) { |result, scope| scope.apply(result, params) }
+    scopes_to_apply.inject(relation) { |result, scope| scope.apply(result, params) }
+  end
+
+  def scopes_to_apply
+    manager.scopes.find_all{|scope| params[scope.name].present? }
   end
 
   def begin_of_association_chain

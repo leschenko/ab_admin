@@ -279,8 +279,8 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def search_collection
-    @search = with_scopes(end_of_association_chain.accessible_by(current_ability).admin).ransack(query_params)
-    @search.result(distinct: @search.object.joins_values.present?)
+    @search = end_of_association_chain.accessible_by(current_ability).ransack(query_params)
+    with_scopes(@search.result(distinct: @search.object.joins_values.present?)).admin
   end
 
   def query_params

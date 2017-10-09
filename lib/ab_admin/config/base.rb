@@ -172,7 +172,6 @@ module AbAdmin
       end
 
       def apply(relation, params)
-        return relation unless params[name].present?
         data.is_a?(Proc) ? data.call(relation, params) : relation.public_send(name)
       end
     end
