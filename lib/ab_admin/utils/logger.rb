@@ -13,9 +13,18 @@ module AbAdmin
         end
       end
 
+      class Formatter
+        FORMAT = "[%s] %5s %s\n".freeze
+        DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%3N'.freeze
+
+        def call(severity, time, _, msg)
+          FORMAT % [time.strftime(DATETIME_FORMAT), severity, msg]
+        end
+      end
+
       def self.for_file(filename)
         logger = ExtendedLogger.new(Rails.root.join('log', filename))
-        logger.formatter = ::Logger::Formatter.new
+        logger.formatter = Formatter.new
         logger
       end
     end
