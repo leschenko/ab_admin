@@ -5,8 +5,10 @@
   %>
   $('#<%= form_wrap_id %>').remove();
   $('#<%= dom_id(resource, 'list') %>').replaceWith('<%= j html %>');
+  var $el = $('#<%= dom_id(resource, 'list') %>');
   $(document).trigger('admin:list_init');
-  $('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
+  if (!$el[0].className) $el.addClass('success');
+  $el.scrollToEl();
 <% end %>
 
 window.ab_admin_last_updated = <%= raw resource.for_input_token.to_json %>;

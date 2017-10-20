@@ -43,6 +43,7 @@ module AbAdmin
             type: options[:type],
             source: options[:source].try(:to_json),
             model: options[:model] || item.class.model_name.singular,
+            accept: options[:accept],
             url: options[:url] || "/admin/#{item.class.model_name.plural}/#{item.id}",
             name: attr,
             value: options[:value] || item[attr],

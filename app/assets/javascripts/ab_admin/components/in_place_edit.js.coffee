@@ -13,10 +13,15 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
         data: params
         type: 'POST'
         dataType: 'json'
+      if @options.accept == 'script'
+        ajax_opts.dataType = @options.accept
+        ajaxOptions = $.extend(@options.ajaxOptions, {headers: {Accept: 'text/javascript, application/javascript'}})
+      else
+        ajaxOptions = @options.ajaxOptions
       delete params.name
       delete params.value
       delete params.pk
-      $.ajax $.extend(ajax_opts, @options.ajaxOptions)
+      $.ajax $.extend(ajax_opts, ajaxOptions)
   @saveWithoutUrlHook(value)
 EditableForm.prototype.saveWithoutUrlHook = EditableForm.prototype.save
 EditableForm.prototype.save = EditableForm.prototype.saveWithUrlHook
@@ -32,6 +37,8 @@ $(document).on 'admin:init', (e) ->
         flash JSON.parse(response.responseText).errors.join(', ')
       else
         response.responseText
+    success: (response) ->
+      $.globalEval(response.responseText)
     datetimepicker:
       format: "dd.mm.yyyy hh:ii"
       autoclose: true
