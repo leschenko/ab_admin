@@ -38,7 +38,8 @@ $(document).on 'admin:init', (e) ->
       else
         response.responseText
     success: (response) ->
-      $.globalEval(response.responseText)
+      if response && $(this).data().options?.accept == 'script'
+        $.globalEval(response.responseText)
     datetimepicker:
       format: "dd.mm.yyyy hh:ii"
       autoclose: true
