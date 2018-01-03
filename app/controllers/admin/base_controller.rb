@@ -176,7 +176,7 @@ class Admin::BaseController < ::InheritedResources::Base
     track_action if settings[:history]
   end
 
-  def falsh_interpolation_options
+  def flash_interpolation_options
     return {} if collection_action? || resource.errors.empty?
     {errors: resource.errors.full_messages.map { |m| "<br/> - #{m}" }.join.html_safe}
   end
