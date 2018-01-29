@@ -49,7 +49,7 @@ module AbAdmin
         html_options = options.delete(:html_options) || {}
         html_options[:class] = ['sort_link', current_dir, html_options[:class]].compact.join(' ')
 
-        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"))
+        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"), **scope_params)
         link_to [name, order_indicator_for(current_dir)].join(' ').html_safe, url_for(options), html_options
       end
 
@@ -61,6 +61,10 @@ module AbAdmin
         else
           '<span class="order_indicator">&#9650;&#9660;</span>'
         end
+      end
+
+      def scope_params
+        params.slice(*button_scopes.map(&:first)).permit!.to_h.symbolize_keys
       end
 
       def short_action_link(action, item)
