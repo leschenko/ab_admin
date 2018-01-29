@@ -19,7 +19,7 @@ class window.Select2Bridge
         $.get $el.attr('href'), {modal: true}, fn, 'script'
 
   buildOptions: ->
-    @options = _.defaults(@el.data('select2_opts') || {},  @defaults())
+    @options = _.defaults(@el.data('select2_opts') || @el.data('select2-opts') || {},  @defaults())
     @options.multiple = @el.data('multi') unless _.isUndefined(@el.data('multi'))
     @options.width = @el[0].style.width || 'resolve'
     if @el.data('tags')
@@ -38,7 +38,6 @@ class window.Select2Bridge
       @initCreateChoice()
     if @el.data('create-search-choice')
       @options.createSearchChoice = (term) ->
-        log 'createSearchChoice'
         {id: term, text: term}
     @options
 
