@@ -25,10 +25,11 @@
           td= id_link(item, edit: is_edit_link)
           = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
-            td
-              - if field.options[:editable] && field.data.is_a?(Symbol)
-                = admin_editable item, field.data, field.options[:editable]
-              - elsif field.options[:image]
-                = item_image_link(item, assoc: field.name)
+            td class=(field.options[:css_class] if field.options[:css_class])
+              - field_content = table_item_field(item, field)
+              - if field.options[:copy_button]
+                - field_id = dom_id(item, field.name)
+                span> id=field_id = field_content
+                .btn.btn-mini> class='js-copy' data-clipboard-target="##{field_id}" = icon('share')
               - else
-                = admin_pretty_data call_method_or_proc_on(item, field.data)
+                = field_content

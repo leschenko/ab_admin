@@ -177,6 +177,9 @@ label.control-label.label-reset {
 .inline_block {
   display: inline-block;
 }
+.white-space-nowrap {
+  white-space: nowrap;
+}
 
 @media (max-width: 767px) {
   body, .container-fluid {

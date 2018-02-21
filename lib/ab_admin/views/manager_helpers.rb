@@ -28,6 +28,16 @@ module AbAdmin
         manager.show ||= ::AbAdmin::Config::Show.default_for_model(resource_class)
       end
 
+      def table_item_field(item, field)
+        if field.options[:editable] && field.data.is_a?(Symbol)
+          admin_editable item, field.data, field.options[:editable]
+        elsif field.options[:image]
+          item_image_link(item, assoc: field.name)
+        else
+          admin_pretty_data call_method_or_proc_on(item, field.data)
+        end
+      end
+
       def action_item_admin_path(name, record=nil)
         custom_action = manager.custom_action_for(name, self)
         if custom_action.collection?
