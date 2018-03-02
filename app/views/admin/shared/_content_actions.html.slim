@@ -49,3 +49,13 @@
     .btn-group
       - settings[:sort_buttons].each do |opts|
         = list_sort_link(opts[:title], column: opts[:column], html_options: {class: 'btn'})
+
+  - if @search_collection && settings[:aggregations]
+    .aggregations
+      - settings[:aggregations].each do |ag|
+        .label> class=(ag[:css] || 'label-success')
+          => ag[:label] || "#{ag[:column].to_s.humanize}:"
+          - if !ag[:type] || ag[:type] == :sum
+            = @search_collection.sum(ag[:column]).try!(:round, 2)
+          - elsif ag[:type] == :average
+            = @search_collection.average(ag[:column]).try!(:round, 2)
