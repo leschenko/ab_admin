@@ -135,6 +135,8 @@ module AbAdmin
   mattr_accessor :site_name
   @@site_name = 'AbAdmin'
 
+  mattr_accessor :root_path
+
   mattr_accessor :body_css_class
 
   mattr_accessor :favicon_path
