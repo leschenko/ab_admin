@@ -15,7 +15,7 @@
             )
               = batch_action.title
   - unless button_scopes.blank?
-    .btn-group.pjax_links
+    .btn-group
       - button_scopes.each do |name, opts|
         - param_name = opts[:as] || name
         - active = params[param_name]
