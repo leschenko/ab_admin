@@ -49,7 +49,7 @@ module AbAdmin
             value: options[:value] || item[attr],
             title: options[:title] || item[attr]
         }
-        link_to admin_pretty_data(data[:title]).html_safe, '#', class: "editable #{options[:class]}", data: data.update(options[:data] || {})
+        link_to admin_pretty_data(data[:title]).to_s.html_safe, '#', class: "editable #{options[:class]}", data: data.update(options[:data] || {})
       end
 
       def options_for_ckeditor(options = {})
