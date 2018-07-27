@@ -23,6 +23,9 @@ module AbAdmin
 
       def admin_editable(item, attr, options=nil)
         options = {} unless options.is_a?(Hash)
+        title = options[:title] || item[attr]
+        html_title = admin_pretty_data(title).to_s.html_safe
+        return html_title unless can?(:update, item)
         options[:type] ||= 'select' if options[:source]
         
         case attr.to_s
@@ -49,7 +52,7 @@ module AbAdmin
             value: options[:value] || item[attr],
             title: options[:title] || item[attr]
         }
-        link_to admin_pretty_data(data[:title]).to_s.html_safe, '#', class: "editable #{options[:class]}", data: data.update(options[:data] || {})
+        link_to html_title, '#', class: "editable #{options[:class]}", data: data.update(options[:data] || {})
       end
 
       def options_for_ckeditor(options = {})
