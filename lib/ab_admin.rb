@@ -154,7 +154,7 @@ module AbAdmin
   @@translate_models = %w(User Asset Structure StaticPage Header AdminComment)
 
   mattr_accessor :assets
-  @@assets = %w(ab_admin/devise.css bootstrap.js ab_admin/loading.gif ab_admin/clear.png)
+  @@assets = %w(ab_admin/devise.css bootstrap.js ab_admin/loading.gif ab_admin/clear.png ab_admin/clear.png admin/flags/*.png)
 
   mattr_accessor :test_settings
   @@test_settings = {}
