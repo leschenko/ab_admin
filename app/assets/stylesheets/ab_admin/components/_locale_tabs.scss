@@ -1,27 +1,24 @@
-// tabs
 .locale_tabs {
   @include colored_tabs(#999);
 }
-// icons
+
 .locale_tabs {
-  @each $lang in ru, uk, en, it, de, fr, es {
+  @each $locale in ru, uk, en, it, de, fr, es, pl {
     li {
-      a.ico_#{$lang} {
-          background-position: 10px center;
-          background-repeat: no-repeat;
-          background-image: image-url("admin/flags/flag_#{$lang}_nonact.gif");
-          background-color: white;
+      a.ico_#{$locale} {
+        opacity: 0.5;
+        padding-left: 12px;
       }
-      &.active a.ico_#{$lang} {
-          background-image: image-url("admin/flags/flag_#{$lang}.gif");
+      &.active a.ico_#{$locale} {
+        opacity: 1;
       }
     }
 
-    .t_locale_#{$lang} {
-      background: image-url("admin/flags/b_#{$lang}.png") 10px center no-repeat;
+    .t_locale_#{$locale} {
+      background: image-url("admin/flags/#{$locale}.png") 10px center no-repeat;
     }
-    ##{$lang} {
-      .t_locale_#{$lang} {
+    ##{$locale} {
+      .t_locale_#{$locale} {
          display: none;
       }
     }
@@ -30,7 +27,7 @@
 
 .t_locales {
   position: absolute;
-  top: 0px;
+  top: 0;
   left: -5px;
   height: 60px;
   width: 40px;
@@ -47,35 +44,3 @@
     opacity: 1;
   }
 }
-
-// NON display: none; tabs
-//.tab-content > .tab-pane {
-//  clear: both;
-//  display: block;
-//  position: absolute;
-//  height: 0px;
-//  overflow: hidden !important;
-//  &.active {
-//    position: relative;
-//    height: auto;
-//    overflow: visible !important;
-//  }
-//}
-
-//.asset_description {
-//  width: 1000px;
-//}
-//
-//.asset_block {
-//  clear: both;
-//  padding: 5px 0;
-//}
-//
-//.asset_image {
-//  float: left;
-//  margin: 0 5px 5px 0;
-//}
-//
-//.asset_inputs input {
-//  margin-bottom: 5px;
-//}

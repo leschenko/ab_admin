@@ -2,7 +2,8 @@
   ul.nav.nav-tabs
     - locales.each_with_index do |l, i|
       li class=('active' if i.zero?)
-        a data-toggle="tab" href="##{l}" class="ico_#{l}" = t("admin.langs.#{l}", default: l.to_s)
+        a data-toggle="tab" href="##{l}" class="ico_#{l}" title=l
+          img src=image_path("admin/flags/#{l}.png")
   .tab-content
     - locales.each_with_index do |l, i|
       .tab-pane id=l class="tab_#{l} #{'active' if i.zero?}" = locale_html[l]
