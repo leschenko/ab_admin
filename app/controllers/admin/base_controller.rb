@@ -236,9 +236,10 @@ class Admin::BaseController < ::InheritedResources::Base
     %w(index search batch rebuild).include?(action_name)
   end
 
-  def self.scope(name, options={})
-    has_scope name, options.without(:badge)
+  def self.scope(name, options={}, &block)
+    has_scope name, options.without(:badge, :if), &block
     options[:badge] = {} if options[:badge] && !options[:badge].is_a?(Hash)
+    options[:block] = block
     self.button_scopes ||= []
     self.button_scopes << [name, options]
   end

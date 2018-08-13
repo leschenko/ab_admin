@@ -160,11 +160,7 @@ module AbAdmin
           when Symbol, String
             obj.send(symbol_or_proc.to_sym)
           when Proc
-            if exec
-              instance_exec(obj, &symbol_or_proc)
-            else
-              symbol_or_proc.call(obj)
-            end
+            exec ? instance_exec(obj, &symbol_or_proc) : symbol_or_proc.call(obj)
         end
       end
 
