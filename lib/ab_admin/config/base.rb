@@ -168,6 +168,7 @@ module AbAdmin
       def initialize(name, options={}, &block)
         @name = name
         @options = options
+        @options[:badge] = {} if @options[:badge] && !@options[:badge].is_a?(Hash)
         @data = block
       end
 
