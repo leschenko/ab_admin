@@ -5,6 +5,7 @@ table.table.table-striped.index_table#list
       th= list_sort_link(:id)
       th.actions_panel
       th= list_sort_link(:email)
+      th
       th= ha :avatar
       th= list_sort_link(:user_role_id)
       th= list_sort_link(:first_name)
@@ -23,6 +24,11 @@ table.table.table-striped.index_table#list
           - else
             = link_to icon('ok', true), activate_admin_user_path(item), method: :post, class: 'btn btn-success', title: t('admin.actions.activate.link')
         td= mail_to item.email
+        td
+          - if item.active?
+            .label.label-success= t 'admin.user.state.active'
+          - else
+            .label.label-danger= t 'admin.user.state.suspended'
         td= item_image_link(item, assoc: :avatar)
         td= item.user_role_type.try(:title)
         td= item.first_name

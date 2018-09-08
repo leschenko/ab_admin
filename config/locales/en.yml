@@ -190,10 +190,10 @@ en:
         moderator: Moderator
         redactor: Editor
       state:
-        active: Most Active
+        active: Active
         deleted: Removed
-        pending: Inactive
-        suspended: Frozen
+        pending: Pending
+        suspended: Suspended
     structure:
       kind:
         group: Group
