@@ -13,10 +13,10 @@ module AbAdmin
         end
 
         # remove duplicate records by columns
-        def remove_duplicates(*cols)
+        def remove_duplicates(*cols, deleted_id_order: '<')
           conds = cols.map { |col| "#{table_name}.#{col} IS NOT NULL AND #{table_name}.#{col} = t.#{col}" }.join(' AND ')
           query = <<-SQL
-            DELETE FROM #{table_name} USING #{table_name}, #{table_name} AS t WHERE #{table_name}.id < t.id AND #{conds}
+            DELETE FROM #{table_name} USING #{table_name}, #{table_name} AS t WHERE #{table_name}.id #{deleted_id_order} t.id AND #{conds}
           SQL
           connection.execute(query)
         end
