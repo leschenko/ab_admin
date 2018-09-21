@@ -246,14 +246,6 @@ de:
     updater_id: ''
     remember_me: Remember
     password: Password
-  attrs:
-    en: Eng.
-    it: Italian
-    ru: Rus.
-    uk: Ukr.
-    de: Deutsch
-    fr: Fr
-    es: Es
   flash:
     admin:
       actions:

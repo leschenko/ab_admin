@@ -246,14 +246,6 @@ ru:
     updater_id: Обновил
     remember_me: Запомнить
     password: Пароль
-  attrs:
-    en: анг.
-    it: итал.
-    ru: рус.
-    uk: укр.
-    de: нем.
-    fr: фран.
-    es: исп.
   flash:
     admin:
       actions:
