@@ -17,9 +17,9 @@ module AbAdmin
         def value_format
           case input_type
             when :date_picker
-              '%d.%m.%Y'
+              '%Y-%m-%d'
             when :datetime_picker
-              '%d.%m.%Y %H:%M'
+              '%Y-%m-%d %H:%M'
             when :time_picker
               '%H:%M'
           end

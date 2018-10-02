@@ -1,3 +1,8 @@
+* backwards incompatible changes
+  * removed Asset#format_created_at
+  * removed Time#formatted_datetime, Time#formatted_date
+  * date picker format changed to `yyyy-mm-dd` 
+
 ### 0.7.0
 * enhancements
   * add setting `search_form: {compact_labels: true}` to use compact labels in search form 

@@ -52,10 +52,6 @@ module AbAdmin
         data.versions[thumb_size] ? url(thumb_size) : url
       end
 
-      def format_created_at
-        I18n.l(created_at, format: '%d.%m.%Y %H:%M')
-      end
-
       def human_name
         original_name.presence || data_file_name
       end
