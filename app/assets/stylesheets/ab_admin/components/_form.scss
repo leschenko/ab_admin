@@ -120,6 +120,9 @@ input[type="color"],
     -webkit-transform: translateX(-10px) translateY(-4px);
     transform: translateX(-10px) translateY(-4px);
   }
+  hr {
+    margin: 10px 0;
+  }
 }
 
 .datetimepicker-bottom-left-custom {
