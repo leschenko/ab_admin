@@ -103,8 +103,13 @@ class Hash
     new_hash
   end
 
-  def no_blank
+  def reject_blank
     reject { |_, v| v.blank? }
+  end
+
+  def no_blank
+    ActiveSupport::Deprecation.warn('`no_blank` is deprecated, use `reject_blank` instead')
+    reject_blank
   end
 
   def try_keys(*try_keys)
