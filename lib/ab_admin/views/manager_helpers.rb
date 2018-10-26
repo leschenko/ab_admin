@@ -50,7 +50,7 @@ module AbAdmin
 
       def index_view_link(index_view)
         options = {class: "btn #{('active' if current_index_view == index_view)}", title: t("admin.index_view.#{index_view}", default: index_view.to_s)}
-        url = url_for({index_view: index_view, q: params[:q]}.no_blank)
+        url = url_for({index_view: index_view, q: params[:q]}.reject_blank)
         link_to icon(INDEX_VIEW_ICONS[index_view.to_sym]), url, options
       end
     end

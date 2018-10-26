@@ -290,7 +290,7 @@ class Admin::BaseController < ::InheritedResources::Base
     query = params[:q].try! {|q| q.permit!.to_h} || {}
     nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
     query[:s] ||= settings[:default_order] || ('id desc' unless nested)
-    query.no_blank
+    query.reject_blank
   end
 
   def with_scopes(relation)
