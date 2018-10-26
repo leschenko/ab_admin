@@ -90,8 +90,11 @@ module AbAdmin
         render 'admin/admin_comments/comments'
       end
 
-      def color_bool(val, success_class='badge-success')
-        %(<span class="badge #{success_class if val}">#{val ? '+' : '-'}</span>).html_safe
+      def color_bool(val, options={})
+        options.reverse_merge!(true_css: 'badge-success', false_css: nil, nil_css: nil)
+        css = options["#{val.inspect}_css".to_sym]
+        text = val.nil? ? '?' : (val ? '+' : '-')
+        %(<span class="badge #{css}">#{text}</span>).html_safe
       end
 
       def icon(name, white=false)
