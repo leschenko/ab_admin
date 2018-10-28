@@ -1,6 +1,8 @@
 #toggle_sidebar_off.btn.btn-large = icon('chevron-left')
 #toggle_sidebar_on.btn.btn-large = icon('chevron-right')
 = search_admin_form_for @search, url: collection_path(scope_params) do |f|
+  - if settings.dig(:search_form, :submit_on_top)
+    = f.submit t('admin.search.submit'), class: 'btn btn-success btn-small search-submit-wide'
   = render 'search_form', f: f
   br
   div
