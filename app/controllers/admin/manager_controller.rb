@@ -129,13 +129,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def permitted_params
-    attrs = case manager.permitted_params
-              when Proc then
-                instance_exec(&manager.permitted_params)
-              else
-                Array(manager.permitted_params)
-            end
-
+    attrs = Array(manager.permitted_params.is_a?(Proc) ? instance_exec(&manager.permitted_params) : manager.permitted_params)
     resource_params = params[resource_class.model_name.param_key]
     return {} unless resource_params
     if attrs.first == :all
