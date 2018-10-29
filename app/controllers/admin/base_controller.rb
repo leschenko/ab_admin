@@ -206,15 +206,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def settings
-    {
-        index_view: 'table',
-        sidebar: collection_action?,
-        well: (collection_action? || %w(show history).include?(action_name)),
-        search: true,
-        batch: true,
-        hotkeys: true,
-        list_dblclick: true
-    }
+    {sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name))}.update(AbAdmin.default_resource_settings)
   end
 
   def action_items

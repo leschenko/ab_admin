@@ -176,6 +176,9 @@ module AbAdmin
 
   mattr_accessor :base_url
 
+  mattr_accessor :default_resource_settings
+  @@default_resource_settings = {index_view: 'table', search: true, batch: true, hotkeys: true, list_dblclick: true}
+
   mattr_accessor :default_per_page
   @@default_per_page = 50
 
