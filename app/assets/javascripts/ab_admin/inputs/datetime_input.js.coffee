@@ -14,7 +14,7 @@ $ ->
     $('#search_form input.datepicker[name*="_at_gteq]"]').datetimepicker search_form_options_gt
     $('#search_form input.datepicker[name*="_at_lteq]"]').datetimepicker search_form_options_lt
 
-    date_picker_options = _.defaults({format: "yyyy-dd-mm", minView: 2}, base_options)
+    date_picker_options = _.defaults({format: "yyyy-mm-dd", minView: 2}, base_options)
     $('.simple_form input.date_picker').datetimepicker date_picker_options
 
     $('.simple_form input.datetime_picker').datetimepicker base_options
