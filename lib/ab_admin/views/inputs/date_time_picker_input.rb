@@ -3,14 +3,15 @@ module AbAdmin
     module Inputs
       class DateTimePickerInput < ::SimpleForm::Inputs::Base
         def input(wrapper_options=nil)
-          input_html_options[:value] ||= formated_value
+          input_html_options[:value] ||= formatted_value
+          input_html_options[:autocomplete] ||= 'off'
           input_html_classes << input_type
           @builder.text_field(attribute_name, input_html_options)
         end
 
         private
 
-        def formated_value
+        def formatted_value
           object.send(attribute_name).try(:strftime, value_format)
         end
 
