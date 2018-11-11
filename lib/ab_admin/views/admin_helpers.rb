@@ -26,20 +26,26 @@ module AbAdmin
         title = options[:title] || item[attr]
         html_title = admin_pretty_data(title).to_s.html_safe
         return html_title unless can?(:update, item)
-        options[:type] ||= 'select' if options[:source]
-        
-        case attr.to_s
-          when /_at$/
-            options[:type] ||= 'date'
-          when /^is_/
-            options[:type] ||= 'select'
-            options[:source] ||= {1 => 'yes', 0 => 'no'}
-            options[:value] ||= item[attr] ? 1 : 0
-            options[:title] ||= item[attr] ? 'yes' : 'no'
-          when /description|body|content/
-            options[:type] ||= 'textarea'
+        options[:source] = options[:collection].is_a?(Hash) ? options[:collection] : options[:collection].map{|r| [r.id, AbAdmin.display_name(r)] }.to_h if options[:collection]
+
+        unless options[:type]
+          if options[:source]
+            options[:type] = 'select'
           else
-            options[:type] ||= 'text'
+            case attr.to_s
+              when /_at$/
+                options[:type] ||= 'date'
+              when /^is_/
+                options[:type] ||= 'select'
+                options[:source] ||= {1 => 'yes', 0 => 'no'}
+                options[:value] ||= item[attr] ? 1 : 0
+                options[:title] ||= item[attr] ? 'yes' : 'no'
+              when /description|body|content/
+                options[:type] ||= 'textarea'
+              else
+                options[:type] ||= 'text'
+            end
+          end
         end
 
         data = {
