@@ -4,7 +4,7 @@ module AbAdmin
       class ExtendedLogger < ::Logger
         def exception(e, options={})
           message = "#{e.message} #{"DATA:#{options[:data].inspect}" if options && options[:data]}"
-          backtrace = e.backtrace.map { |l| "#{' ' * 2}#{l}" }.join("\n")
+          backtrace = e.backtrace.map { |l| "#{' ' * 2}#{l}" }.join("\n") if e.backtrace
           error("#{e.class} #{message}\n#{backtrace}\n\n")
         end
 
