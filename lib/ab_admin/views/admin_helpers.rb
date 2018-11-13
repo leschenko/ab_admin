@@ -35,6 +35,7 @@ module AbAdmin
             case attr.to_s
               when /_at$/
                 options[:type] ||= 'date'
+                options[:title] ||= html_title
               when /^is_/
                 options[:type] ||= 'select'
                 options[:source] ||= {1 => 'yes', 0 => 'no'}
