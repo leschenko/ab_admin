@@ -1,9 +1,10 @@
 .tabbable.locale_tabs
   ul.nav.nav-tabs
+    - active_locale = params[:edit_locale].present? ? params[:edit_locale].to_sym : locales.first
     - locales.each_with_index do |l, i|
-      li class=('active' if i.zero?)
+      li class=('active' if l == active_locale)
         a data-toggle="tab" href="##{l}" class="ico_#{l}" title=l
           img src=image_path("admin/flags/#{l}.png")
   .tab-content
     - locales.each_with_index do |l, i|
-      .tab-pane id=l class="tab_#{l} #{'active' if i.zero?}" = locale_html[l]
+      .tab-pane id=l class="tab_#{l} #{'active' if l == active_locale}" = locale_html[l]
