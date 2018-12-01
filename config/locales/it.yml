@@ -64,17 +64,17 @@ it:
       profile: Profilo
       sign_out: Produzione
       sessions:
-        title: ''
-        button: ''
+        title: Accedi
+        button: Accedi
       passwords:
         new:
-          title: ''
-          button: ''
+          title: Hai dimenticato la password?
+          button: Inviami le istruzioni per la reimpostazione della
         edit:
-          title: ''
-          button: ''
-          password: ''
-          password_confirmation: ''
+          title: Cambia la tua password
+          button: Cambia la mia password
+          password: Nuova password
+          password_confirmation: Conferma la tua nuova password
     avatar: Immagine
     batch_actions: Attività
     cache_clear: Cancella cache
@@ -238,7 +238,7 @@ it:
     updater: ''
     updater_id: ''
     remember_me: ''
-    password: ''
+    password: 'Password'
   flash:
     admin:
       actions:
