@@ -58,6 +58,6 @@
         .label> class=(ag[:css] || 'label-success')
           => ag[:label] || "#{ag[:column].to_s.humanize}:"
           - if !ag[:type] || ag[:type] == :sum
-            = @search_collection.sum(ag[:column]).try!(:round, 2)
+            = @search_collection.distinct(false).sum(ag[:column]).try!(:round, 2)
           - elsif ag[:type] == :average
             = @search_collection.average(ag[:column]).try!(:round, 2)
