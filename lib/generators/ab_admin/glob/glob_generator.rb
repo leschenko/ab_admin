@@ -6,7 +6,7 @@ module AbAdmin
 
       source_root File.expand_path('../templates', __FILE__)
 
-      argument :name, type: :string, default: 'fake'
+      argument :name, type: :string, default: ''
 
       def create_glob_migration
         migration_template 'migration.erb', "db/migrate/#{migration_name}.rb"
@@ -41,7 +41,7 @@ module AbAdmin
           next if file =~ /(?:concerns|shared)\//
           require file
         end
-        ActiveRecord::Base.subclasses.find_all { |model| model.connection.data_source_exists?(model.table_name) }
+        [ActiveRecord::Base, ApplicationRecord].flat_map{|sc| sc.subclasses.find_all { |model| model.connection.data_source_exists?(model.table_name) } }
       end
 
       def conn
