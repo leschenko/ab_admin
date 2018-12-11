@@ -1,2 +1,9 @@
 en:
   hello: "Hello world"
+  hello_letter:
+    a: "Hello a"
+    ab: "Hello ab"
+    b: "Hello b"
+    deep:
+      d: 'Hi d'
+      c: 'Hi d'
