@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
     resource :locators do
       post :prepare, :reload, on: :collection
+      get :export, on: :collection
     end
 
     resources :admin_comments

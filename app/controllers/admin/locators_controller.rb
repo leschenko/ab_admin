@@ -4,6 +4,13 @@ class ::Admin::LocatorsController < ::Admin::BaseController
   before_action :find_files, only: [:show, :edit, :update]
   before_action :find_file, only: [:edit, :update]
 
+  def export
+    authorize! :export, resource_class
+    locales = I18n.available_locales & params[:locales].split(',').map(&:to_sym) if params[:locales].present?
+    keys = Locator.export(*params[:keys].to_s.split(','), locales: locales)
+    send_data(keys, filename: "locales_#{Time.now.strftime('%Y_%m_%d')}.csv", type: Mime[:csv], disposition: 'attachment')
+  end
+
   def edit
     @locale_hash = YAML.load_file(@file)
   end
