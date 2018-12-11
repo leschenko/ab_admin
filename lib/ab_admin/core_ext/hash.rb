@@ -127,4 +127,17 @@ class Hash
     }
   end unless Hash.method_defined?(:deep_stringify_keys)
 
+  def flatten_hash!(k = [])
+    inject({}) do |h, v|
+      new_k = k + [v[0]]
+      h.merge!(v[-1].is_a?(Hash) ? v[-1].flatten_hash!(new_k) : {new_k => v[-1]})
+    end
+  end
+
+  def flatten_hash(k = [])
+    dup.inject({}) do |h, v|
+      new_k = k + [v[0]]
+      h.merge!(v[-1].is_a?(Hash) ? v[-1].dup.flatten_hash(new_k) : {new_k => v[-1]})
+    end
+  end
 end
