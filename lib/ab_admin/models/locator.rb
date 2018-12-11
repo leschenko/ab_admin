@@ -23,13 +23,8 @@ module AbAdmin
         def prepare_data(path)
           data = YAML.load_file(path)
           locale = data.keys.first
-          OpenStruct.new({locale: locale.to_sym, data: data[locale], flat_data: flat_hash(data[locale]),
+          OpenStruct.new({locale: locale.to_sym, data: data[locale], flat_data: data[locale].flatten_hash,
                           filename: File.basename(path), path: path, dir: File.dirname(path)})
-        end
-
-        def flat_hash(hash, k = [])
-          return {k => hash} unless hash.is_a?(Hash)
-          hash.inject({}) { |h, v| h.merge! flat_hash(v[-1], k + [v[0]]) }
         end
       end
 
