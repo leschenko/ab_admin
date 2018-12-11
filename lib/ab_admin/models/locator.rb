@@ -29,7 +29,7 @@ module AbAdmin
                           filename: File.basename(path), path: path, dir: File.dirname(path)})
         end
 
-        def self.export(*keys, locales: nil)
+        def export(*keys, locales: nil)
           return if keys.blank?
           locales ||= I18n.available_locales
           I18n.backend.available_locales # Force load translations
@@ -43,7 +43,7 @@ module AbAdmin
           for_csv.map(&:to_csv).join
         end
 
-        def self.translations
+        def translations
           @translations ||= I18n.backend.send(:translations).slice(*I18n.available_locales).transform_values{|v| v.flatten_hash.transform_keys{|k| k.join('.') } }
         end
       end
