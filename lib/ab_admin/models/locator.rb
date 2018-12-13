@@ -29,7 +29,7 @@ module AbAdmin
                           filename: File.basename(path), path: path, dir: File.dirname(path)})
         end
 
-        def export(*keys, locales: nil)
+        def export_csv(*keys, locales: nil)
           return if keys.blank?
           locales ||= I18n.available_locales
           I18n.backend.available_locales # Force load translations
@@ -41,6 +41,24 @@ module AbAdmin
           end
           for_csv = [['DO NOT EDIT THIS COLUMN!', *locales]] + data.map{|k, v| [k, *v] }
           for_csv.map(&:to_csv).join
+        end
+
+        def import_csv(csv, locales: nil)
+          return if csv.blank?
+          locales ||= I18n.available_locales
+          csv_data = CSV.parse(csv)
+          csv_data.shift.each_with_index do |l, i|
+            next if i.zero? || !locales.include?(l.to_sym)
+            path = Rails.root.join('config', 'locales', "#{l}.yml")
+            raise "Missing file #{path}" unless File.file?(path)
+            data = YAML.load_file(path)
+            csv_data.each do |d|
+              key_parts = [l.to_s] + d[0].split('.')
+              raise "Invalid key #{d[0]}" unless data.dig(*key_parts)
+              data.store_multi(d[i], *key_parts)
+            end
+            save path, data
+          end
         end
 
         def translations

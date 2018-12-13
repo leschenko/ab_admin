@@ -21,3 +21,14 @@ hr
   br
   br
   button.btn Export CSV
+
+hr
+
+= form_tag import_admin_locators_path, method: :post, multipart: true do
+  = file_field_tag :csv_file
+  br
+  input.input-medium.fancy_select> type='text' name='locales' placeholder='Locales, all by default' data-tags=I18n.available_locales.to_json
+  br
+  br
+  button.btn Import CSV
+

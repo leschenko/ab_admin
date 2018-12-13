@@ -25,7 +25,7 @@ Rails.application.routes.draw do
     end
 
     resource :locators do
-      post :prepare, :reload, on: :collection
+      post :prepare, :reload, :import, on: :collection
       get :export, on: :collection
     end
 
