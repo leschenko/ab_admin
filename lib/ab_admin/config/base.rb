@@ -3,8 +3,7 @@ module AbAdmin
     class BaseBuilder
       attr_reader :options, :fields
       attr_accessor :partial
-      class_attribute :field_defaults, :partial_name, instance_writer: false
-      self.field_defaults = {}
+      class_attribute :partial_name, instance_writer: false
 
       def initialize(options={}, &block)
         @fields = []
@@ -14,7 +13,7 @@ module AbAdmin
       end
 
       def field(name, options={}, &block)
-        @fields << Field.new(name, options.reverse_merge!(field_defaults), &block)
+        @fields << Field.new(name, options, &block)
       end
 
       def self.default_for_model(model, options={})
@@ -30,7 +29,6 @@ module AbAdmin
     end
 
     class Table < BaseBuilder
-      self.field_defaults = {sortable: true}
       self.partial_name = 'table'
     end
 

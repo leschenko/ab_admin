@@ -9,12 +9,14 @@
         th.actions_panel
         - table_builder.fields.each do |field|
           th class=('hide_cell' if field.options[:hidden])
-            - if field.options[:sortable] && !field.options[:image]
-              - if field.options[:sortable].is_a?(TrueClass)
-                = list_sort_link field.name
-              - else
-                - opts = field.options[:sortable].is_a?(Hash) ? field.options[:sortable] : {column: field.options[:sortable]}
-                = list_sort_link field.name, opts
+            - if field.options[:sortable].is_a?(FalseClass)
+              = field.name.is_a?(Symbol) ? ha(field.name) : field.name
+            - elsif field.options[:sortable].is_a?(TrueClass)
+              = list_sort_link field.name
+            - elsif field.options[:sortable].is_a?(Hash)
+              = list_sort_link field.name, field.options[:sortable]
+            - elsif resource_class.column_names.include?(field.name.to_s)
+              = list_sort_link field.name
             - else
               = field.name.is_a?(Symbol) ? ha(field.name) : field.name
     tbody
