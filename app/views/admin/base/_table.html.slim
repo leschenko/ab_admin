@@ -8,7 +8,7 @@ table.table.table-striped.index_table#list
       th=t 'admin.table.actions'
   tbody
     - collection.each do |item|
-      tr
+      tr id=dom_id(item, 'list')
         = batch_action_item(item)
         td= id_link(item)
         - resource_class.content_columns.map(&:name).without('updated_at').each do |col|

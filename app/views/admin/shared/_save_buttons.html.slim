@@ -1,4 +1,4 @@
-- return_to = params[:return_to].presence || request.referer
+- return_to = "#{params[:return_to].presence || request.referer}##{dom_id(resource, 'list')}"
 input type='hidden' name='return_to' value=return_to
 .form-actions
   button.btn.btn-primary type="submit" name="_save" data-disable-with=t('admin.form.save')
