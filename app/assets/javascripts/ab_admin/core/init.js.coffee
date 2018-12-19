@@ -43,9 +43,10 @@ $ ->
 
   if window.fv?.list_dblclick
     $(document).on 'dblclick', '#list > tbody > tr', (e) ->
-      e.preventDefault()
-      unless $(e.target).closest('#list > tbody > tr > td').hasClass('list_adds')
-        $(this).find('td a.resource_id_link').toHref()
+      if e.target.tagName == 'TD'
+        e.preventDefault()
+        unless $(e.target).closest('#list > tbody > tr > td').hasClass('list_adds')
+          $(this).find('td a.resource_id_link').toHref()
 
   initFancySelect()
   initNestedFields()
