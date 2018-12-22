@@ -32,8 +32,8 @@ module AbAdmin
           #ActiveRecord::Base.descendants.find_all { |model| model.descends_from_active_record? }
         end
 
-        def han(attr)
-          human_attribute_name(attr)
+        def han(attr, locale: nil)
+          locale ? "#{human_attribute_name(attr)} (#{locale})" : human_attribute_name(attr)
         end
 
         def quote_column(col_name)
