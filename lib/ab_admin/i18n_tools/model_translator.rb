@@ -5,7 +5,8 @@ module AbAdmin
       IGNORE_COLUMNS = %w(id reset_password_sent_at remember_created_at current_sign_in_at confirmation_token
                       reset_password_token password_salt failed_attempts)
 
-      def initialize
+      def initialize(options: {})
+        @options = options
         @locales = Globalize.available_locales
         @models = AbAdmin.translate_models.map{|m| m.constantize }
         @models_i18n_hash = {}
@@ -33,7 +34,7 @@ module AbAdmin
                 model.reflect_on_all_associations.map(&:name).map(&:to_s).reject { |a| a =~ /^translation/ }.each do |assoc|
                   o[assoc] = ha(model, assoc, locale)
                 end
-                if model.new.respond_to?("#{attr}_#{locale.to_s}".to_sym)
+                if @options[:locale_attributes] && model.new.respond_to?("#{attr}_#{locale.to_s}".to_sym)
                   @locales.each do |locale_1|
                     o["#{attr}_#{locale_1.to_s}"] = "#{ha(model, attr, locale)} (#{locale_1.to_s})"
                   end
