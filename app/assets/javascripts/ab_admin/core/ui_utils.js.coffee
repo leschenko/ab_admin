@@ -68,10 +68,9 @@ window.initFancySelect = ->
 
 window.initEditableBool = ->
   $(document).on 'click', '.js-auto-submit-checkbox', (e) ->
-    target = $(e.target).closest('.auto-submit-checkbox-wrap')
-    target.removeClass('success', 'error')
-    console.log target
     $el = $(this)
+    $el.attr('disabled', true)
+    $wrap = $el.closest('.auto-submit-checkbox-wrap').removeClass('success', 'error')
     params = {}
     params[$el.attr('name')] = if $el.prop('checked') then 1 else 0
     params['_method'] = $el.data('method') || 'PATCH'
@@ -79,8 +78,7 @@ window.initEditableBool = ->
       data: params
       method: 'POST'
       error: ->
-        console.log target
-        target.addClass('error')
+        $wrap.addClass('error')
       success: ->
-        console.log target
-        target.addClass('success')
+        $wrap.addClass('success')
+        $el.attr('disabled', null)
