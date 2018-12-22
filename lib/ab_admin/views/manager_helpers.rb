@@ -30,7 +30,11 @@ module AbAdmin
 
       def table_item_field(item, field)
         if field.options[:editable] && field.data.is_a?(Symbol)
-          admin_editable item, field.data, field.options[:editable]
+          if field.data.to_s.start_with?('is_')
+            editable_bool(item, field.data)
+          else
+            admin_editable item, field.data, field.options[:editable]
+          end
         elsif field.options[:image]
           item_image_link(item, assoc: field.name)
         else
