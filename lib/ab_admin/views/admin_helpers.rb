@@ -21,6 +21,13 @@ module AbAdmin
         end
       end
 
+      def editable_bool(item, attr)
+        url = "/admin/#{item.class.model_name.plural}/#{item.id}"
+        content_tag :div, class: 'auto-submit-checkbox-wrap' do
+          check_box_tag("#{item.class.model_name.singular}[#{attr}]", '1', item.send(attr), class: 'js-auto-submit-checkbox', data: {url: url})
+        end
+      end
+
       def admin_editable(item, attr, options=nil)
         options = {} unless options.is_a?(Hash)
         title = options[:title] || item[attr]

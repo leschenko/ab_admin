@@ -185,3 +185,18 @@ textarea.text {
 .list_edit .form-horizontal .control-group {
   margin-bottom: 1px;
 }
+
+.auto-submit-checkbox-wrap {
+  display: inline-block;
+  padding: 2px 4px 2px 6px;
+  border-radius: 5px;
+  input.js-auto-submit-checkbox[type='checkbox'] {
+    margin: 0;
+  }
+  &.success {
+    background-color: #dff0d8;
+  }
+  &.error {
+    background-color: #f2dede;
+  }
+}

@@ -65,3 +65,22 @@ window.initFancySelect = ->
     $el = $(this)
     return if $el.data('select2')
     $el.data('Select2Bridge') or $el.data('Select2Bridge', new Select2Bridge($el))
+
+window.initEditableBool = ->
+  $(document).on 'click', '.js-auto-submit-checkbox', (e) ->
+    target = $(e.target).closest('.auto-submit-checkbox-wrap')
+    target.removeClass('success', 'error')
+    console.log target
+    $el = $(this)
+    params = {}
+    params[$el.attr('name')] = if $el.prop('checked') then 1 else 0
+    params['_method'] = $el.data('method') || 'PATCH'
+    $.ajax $el.data('url'),
+      data: params
+      method: 'POST'
+      error: ->
+        console.log target
+        target.addClass('error')
+      success: ->
+        console.log target
+        target.addClass('success')

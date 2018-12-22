@@ -53,6 +53,7 @@ $ ->
   initNestedFields()
   inputSetToggle()
   inputBtnClose()
+  initEditableBool()
 
   if window.fv?.bg_color
     $('body').css('background-color', "##{window.fv.bg_color.replace(/^#/, '')}")
