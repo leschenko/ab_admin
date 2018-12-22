@@ -31,7 +31,10 @@ module AbAdmin
           end
         end
 
-        attribute_name = "#{attribute_name}_#{options[:locale]}" if options[:locale]
+        if options[:locale]
+          options[:label] ||= object.class.han(attribute_name, locale: options[:locale])
+          attribute_name = "#{attribute_name}_#{options[:locale]}"
+        end
 
         options[:disabled] = disabled_attribute?(attribute_name) unless options.has_key?(:disabled)
 
