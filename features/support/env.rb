@@ -1,6 +1,7 @@
 SPEC_PATH = File.expand_path('../../../spec', __FILE__)
 ENV['RAILS_ROOT'] = File.expand_path('../../../spec/dummy', __FILE__)
 
+require 'rack/handler/puma'
 require 'cucumber/rails'
 
 Capybara.default_selector = :css
@@ -17,12 +18,16 @@ require 'factory_bot'
 FactoryBot.definition_file_paths = [File.join(SPEC_PATH, 'factories')]
 FactoryBot.find_definitions
 
+Capybara.register_server :rails_puma_custom do |app, port, host|
+  Rack::Handler::Puma.run(app, Port: port, Threads: '0:1', Silent: true)
+end
+
 Capybara.configure do |config|
   config.default_selector = :css
   config.default_max_wait_time = 5
-  config.exact_options = true
   config.ignore_hidden_elements = false
   config.visible_text_only = true
+  config.server = :rails_puma_custom
 end
 
 RSpec::Expectations.configuration.on_potential_false_positives = :nothing

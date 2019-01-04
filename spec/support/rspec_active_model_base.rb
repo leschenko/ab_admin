@@ -15,6 +15,10 @@ class RspecActiveModelBase
   delegate :[], to: :attributes
   alias_method :_read_attribute, :[]
 
+  def self.polymorphic_name
+    name
+  end
+
   def initialize(attributes = {})
     @id = attributes[:id]
     @attributes = attributes

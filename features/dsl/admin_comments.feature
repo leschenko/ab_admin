@@ -3,7 +3,7 @@ Feature: Admin comments
   
   Background: 
     Given I am logged in
-    And 1 product exists
+    And 1 products exists
 
   Scenario: Adding a comment
     Given a configuration of:

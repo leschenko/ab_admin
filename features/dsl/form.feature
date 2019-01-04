@@ -1,4 +1,4 @@
-@dsl
+@dsl @focus
 Feature: Form
 
   Background:

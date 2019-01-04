@@ -52,6 +52,7 @@ group :development, :test do
 end
 
 group :test do
+  gem 'puma'
   gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'generator_spec'

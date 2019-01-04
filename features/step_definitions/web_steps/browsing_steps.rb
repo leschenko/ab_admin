@@ -50,7 +50,7 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path.should == path_to(page_name)
 end
 
-Then /^I should see (\d+) elements? kind of (.+)$/ do |count, locator|
+Then /^I should see {int} elements? kind of (.+)$/ do |count, locator|
   actual_count = all(selector_for(locator)).count
   count = count.to_i
 

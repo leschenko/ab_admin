@@ -13,7 +13,7 @@ end
 
 When(/^I fill in image meta$/) do
   within 'form.fileupload-edit-form' do
-    click_link I18n.locale.to_s.titleize
+    click_link I18n.locale.to_s
     find(".tab_#{I18n.locale} input[placeholder=\"Alt\"]").set('Alt text')
     find(".tab_#{I18n.locale} input[placeholder=\"Name\"]").set('Title text')
   end
