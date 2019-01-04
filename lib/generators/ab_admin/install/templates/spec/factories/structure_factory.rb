@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :structure do
     title 'Structure'
     is_visible true

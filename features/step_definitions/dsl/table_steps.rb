@@ -1,10 +1,10 @@
 Given /^a product with sku "(.*?)"$/ do |sku|
-  @product = FactoryGirl.create(:product, sku: sku)
+  @product = FactoryBot.create(:product, sku: sku)
 end
 
 Given /^products? exists with attributes:$/ do |products|
   products.hashes.each do |attrs|
-    @product = FactoryGirl.create(:full_product, attrs)
+    @product = FactoryBot.create(:full_product, attrs)
   end
 end
 

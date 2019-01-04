@@ -20,7 +20,7 @@ Given /^I do not exist as a user$/ do
 end
 
 Given /^I exist as a user$/ do
-  FactoryGirl.create(:admin_user, valid_user)
+  FactoryBot.create(:admin_user, valid_user)
 end
 
 When /^I sign in with valid credentials$/ do
@@ -49,12 +49,12 @@ Then /^I should see my name$/ do
 end
 
 Given /^I am logged in$/ do
-  @me = FactoryGirl.create(:admin_user, valid_user)
+  @me = FactoryBot.create(:admin_user, valid_user)
   login_as @me
 end
 
 Given /^I am logged in as "(.*)"$/ do |email|
-  @me = FactoryGirl.create(:admin_user, valid_user.merge(email: email))
+  @me = FactoryBot.create(:admin_user, valid_user.merge(email: email))
   login_as @me
 end
 

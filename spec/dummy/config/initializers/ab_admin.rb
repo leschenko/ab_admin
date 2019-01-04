@@ -9,9 +9,9 @@ end
 I18n.available_locales = Globalize.available_locales = [:ru, :en, :it, :de]
 I18n.enforce_available_locales = false
 
-require 'factory_girl'
-FactoryGirl.definition_file_paths = [File.expand_path('../../factories/', __FILE__)]
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.definition_file_paths = [File.expand_path('../../factories/', __FILE__)]
+FactoryBot.find_definitions
 
 if Rails.env.development?
   require 'sass'
@@ -25,11 +25,5 @@ if Rails.env.development?
         @template = template
       end
     end
-  end
-end
-
-ActiveSupport::Deprecation.behavior = lambda do |msg, stack|
-  unless msg =~ /is not an attribute known to Active Record/
-    ActiveSupport::Deprecation::DEFAULT_BEHAVIORS[:stderr].call(msg, stack)
   end
 end

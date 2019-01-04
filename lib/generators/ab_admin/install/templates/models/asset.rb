@@ -5,6 +5,6 @@ class Asset < ApplicationRecord
 
   validates_presence_of :data
 
-  default_scope -> { order("#{quoted_table_name}.sort_order") }
+  default_scope -> { order(:sort_order) }
 
 end

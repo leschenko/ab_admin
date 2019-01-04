@@ -1,10 +1,10 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :product do
-    sku 'dc1/234'
-    price 123
-    name 'Table'
-    description Forgery::LoremIpsum.paragraph html: true
-    is_visible true
+    sku {'dc1/234'}
+    price {123}
+    name {'Table'}
+    description {Forgery::LoremIpsum.paragraph html: true}
+    is_visible {true}
 
     factory :full_product do
       association :collection

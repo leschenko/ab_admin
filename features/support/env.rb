@@ -13,9 +13,9 @@ DatabaseCleaner.strategy = :transaction
 Cucumber::Rails::Database.javascript_strategy = :transaction
 Cucumber::Rails::World.use_transactional_tests = false
 
-require 'factory_girl'
-FactoryGirl.definition_file_paths = [File.join(SPEC_PATH, 'factories')]
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.definition_file_paths = [File.join(SPEC_PATH, 'factories')]
+FactoryBot.find_definitions
 
 Capybara.configure do |config|
   config.default_selector = :css

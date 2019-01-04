@@ -6,7 +6,7 @@ RSpec.describe PictureUploader do
   
   before do
     PictureUploader.enable_processing = true
-    @avatar = FactoryGirl.build(:avatar, data: nil)
+    @avatar = FactoryBot.build(:avatar, data: nil)
     @uploader = PictureUploader.new(@avatar, :data)
     @uploader.store!(File.open('spec/factories/files/rails.png'))
   end

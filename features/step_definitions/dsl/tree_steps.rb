@@ -2,7 +2,7 @@ Given /^catalogues tree exists:$/ do |table|
   @tree = table.hashes
   @tree.each do |attrs|
     parent = Catalogue.where(name: attrs['parent_name']).first
-    FactoryGirl.create(:catalogue, name: attrs['title'], parent: parent)
+    FactoryBot.create(:catalogue, name: attrs['title'], parent: parent)
   end
 end
 

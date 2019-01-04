@@ -11,9 +11,9 @@ require 'connection_pool'
 require 'shoulda/matchers'
 require 'ab_admin/models/validations/all'
 
-require 'factory_girl'
-FactoryGirl.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
-FactoryGirl.find_definitions
+require 'factory_bot'
+FactoryBot.definition_file_paths = [File.expand_path('../factories/', __FILE__)]
+FactoryBot.find_definitions
 
 require 'carrierwave'
 CarrierWave.configure do |config|
@@ -45,7 +45,7 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
 
   config.extend ControllerMacros, type: :controller
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include MailerMacros
   config.before(:each) { reset_email }

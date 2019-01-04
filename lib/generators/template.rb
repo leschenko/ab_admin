@@ -45,7 +45,7 @@ gem 'ab_admin', github: 'leschenko/ab_admin', branch: 'rails-5'
 
 gem_group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'forgery'
   gem 'byebug'

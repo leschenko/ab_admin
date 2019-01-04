@@ -1,5 +1,5 @@
 Given(/^I have avatar$/) do
-  @me.avatar = FactoryGirl.create(:avatar, assetable: @me)
+  @me.avatar = FactoryBot.create(:avatar, assetable: @me)
 end
 
 When(/^I click image batch edit button$/) do

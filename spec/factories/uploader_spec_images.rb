@@ -1,11 +1,11 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :base_uploader_spec_image, class: 'UploaderSpecImage' do
     trait :main_image do
-      is_main true
+      is_main {true}
     end
 
     trait :with_file do
-      data File.open(File.expand_path('../files/А и б.png', __FILE__))
+      data {File.open(File.expand_path('../files/А и б.png', __FILE__))}
     end
 
     before(:create) do |instance|
