@@ -13,19 +13,19 @@ Gem::Specification.new do |s|
 
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
 
-  s.add_dependency 'rails', '~> 5.1.3'
+  s.add_dependency 'rails', '~> 5.2.2'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'rails-i18n', '~> 5.0'
+  s.add_dependency 'rails-i18n', '~> 5.1'
   s.add_dependency 'slim'
   s.add_dependency 'inherited_resources'
   s.add_dependency 'rack-pjax'
-  s.add_dependency 'ransack', '~> 1.8'
+  s.add_dependency 'ransack', '~> 2.1'
   s.add_dependency 'has_scope'
-  s.add_dependency 'simple_slug', '~> 0.3.2'
-  s.add_dependency 'devise', '~> 4.3.0'
+  s.add_dependency 'simple_slug', '~> 0.3.5'
+  s.add_dependency 'devise', '~> 4.3'
   s.add_dependency 'cancancan', '~> 1.7'
   s.add_dependency 'galetahub-enum_field', '~> 0.4.0'
-  s.add_dependency 'awesome_nested_set', '~> 3.1.1'
+  s.add_dependency 'awesome_nested_set', '~> 3.1.4'
 
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
@@ -37,9 +37,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate'
   s.add_dependency 'will_paginate-bootstrap', '~> 0.2.5'
   s.add_dependency 'nested_form', '~> 0.2.2'
-  s.add_dependency 'simple_form', '~> 3.5.0'
+  s.add_dependency 'simple_form', '~> 4.1.0'
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
 
-  s.add_development_dependency 'mysql2', '~> 0.4.4'
+  s.add_development_dependency 'mysql2', '~> 0.4.10'
 end

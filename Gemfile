@@ -18,7 +18,7 @@ gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
 gem 'awesome_nested_set'
-gem 'globalize', github: 'globalize/globalize'
+gem 'globalize'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -45,7 +45,7 @@ gem 'ckeditor'
 
 group :development, :test do
   gem 'rspec-rails'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'launchy'
   gem 'forgery'
   gem 'byebug'
