@@ -9,7 +9,7 @@ module AbAdmin
       Kernel.suppress_warnings do
         Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').reject { |path| path =~ /concerns|shared/ }.each { |file| require file }
       end
-      ActiveRecord::Base.direct_descendants
+      [ActiveRecord::Base, ApplicationRecord].flat_map{|sc| sc.subclasses.find_all { |model| model.connection.table_exists?(model.table_name) } }
     end
 
     def load_files!(base_path = 'lib/utils')

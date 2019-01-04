@@ -37,11 +37,8 @@ module AbAdmin
       end
 
       def all_models
-        Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').each do |file|
-          next if file =~ /(?:concerns|shared)\//
-          require file
-        end
-        [ActiveRecord::Base, ApplicationRecord].flat_map{|sc| sc.subclasses.find_all { |model| model.connection.data_source_exists?(model.table_name) } }
+        Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').reject { |path| path =~ /concerns|shared/ }.each { |file| require file }
+        [ActiveRecord::Base, ApplicationRecord].flat_map{|sc| sc.subclasses.find_all { |model| model.connection.table_exists?(model.table_name) } }
       end
 
       def conn
