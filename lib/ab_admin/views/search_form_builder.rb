@@ -110,7 +110,7 @@ module AbAdmin
         end + label(attr, options[:label], class: 'right-label')
       end
 
-      # Rails 4.2: Should be used only for string columns because of https://github.com/activerecord-hackery/ransack/issues/617
+      # Should be used only for string columns
       def presence_field(attr, options={})
         yes_no_field(attr, options.merge(predicates: {yes: %w(present 1), no: %w(present 0)}))
       end
