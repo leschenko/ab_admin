@@ -88,7 +88,7 @@ module AbAdmin
             item_link_to_can? :history, item, icon('book', true), history_resource_path(item),
                               class: 'btn btn-info', title: t('admin.actions.history.link')
           when AbAdmin::Config::ActionItem
-            instance_exec(item, &action.data) if action.for_context?(self)
+            instance_exec(item, &action.data) if action.for_context?(self, item)
           else
             resource_action_link_method = "#{resource_instance_name}_short_action_link"
             list_link_method = "#{resource_instance_name}_#{action}_list_link"

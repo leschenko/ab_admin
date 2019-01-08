@@ -14,14 +14,14 @@ module AbAdmin
     # to ensure that the display options are setup correctly
 
     module OptionalDisplay
-      def for_context?(render_context = nil)
+      def for_context?(render_context = nil, *args)
         if @options[:if]
           symbol_or_proc = @options[:if]
           return case symbol_or_proc
                    when Symbol, String
                      render_context ? render_context.send(symbol_or_proc) : self.send(symbol_or_proc)
                    when Proc
-                     render_context ? render_context.instance_exec(&symbol_or_proc) : instance_exec(&symbol_or_proc)
+                     render_context ? render_context.instance_exec(*args, &symbol_or_proc) : instance_exec(*args, &symbol_or_proc)
                    else
                      symbol_or_proc
                  end
