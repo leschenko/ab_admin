@@ -1,4 +1,4 @@
-class AbAdmin::Controllers::CanCanManagerResource < CanCan::InheritedResource
+class AbAdmin::Controllers::CanCanManagerResource < CanCan::InheritedResources
   def instance_name
     @controller.send(:resource_instance_name)
   end

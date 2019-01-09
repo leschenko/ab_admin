@@ -23,7 +23,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'has_scope'
   s.add_dependency 'simple_slug', '~> 0.3.5'
   s.add_dependency 'devise', '~> 4.3'
-  s.add_dependency 'cancancan', '~> 1.7'
+  s.add_dependency 'cancancan'
+  s.add_dependency 'cancan-inherited_resources'
   s.add_dependency 'galetahub-enum_field', '~> 0.4.0'
   s.add_dependency 'awesome_nested_set', '~> 3.1.4'
 
