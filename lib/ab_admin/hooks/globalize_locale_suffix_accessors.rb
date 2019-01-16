@@ -5,8 +5,11 @@ module GlobalizeAccessorsWithLocaleSuffix
 
     Globalize.available_locales.each do |locale|
       method_name = "#{name}_#{locale}"
+      # attribute(method_name, ::ActiveRecord::Type::Value.new)
       define_method method_name.to_sym do
-        Globalize::Interpolation.interpolate(name, self, [locale])
+        I18n.with_locale(locale) do
+          Globalize::Interpolation.interpolate(name, self, [locale])
+        end
       end
     end
   end
@@ -15,8 +18,10 @@ module GlobalizeAccessorsWithLocaleSuffix
     super
 
     Globalize.available_locales.each do |locale|
-      define_method :"#{name}_#{locale}=" do |value|
-        write_attribute(name, value, {locale: locale})
+      define_method "#{name}_#{locale}=".to_sym do |value|
+        I18n.with_locale(locale) do
+          write_attribute(name.to_s, value, {locale: locale})
+        end
       end
     end
   end
@@ -27,14 +32,14 @@ Globalize::ActiveRecord::ClassMethods.module_eval do
 end
 
 
-module GlobalizeFixResetAttribute
-  def _reset_attribute name
-    old_value = record.changed_attributes[name]
-    record.original_changed_attributes.except!(name)
-    record.send("#{name}=", old_value)
-  end
-end
-
-Globalize::ActiveRecord::AdapterDirty.module_eval do
-  prepend GlobalizeFixResetAttribute
-end
+# module GlobalizeFixResetAttribute
+#   def _reset_attribute name
+#     old_value = record.attribute_was(name)
+#     record.clear_attribute_changes([name])
+#     record.send("#{name}=", old_value)
+#   end
+# end
+#
+# Globalize::ActiveRecord::AdapterDirty.module_eval do
+#   prepend GlobalizeFixResetAttribute
+# end
