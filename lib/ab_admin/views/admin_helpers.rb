@@ -22,7 +22,7 @@ module AbAdmin
       end
 
       def editable_bool(item, attr)
-        url = "/admin/#{item.class.model_name.plural}/#{item.id}"
+        url = "/admin/#{item.class.model_name.plural}/#{item.id}.json"
         content_tag :div, class: 'auto-submit-checkbox-wrap' do
           check_box_tag("#{item.class.model_name.singular}[#{attr}]", '1', item.send(attr), class: 'js-auto-submit-checkbox', data: {url: url})
         end
