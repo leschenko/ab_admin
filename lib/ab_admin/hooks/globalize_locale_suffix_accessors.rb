@@ -14,7 +14,7 @@ module GlobalizeAccessorsWithLocaleSuffix
     super
     Globalize.available_locales.each do |locale|
       define_method "#{name}_#{locale}=".to_sym do |value|
-        I18n.with_locale(locale) { send("#{name}=", value) }
+        Globalize.with_locale(locale) { send("#{name}=", value) }
       end
     end
   end
