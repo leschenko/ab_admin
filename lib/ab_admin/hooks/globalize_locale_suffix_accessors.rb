@@ -5,7 +5,7 @@ module GlobalizeAccessorsWithLocaleSuffix
     Globalize.available_locales.each do |locale|
       method_name = "#{name}_#{locale}"
       define_method method_name.to_sym do
-        I18n.with_locale(locale) { read_attribute(name, locale: locale) }
+        read_attribute(name, locale: locale)
       end
     end
   end
