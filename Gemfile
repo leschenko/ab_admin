@@ -13,6 +13,7 @@ gem 'rack-pjax'
 gem 'devise'
 gem 'devise-encryptable'
 gem 'cancancan'
+gem 'cancan-inherited_resources'
 
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
