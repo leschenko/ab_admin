@@ -171,6 +171,10 @@ module AbAdmin
         resource_class.han(attr)
       end
 
+      def admin_site_name
+        AbAdmin.site_name.is_a?(String) ? AbAdmin.site_name : AbAdmin.site_name.call
+      end
+
       def call_method_or_proc_on(obj, symbol_or_proc, options = {})
         exec = options[:exec].nil? ? true : options[:exec]
         case symbol_or_proc
