@@ -65,8 +65,7 @@ module AbAdmin
     # html like: '<!-- html comment --><script>script content</script><div>div content</div><p>p content</p>'
     # normalized to: "<p>div content</p><p>p content</p>"
     def normalize_html(raw_html, options = {}, &block)
-      @@sanitizer ||= Sanitizer.new(options)
-      @@sanitizer.normalize_html(raw_html, options[:sanitize] || {}, &block)
+      Sanitizer.new(options).normalize_html(raw_html, options[:sanitize] || {}, &block)
     end
 
     def url_helpers
