@@ -15,7 +15,8 @@ table.table.table-striped.table-bordered style='width: 1050px;'
 hr
 
 = form_tag export_admin_locators_path, method: :get do
-  input.input-xxlarge> type='text' name='keys' placeholder='Keys comma separated'
+  input.input-xxlarge> type='text' name='keys' placeholder='Keys comma separated, use `*` for matching'
+  .help-block EXAMPLES: "hello,bye", "hello*,*bye*"
   br
   input.input-medium.fancy_select> type='text' name='locales' placeholder='Locales, all by default' data-tags=I18n.available_locales.to_json
   br
