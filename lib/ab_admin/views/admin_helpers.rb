@@ -28,45 +28,52 @@ module AbAdmin
         end
       end
 
-      def admin_editable(item, attr, options=nil)
-        options = {} unless options.is_a?(Hash)
-        title = options[:title] || item[attr]
+      def admin_editable(item, attr, opts=nil)
+        opts = {} unless opts.is_a?(Hash)
+        title = opts[:title] || item[attr]
         html_title = admin_pretty_data(title).to_s.html_safe
         return html_title unless can?(:update, item)
-        options[:source] = options[:collection].is_a?(Hash) ? options[:collection] : options[:collection].map{|r| [r.id, AbAdmin.display_name(r)] }.to_h if options[:collection]
 
-        unless options[:type]
-          if options[:source]
-            options[:type] = 'select'
+        if opts[:collection]
+          if opts[:collection].is_a?(Hash)
+            opts[:source] = opts[:collection]
+          elsif opts[:collection].is_a?(Array)
+            opts[:source] = opts[:collection].first.respond_to?(:id) ? opts[:collection].map {|r| [r.id, AbAdmin.display_name(r)]}.to_h : opts[:collection].map {|v| [v, v]}.to_h
+          end
+        end
+
+        unless opts[:type]
+          if opts[:source]
+            opts[:type] = 'select'
           else
             case attr.to_s
               when /_at$/
-                options[:type] ||= 'date'
-                options[:title] ||= html_title
+                opts[:type] ||= 'date'
+                opts[:title] ||= html_title
               when /^is_/
-                options[:type] ||= 'select'
-                options[:source] ||= {1 => 'yes', 0 => 'no'}
-                options[:value] ||= item[attr] ? 1 : 0
-                options[:title] ||= item[attr] ? 'yes' : 'no'
+                opts[:type] ||= 'select'
+                opts[:source] ||= {1 => 'yes', 0 => 'no'}
+                opts[:value] ||= item[attr] ? 1 : 0
+                opts[:title] ||= item[attr] ? 'yes' : 'no'
               when /description|body|content/
-                options[:type] ||= 'textarea'
+                opts[:type] ||= 'textarea'
               else
-                options[:type] ||= 'text'
+                opts[:type] ||= 'text'
             end
           end
         end
 
         data = {
-            type: options[:type],
-            source: options[:source].try(:to_json),
-            model: options[:model] || item.class.model_name.singular,
-            accept: options[:accept],
-            url: options[:url] || "/admin/#{item.class.model_name.plural}/#{item.id}",
+            type: opts[:type],
+            source: opts[:source].try(:to_json),
+            model: opts[:model] || item.class.model_name.singular,
+            accept: opts[:accept],
+            url: opts[:url] || "/admin/#{item.class.model_name.plural}/#{item.id}",
             name: attr,
-            value: options[:value] || item[attr],
-            title: options[:title] || item[attr]
+            value: opts[:value] || item[attr],
+            title: opts[:title] || item[attr]
         }
-        link_to html_title, '#', class: "editable #{options[:class]}", data: data.update(options[:data] || {})
+        link_to html_title, '#', class: "editable #{opts[:class]}", data: data.update(opts[:data] || {})
       end
 
       def options_for_ckeditor(options = {})
