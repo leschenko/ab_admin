@@ -50,7 +50,6 @@ $ ->
 
   initFancySelect()
   initNestedFields()
-  initNestedFields()
   inputSetToggle()
   inputBtnClose()
   initEditableBool()

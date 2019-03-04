@@ -9,8 +9,7 @@
         .tab-pane id="settings_#{root_key}"
           - nested.each do |key, value|
             .control-group
-              label.control-label for="settings_#{root_key}_#{key}"
-                = t(key, scope: [:admin, :settings, :keys], default: key.to_s.humanize)
+              label.control-label= t(key, scope: [:admin, :settings, :keys], default: key.to_s.humanize)
               .controls
                 - if [true, false].include?(value)
                   = check_box "settings[#{root_key}]", key, {checked: value}, 'true', 'false'
