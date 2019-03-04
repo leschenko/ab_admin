@@ -6,7 +6,7 @@ module AbAdmin
       included do
         extend ActiveModel::Naming
         extend ActiveRecord::Translation
-        class_attribute :config, :base_class, :base_dir, :base_paths, :editable_paths
+        class_attribute :data, :base_class, :base_dir, :base_paths, :editable_paths
         self.base_class = self
         self.base_dir = Rails.root.join('config', 'settings')
         self.base_paths = [
@@ -21,10 +21,10 @@ module AbAdmin
 
       module ClassMethods
         def load_config
-          self.config = SettingsStruct.new(data)
+          self.data = read_data
         end
 
-        def data
+        def read_data
           paths = base_paths.dup.unshift(editable_path).compact.find_all { |path| File.exists?(path) }
           paths.map{|path| YAML.safe_load(File.read(path)) }.inject(&:deep_merge).deep_symbolize_keys
         end

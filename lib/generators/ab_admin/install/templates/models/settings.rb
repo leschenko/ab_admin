@@ -5,6 +5,4 @@ class Settings
 
   has_reload_check('settings_reload_key', Rails.logger) { Settings.load_config }
 
-  attr_accessor :paths, :data
-
 end

@@ -33,4 +33,3 @@ Feature: App settings
     Then the "custom.bool" setting should be true
     Then the "custom.integer" setting should be equal "321"
     Then the "custom.string" setting should be equal "Hello"
-
