@@ -4,7 +4,7 @@ class ::Admin::SettingsController < ::Admin::BaseController
   defaults resource_class: Settings
 
   def update
-    Settings.instance.save(params.require(:settings).permit!.to_h)
+    Settings.update(params.require(:settings).permit!.to_h)
     Settings.reload_checker.expire
     redirect_back fallback_location: admin_root_url
   end
@@ -21,7 +21,7 @@ class ::Admin::SettingsController < ::Admin::BaseController
   end
 
   def collection
-    @settings ||= Settings.instance.editable
+    @collection ||= Settings.editable_data
   end
 
   def collection_path

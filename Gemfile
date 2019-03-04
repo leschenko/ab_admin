@@ -23,8 +23,6 @@ gem 'globalize'
 
 gem 'carrierwave'
 gem 'mini_magick'
-# 3.0 is broken -  creates new `configatron` instance in every namespace
-gem 'configatron', '~> 2.13'
 gem 'simple_form'
 gem 'coffee-rails'
 gem 'sass-rails'

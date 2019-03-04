@@ -1,5 +1,3 @@
-require 'configatron'
-
 class Settings
   include Singleton
   include AbAdmin::Models::Settings

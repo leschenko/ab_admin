@@ -9,7 +9,7 @@ module AbAdmin
         return text if from == to
         base = 'https://www.googleapis.com/language/translate/v2'
         params = {
-            key: configatron.else.retrieve(:google_api_key, ENV['GOOGLE_API_KEY']),
+            key: ENV['GOOGLE_API_KEY'] || Settings.data.else.try!(:google_api_key),
             format: 'html',
             source: from,
             target: to,
