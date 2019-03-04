@@ -25,8 +25,9 @@ module AbAdmin
         end
 
         def read_data
-          paths = base_paths.dup.unshift(editable_path).compact.find_all { |path| File.exists?(path) }
-          paths.map{|path| YAML.safe_load(File.read(path)) }.inject(&:deep_merge).deep_symbolize_keys
+          paths = base_paths.dup.push(editable_path).compact.find_all { |path| File.exists?(path) }
+          hash = paths.map{|path| YAML.safe_load(File.read(path)) }.inject(&:deep_merge).deep_symbolize_keys
+          SettingsStruct.new(hash)
         end
 
         def editable_data
