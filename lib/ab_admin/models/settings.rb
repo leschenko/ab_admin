@@ -53,6 +53,10 @@ module AbAdmin
             @table[k] = v.is_a?(Hash) ? SettingsStruct.new(v.symbolize_keys) : v
           end
         end
+
+        def get(key)
+          dig *key.split('.').map(&:to_sym)
+        end
       end
     end
   end
