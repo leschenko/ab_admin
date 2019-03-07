@@ -17,6 +17,10 @@ module AbAdmin
             File.join(base_dir, "#{Rails.env}.local.yml"),
             File.join(base_dir, 'settings.local.yml')
         ]
+
+        class << self
+          delegate :get, :dig, to: :data, allow_nil: true
+        end
       end
 
       module ClassMethods
