@@ -8,7 +8,7 @@
     html = %[<tr id="#{form_wrap_id}" class="warning list_edit"><td>#{render('form')}</td></tr>].html_safe
   %>
   $('#<%= form_wrap_id %>').remove();
-  $('#list tbody').prepend('<%= j html %>');
+  $('#list tbody:first').prepend('<%= j html %>');
   $('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
   $('#<%= form_wrap_id %> form').trigger('admin:form_init');
 <% end %>
