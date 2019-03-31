@@ -124,6 +124,7 @@ table.index_table {
     }
   }
 
+  tr.test-hover > td > .actions_panel-wrap_outer > .actions_panel-wrap_inner,
   tr:hover > td > .actions_panel-wrap_outer > .actions_panel-wrap_inner {
     display: block;
   }
