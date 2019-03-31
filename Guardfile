@@ -1,4 +1,4 @@
-notification :growl
+# notification :growl
 ignore [/vendor/, /public/, /etc/]
 
 group :rspec do

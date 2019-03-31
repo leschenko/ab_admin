@@ -23,5 +23,5 @@ Given /^I see search form with "(.*?)" filters$/ do |filters|
 end
 
 Given(/^I hover first item$/) do
-  all('#list tr td').first.hover
+  page.execute_script('$("#list tbody tr:first").addClass("test-hover")')
 end
