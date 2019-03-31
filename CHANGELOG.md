@@ -1,4 +1,9 @@
 * backwards incompatible changes
+  * `call_method_or_proc_on` don't accept method name as String, use Symbol instead
+  * `call_method_or_proc_on` use `public_send` instead of `sent` for method call
+
+### 0.8.0
+* backwards incompatible changes
   * removed Asset#format_created_at
   * removed Time#formatted_datetime, Time#formatted_date
   * date picker format changed to `yyyy-mm-dd` 

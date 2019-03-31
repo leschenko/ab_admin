@@ -185,13 +185,15 @@ module AbAdmin
       def call_method_or_proc_on(obj, symbol_or_proc, options = {})
         exec = options[:exec].nil? ? true : options[:exec]
         case symbol_or_proc
-          when Symbol, String
+          when String
+            ActiveSupport::Deprecation.warn('`call_method_or_proc_on` don\'t accept method name as String, use Symbol instead') if symbol_or_proc =~ /\A\w+\z/
+            symbol_or_proc
+          when Symbol
             obj.send(symbol_or_proc.to_sym)
           when Proc
             exec ? instance_exec(obj, &symbol_or_proc) : symbol_or_proc.call(obj)
         end
       end
-
     end
   end
 end
