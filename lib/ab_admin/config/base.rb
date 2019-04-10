@@ -51,7 +51,7 @@ module AbAdmin
       self.partial_name = 'form'
 
       def group(name=nil, options={}, &block)
-        options[:title] = name || :base
+        options[:title] = name
         @fields << FieldGroup.new(options, &block)
       end
 

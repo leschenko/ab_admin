@@ -18,11 +18,9 @@ class AbAdmin<%= model.name %> < AbAdmin::AbstractResource
 <% end -%>
 
   form do
-    group :base do
 <% index_attrs.without('id', 'created_at', 'updated_at', 'lat', 'lon', 'zoom', 'lft', 'rgt', 'depth').without(*translated_columns).each do |attr| -%>
-      field :<%= attr %>
+    field :<%= attr %>
 <% end -%>
-    end
 <% unless translated_columns.empty? -%>
     locale_tabs do
 <% translated_columns.each do |attr| -%>
