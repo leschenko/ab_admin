@@ -6,7 +6,7 @@ module AbAdmin
       included do
         extend ActiveModel::Naming
         extend ActiveRecord::Translation
-        class_attribute :data, :base_class, :base_dir, :base_paths, :editable_paths
+        class_attribute :data_cache, :base_class, :base_dir, :base_paths, :editable_paths
         self.base_class = self
         self.base_dir = Rails.root.join('config', 'settings')
         self.base_paths = [
@@ -25,7 +25,12 @@ module AbAdmin
 
       module ClassMethods
         def load_config
-          self.data = read_data
+          ActiveSupport::Deprecation.warn('`Settings.load_config` is deprecated, use `Settings.data` instead')
+          data
+        end
+
+        def data
+          self.data_cache ||= read_data
         end
 
         def read_data
