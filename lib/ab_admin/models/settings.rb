@@ -33,6 +33,10 @@ module AbAdmin
           self.data_cache ||= read_data
         end
 
+        def reload_data
+          self.data_cache = read_data
+        end
+
         def read_data
           paths = base_paths.dup.push(editable_path).compact.find_all { |path| File.exists?(path) }
           hash = paths.map{|path| YAML.safe_load(File.read(path)) }.inject(&:deep_merge).deep_symbolize_keys
