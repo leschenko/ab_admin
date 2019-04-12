@@ -44,8 +44,8 @@ module AbAdmin
         end
 
         def update(raw_config)
-          data = YAML.safe_load(YAML.dump(raw_config.to_hash.deep_stringify_keys.deep_transform_values!{|v| YAML.safe_load(v) }))
-          File.write(editable_path, data.to_yaml) and load_config
+          config = YAML.safe_load(YAML.dump(raw_config.to_hash.deep_stringify_keys.deep_transform_values!{|v| YAML.safe_load(v) }))
+          File.write(editable_path, config.to_yaml)
         end
 
         def editable_path
