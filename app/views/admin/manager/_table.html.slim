@@ -27,7 +27,7 @@
           td= id_link(item, edit: is_edit_link)
           = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
-            td class=(field.options[:css_class] if field.options[:css_class])
+            td class=(field.options[:cell_class] if field.options[:cell_class])
               - field_content = table_item_field(item, field)
               - if field.options[:copy_button]
                 - field_id = dom_id(item, field.name)
