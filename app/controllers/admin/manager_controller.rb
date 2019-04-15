@@ -142,8 +142,9 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def preview_resource_path(item)
     return unless manager.preview_path
+    return if manager.preview_path[:options][:if] && !call_method_or_proc_on(item, manager.preview_path[:options][:if])
     I18n.with_locale I18n.default_locale do
-      manager.preview_path.is_a?(Proc) ? instance_exec(item, &manager.preview_path) : send(manager.preview_path, item)
+      manager.preview_path[:value].is_a?(Proc) ? instance_exec(item, &manager.preview_path[:value]) : send(manager.preview_path[:value], item)
     end
   end
 

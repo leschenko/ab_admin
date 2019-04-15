@@ -55,8 +55,8 @@ module AbAdmin
         instance.show = ::AbAdmin::Config::Show.new(options, &block)
       end
 
-      def preview_path(value=nil, &block)
-        instance.preview_path = block_given? ? block : value
+      def preview_path(value=nil, options={}, &block)
+        instance.preview_path = {value: block_given? ? block : value, options: options}
       end
 
       def permitted_params(*values, &block)
