@@ -191,7 +191,10 @@ textarea.text {
   padding: 2px 4px 2px 6px;
   border-radius: 5px;
   input.js-auto-submit-checkbox[type='checkbox'] {
+    width: auto;
     margin: 0;
+    line-height: normal;
+    vertical-align: text-bottom;
   }
   &.success {
     background-color: #dff0d8;
