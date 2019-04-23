@@ -35,11 +35,9 @@ module AbAdmin
       end
 
       def base_filename_part
-        if version_name
-          version_name.to_s.start_with?('retina_') ? "#{version_name.to_s.sub(/^retina_/, '')}@2x" : version_name.to_s
-        else
-          secure_token
-        end
+        return if version_name == :default
+        return secure_token unless version_name
+        version_name.to_s.start_with?('retina_') ? "#{version_name.to_s.sub(/^retina_/, '')}@2x" : version_name.to_s
       end
 
       def full_filename(for_file=filename)
@@ -48,9 +46,10 @@ module AbAdmin
 
       def human_full_filename(for_file=filename)
         ext = File.extname(for_file)
+        system_part = base_filename_part
         human_filename_part = for_file.chomp(ext)
-        tech_filename_part = "#{base_filename_part}#{ext}"
-        human_filename_part == secure_token ? tech_filename_part : "#{human_filename_part}_#{tech_filename_part}"
+        return "#{system_part || version_name}#{ext}" if human_filename_part == secure_token
+        system_part ? "#{human_filename_part}_#{system_part}#{ext}" : "#{human_filename_part}#{ext}"
       end
 
       def full_original_filename
