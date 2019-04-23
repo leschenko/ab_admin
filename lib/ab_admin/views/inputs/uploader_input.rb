@@ -22,7 +22,7 @@ module AbAdmin
         end
 
         def input(wrapper_options=nil)
-          title = options[:title] || object.class.han(attribute_name)
+          title = options[:title] || object.class.han(attribute_name) if options[:label]
           template.capture do
             if @options[:unwrapped]
               render_input
