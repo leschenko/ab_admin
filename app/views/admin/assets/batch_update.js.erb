@@ -1,0 +1,4 @@
+<% @assets.each do |asset| %>
+  uploader = $('#asset_<%= asset.id %>').closest('.fileupload').data('assets');
+  $('#asset_<%= asset.id %>').replaceWith(uploader.assetHtml(<%== asset.to_json(root: false) %>));
+<% end %>

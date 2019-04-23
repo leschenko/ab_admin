@@ -35,7 +35,7 @@ class Admin::AssetsController < ApplicationController
 
   def batch_update
     Asset.update(params[:data].keys, params[:data].values)
-    head :ok
+    @assets = Asset.find(params[:data].keys)
   end
 
   def rotate
