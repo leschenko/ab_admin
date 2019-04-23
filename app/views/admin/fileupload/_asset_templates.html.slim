@@ -6,7 +6,7 @@ script#image_template type='text/x-handlebars-template'
     .crop_image title=t('admin.fileupload.crop') = icon('resize-full', true)
     .rotate_image title=t('admin.fileupload.rotate') = icon('repeat', true)
     a.fileupload-file.fancybox href='{{url}}' rel='fancybox'
-      img src='{{thumb_url}}' title='{{filename}}'
+      img src='{{thumb_url}}' title='{{name}}' alt="{{alt}}"
 
 
 script#file_template type='text/x-handlebars-template'

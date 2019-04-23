@@ -58,13 +58,14 @@ module AbAdmin
 
       def as_json(options = nil)
         options = {
-            only: [:id, :guid, :assetable_id, :assetable_type, :user_id, :data_file_size, :data_content_type, :is_main,
-                   :original_name, :cached_alt, :cached_title],
             root: 'asset',
+            only: [:id, :guid, :assetable_id, :assetable_type, :user_id, :data_file_size, :data_content_type, :is_main, :original_name],
             methods: [:filename, :url, :thumb_url, :width, :height]
         }.merge(options || {})
 
-        super
+        res = super
+        I18n.with_locale(assetable.try(:locale)) { (res[options[:root]] || res).update('name' => name, 'alt' => alt) }
+        res
       end
 
       def has_dimensions?
