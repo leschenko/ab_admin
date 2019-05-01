@@ -6,15 +6,13 @@ class ::Admin::LocatorsController < ::Admin::BaseController
 
   def export
     authorize! :export, resource_class
-    locales = I18n.available_locales & params[:locales].split(',').map(&:to_sym) if params[:locales].present?
-    keys = Locator.export_csv(*params[:keys].to_s.split(','), locales: locales)
+    keys = Locator.export_csv(*params[:keys].to_s.split(','), locales: params[:locales], files: params[:files])
     send_data(keys, filename: "locales_#{Time.now.strftime('%Y_%m_%d')}.csv", type: Mime[:csv], disposition: 'attachment')
   end
 
   def import
     if params[:csv_file].present?
-      locales = I18n.available_locales & params[:locales].split(',').map(&:to_sym) if params[:locales].present?
-      Locator.import_csv(params[:csv_file].read, locales: locales)
+      Locator.import_csv(params[:csv_file].read, locales: params[:locales])
       flash[:notice] = 'File imported'
     else
       flash[:error] = 'Missing or invalid csv file'

@@ -3,6 +3,7 @@ require 'csv'
 module AbAdmin
   module Models
     module Locator
+      YAML_LINE_WIDTH = 200
       extend ActiveSupport::Concern
 
       included do
@@ -19,7 +20,7 @@ module AbAdmin
 
         def save(path, data)
           data.deep_transform_values! { |v| AbAdmin.normalize_html(v) }
-          File.write path, data.deep_stringify_keys.to_yaml.sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
+          File.write path, data.deep_stringify_keys.to_yaml(line_width: YAML_LINE_WIDTH).sub(/\A---\s+/, '').gsub(/:\s+$/, ':').gsub(/^(\s+)(yes|no):/, '\1"\2":')
         end
 
         def prepare_data(path)
@@ -29,14 +30,16 @@ module AbAdmin
                           filename: File.basename(path), path: path, dir: File.dirname(path)})
         end
 
-        def export_csv(*keys, locales: nil)
+        def export_csv(*keys, locales: nil, files: nil)
           return if keys.blank?
-          locales ||= I18n.available_locales
+          sources = files.present? ? translations_for_files(files) : translations
+          locales = locales.present? ? (I18n.available_locales & locales.map(&:to_sym)) : (sources.keys || I18n.available_locales)
           I18n.backend.available_locales # Force load translations
           filter_keys = keys.map {|k| k.include?('*') ? Regexp.new("\\A#{k.gsub('.', '\.').gsub('*', '.*')}\\z") : k}
           data = filter_keys.each_with_object(Hash.new { |h, k| h[k] = [] }) do |key, res|
             locales.each_with_index do |l, i|
-              translations[l].find_all{|k, _| key.is_a?(Regexp) ? k =~ key : k == key }.each{|k, v| res[k][i] = v}
+              next unless sources[l]
+              sources[l].find_all{|k, _| key.is_a?(Regexp) ? k =~ key : k == key }.each{|k, v| res[k][i] = v}
             end
           end
           for_csv = [['DO NOT EDIT THIS COLUMN!', *locales]] + data.map{|k, v| [k, *v] }
@@ -45,7 +48,7 @@ module AbAdmin
 
         def import_csv(csv, locales: nil)
           return if csv.blank?
-          locales ||= I18n.available_locales
+          locales = locales.present? ? (I18n.available_locales & locales.map(&:to_sym)) : I18n.available_locales
           csv_data = CSV.parse(csv)
           csv_data.shift.each_with_index do |l, i|
             next if i.zero? || !locales.include?(l.to_sym)
@@ -63,6 +66,16 @@ module AbAdmin
 
         def translations
           @translations ||= I18n.backend.send(:translations).slice(*I18n.available_locales).transform_values{|v| v.flatten_hash.transform_keys{|k| k.join('.') } }
+        end
+
+        def translations_for_files(files)
+          data = {}
+          files.each do |file|
+            path = Rails.root.join('config', 'locales', file)
+            puts path
+            data.deep_merge!(YAML.load_file(path))
+          end
+          data.symbolize_keys.slice(*I18n.available_locales).transform_values{|v| v.flatten_hash.transform_keys{|k| k.join('.') } }
         end
       end
 

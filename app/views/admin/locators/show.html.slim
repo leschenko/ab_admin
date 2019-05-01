@@ -15,21 +15,17 @@ table.table.table-striped.table-bordered style='width: 1050px;'
 hr
 
 = form_tag export_admin_locators_path, method: :get do
-  input.input-xxlarge> type='text' name='keys' placeholder='Keys comma separated, use `*` for matching'
-  .help-block EXAMPLES: "hello,bye", "hello*,*bye*"
-  br
-  input.input-medium.fancy_select> type='text' name='locales' placeholder='Locales, all by default' data-tags=I18n.available_locales.to_json
-  br
-  br
+  p= select_tag :files, options_for_select(@files.map{|path| File.basename(path) }), multiple: true, class: 'fancy_select input-xxlarge', placeholder: 'Filenames comma separated, all by default'
+  p
+    input.input-xxlarge> type='text' name='keys' placeholder='Keys comma separated, use `*` for matching'
+    .help-block EXAMPLES: "hello,bye", "hello*,*bye*"
+  p= select_tag :locales, options_for_select(I18n.available_locales), multiple: true, class: 'fancy_select input-xxlarge', placeholder: 'Locales, all by default'
   button.btn Export CSV
 
 hr
 
 = form_tag import_admin_locators_path, method: :post, multipart: true do
   = file_field_tag :csv_file
-  br
-  input.input-medium.fancy_select> type='text' name='locales' placeholder='Locales, all by default' data-tags=I18n.available_locales.to_json
-  br
-  br
+  p= select_tag :locales, options_for_select(I18n.available_locales), multiple: true, class: 'fancy_select input-xxlarge', placeholder: 'Locales, all by default'
   button.btn Import CSV
 
