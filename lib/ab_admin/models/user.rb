@@ -28,7 +28,7 @@ module AbAdmin
       end
 
       def suspend!
-        update_attribute(:locked_at, Time.now.utc)
+        lock_access!
       end
 
       def activate!
