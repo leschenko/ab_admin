@@ -13,7 +13,7 @@ en:
         zero: History
     attributes:
       user:
-        password_confirmation: ''
+        password_confirmation: 'Password confirmation'
   admin:
     actions:
       activate:
@@ -116,11 +116,11 @@ en:
       save_and_edit_prev: Save and prev.
       details: More
       base: Base
-      keywords: ''
+      keywords: 'keywords'
     gender:
       female: Female
       male: Male
-      undefined: ''
+      undefined: 'undefined'
     geo_autocomplete: Enter the address
     group:
       kind:
@@ -242,8 +242,8 @@ en:
     updated_at: Updated at
     user: User
     user_id: User
-    updater: ''
-    updater_id: ''
+    updater: 'Updater'
+    updater_id: 'Updater'
     remember_me: Remember
     password: Password
   flash:
