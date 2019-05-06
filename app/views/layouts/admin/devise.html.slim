@@ -6,8 +6,6 @@ html id="controller_#{controller_name}"
     meta name="robots" content="noindex,nofollow"
     title= @page_title || admin_site_name
     = stylesheet_link_tag 'ab_admin/devise', media: 'all'
-    script src='//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'
-    = javascript_include_tag 'bootstrap'
     = csrf_meta_tags
   body.container
     = render('admin/shared/flash', flash: flash) if flash
