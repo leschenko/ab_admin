@@ -22,6 +22,10 @@ module AbAdmin
       def default_header
         header || build_header
       end
+
+      def default_persistent_header
+        header || create_header
+      end
     end
   end
 end
