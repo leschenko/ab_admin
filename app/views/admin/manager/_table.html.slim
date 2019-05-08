@@ -9,16 +9,13 @@
         th.actions_panel
         - table_builder.fields.each do |field|
           th class=('hide_cell' if field.options[:hidden])
-            - if field.options[:sortable].is_a?(FalseClass)
-              = field.name.is_a?(Symbol) ? ha(field.name) : field.name
-            - elsif field.options[:sortable].is_a?(TrueClass)
-              = list_sort_link field.name
-            - elsif field.options[:sortable].is_a?(Hash)
-              = list_sort_link field.name, field.options[:sortable]
-            - elsif resource_class.column_names.include?(field.name.to_s)
-              = list_sort_link field.name
+            - field_title = field.options[:title] || (field.name.is_a?(Symbol) ? ha(field.name) : field.name)
+            - if field.options[:sortable].is_a?(Hash)
+              = list_sort_link field.name, field.options[:sortable].merge(title: field_title)
+            - elsif field.options[:sortable].is_a?(TrueClass) || (!field.options[:sortable].is_a?(FalseClass) && resource_class.column_names.include?(field.name.to_s))
+              = list_sort_link field.name, title: field_title
             - else
-              = field.name.is_a?(Symbol) ? ha(field.name) : field.name
+              = field_title
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|

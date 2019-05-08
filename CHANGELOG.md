@@ -1,4 +1,5 @@
 * backwards incompatible changes
+  * `list_sort_link` accept only options Hash as second argument
   * `deprecated_utils.js` removed without replacement
   * `Settings.load_config` is deprecated, use `Settings.data` instead
   * `call_method_or_proc_on` don't accept method name as String, use Symbol instead
