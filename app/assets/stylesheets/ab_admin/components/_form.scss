@@ -211,6 +211,9 @@ textarea.text {
     line-height: normal;
     vertical-align: text-bottom;
   }
+  label {
+    margin-bottom: 0;
+  }
   &.success {
     background-color: #dff0d8;
   }
