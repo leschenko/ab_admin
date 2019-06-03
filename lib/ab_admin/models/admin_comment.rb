@@ -17,7 +17,7 @@ module AbAdmin
         after_create :increment_counter_cache
         before_destroy :decrement_counter_cache
 
-        scope :admin, lambda { includes(:user, :attachment_files) }
+        scope :admin, proc { includes(:user, :attachment_files) }
         
         fileuploads :attachment_files
       end

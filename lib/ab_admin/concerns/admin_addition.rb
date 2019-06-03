@@ -4,7 +4,7 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
-        scope(:admin, -> { all }) unless respond_to?(:admin)
+        scope(:admin, proc { all }) unless respond_to?(:admin)
         scope(:base, -> { all }) unless respond_to?(:base)
         scope :by_ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) } unless respond_to?(:by_ids)
 

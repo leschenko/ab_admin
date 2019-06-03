@@ -17,7 +17,7 @@ class Product < ApplicationRecord
   include AbAdmin::Concerns::AdminAddition
   include AbAdmin::Concerns::HasTracking
 
-  scope :admin, -> { includes(:translations, :picture) }
+  scope :admin, proc { includes(:translations, :picture) }
 
   alias_attribute :title, :name
 
