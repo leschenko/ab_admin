@@ -30,7 +30,12 @@ module AbAdmin
 
       def admin_editable(item, attr, opts=nil)
         opts = {} unless opts.is_a?(Hash)
-        title = opts[:title] || item[attr]
+        if opts[:title]
+          title = opts[:title]
+        else
+          assoc_name = attr.to_s.remove('_id')
+          title = item.class.reflect_on_association(assoc_name) ? AbAdmin.display_name(item.send(assoc_name)) : item[attr]
+        end
         html_title = admin_pretty_data(title).to_s.html_safe
         return html_title unless can?(:update, item)
 
