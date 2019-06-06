@@ -185,6 +185,7 @@ module AbAdmin
   mattr_accessor :view_default_per_page
   @@view_default_per_page = Hash.new { AbAdmin.default_per_page }
   @@view_default_per_page[:tree] = 1000
+  @@view_default_per_page[:map] = 1000
 
   mattr_accessor :max_per_page
   @@max_per_page = Float::INFINITY

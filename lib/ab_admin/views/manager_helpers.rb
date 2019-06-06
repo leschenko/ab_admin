@@ -1,8 +1,7 @@
 module AbAdmin
   module Views
     module ManagerHelpers
-
-      INDEX_VIEW_ICONS = {table: 'list', tree: 'move', grid: 'th', chart: 'signal'}
+      INDEX_VIEW_ICONS = {table: 'list', tree: 'move', grid: 'th', chart: 'signal', map: 'map-marker'}
 
       def table_builder
         manager.table ||= ::AbAdmin::Config::Table.default_for_model(resource_class)
@@ -18,6 +17,10 @@ module AbAdmin
 
       def chart_builder
         manager.chart ||= ::AbAdmin::Config::Chart.default_for_model(resource_class)
+      end
+
+      def map_builder
+        manager.map ||= ::AbAdmin::Config::Map.default_for_model(resource_class)
       end
 
       def modal_form_builder
@@ -55,7 +58,7 @@ module AbAdmin
       def index_view_link(index_view)
         options = {class: "btn #{('active' if current_index_view == index_view)}", title: t("admin.index_view.#{index_view}", default: index_view.to_s)}
         url = url_for({index_view: index_view, q: params[:q]}.reject_blank)
-        link_to icon(INDEX_VIEW_ICONS[index_view.to_sym]), url, options
+        link_to icon(INDEX_VIEW_ICONS[index_view.to_sym] || index_view), url, options
       end
     end
   end

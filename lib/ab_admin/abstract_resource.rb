@@ -6,7 +6,7 @@ module AbAdmin
       ACTIONS = [:index, :show, :new, :edit, :create, :update, :destroy, :preview, :batch, :rebuild, :custom_action, :history]
     end
 
-    attr_accessor :model, :table, :search, :export, :form, :chart, :modal_form, :show, :preview_path, :actions, :custom_settings,
+    attr_accessor :model, :table, :search, :export, :form, :chart, :map, :modal_form, :show, :preview_path, :actions, :custom_settings,
                   :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
                   :parent_resources, :custom_actions, :permitted_params, :scopes
 

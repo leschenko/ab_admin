@@ -1,0 +1,4 @@
+- if tmpl = admin_partial_name(map_builder)
+  = render partial: tmpl, locals: local_assigns
+- else
+  h2 Generic map template is not implemented yet. It can be here `admin/#{resource_collection_name}/_map.html.slim`

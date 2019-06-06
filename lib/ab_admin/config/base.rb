@@ -39,6 +39,10 @@ module AbAdmin
       self.partial_name = 'chart'
     end
 
+    class Map < BaseBuilder
+      self.partial_name = 'map'
+    end
+
     class Export < BaseBuilder
       def render_options
         {column_names: fields.map(&:name), column_data: fields.map(&:data),
