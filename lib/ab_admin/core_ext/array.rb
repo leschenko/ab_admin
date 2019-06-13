@@ -1,13 +1,7 @@
 class Array
-  def add_or_delete(el)
-    include?(el) ? delete(el) : push(el)
-  end
-
-  def word_count
-    each_with_object({}) do |word, h|
-      h[word] ||= 0
-      h[word] += 1
-    end
+  # TOREMOVE after ruby 2.7.0
+  def tally
+    each_with_object(Hash.new(0)) { |v, h| h[v] += 1 }
   end
 
   def deep_merge_hashes
@@ -22,16 +16,6 @@ class Array
     inject(:+) / size
   end
 
-  #def zip_all
-  #  self[0].zip *self[1..-1]
-  #end
-  #
-  #def pluck!(method, *args)
-  #  each_index { |x| self[x] = self[x].send method, *args }
-  #end
-  #
-  #alias invoke! pluck!
-
   def without(*values)
     copy = self.dup
     copy.without!(*values)
@@ -42,10 +26,6 @@ class Array
     self
   end
 
-  def map_val(attr='id')
-    map{|el| el[attr] }
-  end
-
   def contain?(other)
     (other - self).empty?
   end
@@ -53,24 +33,4 @@ class Array
   def intersect?(other)
     !(self & other).empty?
   end
-
-  # def to_hash
-  #   ActiveSupport::Deprecation.warn('Array#to_hash is deprecated, use Array#to_h or Hash[] instead')
-  #   h = {}
-  #   each { |k, v| h[k] = v }
-  #   h
-  # end
-
-  def val_detect(attr, val)
-    detect{|v| v[attr] == val }
-  end
 end
-
-#module Enumerable
-#  def pluck(method, *args)
-#    map { |x| x.send method, *args }
-#  end
-#
-#  alias invoke pluck
-#end
-

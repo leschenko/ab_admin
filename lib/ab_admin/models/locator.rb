@@ -58,7 +58,7 @@ module AbAdmin
             csv_data.each do |d|
               key_parts = [l.to_s] + d[0].split('.')
               raise "Invalid key #{d[0]}" unless data.dig(*key_parts)
-              data.store_multi(d[i], *key_parts)
+              data.dig_store(d[i], *key_parts)
             end
             save path, data
           end

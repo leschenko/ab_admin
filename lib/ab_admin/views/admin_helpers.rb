@@ -103,7 +103,7 @@ module AbAdmin
       end
 
       def admin_title
-        base = @breadcrumbs ? @breadcrumbs.map_val(:name).reverse : []
+        base = @breadcrumbs ? @breadcrumbs.map{|b| b[:name] }.reverse : []
         base << @page_title || 'Ab Admin'
         base.join(' - ')
       end

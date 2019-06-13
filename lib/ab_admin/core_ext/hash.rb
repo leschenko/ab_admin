@@ -1,5 +1,4 @@
 class Hash
-
   def reverse_deep_merge!(other_hash)
     other_hash.each_pair do |k, v|
       tv = self[k]
@@ -68,29 +67,13 @@ class Hash
     end
   end
 
-  def val(*array)
-    if array.empty?
-      self
-    else
-      key = array.shift
-      value = self[key]
-      if array.empty?
-        value
-      elsif value.is_a? Hash
-        value.val(*array)
-      else
-        nil
-      end
-    end
-  end
-
-  def store_multi(value, *keys)
+  def dig_store(value, *keys)
     key = keys.shift
     self[key] ||= {}
     if keys.empty?
       self[key] = value
     else
-      self[key] = self[key].store_multi(value, *keys)
+      self[key] = self[key].dig_store(value, *keys)
     end
     self
   end
@@ -105,18 +88,6 @@ class Hash
 
   def reject_blank
     reject { |_, v| v.blank? }
-  end
-
-  def no_blank
-    ActiveSupport::Deprecation.warn('`no_blank` is deprecated, use `reject_blank` instead')
-    reject_blank
-  end
-
-  def try_keys(*try_keys)
-    try_keys.each do |k|
-      return self[k] if self.has_key?(k)
-    end
-    default
   end
 
   def deep_stringify_keys

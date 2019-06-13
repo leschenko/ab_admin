@@ -1,3 +1,27 @@
+### 0.8.3
+* backwards incompatible changes
+  * rename `Hash#store_multi` to `Hash#dig_store`
+  * `String#to_utc` removed without replacement
+  * `String#is_int?` removed without replacement
+  * `String#is_number?` removed without replacement
+  * `String#mb_downcase` removed without replacement
+  * `String#mb_upcase` removed without replacement
+  * `String#clean_text` removed without replacement
+  * `String::randomize` removed without replacement
+  * `String#count_words` removed without replacement
+  * `String#words_count` removed without replacement
+  * `String#tr_lang` removed without replacement
+  * `String#capitalize_first` removed without replacement
+  * `String#lucene_escape` removed without replacement
+  * `Hash#try_keys` removed without replacement
+  * `Nil#val` removed without replacement
+  * `Hash#val` removed without replacement
+  * `Array#add_or_delete` removed without replacement
+  * `Array#word_count` removed without replacement
+  * `Array#map_val` removed without replacement
+  * `Array#val_detect` removed without replacement
+
+### 0.8.3
 * backwards incompatible changes
   * `list_sort_link` accept only options Hash as second argument
   * `deprecated_utils.js` removed without replacement

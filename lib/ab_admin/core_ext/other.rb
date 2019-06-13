@@ -1,9 +1,3 @@
-class NilClass
-  def val(*args)
-    self
-  end
-end
-
 class TrueClass
   def to_i
     1
