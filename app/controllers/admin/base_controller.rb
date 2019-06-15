@@ -21,7 +21,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page, :params_for_links
+                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page, :params_for_links,
+                :resource_list_id
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -427,5 +428,9 @@ class Admin::BaseController < ::InheritedResources::Base
     else
       {root: false}
     end
+  end
+
+  def resource_list_id
+    "list_#{resource_instance_name}_#{resource.id}"
   end
 end

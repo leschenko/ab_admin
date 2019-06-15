@@ -27,7 +27,7 @@ class CkeditorPictureUploader < CarrierWave::Uploader::Base
   #   # do something
   # end
   
-  process :extract_dimensions
+  process :extract_size
 
   # Create different versions of your uploaded files:
   version :thumb do
