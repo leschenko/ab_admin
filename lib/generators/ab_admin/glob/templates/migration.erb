@@ -1,7 +1,7 @@
 class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
   def up
     <%- models.each do |m| -%>
-    <%= m.name %>.create_translation_table! <%= model_attrs[m.name] %>
+    <%= m.name %>.create_translation_table! <%= model_attrs[m.name] %>, unique_index: true
     <%- end -%>
   end
 
