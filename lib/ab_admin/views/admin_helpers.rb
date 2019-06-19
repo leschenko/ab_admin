@@ -82,7 +82,7 @@ module AbAdmin
       end
 
       def options_for_ckeditor(options = {})
-        {width: 930, height: 200, toolbar: 'VeryEasy', namespace: ''}.update(options)
+        {width: 930, height: 200, namespace: ''}.update(options)
       end
 
       def admin_tree_item(item)
