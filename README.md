@@ -4,13 +4,19 @@ Simple and real-life tested Rails::Engine admin interface based on slim, bootstr
 
 ## Installation
 
-To build a new Rails application with AbAdmin, run:
+Add this line to your application's Gemfile:
 
-```bash
-rails new [my_app_name] -m https://raw.githubusercontent.com/leschenko/ab_admin/master/lib/generators/template.rb
-```
+    gem 'simple_slug'
 
-Or add gems from template [list of gems](https://raw.githubusercontent.com/leschenko/ab_admin/master/lib/generators/template.rb) to an existing application and run generators:
+And then execute:
+
+    $ bundle
+
+Or install it yourself as:
+
+    $ gem install simple_slug
+
+Run generators
 
 ```bash
 rails generate devise:install
