@@ -50,7 +50,7 @@ window.inputBtnClose = ->
     $(this).closest('.close-wrap').remove()
 
 window.flash = (message, type='notice') ->
-  $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>").insertBefore $('#container')
+  $("<div class='alert alert-#{type}'><a class='close' data-dismiss='alert'>×</a>#{message}</div>").prependTo $('#flash')
 
 window.focusInput = (scope=null) ->
   scope ||= $('form.simple_form:first')

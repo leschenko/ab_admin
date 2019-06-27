@@ -39,6 +39,23 @@ html, body {
   }
 }
 
+#flash {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 15px;
+  opacity: 0.9;
+  min-width: 25%;
+  max-width: 400px;
+  z-index: 5;
+  .alert {
+    margin-bottom: 5px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 #push {
   height: 40px;
 }

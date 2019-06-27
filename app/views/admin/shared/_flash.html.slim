@@ -1,4 +1,5 @@
-- flash.each do |type, message|
-  .alert class="alert-#{type}"
-    a.close(data-dismiss='alert') ×
-    == message
+#flash
+  - flash.each do |type, message|
+    .alert class="alert-#{type}"
+      a.close(data-dismiss='alert') ×
+      == message

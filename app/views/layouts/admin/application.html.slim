@@ -16,13 +16,13 @@ html id="controller_#{controller_name}"
       = render 'layouts/admin/navigation'
       #main role="main"
         .container-fluid
-          = render('admin/shared/flash', flash: flash) if flash
           #container.row-fluid
             .wrap_content
               .clearfix data-pjax-container=true class=admin_layout_css = yield
             - if collection_action? && settings[:search]
               .sidebar.well= render 'search_layout'
             = yield :sidebar
+        = render('admin/shared/flash', flash: flash) if flash
       #modal_form.modal.hide
       #loading.label.label-warning= t 'admin.loading'
       #push
