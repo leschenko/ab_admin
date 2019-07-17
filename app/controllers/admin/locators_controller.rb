@@ -12,8 +12,14 @@ class ::Admin::LocatorsController < ::Admin::BaseController
 
   def import
     if params[:csv_file].present?
-      Locator.import_csv(params[:csv_file].read, locales: params[:locales])
-      flash[:notice] = 'File imported'
+      csv = params[:csv_file].read.force_encoding('UTF-8')
+      errors = Locator.csv_errors(csv)
+      if errors.present?
+        flash[:error] = errors.join('<br/>').html_safe.first(500)
+      else
+        Locator.import_csv(csv, locales: params[:locales])
+        flash[:notice] = 'File imported'
+      end
     else
       flash[:error] = 'Missing or invalid csv file'
     end

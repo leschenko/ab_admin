@@ -64,6 +64,32 @@ module AbAdmin
           end
         end
 
+        INTERPOLATION_REGEXP = /%{[^}]+}/
+        def csv_errors(csv)
+          return ['CSV blank'] if csv.blank?
+          csv_data = CSV.parse(csv)
+          errors = []
+          csv_data.shift.each_with_index do |l, i|
+            next if i.zero?
+            unless I18n.available_locales.include?(l.to_sym)
+              errors << "Unknown locale #{l}"
+              next
+            end
+            csv_data.each do |d|
+              key = d[0]
+              next if d[i].blank?
+              if translations.dig(I18n.default_locale, key)
+                unless translations.dig(I18n.default_locale, key).scan(INTERPOLATION_REGEXP).sort == d[i].scan(INTERPOLATION_REGEXP).sort
+                  errors << "Wrong interpolations #{I18n.default_locale}:'#{translations.dig(I18n.default_locale, key)}' #{l}:#{d[i]}"
+                end
+              else
+                errors << "Extra interpolations #{l}:#{d[i]}" if d[i].scan(INTERPOLATION_REGEXP).present?
+              end
+            end
+          end
+          errors
+        end
+
         def translations
           @translations ||= I18n.backend.send(:translations).slice(*I18n.available_locales).transform_values{|v| v.flatten_hash.transform_keys{|k| k.join('.') } }
         end
