@@ -33,6 +33,7 @@ module Dummy
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :ru
     config.i18n.default_locale = ENV['RAILS_LOCALE'] if ENV['RAILS_LOCALE']
+    config.i18n.available_locales = [:en, :de]
 
     base_dir = File.expand_path('../../../../app/', __FILE__)
     dirs = %W(#{base_dir}/controllers/admin #{base_dir}/helpers/admin)

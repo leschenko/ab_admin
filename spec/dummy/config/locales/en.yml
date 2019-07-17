@@ -1,9 +1,10 @@
 en:
-  hello: "Hello world"
+  hello: Hello world
+  hello_name: Hello world %{name}
   hello_letter:
-    a: "Hello a"
-    ab: "Hello ab"
-    b: "Hello b"
+    a: Hello a
+    ab: Hello ab
+    b: Hello b
     deep:
-      d: 'Hi d'
-      c: 'Hi d'
+      d: Hi d
+      c: Hi d

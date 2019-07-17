@@ -1,0 +1,10 @@
+de:
+  hello: "Hello world"
+  hello_name: "Hallo %{name}"
+  hello_letter:
+    a: "Hello a"
+    ab: "Hello ab"
+    b: "Hello b"
+    deep:
+      d: 'Hi d'
+      c: 'Hi d'
