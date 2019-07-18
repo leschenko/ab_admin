@@ -26,7 +26,7 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
 EditableForm.prototype.saveWithoutUrlHook = EditableForm.prototype.save
 EditableForm.prototype.save = EditableForm.prototype.saveWithUrlHook
 
-$(document).on 'admin:init', (e) ->
+window.initInPlaceEditable = ->
   $('.editable').editable
     onblur: 'submit'
     placement: 'bottom'
@@ -50,6 +50,10 @@ $(document).on 'admin:init', (e) ->
         withCredentials: true
       headers:
         Accept: 'application/json'
+
+
+$(document).on 'admin:init', initInPlaceEditable
+
 $ ->
   _.each $('.editable'), (el) ->
     $el = $(el)

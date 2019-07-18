@@ -23,7 +23,6 @@ $ ->
       e.preventDefault()
       $(this).closest('tr').remove()
 
-  $(document).on 'admin:init', ->
     $form = $('form.simple_form')
     window.resource_id = $form.data('id')
     $form.trigger('admin:form_init')
