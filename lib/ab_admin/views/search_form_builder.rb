@@ -59,7 +59,7 @@ module AbAdmin
       def date_field(attr, options={})
         label(attr, options[:label]) + content_tag(:div, class: 'controls') do
           gt_param, lt_param = "#{attr}_gteq", "#{attr}_lteq"
-          text_field_tag("q[#{gt_param}]", params[:q][gt_param], class: 'input-small datepicker', autocomplete: 'off') + ' - ' +
+          text_field_tag("q[#{gt_param}]", params[:q][gt_param], class: 'input-small datepicker', autocomplete: 'off') +
           text_field_tag("q[#{lt_param}]", params[:q][lt_param], class: 'input-small datepicker', autocomplete: 'off', id: "q_#{attr}")
         end
       end

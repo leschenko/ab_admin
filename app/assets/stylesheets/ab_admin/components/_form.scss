@@ -78,11 +78,9 @@ input[type="color"],
 }
 
 #search_form {
+  margin: 0;
   .right-label {
     padding: 5px 0 0 130px;
-  }
-  #search_cancel {
-    float: right;
   }
   label {
     margin-top: 5px;
@@ -108,6 +106,7 @@ input[type="color"],
     }
     input {
       float: right;
+      width: 45%;
     }
   }
   .select select {
@@ -123,12 +122,12 @@ input[type="color"],
   hr {
     margin: 10px 0;
   }
-  .search-submit-wide {
-    display: block;
-    width: calc(100% + 26px);
-    margin-top: -13px;
-    margin-left: -13px;
-    margin-right: -13px;
+  .search-submit {
+    width: 78%;
+  }
+  .search-cancel {
+    width: 20%;
+    float: right;
   }
 }
 

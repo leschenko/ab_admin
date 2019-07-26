@@ -21,7 +21,10 @@ html, body {
     margin: 0 0 20px -253px;
     float: left;
     &.well {
-      width: 220px;
+      width: 240px;
+    }
+    &.well-tiny {
+      padding: 5px;
     }
   }
   .content_with_sidebar {

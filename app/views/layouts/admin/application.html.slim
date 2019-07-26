@@ -20,7 +20,7 @@ html id="controller_#{controller_name}"
             .wrap_content
               .clearfix data-pjax-container=true class=admin_layout_css = yield
             - if collection_action? && settings[:search]
-              .sidebar.well= render 'search_layout'
+              .sidebar.well.well-tiny= render 'search_layout'
             = yield :sidebar
         = render('admin/shared/flash', flash: flash) if flash
       #modal_form.modal.hide
