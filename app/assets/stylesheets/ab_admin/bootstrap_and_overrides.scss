@@ -1,8 +1,8 @@
 $baseFontSize: 13px !default;
 $baseLineHeight: 18px !default;
 
-@import "bootstrap";
-@import "bootstrap-responsive";
+@import "bootstrap_2_3_2/bootstrap";
+@import "bootstrap_2_3_2/bootstrap-responsive";
 @import "ab_admin/components/base";
 @import "ab_admin/components/navigation";
 @import "ab_admin/components/table_view";

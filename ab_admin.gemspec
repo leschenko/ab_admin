@@ -33,7 +33,6 @@ Gem::Specification.new do |s|
   s.add_dependency 'coffee-rails'
   s.add_dependency 'sass-rails'
 
-  s.add_dependency 'bootstrap-sass', '~> 2.3.2.2'
   s.add_dependency 'bootstrap-wysihtml5-rails', '~> 0.3.1.24'
   s.add_dependency 'will_paginate'
   s.add_dependency 'will_paginate-bootstrap', '~> 0.2.5'

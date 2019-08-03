@@ -7,7 +7,7 @@
 //= require jquery.cookie
 //= require jquery.pjax
 //= require jquery.hotkeys
-//= require bootstrap
+//= require bootstrap_2_3_2/bootstrap
 //= require ab_admin/jquery_nested_form
 //= require ab_admin/bootstrap-tab-multi
 //= require ab_admin/bootstrap-datetimepicker/bootstrap-datetimepicker
