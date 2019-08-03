@@ -26,7 +26,7 @@
           - table_builder.fields.each do |field|
             td class=(field.options[:cell_class] if field.options[:cell_class])
               - field_content = table_item_field(item, field)
-              - if field.options[:copy_button]
+              - if field_content.present? && field.options[:copy_button]
                 - field_id = dom_id(item, field.name)
                 span> id=field_id = field_content
                 .btn.btn-mini> class='js-copy' data-clipboard-target="##{field_id}" = icon('share')
