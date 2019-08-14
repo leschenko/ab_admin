@@ -40,8 +40,8 @@ module WillPaginate
         rel.total_entries = total.to_i unless total.blank?
 
         if large
-          ids = rel.except(:includes).pluck(Arel.sql("#{quoted_table_name}.id"))
-          new_rel = rel.except(:limit, :offset, :where).where(id: ids)
+          ids = rel.except(:includes).pluck(Arel.sql("#{quoted_table_name}.#{primary_key}"))
+          new_rel = rel.except(:limit, :offset, :where).where(primary_key => ids)
           new_rel.paginate_limit = rel.limit_value.to_i
           new_rel.paginate_offset = rel.offset_value.to_i
           new_rel.total_entries = rel.total_entries
