@@ -20,13 +20,18 @@ $ ->
 
     guid = $(content).find('[name$="[fileupload_guid]"]').val()
     content = content.replace(new RegExp(guid, 'g'), new_id) if guid
+    $content = $(content)
+
+    if $el.data('params')
+      for k, v of $el.data('params')
+        $content.find("[name$='[#{k}]']").val(v)
 
     if $el.data('container')
       $cont = $($el.data('container'))
-      field = $(content).prependTo($cont)
+      field = $content.prependTo($cont)
     else
       $cont = $el
-      field = $(content).insertBefore($cont)
+      field = $content.insertBefore($cont)
 
     $el.closest("form").trigger
       type: "nested:fieldAdded"
