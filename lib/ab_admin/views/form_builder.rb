@@ -93,12 +93,14 @@ module AbAdmin
         return if @disable_all
         model = @object.class.reflect_on_association(assoc).klass
         title = [@template.icon('plus', true), I18n.t('admin.add'), options[:title] || model.model_name.human].join(' ').html_safe
-        link_to_add title, assoc, class: "btn btn-primary #{options[:class]}"
+        options[:class] = "btn btn-primary #{options[:class]}"
+        link_to_add title, assoc, options
       end
 
-      def link_to_remove_assoc
+      def link_to_remove_assoc(options={})
         return if @disable_all
-        link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), class: 'btn btn-danger btn-mini pull-right'
+        options[:class] ||= 'btn btn-danger btn-mini pull-right'
+        link_to_remove @template.icon('trash', true) + I18n.t('admin.delete'), options
       end
 
       def locale_tabs(options={}, &block)
