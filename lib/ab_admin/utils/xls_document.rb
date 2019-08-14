@@ -49,25 +49,27 @@ module AbAdmin
         @filename ||= [@options[:filename] || "#{@klass.model_name.plural}-#{Time.now.strftime('%Y-%m-%d')}", '.xlsx'].join
       end
 
-      def render
+      def render(context, options={})
         date_format = workbook.add_format(num_format: 'dd.mm.yyyy')
         time_format = workbook.add_format(num_format: 'dd.mm.yyyy HH:MM')
 
-        each_with_index do |item, index|
-          row = index + 1
+        I18n.with_locale options[:locale] do
+          each_with_index do |item, index|
+            row = index + 1
 
-          column_data.each_with_index do |column, num|
-            value = call_method_or_proc_on(item, column, exec: false)
+            column_data.each_with_index do |column, num|
+              value = call_method_or_proc_on(item, column, context: context)
 
-            case value
-              when Date
-                worksheet.write_string(row, num, value.strftime('%Y-%m-%dT'), date_format)
-              when DateTime, Time
-                worksheet.write_date_time(row, num, value.strftime('%Y-%m-%dT%H:%M:%S.%L'), time_format)
-              when String
-                worksheet.write_string(row, num, value)
-              else
-                worksheet.write(row, num, AbAdmin.pretty_data(value))
+              case value
+                when Date
+                  worksheet.write_string(row, num, value.strftime('%Y-%m-%dT'), date_format)
+                when DateTime, Time
+                  worksheet.write_date_time(row, num, value.strftime('%Y-%m-%dT%H:%M:%S.%L'), time_format)
+                when String
+                  worksheet.write_string(row, num, value)
+                else
+                  worksheet.write(row, num, AbAdmin.pretty_data(value))
+              end
             end
           end
         end

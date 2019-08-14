@@ -32,13 +32,13 @@ class Admin::BaseController < ::InheritedResources::Base
       format.csv do
         authorize! :export, resource_class
         doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
-        send_data(doc.render, filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
+        send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
       end
       if Mime[:xlsx]
         format.xlsx do
           authorize! :export, resource_class
           doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
-          send_data(doc.render, filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
+          send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
         end
       end
     end

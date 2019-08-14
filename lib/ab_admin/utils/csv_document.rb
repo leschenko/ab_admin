@@ -27,12 +27,14 @@ module AbAdmin
         @filename ||= [@options[:filename] || "#{@klass.model_name.plural}-#{Time.now.strftime('%Y-%m-%d')}", '.csv'].join
       end
 
-      def render
+      def render(context=nil, options={})
         ::CSV.generate(col_sep: @options[:column_separator] || ',') do |csv|
           csv << columns_names
 
-          each_record do |item|
-            csv << column_data.map { |column| AbAdmin.pretty_data call_method_or_proc_on(item, column, exec: false) }
+          I18n.with_locale options[:locale] do
+            each_record do |item|
+              csv << column_data.map { |column| AbAdmin.pretty_data call_method_or_proc_on(item, column, context: context) }
+            end
           end
         end
       end
