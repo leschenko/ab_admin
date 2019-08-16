@@ -25,7 +25,7 @@ module AbAdmin
       end
 
       def sort_link(adapter, attribute, options={})
-        name = options[:title] || (attribute.is_a?(Symbol) ? ha(attribute) : attribute)
+        name = options.delete(:title) || (attribute.is_a?(Symbol) ? ha(attribute) : attribute)
         return name unless adapter
         search_params = (params[:q] || {}).to_h.with_indifferent_access
         attr_name = (options.delete(:column) || attribute).to_s
