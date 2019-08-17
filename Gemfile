@@ -32,7 +32,6 @@ gem 'will_paginate-bootstrap'
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.1.24'
 gem 'select2-rails', '~> 3.5.9.3'
 gem 'jquery-fileupload-rails'
-gem 'fancybox2-rails'
 gem 'i18n-js'
 
 gem 'ruby-progressbar'

@@ -105,7 +105,6 @@ de:
       drop_here: Drag and drop files here
       main_image: Set Main
       max_size: Max size
-      crop: Crop
       rotate: Rotate
     form:
       cancel: Cancel

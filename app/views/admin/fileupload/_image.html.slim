@@ -2,8 +2,7 @@
   = link_to icon('remove', true), admin_asset_path(image), remote: true, method: :delete, title: t('admin.delete'), class: 'destroy_asset', \
      data: {confirm: t('admin.delete_confirmation')}
   .main_image title=t('admin.fileupload.main_image') = icon('home', true)
-  .crop_image title=t('admin.fileupload.crop') = icon('resize-full', true)
   .rotate_image title=t('admin.fileupload.rotate') = icon('repeat', true)
-  a.fileupload-file.fancybox href=image.url rel='fancybox'
+  a.fileupload-file href=image.url target='_blank' data-fancybox=1
     - I18n.with_locale(image.assetable.try(:locale)) do
       img src=image.thumb_url title=image.name alt=image.alt

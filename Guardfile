@@ -1,5 +1,5 @@
 # notification :growl
-ignore [/vendor/, /public/, /etc/]
+ignore [/vendor/, /public/, /unused/, /etc/]
 
 group :rspec do
   guard 'rspec', all_on_start: false, all_after_pass: false, failed_mode: :keep, cmd: "rspec #{'--tag @focus' if ENV['FOCUS']}" do

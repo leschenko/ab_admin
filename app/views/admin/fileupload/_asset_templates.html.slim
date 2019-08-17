@@ -3,9 +3,8 @@ script#image_template type='text/x-handlebars-template'
     = link_to icon('remove', true), '/admin/assets/{{id}}', remote: true, method: :delete, title: t('admin.delete'), class: 'destroy_asset', \
        data: {confirm: t('admin.delete_confirmation')}
     .main_image title=t('admin.fileupload.main_image') = icon('home', true)
-    .crop_image title=t('admin.fileupload.crop') = icon('resize-full', true)
     .rotate_image title=t('admin.fileupload.rotate') = icon('repeat', true)
-    a.fileupload-file.fancybox href='{{url}}' rel='fancybox'
+    a.fileupload-file href='{{url}}' target='_blank' data-fancybox=1
       img src='{{thumb_url}}' title='{{name}}' alt="{{alt}}"
 
 

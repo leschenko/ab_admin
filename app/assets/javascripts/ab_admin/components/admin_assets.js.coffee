@@ -5,13 +5,6 @@
 #= require fileupload/jquery.fileupload-validate
 #= require ab_admin/components/base_assets
 
-#q= require ab_admin/jquery.Jcrop
-#q= require ab_admin/components/croppable_image
-
-#q=require fileupload/jquery.fileupload-image
-#q=require fileupload/jquery.fileupload-audio
-#q=require fileupload/jquery.fileupload-video
-
 class window.AdminAssets extends BaseAssets
   showErrors: (e, data) ->
     errors = _.map(data.files,(file) ->
@@ -20,28 +13,10 @@ class window.AdminAssets extends BaseAssets
 
   initDisabled: ->
     super
-    @initFancybox() if $.fn.fancybox
 
   initHandlers: ->
     super
-    @initFancybox() if $.fn.fancybox
-    @initCrop() if @options.crop
     @initEditMeta() if @options.edit_meta
-
-  initFancybox: =>
-    @list.find("a.fancybox")
-      .click (e) ->
-        e.preventDefault()
-      .fancybox
-        afterShow: =>
-          @crop?.fancyboxHandler()
-        helpers:
-          overlay:
-            locked: false
-
-  initCrop: ->
-    return unless $.fn.Jcrop
-    @crop = new CroppableImage(@el, @options.crop)
 
   initEditMeta: ->
     @el.find('.fileupload-edit-button').show().click =>
