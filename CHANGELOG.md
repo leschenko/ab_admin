@@ -1,3 +1,6 @@
+* backwards incompatible changes
+  * Remove fancybox Jcrop without replacement
+
 ### 0.8.3
 * backwards incompatible changes
   * rename `Hash#store_multi` to `Hash#dig_store`
