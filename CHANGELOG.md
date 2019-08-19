@@ -1,5 +1,6 @@
 * backwards incompatible changes
-  * Remove fancybox Jcrop without replacement
+  * Remove fancybox, JCrop without replacement
+  * Remove `:crop` option from uploader
 
 ### 0.8.3
 * backwards incompatible changes
