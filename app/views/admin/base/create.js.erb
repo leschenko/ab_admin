@@ -8,7 +8,7 @@
     html = render('table', collection: [resource]).match(/<tbody>(.*)<\/tbody>/m)[1].html_safe
   %>
   $('#<%= form_wrap_id %>').remove();
-  $('#list tbody').prepend('<%= j html %>');
+  $('#list tbody:first').prepend('<%= j html %>');
   $(document).trigger('admin:list_init');
   $('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
 <% end %>
