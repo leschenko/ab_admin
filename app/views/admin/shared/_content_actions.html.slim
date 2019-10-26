@@ -20,7 +20,7 @@
         - next if opts[:if] && !call_method_or_proc_on(controller, opts[:if])
         - param_name = opts[:as] || name
         - active = params[param_name]
-        a.btn href=url_for(param_name => (active ? nil : 1)) class=('active' if active)
+        a.btn href=url_for(param_name => (active ? nil : 1)) class=[opts[:class], ('active' if active)]
           = opts[:title] || t("admin.scopes.#{name}", default: name.to_s.titleize)
           - if opts[:badge]
             - scope = opts[:block] ? opts[:block].call(controller, resource_class) : resource_class.send(name)
