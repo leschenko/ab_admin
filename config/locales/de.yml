@@ -89,7 +89,7 @@ de:
     choose: Select %{attr}
     close: Close
     columns_hider:
-      button: Adjust the table
+      button: Columns
       title: Setting the display of columns
     comments:
       add: Comment

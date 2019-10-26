@@ -1,5 +1,5 @@
 .grid_view {
-  #columns_hider_show, .pagination .pagination, .per_page {
+  #columns_hider_wrap, .pagination .pagination, .per_page {
     display: none;
   }
   .pagination_info {
@@ -21,7 +21,7 @@
 
 #main {
   .grid_view {
-    #columns_hider_show {
+    #columns_hider_wrap {
       display: none;
     }
     .content_actions {

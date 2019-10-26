@@ -1,18 +1,37 @@
 class window.ColumnsHider
   constructor: ->
     @store_key = 'cols'
-    @data_el = $('#columns_hider_data')
+    @wrap = $('#columns_hider_wrap')
+    @menu = @wrap.find('.dropdown-menu')
     @column_names = @columnNames()
     @collection_name = window.location.href.match(/admin\/(\w+)/)?[1]
     return unless @collection_name
     @data = @getData()
-    @initDefaults()
     @initButtons()
     @initHandlers()
     @refreshColumns()
 
-  initDefaults: ->
-    @data
+  initHandlers: ->
+    @menu.on 'click', 'label', (e) =>
+      e.preventDefault()
+      e.stopPropagation()
+      $input = $(e.currentTarget).find('input')
+      $input.prop('checked', !$input.is(':checked'))
+      colIds = _.map @menu.find('input:not(:checked)'), (el) -> parseInt($(el).val())
+      @data[@collection_name] = colIds
+      @refreshColumns()
+      @setData()
+
+    $(document).on 'pjax:end admin:list_init', =>
+      @refreshColumns()
+
+  initButtons: ->
+    log @data[@collection_name]
+    @menu.empty()
+    for col, i in @column_names
+      isActive = _.include(@data[@collection_name], i)
+      html = "<label class='checkbox'><input type='checkbox' checked='#{isActive}' value='#{i}'>#{col.name}</label>"
+      @menu.append(html)
 
   setData: ->
     res = {}
@@ -33,27 +52,10 @@ class window.ColumnsHider
         data[@collection_name].push(i) if col.disabled
     data
 
-  initButtons: ->
-    @data_el.empty()
-    for col, i in @column_names
-      css_class = if _.include(@data[@collection_name], i) then 'active' else ''
-      html = "<button class='btn btn-primary #{css_class}' data-val='#{i}'>#{col.name}</button>"
-      @data_el.append(html)
-
   columnNames: ->
     _.map $('#list > thead > tr > th'), (el) ->
       $el = $(el)
-      {disabled: $el.hasClass('hide_cell'), name: $.trim($el.text().replace(/[▼▲]/g, ''))}
-
-  initHandlers: ->
-    $('#submit_columns_hider').click =>
-      col_ids = _.map $('#columns_hider_data .active'), (el) -> $(el).data('val')
-      @data[@collection_name] = col_ids
-      $('#columns_hider').modal('hide')
-      @refreshColumns()
-      @setData()
-    $(document).on 'pjax:end admin:list_init', =>
-      @refreshColumns()
+      {disabled: $el.hasClass('hide_cell'), name: $.trim($el.text().replace(/[▼▲]/g, '')) || ' - '}
 
   refreshColumns: ->
     if @data[@collection_name]
@@ -69,4 +71,4 @@ class window.ColumnsHider
     $("#list > thead > tr > th, #list > tbody > tr > td").show()
 
 $ ->
-  window.columns_hider = new ColumnsHider()
+  new ColumnsHider()
