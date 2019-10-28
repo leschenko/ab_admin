@@ -1,6 +1,8 @@
 * backwards incompatible changes
   * Remove fancybox, JCrop without replacement
   * Remove `:crop` option from uploader
+  * Remove `globalize` gem
+  * Remove AdminAddition unused methods
 
 ### 0.8.3
 * backwards incompatible changes
