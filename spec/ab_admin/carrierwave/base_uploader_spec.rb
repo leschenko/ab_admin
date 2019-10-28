@@ -96,7 +96,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
       end
 
       it 'include secure_token' do
-        UploaderSpecImage.stub_build_filename = 'Тест . - + ='
+        UploaderSpecImage.stub_build_filename = 'Test . - + ='
         @image = create(:main_uploader_spec_image, assetable: @assetable)
         @image.store_model_filename(@assetable)
         expect(File.basename(@image.data.url)).to eq 'test__abc.png'
