@@ -12,41 +12,12 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
-      module ClassMethods
-        def for_input_token(r, attr=nil)
-          text = attr ? r[attr] : (r['name_ru'] || r['name'])
-          {id: r.id, text: text}
-        end
-      end
-
       def for_input_token
         {id: id, text: AbAdmin.safe_display_name(self).to_s}
       end
 
       def han
         "#{self.class.model_name.human(count: 1)} ##{self.id} #{AbAdmin.safe_display_name(self)}"
-      end
-
-      def translated_any(attr)
-        send(attr).presence || translations.detect { |r| r.send(attr).present? }.try!(attr)
-      end
-
-      def new_changes
-        excluded_attrs = [:updated_at]
-        excluded_attrs += translated_attribute_names if self.class.translates?
-        all_changes = changes.except(*excluded_attrs).map { |k, v| [k, v[1]] }.to_h
-        if self.class.translates?
-          globalize.dirty.each do |attr, changes|
-            changes.each do |change|
-              all_changes["#{attr}_#{change[0]}"] = send("#{attr}_#{change[0]}")
-            end
-          end
-        end
-        all_changes
-      end
-
-      def admin_comments_count_non_zero
-        self[:admin_comments_count].to_i.zero? ? nil : self[:admin_comments_count]
       end
 
       def token_data(method, options={})
@@ -92,7 +63,6 @@ module AbAdmin
         sql = "(#{quoted_order_col} #{predicate} :val OR (#{quoted_order_col} = :val AND #{self.class.quote_column('id')} #{id_predicate} #{id}))"
         scope.where(sql, val: send(order_col)).ransack(query[:q]).result(distinct: true).first
       end
-
     end
   end
 end
