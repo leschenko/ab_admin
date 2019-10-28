@@ -3,43 +3,20 @@ module AbAdmin
     module Callbacks
       extend ActiveSupport::Concern
 
-      #included do
-      #  define_admin_callbacks :build, :create, :update, :save, :destroy
-      #end
-
       protected
 
-      def build_resource
-       object = get_resource_ivar || set_resource_ivar(end_of_association_chain.send(method_for_build, resource_params))
-       # run_build_callbacks object
-       object
-      end
-
       def create_resource(object)
-        run_create_callbacks object do
-          save_resource(object)
-        end
+        run_create_callbacks(object) {save_resource(object)}
       end
 
       def save_resource(object)
-        run_save_callbacks object do
-          object.save
-        end
+        run_save_callbacks(object) {object.save}
       end
 
       def update_resource(object, attributes)
         object.assign_attributes(attributes)
-
-        #run_update_callbacks object do
-          save_resource(object)
-        #end
+        save_resource(object)
       end
-
-      #def destroy_resource(object)
-      #  run_destroy_callbacks object do
-      #    object.destroy
-      #  end
-      #end
 
       # Simple callback system. Implements before and after callbacks for
       # use within the controllers.
