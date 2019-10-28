@@ -13,7 +13,7 @@ Then /^I should see confirmation dialog$/ do
 end
 
 When /^I choose batch action "(.*?)"$/ do |action|
-  find('.content_actions .dropdown-toggle').click
+  all('.content_actions .dropdown-toggle').first.click
   find('.dropdown-menu a', text: action).click
 end
 
