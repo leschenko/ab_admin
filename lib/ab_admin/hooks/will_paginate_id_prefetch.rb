@@ -1,3 +1,5 @@
+require 'will_paginate/active_record'
+
 # add `:large` option with make pagination on large tables easier, because `SELECT *` is slow with large `OFFSET`:
 #   first it fetch ids of the records using `SELECT id`
 #   and in the second query it fetch records
