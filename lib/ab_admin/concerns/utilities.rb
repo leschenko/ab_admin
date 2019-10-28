@@ -85,7 +85,7 @@ module AbAdmin
 
         def all_translated_attribute_names
           if translates?
-            ::Globalize.available_locales.map do |loc|
+            AbAdmin.translated_locales.map do |loc|
               translated_attribute_names.map { |attr| "#{attr}_#{loc}" }
             end.flatten
           else

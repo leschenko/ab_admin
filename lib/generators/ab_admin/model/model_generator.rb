@@ -31,17 +31,16 @@ module AbAdmin
       protected
 
       def model_instance
-        @model_instance ||= model.new
+        model.new
       end
 
       def translated_columns
-        @translated_columns ||= model.respond_to?(:translated_attribute_names) ? model.translated_attribute_names.map(&:to_s) : []
+        model.respond_to?(:translated_attribute_names) ? model.translated_attribute_names.map(&:to_s) : []
       end
 
       def index_attrs
-        @attrs ||= model_instance.attributes.keys.map(&:to_s)
+        model_instance.attributes.keys.map(&:to_s)
       end
-
     end
   end
 end

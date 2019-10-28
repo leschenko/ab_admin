@@ -6,7 +6,10 @@ class AbAdmin<%= model.name %> < AbAdmin::AbstractResource
 <% else -%>
   table do
 <% index_attrs.without('id', 'updated_at').each do |attr| -%>
-    field :<%= attr -%><%= ', sortable: false' if translated_columns.include?(attr) %>
+    field :<%= attr -%><%= ', sortable: false' if translated_columns.include?(attr.to_s) %>
+<% end -%>
+<% translated_columns.each do |attr| -%>
+    field :<%= attr -%>, sortable: false
 <% end -%>
   end
 

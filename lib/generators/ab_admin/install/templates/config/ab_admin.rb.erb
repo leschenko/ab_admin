@@ -1,6 +1,6 @@
 require 'ab_admin/hooks'
 
-I18n.available_locales = Globalize.available_locales = [:ru, :en]
+I18n.available_locales = AbAdmin.translated_locales = [:en]
 
 AbAdmin.setup do |config|
   config.site_name = '<%= app_const_base.titleize %>'

@@ -105,7 +105,7 @@ module AbAdmin
 
       def locale_tabs(options={}, &block)
         locale_html = {}
-        options[:locales] ||= Globalize.available_locales
+        options[:locales] ||= AbAdmin.translated_locales
         options[:locales].each do |l|
           locale_html[l] = template.capture { block.call(l) }
         end

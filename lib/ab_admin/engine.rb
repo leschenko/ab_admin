@@ -19,6 +19,7 @@ module AbAdmin
         ActiveRecord::Base.send :extend, AbAdmin::Concerns::Silencer
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Validations
         ActiveRecord::Base.send :include, AbAdmin::Concerns::Fileuploads
+        ActiveRecord::Base.send :extend, AbAdmin::Concerns::TranslationsMacro
         ActiveRecord::Base.send :extend, EnumField::EnumeratedAttribute
       end
 

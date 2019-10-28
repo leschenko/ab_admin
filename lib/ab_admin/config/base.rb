@@ -23,6 +23,9 @@ module AbAdmin
             next if column_name == :id || options[:skip].try(:include?, column_name)
             builder.field(column_name)
           end
+          model.translated_attribute_names.each do |column_name|
+            builder.field(column_name, sortable: false)
+          end if model.translates?
         end
       end
     end

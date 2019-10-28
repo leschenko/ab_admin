@@ -19,7 +19,6 @@ gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
 gem 'awesome_nested_set'
-gem 'globalize'
 
 gem 'carrierwave'
 gem 'mini_magick'

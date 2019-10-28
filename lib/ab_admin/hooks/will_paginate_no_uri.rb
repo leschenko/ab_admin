@@ -1,6 +1,6 @@
-# add `:no_uri` options to skip query params in pagination urls
 require 'will_paginate/view_helpers/action_view'
 
+# add `:no_uri` options to skip query params in pagination urls
 WillPaginate::ViewHelpers.pagination_options[:no_uri] = false
 WillPaginate::ActionView::LinkRenderer.class_exec do
   def url(page)

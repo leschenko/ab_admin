@@ -63,6 +63,7 @@ module AbAdmin
     autoload :HasTracking, 'ab_admin/concerns/has_tracking'
     autoload :AssetHumanNames, 'ab_admin/concerns/asset_human_names'
     autoload :Fileuploads, 'ab_admin/concerns/fileuploads'
+    autoload :TranslationsMacro, 'ab_admin/concerns/translations_macro'
   end
 
   module Controllers
@@ -195,6 +196,9 @@ module AbAdmin
 
   mattr_accessor :default_permitted_params
   @@default_permitted_params = [:fileupload_guid]
+
+  mattr_accessor :translated_locales
+  @@translated_locales = []
 
   extend Utils
 

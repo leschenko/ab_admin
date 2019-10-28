@@ -24,12 +24,12 @@ module AbAdmin
       end
 
       def normalize_html
-        ::Globalize.available_locales.each do |loc|
+        AbAdmin.translated_locales.each do |loc|
           %w(title h1 keywords description).each do |attr|
             send("#{attr}_#{loc}=", send("#{attr}_#{loc}").to_s.no_html)
           end
         end
-        ::Globalize.available_locales.each do |loc|
+        AbAdmin.translated_locales.each do |loc|
           send("seo_block_#{loc}=", sanitize(send("seo_block_#{loc}").to_s))
         end
       end

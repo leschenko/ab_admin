@@ -6,7 +6,7 @@ AbAdmin.setup do |config|
   config.site_name = 'Dummy'
 end
 
-I18n.available_locales = Globalize.available_locales = [:ru, :en, :it, :de]
+I18n.available_locales = AbAdmin.translated_locales = [:en, :it, :de]
 I18n.enforce_available_locales = false
 
 require 'factory_bot'

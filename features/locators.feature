@@ -27,9 +27,9 @@ Feature: Locale files editor
 
   Scenario: Merging locale files
     Then I follow "Prepare localization files"
-    When "config/locales/ru.test.yml" should contain:
+    When "config/locales/de.test.yml" should contain:
       """
-      ru:
+      de:
         site:
           title: ''
       """

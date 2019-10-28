@@ -2,7 +2,7 @@ require 'rails/generators/active_record'
 module AbAdmin
   module Generators
     class GlobGenerator < ActiveRecord::Generators::Base
-      desc 'Generates migration for models without globalize tables'
+      desc 'Generates migration for models without translations tables'
 
       source_root File.expand_path('../templates', __FILE__)
 
@@ -17,18 +17,18 @@ module AbAdmin
       def model_attrs
         @model_attrs ||= begin
           models.each_with_object({}) do |m, h|
-            h[m.name] = m.translated_attribute_names.map { |attr| "#{attr}: :#{get_type(attr)}" }.join(', ')
+            h[m.name] = m.translated_attribute_names.map { |attr| [attr, get_type(attr)] }
           end
         end
       end
 
       def migration_name
-        "create_globalize_#{models.map { |m| m.model_name.singular }.join('_')}"
+        "create_translations_#{models.map { |m| m.model_name.singular }.join('_')}"
       end
 
       def models
         @models ||= begin
-          all_translated.reject { |m| conn.data_source_exists? m.translations_table_name }
+          all_translated.reject { |m| conn.data_source_exists? m.translation_class.table_name }
         end
       end
 
@@ -53,7 +53,6 @@ module AbAdmin
             :string
         end
       end
-
     end
   end
 end

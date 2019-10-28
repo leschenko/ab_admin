@@ -1,13 +1,15 @@
 class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Migration.current_version %>]
-  def up
+  def change
     <%- models.each do |m| -%>
-    <%= m.name %>.create_translation_table! <%= model_attrs[m.name] %>, unique_index: true
-    <%- end -%>
-  end
+    create_table :<%= m.model_name.singular %>_translations do |t|
+      t.references :<%= m.model_name.singular %>, index: true
+      t.string :locale, limit: 5
+      <%- model_attrs[m.name].each do |attr, type| -%>
+      t.<%= type %> :<%= attr %>
+      <%- end -%>
 
-  def down
-    <%- models.each do |m| -%>
-    <%= m.name %>.drop_translation_table!
+      t.timestamps
+    end
     <%- end -%>
   end
 end

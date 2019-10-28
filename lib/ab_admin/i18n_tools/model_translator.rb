@@ -7,7 +7,7 @@ module AbAdmin
 
       def initialize(options: {})
         @options = options
-        @locales = Globalize.available_locales
+        @locales = AbAdmin.translated_locales
         @models = AbAdmin.translate_models.map{|m| m.constantize }
         @models_i18n_hash = {}
       end

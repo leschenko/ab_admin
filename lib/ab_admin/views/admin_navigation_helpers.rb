@@ -192,7 +192,7 @@ module AbAdmin
       end
 
       def admin_comments_button(item)
-        title = [icon('comment', true), item.admin_comments_count_non_zero].compact.join(' ').html_safe
+        title = [icon('comment', true), (item.admin_comments_count unless item.admin_comments_count.zero?)].compact.join(' ').html_safe
         link_to title, admin_admin_comments_path(resource_type: item.class.name, resource_id: item.id), remote: true,
                 class: 'btn btn-info list_admin_comments_link'
       end

@@ -91,7 +91,6 @@ class AbAdminProduct < AbAdmin::AbstractResource
     field :sku
     field(:price) { |item| "$#{item.price}" }
   end
-
 end
 
 

@@ -39,7 +39,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
   end
 
   around do |example|
-    I18n.with_locale(:ru) { example.run }
+    I18n.with_locale(:de) { example.run }
   end
 
   context 'naming' do
