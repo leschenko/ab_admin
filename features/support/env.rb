@@ -48,6 +48,10 @@ Before '@fancy_select' do
   AbAdmin.test_settings[:enable_fancy_select] = true
 end
 
+Before '@javascript' do
+  Capybara.page.driver.browser.manage.window.maximize
+end
+
 Before '@locator' do
   FileUtils.cp_r Rails.root.join('config', 'locales'), Rails.root.join('tmp')
 end
