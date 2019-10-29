@@ -26,8 +26,8 @@ module AbAdmin
       end
 
       def define_translation_accessors(attr_name)
-        define_method("#{attr_name}_translation") {send("#{attr_name}_#{I18n.locale}") if AbAdmin.translated_locales.include?(I18n.locale)}
-        define_method("#{attr_name}_translation=") {|v| send("#{attr_name}_#{I18n.locale}=", v) if AbAdmin.translated_locales.include?(I18n.locale)}
+        define_method("#{attr_name}_translation") { translation_for_locale(I18n.locale).send(attr_name) }
+        define_method("#{attr_name}_translation=") {|v| translation_for_locale(I18n.locale).send("#{attr_name}=", v) }
         alias_method attr_name, "#{attr_name}_translation"
         alias_method "#{attr_name}=", "#{attr_name}_translation="
         define_method("#{attr_name}_default"){send("#{attr_name}_#{I18n.default_locale}") if AbAdmin.translated_locales.include?(I18n.default_locale)}
@@ -47,7 +47,7 @@ module AbAdmin
 
       module InstanceMethods
         def translation_for_locale(l)
-          translations.detect {|r| r.locale == l.to_s} || translations.new(locale: l.to_s)
+          translations.detect{|r| r.locale == l.to_s} || translations.new(locale: l.to_s)
         end
 
         def translated_attributes
