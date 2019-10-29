@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'rack-pjax'
   s.add_dependency 'ransack'
   s.add_dependency 'has_scope'
-  s.add_dependency 'simple_slug', '~> 0.3.5'
+  s.add_dependency 'simple_slug'
   s.add_dependency 'devise'
   s.add_dependency 'cancancan'
   s.add_dependency 'cancan-inherited_resources'
@@ -41,5 +41,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'i18n-js'
   s.add_dependency 'ruby-progressbar'
 
-  s.add_development_dependency 'mysql2', '~> 0.4.10'
+  s.add_development_dependency 'mysql2'
 end
