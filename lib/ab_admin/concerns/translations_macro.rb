@@ -26,8 +26,11 @@ module AbAdmin
       end
 
       def define_translation_accessors(attr_name)
-        define_method(attr_name) {send("#{attr_name}_#{I18n.locale}") if AbAdmin.translated_locales.include?(I18n.locale)}
-        define_method("#{attr_name}=") {|v| send("#{attr_name}_#{I18n.locale}=", v) if AbAdmin.translated_locales.include?(I18n.locale)}
+        define_method("#{attr_name}_translation") {send("#{attr_name}_#{I18n.locale}") if AbAdmin.translated_locales.include?(I18n.locale)}
+        define_method("#{attr_name}_translation=") {|v| send("#{attr_name}_#{I18n.locale}=", v) if AbAdmin.translated_locales.include?(I18n.locale)}
+        alias_method attr_name, "#{attr_name}_translation"
+        alias_method "#{attr_name}=", "#{attr_name}_translation="
+        define_method("#{attr_name}_default"){send("#{attr_name}_#{I18n.default_locale}") if AbAdmin.translated_locales.include?(I18n.default_locale)}
         AbAdmin.translated_locales.each do |l|
           define_method("#{attr_name}_#{l}") {translation_for_locale(l).send(attr_name)}
           define_method("#{attr_name}_#{l}=") {|v| translation_for_locale(l).send("#{attr_name}=", v)}
@@ -63,6 +66,10 @@ module AbAdmin
             klass.belongs_to :translated_model, class_name: self.name, foreign_key: class_name.foreign_key, inverse_of: :translations, touch: translation_options.fetch(:touch, false)
             klass
           end
+        end
+
+        def translations_table_name
+          translation_class.table_name
         end
 
         def translated?(name)
