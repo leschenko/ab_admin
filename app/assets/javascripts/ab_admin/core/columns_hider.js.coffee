@@ -29,8 +29,8 @@ class window.ColumnsHider
     log @data[@collection_name]
     @menu.empty()
     for col, i in @column_names
-      isActive = _.include(@data[@collection_name], i)
-      html = "<label class='checkbox'><input type='checkbox' checked='#{isActive}' value='#{i}'>#{col.name}</label>"
+      isActive = !_.include(@data[@collection_name], i)
+      html = "<label class='checkbox'><input type='checkbox' #{'checked' if isActive} value='#{i}'>#{col.name}</label>"
       @menu.append(html)
 
   setData: ->
@@ -71,4 +71,4 @@ class window.ColumnsHider
     $("#list > thead > tr > th, #list > tbody > tr > td").show()
 
 $ ->
-  new ColumnsHider()
+  window.columnsHider = new ColumnsHider()
