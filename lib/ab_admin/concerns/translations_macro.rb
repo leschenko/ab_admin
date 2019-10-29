@@ -26,14 +26,14 @@ module AbAdmin
       end
 
       def define_translation_accessors(attr_name)
-        define_method("#{attr_name}_translation") { translation_for_locale(I18n.locale).send(attr_name) }
-        define_method("#{attr_name}_translation=") {|v| translation_for_locale(I18n.locale).send("#{attr_name}=", v) }
+        define_method("#{attr_name}_translation") { translation_for_locale(I18n.locale).try!(:send, attr_name) }
+        define_method("#{attr_name}_translation=") {|v| translation_for_locale(I18n.locale).try!(:send, "#{attr_name}=", v) }
         alias_method attr_name, "#{attr_name}_translation"
         alias_method "#{attr_name}=", "#{attr_name}_translation="
-        define_method("#{attr_name}_default"){send("#{attr_name}_#{I18n.default_locale}") if AbAdmin.translated_locales.include?(I18n.default_locale)}
+        define_method("#{attr_name}_default"){ translation_for_locale(I18n.default_locale).try!(:send, attr_name) }
         AbAdmin.translated_locales.each do |l|
-          define_method("#{attr_name}_#{l}") {translation_for_locale(l).send(attr_name)}
-          define_method("#{attr_name}_#{l}=") {|v| translation_for_locale(l).send("#{attr_name}=", v)}
+          define_method("#{attr_name}_#{l}") {translation_for_locale(l).try!(:send, attr_name)}
+          define_method("#{attr_name}_#{l}=") {|v| translation_for_locale(l).try!(:send, "#{attr_name}=", v)}
         end
       end
 
@@ -47,6 +47,7 @@ module AbAdmin
 
       module InstanceMethods
         def translation_for_locale(l)
+          return unless AbAdmin.translated_locales.include?(l)
           translations.detect{|r| r.locale == l.to_s} || translations.new(locale: l.to_s)
         end
 
