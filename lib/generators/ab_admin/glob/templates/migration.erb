@@ -2,14 +2,15 @@ class <%= migration_class_name %> < ActiveRecord::Migration[<%= ActiveRecord::Mi
   def change
     <%- models.each do |m| -%>
     create_table :<%= m.model_name.singular %>_translations do |t|
-      t.references :<%= m.model_name.singular %>, index: true
-      t.string :locale, limit: 5
+      t.references :<%= m.model_name.singular %>, null: false
+      t.string :locale, limit: 5, null: false
       <%- model_attrs[m.name].each do |attr, type| -%>
       t.<%= type %> :<%= attr %>
       <%- end -%>
 
       t.timestamps
     end
+    add_index :<%= m.model_name.singular %>_translations, [:<%= m.model_name.singular %>_id, :locale], unique: true, name: '<%= m.table_name %>_ts_<%= m.model_name.singular %>_id_locale'
     <%- end -%>
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_28_210253) do
+ActiveRecord::Schema.define(version: 2019_10_29_085351) do
 
   create_table "admin_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
     t.integer "user_id"
@@ -93,12 +93,13 @@ ActiveRecord::Schema.define(version: 2019_10_28_210253) do
   end
 
   create_table "collection_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.bigint "collection_id"
-    t.string "locale", limit: 5
+    t.bigint "collection_id", null: false
+    t.string "locale", limit: 5, null: false
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["collection_id", "locale"], name: "collections_ts_collection_id_locale", unique: true
     t.index ["collection_id"], name: "index_collection_translations_on_collection_id"
   end
 
@@ -142,12 +143,13 @@ ActiveRecord::Schema.define(version: 2019_10_28_210253) do
   end
 
   create_table "product_translations", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci", force: :cascade do |t|
-    t.bigint "product_id"
-    t.string "locale", limit: 5
+    t.bigint "product_id", null: false
+    t.string "locale", limit: 5, null: false
     t.string "name"
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id", "locale"], name: "products_ts_product_id_locale", unique: true
     t.index ["product_id"], name: "index_product_translations_on_product_id"
   end
 
