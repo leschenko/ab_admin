@@ -168,3 +168,9 @@ window.storeData = (key, data) ->
 
 window.fetchData = (key) ->
   window.localStorage?[key] or $.cookie(key)
+
+window.localeToFlag = (l) ->
+  l = l.toUpperCase()
+  l = {'JA': 'JP', 'EN': 'GB', 'UK': 'UA'}[l] || l
+  chars = {"A":"🇦","B":"🇧","C":"🇨","D":"🇩","E":"🇪","F":"🇫","G":"🇬","H":"🇭","I":"🇮","J":"🇯","K":"🇰","L":"🇱","M":"🇲","N":"🇳","O":"🇴","P":"🇵","Q":"🇶","R":"🇷","S":"🇸","T":"🇹","U":"🇺","V":"🇻","W":"🇼","X":"🇽","Y":"🇾","Z":"🇿"}
+  l.replace /[A-Z]/g, (m) -> chars[m]

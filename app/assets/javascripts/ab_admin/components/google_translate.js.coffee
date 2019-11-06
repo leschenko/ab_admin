@@ -45,13 +45,12 @@ $.fn.inputVal = (v = null) ->
       $el.val()
 
 class window.GoogleLocaleTabs
-  @locales = ['ru', 'en', 'it']
   constructor: ->
-    @locales = GoogleLocaleTabs.locales
+    @locales = $('.locale_tabs:first .nav-tabs a').map(-> $(this).attr('href').replace('#', '') ).get()
     @limit = 10000
     html = '<div class="t_locales">'
     for l in @locales
-      html += "<div class='t_locale t_locale_#{l}'>#{l}</div>"
+      html += "<div class='t_locale t_locale_#{l}'>#{localeToFlag(l)}</div>"
     html += '</div>'
     @html = $(html)
     $('.locale_tabs:not(".no_translate") .tab-pane').prepend(@html)

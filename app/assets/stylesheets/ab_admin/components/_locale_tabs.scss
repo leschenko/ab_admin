@@ -18,19 +18,16 @@
 
 .t_locales {
   position: absolute;
-  top: 0;
-  left: -5px;
-  height: 60px;
-  width: 40px;
+  top: 25px;
+  left: 2px;
   margin-left: 5px;
 }
 
 .t_locale {
   cursor: pointer;
-  width: 30px;
-  height: 19px;
   padding: 5px;
   opacity: 0.6;
+  font-size: 26px;
   &:hover {
     opacity: 1;
   }
