@@ -119,7 +119,7 @@ module AbAdmin
         message = nil
         locale_replace_regexp = Regexp.new("(^#{I18n.default_locale}|(?<=\.)#{I18n.default_locale}(?=\.yml))")
 
-        locale_files = @files.map { |path| self.class.prepare_data(path) }
+        locale_files = @files.find_all{|f| f =~ /\/\w+(\.readonly)?\.yml/ }.map { |path| self.class.prepare_data(path) }
         main_locale_files = locale_files.find_all { |file| file.locale == I18n.default_locale }
 
         main_locale_files.each do |main_file|
