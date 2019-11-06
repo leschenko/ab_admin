@@ -1,7 +1,6 @@
 module AbAdmin
   module Views
     module AdminHelpers
-
       def admin_form_for(object, *args, &block)
         record = Array(object).last
         record.fallbacks_for_empty_translations = false if record.respond_to?(:fallbacks_for_empty_translations)
@@ -125,6 +124,10 @@ module AbAdmin
 
       def icon(name, white=false)
         "<i class='icon-#{name} #{'icon-white' if white}'></i> ".html_safe
+      end
+
+      def locale_flag(code)
+        (AbAdmin.locale_to_country_code[code] || code).to_s.first(2).upcase.tr('A-Z', '🇦-🇿')
       end
 
       def admin_pretty_data(object)

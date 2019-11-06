@@ -51,7 +51,7 @@ class window.GoogleLocaleTabs
     @limit = 10000
     html = '<div class="t_locales">'
     for l in @locales
-      html += "<div class='t_locale t_locale_#{l}'></div>"
+      html += "<div class='t_locale t_locale_#{l}'>#{l}</div>"
     html += '</div>'
     @html = $(html)
     $('.locale_tabs:not(".no_translate") .tab-pane').prepend(@html)

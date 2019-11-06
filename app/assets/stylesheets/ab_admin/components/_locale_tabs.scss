@@ -3,24 +3,15 @@
 }
 
 .locale_tabs {
-  @each $locale in ru, uk, en, it, de, fr, es, pl {
-    li {
-      a.ico_#{$locale} {
-        opacity: 0.5;
-        padding-left: 12px;
-      }
-      &.active a.ico_#{$locale} {
-        opacity: 1;
-      }
+  .nav-tabs li {
+    a {
+      opacity: 0.5;
+      font-size: 28px;
+      padding: 8px 12px;
     }
-
-    .t_locale_#{$locale} {
-      background: image-url("admin/flags/#{$locale}.png") 10px center no-repeat;
-    }
-    ##{$locale} {
-      .t_locale_#{$locale} {
-         display: none;
-      }
+    &.active a {
+      opacity: 1;
+      padding: 14px 12px 2px;
     }
   }
 }

@@ -200,6 +200,9 @@ module AbAdmin
   mattr_accessor :translated_locales
   @@translated_locales = []
 
+  mattr_accessor :locale_to_country_code
+  @@locale_to_country_code = {ja: :jp, en: :gb, uk: :ua}
+
   extend Utils
 
   def self.setup
