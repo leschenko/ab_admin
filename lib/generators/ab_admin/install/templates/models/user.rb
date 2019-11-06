@@ -10,8 +10,8 @@ class User < ApplicationRecord
 
   def init
     set_default_role
-    self.locale ||= 'ru'
-    self.time_zone ||= 'Kiev'
+    self.locale ||= 'en'
+    self.time_zone ||= 'London'
   end
 
   def password_required?

@@ -1,7 +1,7 @@
 window.fv ||= {}
 window.I18n ||= {}
-I18n.locale = window.fv.locale || 'ru'
-window.locale_path = if I18n.locale == 'ru' then '' else "/#{I18n.locale}"
+I18n.locale = window.fv.locale || 'en'
+window.locale_path = if I18n.locale == 'en' then '' else "/#{I18n.locale}"
 
 _.sum = (obj) ->
   return 0  if not $.isArray(obj) or obj.length is 0

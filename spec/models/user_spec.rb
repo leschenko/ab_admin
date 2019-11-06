@@ -58,8 +58,8 @@ RSpec.describe User, type: :model do
 
     it 'set user defaults' do
       expect(@inactive.user_role_id).to eq ::UserRoleType.default.id
-      expect(@inactive.locale).to eq 'ru'
-      expect(@inactive.time_zone).to eq 'Kiev'
+      expect(@inactive.locale).to eq 'en'
+      expect(@inactive.time_zone).to eq 'London'
     end
 
     it 'generate login' do

@@ -31,7 +31,7 @@ window.initEditor = (baseSelector='form') ->
   $("#{baseSelector} .do_wysihtml5").each ->
     $el = $(this)
     return if $el.hasClass('wysihtml5_done')
-    editor = $el.wysihtml5({html: true, locale: 'ru'}).data('wysihtml5').editor
+    editor = $el.wysihtml5({html: true, locale: 'en'}).data('wysihtml5').editor
     resizeIframe = -> editor.composer.iframe.style.height = editor.composer.element.scrollHeight + "px"
     editor.on "load", ->
       if editor.composer
