@@ -6,7 +6,7 @@ Feature: Locale files editor
 
   Background:
     Given I am logged in
-    And "config/locales/en.test.yml" contains:
+    And "config/locales/en.readonly.yml" contains:
     """
       en:
         site:
@@ -15,10 +15,10 @@ Feature: Locale files editor
     And am on the admin locators page
 
   Scenario: Locale file editing
-    Then I follow "en.test.yml"
+    Then I follow "en.readonly.yml"
     And I fill in "locale_hash_site_title" with "Great app"
     And press "Save"
-    When "config/locales/en.test.yml" should contain:
+    When "config/locales/en.readonly.yml" should contain:
       """
       en:
         site:
@@ -27,7 +27,7 @@ Feature: Locale files editor
 
   Scenario: Merging locale files
     Then I follow "Prepare localization files"
-    When "config/locales/de.test.yml" should contain:
+    When "config/locales/de.readonly.yml" should contain:
       """
       de:
         site:
