@@ -19,7 +19,9 @@ module AbAdmin
 
         if response.code == 200
           json = MultiJson.decode(response)
-          json['data']['translations'][0]['translatedText']
+          res = json['data']['translations'][0]['translatedText'].to_s.gsub(/%\s{/, ' %{')
+          res = "#{res[0].upcase}#{res[1..-1]}" if text.first[/[[:upper:]]/]
+          res
         else
           raise StandardError, response.inspect
         end
