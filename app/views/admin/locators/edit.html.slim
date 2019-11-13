@@ -12,13 +12,14 @@
 
   button#translate_incomplete.btn.btn-danger.pull-left type="button" = t 'admin.locators.translate_incomplete'
 
+- master_locale = params[:master_locale].try!(:to_sym) || I18n.default_locale
 - locale_file = Locator.prepare_data(@file)
 table.table.table-bordered.table-striped
   thead
     tr
-      th = t 'admin.locators.key'
-      th = locale_file.locale
-      th = I18n.default_locale
+      th= t 'admin.locators.key'
+      th= locale_file.locale
+      th= master_locale
     tr
       - [:key_contains, :edit_locale_contains, :main_locale_contains].each do |param|
         th
@@ -26,7 +27,7 @@ table.table.table-bordered.table-striped
   = form_tag(admin_locators_path, method: :put) do
     tbody#locale_data
       = hidden_field_tag 'edit_locale_name', locale_file.locale
-      = hidden_field_tag 'main_locale_name', I18n.default_locale
+      = hidden_field_tag 'main_locale_name', master_locale
       = hidden_field_tag 'filename', locale_file.filename
 
       - locale_file.flat_data.each do |keys, value|
@@ -34,8 +35,8 @@ table.table.table-bordered.table-striped
           td.locale_keys
             div== keys.join(' > ')
             .btn.btn-mini.btn-inverse.auto_translate.pull-right google translate
-          td = text_area_tag 'locale_hash' + keys.map{|k| "[#{k}]" }.join, value
-          td = text_area_tag 'fake', t(keys.join('.'), locale: I18n.default_locale), disabled: true
+          td= text_area_tag 'locale_hash' + keys.map{|k| "[#{k}]" }.join, value
+          td= text_area_tag 'fake', t(keys.join('.'), locale: master_locale), disabled: true
     tbody
       tr
         td colspan=3 = submit_tag t('admin.form.save'), class: 'btn btn-primary'
