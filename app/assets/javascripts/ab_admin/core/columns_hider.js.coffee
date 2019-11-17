@@ -1,8 +1,6 @@
 class window.ColumnsHider
   constructor: ->
     @store_key = 'cols'
-    @wrap = $('#columns_hider_wrap')
-    @menu = @wrap.find('.dropdown-menu')
     @column_names = @columnNames()
     @collection_name = window.location.href.match(/admin\/(\w+)/)?[1]
     return unless @collection_name
@@ -12,26 +10,27 @@ class window.ColumnsHider
     @refreshColumns()
 
   initHandlers: ->
-    @menu.on 'click', 'label', (e) =>
+    $(document).on 'pjax:end admin:list_init', =>
+      @initButtons()
+      @refreshColumns()
+
+    $(document).on 'click', '#columns_hider_wrap label', (e) =>
       e.preventDefault()
       e.stopPropagation()
       $input = $(e.currentTarget).find('input')
       $input.prop('checked', !$input.is(':checked'))
-      colIds = _.map @menu.find('input:not(:checked)'), (el) -> parseInt($(el).val())
+      colIds = _.map $('#columns_hider_wrap .dropdown-menu input:not(:checked)'), (el) -> parseInt($(el).val())
       @data[@collection_name] = colIds
       @refreshColumns()
       @setData()
 
-    $(document).on 'pjax:end admin:list_init', =>
-      @refreshColumns()
-
   initButtons: ->
-    log @data[@collection_name]
-    @menu.empty()
+    $menu = $('#columns_hider_wrap .dropdown-menu')
+    $menu.empty()
     for col, i in @column_names
       isActive = !_.include(@data[@collection_name], i)
       html = "<label class='checkbox'><input type='checkbox' #{'checked' if isActive} value='#{i}'>#{col.name}</label>"
-      @menu.append(html)
+      $menu.append(html)
 
   setData: ->
     res = {}
