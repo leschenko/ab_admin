@@ -4,6 +4,7 @@
     - locales.each_with_index do |l, i|
       li class=('active' if l == active_locale)
         a data-toggle="tab" href="##{l}" class="ico_#{l}" title=l = locale_flag(l)
+        = tab_nav.call(l) if tab_nav
   .tab-content
     - locales.each_with_index do |l, i|
       .tab-pane id=l class="tab_#{l} #{'active' if l == active_locale}" = locale_html[l]

@@ -109,7 +109,7 @@ module AbAdmin
         options[:locales].each do |l|
           locale_html[l] = template.capture { block.call(l) }
         end
-        template.render 'admin/shared/locale_tabs', locale_html: locale_html, locales: options[:locales]
+        template.render 'admin/shared/locale_tabs', locale_html: locale_html, locales: options[:locales], tab_nav: options[:tab_nav]
       end
 
       def save_buttons
