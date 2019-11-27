@@ -20,11 +20,11 @@ module AbAdmin
         end
       end
 
-      def editable_bool(item, attr, label: nil)
+      def editable_bool(item, attr, label: nil, wrapper_class: nil)
         url = "/admin/#{item.class.model_name.plural}/#{item.id}.json"
         html = check_box_tag("#{item.class.model_name.singular}[#{attr}]", '1', item.send(attr), class: 'js-auto-submit-checkbox', data: {url: url})
         html = content_tag(:label, "#{label}&nbsp;#{html}".html_safe) if label
-        content_tag :div, html, class: 'auto-submit-checkbox-wrap white-space-nowrap', title: attr
+        content_tag :div, html, class: ['auto-submit-checkbox-wrap', 'white-space-nowrap', wrapper_class], title: attr
       end
 
       def admin_editable(item, attr, opts=nil)
