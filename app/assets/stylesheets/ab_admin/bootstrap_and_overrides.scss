@@ -16,6 +16,7 @@ $baseLineHeight: 18px !default;
 @import "ab_admin/components/admin_comments";
 @import "ab_admin/components/geo_input";
 @import "ab_admin/components/view_layout";
+@import "ab_admin/components/tooltip";
 
 img {
   max-width: none;
@@ -166,15 +167,40 @@ label.control-label.label-reset {
   }
 }
 
-// utility
-.over {
-  overflow: visible !important;
+.js-copy-popup {
+  position: relative;
+  &:before {
+    content: none;
+  }
+  &:after {
+    background-color: transparent;
+    padding: 0;
+    animation: text-pop-up-top 1s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+    content: 'Copied!';
+    position: absolute;
+    color: #468847;
+    font-size: 14px;
+    left: -5px;
+    top: -5px;
+  }
 }
+@keyframes text-pop-up-top {
+  0% {
+    transform: translateY(0);
+    transform-origin: 50% 50%;
+  }
+  95% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(-30px);
+    transform-origin: 50% 50%;
+    opacity: 0;
+  }
+}
+
 .clear {
   clear: both;
-}
-.inline_block {
-  display: inline-block;
 }
 .white-space-nowrap {
   white-space: nowrap;

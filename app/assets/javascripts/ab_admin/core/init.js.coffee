@@ -29,7 +29,6 @@ $ ->
 
   $(document).on 'admin:list_init', ->
     initPopover()
-    initTooltip()
 
   $(document).on 'admin:form_init', 'form', ->
     initEditor()
@@ -57,3 +56,9 @@ $ ->
     $('body').css('background-color', "##{window.fv.bg_color.replace(/^#/, '')}")
 
   initHotkeys() if window.fv?.hotkeys
+
+  clipboard = new Clipboard('.js-copy')
+  clipboard.on 'success', (e) ->
+    $el = $(e.trigger)
+    $el.addClass('js-copy-popup')
+    setTimeout((-> $el.removeClass('js-copy-popup')), 1200)

@@ -68,7 +68,7 @@ module AbAdmin
         if builder_options[:compact_labels]
           options[:input_html] ||= {}
           options[:input_html][:placeholder] ||= extract_label(attr, options)
-          wrapper_html = {'class' => 'controls js-tooltip', 'data-placement' => 'left', 'title' => options[:input_html][:placeholder]}
+          wrapper_html = {'class' => 'controls tool tool-left', 'data-placement' => 'left', 'title' => options[:input_html][:placeholder]}
           content_tag(:div, wrapper_html, &block)
         else
           label(attr, options[:label]) + content_tag(:div, class: 'controls', &block)

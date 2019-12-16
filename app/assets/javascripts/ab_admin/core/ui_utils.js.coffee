@@ -22,10 +22,6 @@ window.initAcFileds = ->
       maxHeight: 400
       width: 220
 
-window.initTooltip = ->
-  $('.js-tooltip').tooltip
-    animation: false
-
 window.initEditor = (baseSelector='form') ->
   return if fv.test
   $("#{baseSelector} .do_wysihtml5").each ->
