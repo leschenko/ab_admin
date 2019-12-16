@@ -1,0 +1,61 @@
+.tool {
+  position: relative;
+}
+
+.tool::before,
+.tool::after {
+  left: 50%;
+  position: absolute;
+  color: white;
+  opacity: 0;
+  z-index: -100;
+}
+
+//.tool::before,
+//.tool::after,
+.tool:hover::before,
+.tool:focus::before,
+.tool:hover::after,
+.tool:focus::after {
+  opacity: 0.8;
+  z-index: 100;
+}
+
+.tool::before {
+  border-style: solid;
+  border-width: 4px 3px 0 3px;
+  border-color: black transparent transparent transparent;
+  bottom: 100%;
+  content: "";
+  transform: translateX(-50%);
+}
+
+.tool::after {
+  background: black;
+  border-radius: 5px;
+  bottom: calc(100% + 4px);;
+  color: white;
+  content: attr(title);
+  padding: 5px 10px;
+  transform: translateX(-50%);
+}
+
+.tool-left::before, .tool-left::after {
+  right: 100%;
+  left: auto;
+  bottom: 50%;
+  margin-bottom: 2px;
+  transform: none;
+}
+
+.tool-left::before {
+  border-width: 3px 2px 3px 4px;
+  border-color: transparent transparent transparent black;
+  transform: translateY(50%);
+}
+
+.tool-left::after {
+  white-space: nowrap;
+  margin-right: 6px;
+  transform: translateY(50%);
+}
