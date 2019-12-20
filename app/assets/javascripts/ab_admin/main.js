@@ -20,6 +20,7 @@
 //= require select2
 //= require ab_admin/jquery-ui-1.10.3.custom.min
 //= require jquery.ui.nestedSortable
+//= require clipboard.min
 //= require ab_admin/components/sortable_tree
 //= require ab_admin/components/google_translate
 //= require ab_admin/components/locator
