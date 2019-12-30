@@ -3,6 +3,8 @@
   * Remove `:crop` option from uploader
   * Remove `globalize` gem
   * Remove AdminAddition unused methods
+* deprecation
+  * Array#without! is deprecated without replacement
 
 ### 0.8.3
 * backwards incompatible changes

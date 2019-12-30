@@ -16,12 +16,8 @@ class Array
     inject(:+) / size
   end
 
-  def without(*values)
-    copy = self.dup
-    copy.without!(*values)
-  end
-
   def without!(*values)
+    ActiveSupport::Deprecation.warn('Array#without! is deprecated without replacement')
     values.flatten.each { |value| self.delete(value) }
     self
   end
