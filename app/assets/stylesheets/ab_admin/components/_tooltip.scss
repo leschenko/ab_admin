@@ -59,3 +59,22 @@
   margin-right: 6px;
   transform: translateY(50%);
 }
+
+.tool-bottom::before, .tool-bottom::after {
+  bottom: auto;
+  top: 100%;
+  left: 50%;
+  margin-bottom: 2px;
+}
+
+.tool-bottom::before {
+  border-width: 0 3px 4px 3px;
+  border-color: transparent transparent black transparent;
+  transform: translateX(-50%);
+}
+
+.tool-bottom::after {
+  white-space: nowrap;
+  margin-top: 4px;
+  transform: translateX(-50%);
+}
