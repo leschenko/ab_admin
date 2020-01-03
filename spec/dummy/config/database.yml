@@ -10,7 +10,7 @@ development:
   database: ab_admin_dummy
   <<: *login
 
-test: &test
+test:
   database: ab_admin_dummy_test
   <<: *login
 
@@ -21,6 +21,3 @@ staging:
 production:
   database: ab_admin_dummy
   <<: *login
-
-cucumber:
-  <<: *test
