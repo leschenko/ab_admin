@@ -8,12 +8,7 @@ module AbAdmin
 
       def to_html
         list_items = pagination.map do |item|
-          case item
-          when Integer
-            page_number(item)
-          else
-            send(item)
-          end
+          item.is_a?(Integer) ? page_number(item) : send(item)
         end.join(@options[:link_separator])
 
         if @options[:bootstrap].to_i >= 3
@@ -24,7 +19,7 @@ module AbAdmin
       end
 
       def container_attributes
-        super.except(*[:link_options])
+        @container_attributes ||= @options.except(*(WillPaginate::ViewHelpers.pagination_options.keys + [:renderer, :link_options] - [:class]))
       end
 
       protected
