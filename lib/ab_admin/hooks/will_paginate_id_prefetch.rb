@@ -12,7 +12,7 @@ module WillPaginate
         if value.nil?
           paginate_limit || limit_value
         else
-          limit(value)
+          limit(value.to_i)
         end
       end
 
@@ -20,7 +20,7 @@ module WillPaginate
         if value.nil?
           paginate_offset || offset_value
         else
-          super(value)
+          super(value.to_i)
         end
       end
     end
@@ -28,8 +28,8 @@ module WillPaginate
     module Pagination
       def paginate(options)
         options = options.dup
-        page_number = options.fetch(:page) { raise ArgumentError, ':page parameter required' }
-        per_page = options.delete(:per_page) || self.per_page
+        page_number = [1, options[:page].to_i].max
+        per_page = (options.delete(:per_page) || self.per_page).to_i
         total = options.delete(:total_entries)
         large = options.delete(:large)
 
