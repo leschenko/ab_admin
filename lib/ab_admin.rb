@@ -127,6 +127,13 @@ module AbAdmin
   end
 
   mattr_accessor :menu
+  mattr_accessor :body_css_class
+  mattr_accessor :favicon_path
+  mattr_accessor :footer_notes
+  mattr_accessor :default_url_options
+  mattr_accessor :locale
+  mattr_accessor :root_path
+  mattr_accessor :base_url
 
   mattr_accessor :flash_keys
   @@flash_keys = [:notice, :error]
@@ -137,11 +144,8 @@ module AbAdmin
   mattr_accessor :site_name
   @@site_name = 'AbAdmin'
 
-  mattr_accessor :root_path
-
-  mattr_accessor :body_css_class
-
-  mattr_accessor :favicon_path
+  mattr_accessor :footer
+  @@footer = true
 
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
@@ -161,39 +165,11 @@ module AbAdmin
   mattr_accessor :test_settings
   @@test_settings = {}
 
-  mattr_accessor :footer
-  @@footer = true
-
-  mattr_accessor :footer_notes
-
-  mattr_accessor :default_url_options
-
-  mattr_accessor :locale
-
   mattr_accessor :fileupload_url
   @@fileupload_url = '/admin/assets'
 
   mattr_accessor :uploads_dir
   @@uploads_dir = 'uploads'
-
-  mattr_accessor :base_url
-
-  mattr_accessor :default_resource_settings
-  @@default_resource_settings = {index_view: 'table', search: true, batch: true, hotkeys: true, list_dblclick: true}
-
-  mattr_accessor :default_per_page
-  @@default_per_page = 50
-
-  mattr_accessor :view_default_per_page
-  @@view_default_per_page = Hash.new { AbAdmin.default_per_page }
-  @@view_default_per_page[:tree] = 1000
-  @@view_default_per_page[:map] = 1000
-
-  mattr_accessor :max_per_page
-  @@max_per_page = Float::INFINITY
-
-  mattr_accessor :per_page_variants
-  @@per_page_variants = [50, 100, 500, 1000]
 
   mattr_accessor :default_permitted_params
   @@default_permitted_params = [:fileupload_guid]
@@ -203,6 +179,21 @@ module AbAdmin
 
   mattr_accessor :locale_to_country_code
   @@locale_to_country_code = {ja: :jp, en: :gb, uk: :ua}
+
+  mattr_accessor :default_resource_settings
+  @@default_resource_settings = {
+      index_view: [:table],
+      search: true,
+      batch: true,
+      hotkeys: true,
+      list_dblclick: true,
+      max_per_page: 10_000,
+      per_page_variants: [50, 100, 500, 1000],
+      default_per_page: 50,
+      view_default_per_page: Hash.new { 50 }.update(tree: 1000, map: 1000),
+      pagination_index_views: [:table, :grid],
+      collection_actions: %w(index search batch rebuild),
+  }
 
   extend Utils
 

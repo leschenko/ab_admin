@@ -167,8 +167,7 @@ module AbAdmin
         if total_entries.zero?
           t('will_paginate.pagination_info_empty')
         else
-          per_page = (params[:per_page] || resource_class.per_page).to_i
-          t('will_paginate.pagination_info', from: offset + 1, to: [offset + per_page, total_entries].min, count: total_entries).html_safe
+          t('will_paginate.pagination_info', from: offset + 1, to: [offset + settings[:per_page], total_entries].min, count: total_entries).html_safe
         end
       end
 

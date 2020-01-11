@@ -8,7 +8,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   define_admin_callbacks :save, :create
 
-  before_action :authenticate_user!, :require_admin_access, :set_user_vars
+  before_action :authenticate_user!, :require_admin_access, :build_settings, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
@@ -19,10 +19,11 @@ class Admin::BaseController < ::InheritedResources::Base
 
   helper_method :admin?, :moderator?
 
+  attr_reader :settings
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :normalized_index_views, :current_index_view, :pjax?, :xhr?, :max_per_page, :params_for_links,
-                :resource_list_id
+                :pjax?, :xhr?, :params_for_links,
+                :resource_list_id, :apply_pagination?
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -67,7 +68,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def destroy
     destroy! do
-      track_action! if settings[:history]
+      track_action! if @settings[:history]
       redirect_to_on_success
     end
   end
@@ -97,7 +98,7 @@ class Admin::BaseController < ::InheritedResources::Base
       if batch_action.to_s.end_with?('_collection')
         count = collection.size
         resource_class.public_send(batch_action, collection, *[params[:batch_params]].compact)
-        if settings[:history]
+        if @settings[:history]
           if Object.const_defined?('ActiveRecord::Import') && Track.respond_to?(:import)
             tracks = collection.map { |item| track_action("batch_#{batch_action}", item) }
             Track.import_from_batch_collection_action(tracks)
@@ -133,13 +134,13 @@ class Admin::BaseController < ::InheritedResources::Base
   def default_url_options
     options = {format: nil}
     options.update instance_exec(&AbAdmin.default_url_options) if AbAdmin.default_url_options
-    options.update instance_exec(&settings[:default_url_options]) if settings[:default_url_options]
+    options.update instance_exec(&@settings[:default_url_options]) if @settings[:default_url_options]
     options
   end
 
   def apply_batch_action(item, batch_action, *batch_params)
     success = item.send(batch_action, *batch_params)
-    track_action!("batch_#{batch_action}", item) if settings[:history]
+    track_action!("batch_#{batch_action}", item) if @settings[:history]
     success
   end
 
@@ -182,7 +183,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def track_current_action(*)
-    track_action if settings[:history]
+    track_action if @settings[:history]
   end
 
   def flash_interpolation_options
@@ -206,8 +207,17 @@ class Admin::BaseController < ::InheritedResources::Base
     nil
   end
 
-  def settings
-    {sidebar: collection_action?, well: (collection_action? || %w(show history).include?(action_name))}.update(AbAdmin.default_resource_settings)
+  def build_settings
+    @settings ||= AbAdmin.default_resource_settings.dup
+    @settings[:index_view] = Array(@settings[:index_view]).map(&:to_sym)
+    if collection_action?
+      @settings[:current_index_view] = current_index_view
+      @settings[:per_page] ||= per_page
+      @settings[:per_page_variants] ||= @settings[:per_page_variants].find_all{|n| n <= @settings[:max_per_page] }
+      @settings[:sidebar] = true unless @settings.key?(:sidebar)
+      @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
+    end
+    @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
   end
 
   def action_items
@@ -226,7 +236,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def collection_action?
-    %w(index search batch rebuild).include?(action_name)
+    @settings[:collection_actions].include?(action_name)
   end
 
   def self.scope(name, options={}, &block)
@@ -281,8 +291,8 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def query_params
     query = params[:q].try! {|q| q.permit!.to_h} || {}
-    nested = resource_class.respond_to?(:acts_as_nested_set_options) && current_index_view == 'tree'
-    query[:s] ||= settings[:default_order] || ('id desc' unless nested)
+    nested = resource_class.respond_to?(:acts_as_nested_set_options) && @settings[:current_index_view] == :tree
+    query[:s] ||= @settings[:default_order] || ('id desc' unless nested)
     query.reject_blank
   end
 
@@ -293,32 +303,13 @@ class Admin::BaseController < ::InheritedResources::Base
   def collection
     @collection ||= begin
       result = search_collection
-      result = result.paginate(page: params[:page], per_page: per_page, large: true) if action_name != 'batch' && !settings[:skip_pagination]
+      result = result.paginate(page: params[:page], per_page: @settings[:per_page], large: true) if @settings[:pagination]
       result
     end
   end
 
-  def per_page
-    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?
-    params[:per_page] = [request_per_page || AbAdmin.view_default_per_page[current_index_view.to_sym], max_per_page].min
-  end
-
-  def max_per_page
-    settings[:max_per_page] || AbAdmin.max_per_page
-  end
-
   def set_layout
     pjax? ? false : 'admin/application'
-  end
-
-  def normalized_index_views
-    Array(settings[:index_view])
-  end
-
-  def current_index_view
-    index_view = params[:index_view].presence
-    return index_view if index_view && normalized_index_views.include?(index_view)
-    normalized_index_views.first
   end
 
   def back_or_collection
@@ -353,8 +344,8 @@ class Admin::BaseController < ::InheritedResources::Base
     fv.locale = I18n.locale
     fv.bg_color = current_user.bg_color
     fv.admin = admin?
-    fv.hotkeys = settings[:hotkeys]
-    fv.list_dblclick = settings[:list_dblclick]
+    fv.hotkeys = @settings[:hotkeys]
+    fv.list_dblclick = @settings[:list_dblclick]
     fv.env = Rails.env
     if resource_class.respond_to?(:model_name)
       fv.resource_plural = resource_class.model_name.plural
@@ -387,11 +378,11 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def bind_current_user(*)
-    resource.user_id = current_user.id if !settings[:skip_bind_current_user] && resource.respond_to?(:user_id)
+    resource.user_id = current_user.id if !@settings[:skip_bind_current_user] && resource.respond_to?(:user_id)
   end
 
   def bind_current_updater(*)
-    resource.updater_id = current_user.id if !settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
+    resource.updater_id = current_user.id if !@settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
   end
 
   def get_subject
@@ -420,5 +411,17 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def resource_list_id
     "list_#{resource_instance_name}_#{resource.id}"
+  end
+
+  private
+
+  def per_page
+    request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?
+    params[:per_page] = [request_per_page || @settings[:view_default_per_page][@settings[:current_index_view]], @settings[:max_per_page]].min
+  end
+
+  def current_index_view
+    index_view = params[:index_view].presence.try!(:to_sym)
+    @settings[:index_view].include?(index_view) ? index_view : @settings[:index_view].first
   end
 end

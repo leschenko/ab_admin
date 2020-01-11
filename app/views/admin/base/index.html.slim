@@ -2,14 +2,14 @@
   input name='batch_action' id='batch_action' type='hidden'
   = render 'admin/shared/content_actions'
     
-#content= render current_index_view
-- unless settings[:skip_pagination]
+#content= render settings[:current_index_view].to_s
+- if settings[:pagination]
   .pagination-wrap.pull-left
     = will_paginate collection, renderer: AbAdmin::Views::WillPaginateBootstrapRenderer
     .pagination_info= pagination_info collection
   .btn-toolbar.pull-right.pjax_links
     .btn-group
-      - per_page_variants.each do |c|
+      - settings[:per_page_variants].each do |c|
         a.btn.per_page data-val=c href=url_for(params_for_links.merge(per_page: c)) class=('active' if c == collection.per_page) = c
 
 - if pjax? && flash.present?

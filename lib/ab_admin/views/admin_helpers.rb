@@ -96,8 +96,8 @@ module AbAdmin
       def admin_layout_css
         css = []
         css << 'content_with_sidebar' if settings[:sidebar] || content_for?(:sidebar)
-        css << 'well' if settings[:well] && current_index_view != 'tree'
-        css << "#{current_index_view}_view"
+        css << 'well' if settings[:well]
+        css << "#{settings[:current_index_view]}_view"
         css
       end
 
@@ -127,7 +127,7 @@ module AbAdmin
       end
 
       def locale_flag(code)
-        (AbAdmin.locale_to_country_code[code] || code).to_s.first(2).upcase.tr('A-Z', '🇦-🇿')
+        (AbAdmin.locale_to_country_code[code] || code).to_s[0..1].upcase.tr('A-Z', '🇦-🇿')
       end
 
       def admin_pretty_data(object)
@@ -168,10 +168,6 @@ module AbAdmin
 
       def item_image(item, assoc=:photo, size=:thumb)
         image_tag_if(item.send(assoc).try(:url, size))
-      end
-
-      def per_page_variants
-        AbAdmin.per_page_variants.map{|variant| [variant, max_per_page].min }.uniq
       end
 
       # input_set 'title', legend_class: 'do_sort', label_class: 'label-info' do

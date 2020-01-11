@@ -8,6 +8,10 @@
   * removed User instance methods: init,  has_role?, set_default_role
   * removed `require_admin` controller helper
   * controller and view `moderator?` helper returns false for `admin` role now
+  * removed `current_index_view`, use `settings[:current_index_view]` instead
+  * removed `per_page`, use `settings[:per_page]` instead
+  * removed `max_per_page`, use `settings[:max_per_page]` instead
+  * removed `per_page_variants`, use `settings[:per_page_variants]` instead
 * deprecation
   * Array#without! is deprecated without replacement
 

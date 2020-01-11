@@ -3,9 +3,9 @@ require 'spec_helper'
 RSpec.describe Admin::BaseController, type: :controller do
   describe '#per_page' do
     before do
-      AbAdmin.default_per_page = 30
-      AbAdmin.view_default_per_page[:tree] = 500
-      AbAdmin.max_per_page = 1000
+      AbAdmin.default_resource_settings[:default_per_page] = 30
+      AbAdmin.default_resource_settings[:view_default_per_page][:tree] = 500
+      AbAdmin.default_resource_settings[:max_per_page] = 1000
     end
 
     before do
@@ -33,7 +33,7 @@ RSpec.describe Admin::BaseController, type: :controller do
     end
 
     it 'return view default per_page' do
-      allow_any_instance_of(Admin::BaseController).to receive(:current_index_view).and_return('tree')
+      allow_any_instance_of(Admin::BaseController).to receive(:settings).and_return({index_view: :tree})
       get :index
       expect(controller.send(:per_page)).to eq 500
     end
