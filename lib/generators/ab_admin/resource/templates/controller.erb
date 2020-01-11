@@ -16,7 +16,7 @@ class Admin::<%= controller_class_name %>Controller < Admin::BaseController
   protected
 
   def build_settings
-    super.merge!(index_view: 'tree')
+    super.merge!(index_views: 'tree')
   end
 <% end -%>
 end

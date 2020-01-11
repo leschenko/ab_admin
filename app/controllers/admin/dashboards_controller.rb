@@ -13,7 +13,7 @@ class Admin::DashboardsController < Admin::BaseController
     []
   end
 
-  def build_settings
-    @settings = {}
+  def custom_settings
+    {search: false}
   end
 end

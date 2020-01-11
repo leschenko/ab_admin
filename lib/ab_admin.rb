@@ -182,7 +182,7 @@ module AbAdmin
 
   mattr_accessor :default_resource_settings
   @@default_resource_settings = {
-      index_view: [:table],
+      index_views: [:table],
       search: true,
       batch: true,
       hotkeys: true,

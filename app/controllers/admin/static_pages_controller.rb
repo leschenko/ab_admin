@@ -7,10 +7,6 @@ class Admin::StaticPagesController < Admin::BaseController
 
   private
 
-  def build_settings
-    @settings = {}
-  end
-
   def permitted_params
     params[:static_page].try!(:permit!)
   end

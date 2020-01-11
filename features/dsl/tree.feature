@@ -16,7 +16,7 @@ Feature: Sortable tree index view
     Given a configuration of:
       """
       class AbAdminCatalogue < AbAdmin::AbstractResource
-        settings index_view: 'tree'
+        settings index_views: [:tree]
       end
       """
     And I am on the admin catalogues page
@@ -26,7 +26,7 @@ Feature: Sortable tree index view
     Given a configuration of:
       """
       class AbAdminCatalogue < AbAdmin::AbstractResource
-        settings index_view: 'tree'
+        settings index_views: [:tree]
 
         tree do |node|
           link_to "Custom node title", root_path, class: 'tree-item_link'

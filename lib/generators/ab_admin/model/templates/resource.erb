@@ -2,7 +2,7 @@ class AbAdmin<%= model.name %> < AbAdmin::AbstractResource
   permitted_params :all
 
 <% if model.respond_to?(:acts_as_nested_set_options) -%>
-  settings index_view: 'tree'
+  settings index_views: [:tree]
 <% else -%>
   table do
 <% index_attrs.without('id', 'updated_at').each do |attr| -%>

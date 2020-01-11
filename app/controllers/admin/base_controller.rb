@@ -206,9 +206,13 @@ class Admin::BaseController < ::InheritedResources::Base
     nil
   end
 
+  def custom_settings
+    {}
+  end
+
   def build_settings
-    @settings = AbAdmin.default_resource_settings.deep_dup
-    @settings[:index_view] = Array(@settings[:index_view]).map(&:to_sym)
+    @settings = AbAdmin.default_resource_settings.deep_dup.merge!(custom_settings)
+    @settings[:index_views] = Array(@settings[:index_views]).map(&:to_sym)
     if collection_action?
       @settings[:current_index_view] = current_index_view
       @settings[:per_page] ||= per_page
@@ -217,7 +221,6 @@ class Admin::BaseController < ::InheritedResources::Base
       @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
     end
     @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
-    @settings
   end
 
   def action_items
@@ -422,6 +425,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def current_index_view
     index_view = params[:index_view].presence.try!(:to_sym)
-    @settings[:index_view].include?(index_view) ? index_view : @settings[:index_view].first
+    @settings[:index_views].include?(index_view) ? index_view : @settings[:index_views].first
   end
 end

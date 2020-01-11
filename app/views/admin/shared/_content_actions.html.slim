@@ -31,9 +31,9 @@
     .btn data-css='main_wide' = icon('align-left')
     .btn data-css='main_reverse' = icon('align-right')
 
-  - if settings[:index_view].length > 1
+  - if settings[:index_views].length > 1
     .btn-group#index_views
-      - settings[:index_view].each do |index_view|
+      - settings[:index_views].each do |index_view|
         = index_view_link(index_view)
 
   - if can?(:export, resource_class) && !settings[:skip_export]
