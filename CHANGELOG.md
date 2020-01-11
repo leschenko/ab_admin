@@ -1,8 +1,13 @@
 * backwards incompatible changes
-  * Remove fancybox, JCrop without replacement
-  * Remove `:crop` option from uploader
-  * Remove `globalize` gem
-  * Remove AdminAddition unused methods
+  * removed fancybox, JCrop without replacement
+  * removed `:crop` option from uploader
+  * removed `globalize` gem
+  * removed AdminAddition unused methods
+  * removed User::managers scope 
+  * removed User login generation
+  * removed User instance methods: init,  has_role?, set_default_role
+  * removed `require_admin` controller helper
+  * controller and view `moderator?` helper returns false for `admin` role now
 * deprecation
   * Array#without! is deprecated without replacement
 

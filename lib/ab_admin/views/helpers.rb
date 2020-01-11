@@ -1,15 +1,6 @@
 module AbAdmin
   module Views
     module Helpers
-
-      def admin?
-        user_signed_in? && current_user.admin?
-      end
-
-      def moderator?
-        user_signed_in? && current_user.moderator?
-      end
-
       def as_html(text)
         return ''.html_safe if text.nil?
         Nokogiri::HTML.fragment(text).to_html.html_safe

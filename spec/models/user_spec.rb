@@ -11,25 +11,6 @@ RSpec.describe User, type: :model do
     it { should allow_value('a@b.com').for(:email) }
     it { should_not allow_value('123').for(:password) }
     it { should allow_value('123456').for(:password) }
-    it { should_not allow_value(5).for(:user_role_id) }
-  end
-
-  describe 'scopes' do
-    before :all do
-      @user = create(:default_user)
-      @moderator = create(:moderator_user)
-      @inactive = create(:user)
-    end
-
-    it 'search for managers' do
-      expect(User.managers).not_to include(@user)
-      User.managers.should include(@moderator)
-    end
-
-    it 'search for active users' do
-      User.active.should include(@user)
-      expect(User.managers).not_to include(@inactive)
-    end
   end
 
   context 'after create' do
@@ -58,12 +39,6 @@ RSpec.describe User, type: :model do
 
     it 'set user defaults' do
       expect(@inactive.user_role_id).to eq ::UserRoleType.default.id
-      expect(@inactive.locale).to eq 'en'
-      expect(@inactive.time_zone).to eq 'London'
-    end
-
-    it 'generate login' do
-      expect(@inactive.login).to eq 'test'
     end
 
     describe 'auth' do
@@ -84,13 +59,6 @@ RSpec.describe User, type: :model do
         expect(@inactive).to be_confirmed
       end
 
-      it 'should set default role' do
-        @inactive.reload
-        @inactive.user_role_id = nil
-        @inactive.save
-        expect(@inactive.user_role_id).to eq ::UserRoleType.default.id
-      end
-
       it 'active for authentication' do
         expect(@user).to be_active_for_authentication
       end
@@ -107,7 +75,7 @@ RSpec.describe User, type: :model do
 
         it 'moderator' do
           expect(@moderator).to be_moderator
-          expect(@admin).to be_moderator
+          expect(@admin).to be_admin
         end
 
         it 'admin' do

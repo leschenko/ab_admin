@@ -8,15 +8,4 @@ class User < ApplicationRecord
 
   fileuploads :avatar
 
-  def init
-    set_default_role
-    self.locale ||= 'en'
-    self.time_zone ||= 'London'
-  end
-
-  def password_required?
-    return true if password.present?
-    return false if persisted? && password.blank?
-    super
-  end
 end

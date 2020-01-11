@@ -8,7 +8,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   define_admin_callbacks :save, :create
 
-  before_action :authenticate_user!, :require_require_admin_access, :set_user_vars
+  before_action :authenticate_user!, :require_admin_access, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
 
   class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
@@ -375,23 +375,15 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def moderator?
-    user_signed_in? && current_user.moderator?
+    current_user.try!(:moderator?)
   end
 
   def admin?
-    user_signed_in? && current_user.admin?
+    current_user.try!(:admin?)
   end
 
-  def require_require_admin_access
+  def require_admin_access
     raise CanCan::AccessDenied unless current_user.admin_access?
-  end
-
-  def require_moderator
-    raise CanCan::AccessDenied unless moderator?
-  end
-
-  def require_admin
-    raise CanCan::AccessDenied unless admin?
   end
 
   def bind_current_user(*)

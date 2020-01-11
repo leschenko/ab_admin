@@ -26,7 +26,7 @@ Feature: Admin menu
     Then I should see menu item for "User" with path "/admin/users"
     Then I should see menu item for "Settings" with path "/admin/settings/edit"
     And I should see group "System" with menu item for "Structure"
-    And I should see group "Moderator" with menu item for "for moderator"
+    And I should not see group "Moderator" with menu item for "for moderator"
     And I should see group "Admin" with menu item for "for admin"
 
   Scenario: Active menu link for current resource

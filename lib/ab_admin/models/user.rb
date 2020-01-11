@@ -6,17 +6,11 @@ module AbAdmin
       included do
         has_one :avatar, as: :assetable, dependent: :destroy, autosave: true
 
-        scope :managers, -> { where(user_role_id: [::UserRoleType.admin.id, ::UserRoleType.moderator.id]) }
         scope :active, -> { where(locked_at: nil) }
         scope :admin, proc { includes(:avatar) }
 
-        after_initialize :init
-        before_validation :generate_login
-        before_validation :set_default_role, unless: :user_role_id?
-
-        validate :check_role
-
         enumerated_attribute :user_role_type, id_attribute: :user_role_id, class: ::UserRoleType
+        delegate *UserRoleType.codes.map{|code| "#{code}?" }, to: :user_role_type
       end
 
       def name
@@ -40,6 +34,10 @@ module AbAdmin
         active_for_authentication?
       end
 
+      def admin_access?
+        admin? || moderator?
+      end
+
       def generate_password!
         raw_password = AbAdmin.test_env? ? '654321' : AbAdmin.friendly_token
         self.password = self.password_confirmation = raw_password
@@ -47,47 +45,10 @@ module AbAdmin
         raw_password
       end
 
-      def admin_access?
-        moderator?
-      end
-
-      def default?
-        has_role?(:default)
-      end
-
-      def redactor?
-        has_role?(:redactor)
-      end
-
-      def moderator?
-        has_role?(:admin) || has_role?(:moderator)
-      end
-
-      def admin?
-        has_role?(:admin)
-      end
-
-      def has_role?(role_name)
-        user_role_type.code == role_name
-      end
-
-      def set_default_role
-        self.user_role_id ||= ::UserRoleType.default.id
-      end
-
-      protected
-
-      def generate_login
-        self.login ||= begin
-          unless email.blank?
-            tmp_login = email.split('@').first
-            tmp_login.parameterize.downcase.gsub(/[^A-Za-z0-9-]+/, '-').gsub(/-+/, '-')
-          end
-        end
-      end
-
-      def check_role
-        errors.add(:user_role_id, :invalid) unless ::UserRoleType.valid?(user_role_id)
+      def password_required?
+        return true if password.present?
+        return false if persisted? && password.blank?
+        super
       end
     end
   end
