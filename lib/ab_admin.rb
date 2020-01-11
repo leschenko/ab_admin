@@ -190,7 +190,7 @@ module AbAdmin
       max_per_page: 10_000,
       per_page_variants: [50, 100, 500, 1000],
       default_per_page: 50,
-      view_default_per_page: Hash.new { 50 }.update(tree: 1000, map: 1000),
+      view_default_per_page: Hash.new { 50 }.update(table: 50, tree: 1000, map: 1000),
       pagination_index_views: [:table, :grid],
       collection_actions: %w(index search batch rebuild),
   }

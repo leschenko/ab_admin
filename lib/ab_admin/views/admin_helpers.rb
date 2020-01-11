@@ -96,7 +96,7 @@ module AbAdmin
       def admin_layout_css
         css = []
         css << 'content_with_sidebar' if settings[:sidebar] || content_for?(:sidebar)
-        css << 'well' if settings[:well]
+        css << 'well' if !@settings[:well].is_a?(FalseClass) && (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree
         css << "#{settings[:current_index_view]}_view"
         css
       end

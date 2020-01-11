@@ -65,8 +65,8 @@ class ::Admin::LocatorsController < ::Admin::BaseController
     []
   end
 
-  def settings
-    {}
+  def build_settings
+    @settings = {}
   end
 
   def action_items

@@ -15,8 +15,8 @@ class Admin::<%= controller_class_name %>Controller < Admin::BaseController
 <% if model.respond_to?(:acts_as_nested_set_options) -%>
   protected
 
-  def settings
-    {index_view: 'tree'}
+  def build_settings
+    super.merge!(index_view: 'tree')
   end
 <% end -%>
 end

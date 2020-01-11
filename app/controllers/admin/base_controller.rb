@@ -22,8 +22,7 @@ class Admin::BaseController < ::InheritedResources::Base
   attr_reader :settings
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :pjax?, :xhr?, :params_for_links,
-                :resource_list_id, :apply_pagination?
+                :pjax?, :xhr?, :params_for_links, :resource_list_id
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -208,7 +207,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def build_settings
-    @settings ||= AbAdmin.default_resource_settings.dup
+    @settings = AbAdmin.default_resource_settings.deep_dup
     @settings[:index_view] = Array(@settings[:index_view]).map(&:to_sym)
     if collection_action?
       @settings[:current_index_view] = current_index_view
@@ -218,6 +217,7 @@ class Admin::BaseController < ::InheritedResources::Base
       @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
     end
     @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
+    @settings
   end
 
   def action_items

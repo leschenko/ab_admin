@@ -13,7 +13,7 @@ class Admin::DashboardsController < Admin::BaseController
     []
   end
 
-  def settings
-    {}
+  def build_settings
+    @settings = {}
   end
 end

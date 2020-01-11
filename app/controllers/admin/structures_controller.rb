@@ -17,8 +17,8 @@ class Admin::StructuresController < Admin::BaseController
     @tree_node_renderer ||= lambda { |r| link_to r.admin_title, edit_structure_record_path(r), class: 'tree-item_link' }
   end
 
-  def settings
-    {index_view: 'tree', default_order: 'lft'}
+  def build_settings
+    super.merge!(index_view: [:tree], default_order: 'lft')
   end
 
   def permitted_params

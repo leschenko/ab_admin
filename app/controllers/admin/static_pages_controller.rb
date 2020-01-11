@@ -7,8 +7,8 @@ class Admin::StaticPagesController < Admin::BaseController
 
   private
 
-  def settings
-    {}
+  def build_settings
+    @settings = {}
   end
 
   def permitted_params

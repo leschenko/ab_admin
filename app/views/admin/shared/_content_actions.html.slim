@@ -1,19 +1,12 @@
 .content_actions.clearfix
-  - if settings[:batch] && settings[:current_index_view] && settings[:current_index_view].to_s =~ /table/
+  - if settings[:batch] && settings[:current_index_view] == :table
     .btn-group
       a.btn.dropdown-toggle data-toggle="dropdown" href="#"
         = t 'admin.batch_actions.title'
         span.caret
       ul.dropdown-menu
-        - batch_action_list.each do |batch_action|
-          li
-            a.batch_action_link(
-              href='#'
-              data-form=batch_action.form
-              data-action=batch_action.name
-              data-confirm=batch_action.confirm
-            )
-              = batch_action.title
+        - batch_action_list.each do |ba|
+          li: a.batch_action_link href='#' data-form=ba.form data-action=ba.name data-confirm=ba.confirm = ba.title
   - unless button_scopes.blank?
     .btn-group
       - button_scopes.each do |name, opts|
@@ -34,7 +27,6 @@
       span.caret
     .dropdown-menu
 
-
   .btn-group#view_layout
     .btn data-css='main_wide' = icon('align-left')
     .btn data-css='main_reverse' = icon('align-right')
@@ -47,7 +39,6 @@
   - if can?(:export, resource_class) && !settings[:skip_export]
     .btn-group.downloads
       = icon('download-alt')
-      /- %w(csv xls json).each do |format|
       - %w(csv xlsx).each do |format|
         - next if format == 'xlsx' && !Mime[:xlsx]
         = link_to format, params_for_links.merge(per_page: 10_000, format: format), id: "export_#{format}"

@@ -95,8 +95,8 @@ class ::Admin::ManagerController < ::Admin::BaseController
     manager.batch_action_list
   end
 
-  def settings
-    super.merge(manager.custom_settings || {})
+  def build_settings
+    super.merge!(manager.custom_settings || {})
   end
 
   def export_options
