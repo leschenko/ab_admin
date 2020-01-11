@@ -101,6 +101,7 @@ module AbAdmin
     autoload :SearchFormBuilder, 'ab_admin/views/search_form_builder'
     autoload :UrlForRoutes, 'ab_admin/views/url_for_routes'
     autoload :ContentOnlyWrapper, 'ab_admin/views/content_only_wrapper'
+    autoload :WillPaginateBootstrapRenderer, 'ab_admin/views/will_paginate_bootstrap_renderer'
 
     module Inputs
       autoload :CkeditorInput, 'ab_admin/views/inputs/ckeditor_input'

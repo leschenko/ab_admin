@@ -5,7 +5,7 @@
 #content= render current_index_view
 - unless settings[:skip_pagination]
   .pagination-wrap.pull-left
-    = will_paginate collection, renderer: BootstrapPagination::Rails
+    = will_paginate collection, renderer: AbAdmin::Views::WillPaginateBootstrapRenderer
     .pagination_info= pagination_info collection
   .btn-toolbar.pull-right.pjax_links
     .btn-group
