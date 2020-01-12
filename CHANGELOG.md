@@ -8,6 +8,7 @@
   * removed User instance methods: init,  has_role?, set_default_role
   * removed `require_admin` controller helper
   * controller and view `moderator?` helper returns false for `admin` role now
+  * added `AbAdmim.default_resource_settings` for all resource configuration
   * removed `AbAdmin.current_index_view` and `current_index_view`, use `settings[:current_index_view]` instead
   * removed `AbAdmin.per_page` and `per_page`, use `settings[:per_page]` instead
   * removed `AbAdmin.max_per_page` and `max_per_page`, use `settings[:max_per_page]` instead
