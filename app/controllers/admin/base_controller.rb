@@ -215,6 +215,7 @@ class Admin::BaseController < ::InheritedResources::Base
     @settings[:index_views] = Array(@settings[:index_views]).map(&:to_sym)
     if collection_action?
       @settings[:current_index_view] = current_index_view
+      @settings[:button_scopes] = @settings[:current_index_view] != :stats
       @settings[:per_page] ||= per_page
       @settings[:per_page_variants] ||= @settings[:per_page_variants].find_all{|n| n <= @settings[:max_per_page] }
       @settings[:sidebar] = true unless @settings.key?(:sidebar)
