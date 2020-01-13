@@ -16,7 +16,7 @@ module AbAdmin
       end
 
       def list_sort_link(attribute, options={})
-        adapter = options[:adapter] || @search
+        adapter = options[:adapter] || ransack_collection
         if adapter && adapter.klass == resource_class
           sort_link(adapter, attribute, options)
         else
@@ -48,7 +48,7 @@ module AbAdmin
         html_options = options.delete(:html_options) || {}
         html_options[:class] = ['sort_link', current_dir, html_options[:class]].compact.join(' ')
 
-        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"), **scope_params)
+        options.merge!(q: search_params.merge(s: "#{attr_name} #{new_dir}"), **collection_params)
         link_to [name, order_indicator_for(current_dir)].join(' ').html_safe, url_for(options), html_options
       end
 
@@ -62,8 +62,8 @@ module AbAdmin
         end
       end
 
-      def scope_params
-        params.slice(*button_scopes.map(&:first)).permit!.to_h.symbolize_keys
+      def collection_params
+        params.slice(:index_view, *button_scopes.map(&:first)).permit!.to_h.symbolize_keys
       end
 
       def short_action_link(action, item)

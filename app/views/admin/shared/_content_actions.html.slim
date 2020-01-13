@@ -7,7 +7,7 @@
       ul.dropdown-menu
         - batch_action_list.each do |ba|
           li: a.batch_action_link href='#' data-form=ba.form data-action=ba.name data-confirm=ba.confirm = ba.title
-  - unless button_scopes.blank?
+  - if settings[:button_scopes] && button_scopes.present?
     .btn-group
       - button_scopes.each do |name, opts|
         - next if opts[:if] && !call_method_or_proc_on(controller, opts[:if])
@@ -21,11 +21,12 @@
             - unless scope_count.zero?
               span.badge< class=("badge-#{opts[:badge].try(:[], :type) || 'important'}") = scope_count
 
-  .btn-group#columns_hider_wrap
-    a.btn.dropdown-toggle data-toggle="dropdown" href="#"
-      = t 'admin.columns_hider.button'
-      span.caret
-    .dropdown-menu
+  - if settings[:current_index_view] == :table
+    .btn-group#columns_hider_wrap
+      a.btn.dropdown-toggle data-toggle="dropdown" href="#"
+        = t 'admin.columns_hider.button'
+        span.caret
+      .dropdown-menu
 
   .btn-group#view_layout
     .btn data-css='main_wide' = icon('align-left')
@@ -43,17 +44,17 @@
         - next if format == 'xlsx' && !Mime[:xlsx]
         = link_to format, params_for_links.merge(per_page: 10_000, format: format), id: "export_#{format}"
 
-  - if @search && settings[:sort_buttons]
+  - if ransack_collection && settings[:sort_buttons]
     .btn-group
       - settings[:sort_buttons].each do |opts|
         = list_sort_link(opts[:title], column: opts[:column], html_options: {class: 'btn'})
 
-  - if @search_collection && settings[:aggregations]
+  - if collection_action? && settings[:aggregations]
     .aggregations
       - settings[:aggregations].each do |ag|
         .label> class=(ag[:css] || 'label-success')
           => ag[:label] || "#{ag[:column].to_s.humanize}:"
           - if !ag[:type] || ag[:type] == :sum
-            = @search_collection.distinct(false).sum(ag[:column]).try!(:round, 2)
+            = search_collection.distinct(false).sum(ag[:column]).try!(:round, 2)
           - elsif ag[:type] == :average
-            = @search_collection.average(ag[:column]).try!(:round, 2)
+            = search_collection.average(ag[:column]).try!(:round, 2)

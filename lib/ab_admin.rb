@@ -186,6 +186,7 @@ module AbAdmin
       search: true,
       batch: true,
       hotkeys: true,
+      button_scopes: true,
       list_dblclick: true,
       max_per_page: 10_000,
       per_page_variants: [50, 100, 500, 1000],

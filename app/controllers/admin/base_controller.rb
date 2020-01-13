@@ -22,7 +22,7 @@ class Admin::BaseController < ::InheritedResources::Base
   attr_reader :settings
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
                 :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
-                :pjax?, :xhr?, :params_for_links, :resource_list_id
+                :pjax?, :xhr?, :params_for_links, :resource_list_id, :ransack_collection, :search_collection
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
 
@@ -285,11 +285,23 @@ class Admin::BaseController < ::InheritedResources::Base
     @tree_node_renderer ||= lambda { |r| link_to AbAdmin.display_name(r), resource_path(r), class: 'tree-item_link' }
   end
 
-  def search_collection
-    @search_collection ||= begin
-      @search = end_of_association_chain.accessible_by(current_ability).ransack(query_params)
-      with_scopes(@search.result(distinct: @search.object.joins_values.present?)).admin(current_user)
+  def collection
+    return unless collection_action?
+    @collection ||= begin
+      result = search_collection
+      result = result.paginate(page: params[:page], per_page: @settings[:per_page], large: true) if @settings[:pagination]
+      result
     end
+  end
+
+  def search_collection
+    return unless collection_action?
+    @search_collection ||= with_scopes(ransack_collection.result(distinct: ransack_collection.object.joins_values.present?)).admin(current_user)
+  end
+
+  def ransack_collection
+    return unless collection_action?
+    @ransack_collection ||= end_of_association_chain.accessible_by(current_ability).ransack(query_params)
   end
 
   def query_params
@@ -301,14 +313,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def with_scopes(relation)
     relation
-  end
-
-  def collection
-    @collection ||= begin
-      result = search_collection
-      result = result.paginate(page: params[:page], per_page: @settings[:per_page], large: true) if @settings[:pagination]
-      result
-    end
   end
 
   def set_layout
