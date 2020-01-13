@@ -13,6 +13,9 @@ module AbAdmin
         delegate *UserRoleType.codes.map{|code| "#{code}?" }, to: :user_role_type
       end
 
+      def admin_menu_builder
+      end
+
       def name
         full_name.strip.presence || email
       end

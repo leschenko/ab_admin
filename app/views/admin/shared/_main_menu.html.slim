@@ -6,7 +6,7 @@ nav.navbar-inner
       span.icon-bar
     a.brand href=(AbAdmin.root_path || root_path) target='_blank' = admin_site_name
     .nav-collapse.collapse
-      = AdminMenu.render(self)
+      = (current_user.admin_menu_builder || AdminMenu).render(self)
 
       .btn-group.pull-right
         a.btn.dropdown-toggle data-toggle="dropdown" href="#"
