@@ -1,8 +1,6 @@
 module AbAdmin
   module Views
     module ManagerHelpers
-      INDEX_VIEW_ICONS = {table: 'list', tree: 'move', grid: 'th', chart: 'signal', map: 'map-marker'}
-
       def table_builder
         manager.table ||= ::AbAdmin::Config::Table.default_for_model(resource_class)
       end
@@ -55,8 +53,9 @@ module AbAdmin
         end
       end
 
+      INDEX_VIEW_ICONS = {table: 'list', tree: 'move', grid: 'th', chart: 'signal', map: 'map-marker', stats: 'eye-open'}
       def index_view_link(index_view)
-        options = {class: "btn #{('active' if settings[:current_index_view] == index_view)}", title: t("admin.index_view.#{index_view}", default: index_view.to_s)}
+        options = {class: "btn tool tool-bottom #{('active' if settings[:current_index_view] == index_view)}", title: t("admin.index_view.#{index_view}", default: index_view.to_s)}
         url = url_for({index_view: index_view, q: params[:q]}.reject_blank)
         title = INDEX_VIEW_ICONS[index_view.to_sym] ? icon(INDEX_VIEW_ICONS[index_view.to_sym]) : index_view
         link_to title, url, options
