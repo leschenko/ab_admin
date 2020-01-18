@@ -88,7 +88,7 @@ module AbAdmin
 
       def normalize_filename(raw_filename)
         parameterize_args = ActiveSupport::VERSION::MAJOR > 4 ? {separator: '_'} : '_'
-        I18n.transliterate(raw_filename).parameterize(parameterize_args).gsub(/[\-_]+/, '_').downcase
+        I18n.transliterate(raw_filename).parameterize(**parameterize_args).gsub(/[\-_]+/, '_').downcase
       end
 
       # rename files via move
