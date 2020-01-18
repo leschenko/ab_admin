@@ -122,8 +122,9 @@ module AbAdmin
         %(<span class="badge #{css}">#{text}</span>).html_safe
       end
 
-      def icon(name, white=false)
-        "<i class='icon-#{name} #{'icon-white' if white}'></i> ".html_safe
+      def icon(name, white=false, title: nil)
+        title_html = %( title="#{h(title)}") if title
+        "<i class='icon-#{name}#{' icon-white' if white}#{' tool' if title}'#{title_html}></i> ".html_safe
       end
 
       def locale_flag(code)
