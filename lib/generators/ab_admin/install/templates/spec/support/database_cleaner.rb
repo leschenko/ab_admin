@@ -1,17 +1,14 @@
+require 'database_cleaner'
+
 RSpec.configure do |config|
-  config.use_transactional_fixtures = false
-
-  config.before :all do
+  config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.clean_with(:truncation, except: %w(ar_internal_metadata countries country_translations))
   end
 
-  config.before :each do
-    DatabaseCleaner.start
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
-
-  config.after :each do
-    DatabaseCleaner.clean
-  end
-
 end
