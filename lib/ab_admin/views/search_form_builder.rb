@@ -31,7 +31,6 @@ module AbAdmin
           end
 
           options[:input_html] ||= {}
-          options[:input_html][:id] = "q_#{attr}"
 
           if options[:fancy] || collection.length > 30
             options[:input_html][:class] = [options[:input_html][:class], 'fancy_select'].join(' ')
@@ -78,9 +77,7 @@ module AbAdmin
       def string_field(attr, options={})
         conditional_wrapper attr, options do
           param = options[:param] || "#{options[:value_attr] || attr}_cont"
-          options[:input_html] ||= {}
-          options[:input_html][:id] = "q_#{attr}"
-          text_field_tag("q[#{param}]", params[:q][param], options[:input_html])
+          text_field_tag("q[#{param}]", params[:q][param], options[:input_html] || {})
         end
       end
 
@@ -93,7 +90,7 @@ module AbAdmin
         label(attr, options[:label]) + content_tag(:div, class: 'controls') do
           opts = [['=', 'eq'], ['>', 'gt'], ['<', 'lt']].map { |m| [m[0], "#{attr}_#{m[1]}"] }
           current_filter = (opts.detect { |m| params[:q][m[1]].present? } || opts.first)[1]
-          select_tag('', options_for_select(opts, current_filter), class: 'input-small predicate-select') +
+          select_tag('', options_for_select(opts, current_filter), class: 'input-small predicate-select', id: nil) +
           text_field_tag("q[#{current_filter}]", params[:q][current_filter], class: 'input-small', type: :number)
         end
       end
@@ -102,10 +99,10 @@ module AbAdmin
         content_tag(:div, class: 'pull-left') do
           param = options[:param] || "#{attr}_eq"
           content_tag(:label, class: 'checkbox inline') do
-            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
+            check_box_tag("q[#{param}]", 1, params[:q][param].to_i == 1, class: 'inline', id: nil) + I18n.t('simple_form.yes')
           end +
           content_tag(:label, class: 'checkbox inline') do
-            check_box_tag("q[#{param}]", 0, params[:q][param] && params[:q][param].to_i == 0, class: 'inline') + I18n.t('simple_form.no')
+            check_box_tag("q[#{param}]", 0, params[:q][param] && params[:q][param].to_i == 0, class: 'inline', id: nil) + I18n.t('simple_form.no')
           end
         end + label(attr, options[:label], class: 'right-label')
       end
@@ -165,11 +162,11 @@ module AbAdmin
         content_tag(:div, class: 'pull-left') do
           content_tag(:label, class: 'checkbox inline') do
             param = "#{attr}_#{predicates[:yes][0]}"
-            check_box_tag("q[#{param}]", predicates[:yes][1], params[:q][param] == predicates[:yes][1], class: 'inline', id: "q_#{attr}") + I18n.t('simple_form.yes')
+            check_box_tag("q[#{param}]", predicates[:yes][1], params[:q][param] == predicates[:yes][1], class: 'inline', id: nil) + I18n.t('simple_form.yes')
           end +
           content_tag(:label, class: 'checkbox inline') do
             param = "#{attr}_#{predicates[:no][0]}"
-            check_box_tag("q[#{param}]", predicates[:no][1], params[:q][param] == predicates[:no][1], class: 'inline') + I18n.t('simple_form.no')
+            check_box_tag("q[#{param}]", predicates[:no][1], params[:q][param] == predicates[:no][1], class: 'inline', id: nil) + I18n.t('simple_form.no')
           end
         end + label(attr, options[:label], class: 'right-label')
       end
