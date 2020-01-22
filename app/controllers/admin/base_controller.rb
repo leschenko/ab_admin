@@ -244,7 +244,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def self.scope(name, options={}, &block)
-    has_scope name, options.without(:badge, :if), &block
+    has_scope name, options.without(:badge, :if, :label, :title), &block
     options[:badge] = {} if options[:badge] && !options[:badge].is_a?(Hash)
     options[:block] = block
     self.button_scopes ||= []
