@@ -17,7 +17,7 @@
         a.btn href=url title=opts[:title] class=[opts[:class], ('active' if active), ('tool tool-bottom' if opts[:title])]
           = opts[:label] || opts[:title] || t("admin.scopes.#{name}", default: name.to_s.titleize)
           - if opts[:badge]
-            - scope = opts[:block] ? opts[:block].call(controller, resource_class) : resource_class.send(name)
+            - scope = opts[:block] ? opts[:block].call(controller, resource_class) : resource_class.accessible_by(current_ability).send(name)
             - scope_count = scope.send(*[opts[:badge][:value_type] || :count, opts[:badge][:column]].compact)
             - unless scope_count.zero?
               span.badge< class=("badge-#{opts[:badge].try(:[], :type) || 'important'}") = scope_count
