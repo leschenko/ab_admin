@@ -24,7 +24,7 @@
           td
             = id_link(item, edit: is_edit_link)
             - if settings[:id_column_with_created_at]
-              p: i= l(item.created_at)
+              p: i= l(item.created_at, format: AbAdmin.time_format)
           = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
             td class=(field.options[:cell_class] if field.options[:cell_class])

@@ -138,7 +138,7 @@ module AbAdmin
           when TrueClass, FalseClass
             color_bool(object)
           when Date, DateTime, Time, ActiveSupport::TimeWithZone
-            I18n.l(object)
+            I18n.l(object, format: AbAdmin.time_format)
           when NilClass
             ''
           when ActiveRecord::Base
