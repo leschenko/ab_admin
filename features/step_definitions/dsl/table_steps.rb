@@ -26,7 +26,7 @@ Then /^I should see pretty formatted products$/ do
   within '#list' do
     page.should have_content(product.sku)
     page.should have_content(product.price)
-    page.should have_content(I18n.l(product.created_at, format: :long))
+    page.should have_content(I18n.l(product.created_at))
     page.should have_css('span.badge', text: '+')
     page.should have_link(product.collection.name)
     page.should have_css("img[src='#{product.picture.url(:thumb)}']")
