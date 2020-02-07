@@ -14,10 +14,6 @@ test:
   database: ab_admin_dummy_test
   <<: *login
 
-staging:
-  database: ab_admin_dummy
-  <<: *login
-
 production:
   database: ab_admin_dummy
   <<: *login

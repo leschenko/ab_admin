@@ -1,6 +1,4 @@
-#ActiveRecord::Migrator.migrate File.expand_path('../../../../db/migrate/', __FILE__)
-
-def insert_user  
+def insert_user
   User.truncate!
   password = Rails.env.production? ? Devise.friendly_token : (1..8).to_a.join
   
@@ -19,8 +17,7 @@ end
 
 def insert_structures
   Structure.truncate!
-  
-  main_page = Structure.create!({title: 'Главная страница', slug: 'main-page', structure_type: StructureType.main, parent: nil}, as: :admin)
+  Structure.create!(title: 'Main page', slug: 'main-page', structure_type: StructureType.main, parent: nil)
 end
 
 insert_user
@@ -30,7 +27,7 @@ Dir[File.join(Rails.root.join('../factories'), '*.rb')].each { |f| load f }
 def test_structure
   Structure.truncate!
 
-  main_page = Structure.create!({title: 'Главная страница', slug: 'main-page', structure_type: StructureType.main, parent: nil}, as: :admin)
+  Structure.create!(title: 'Main page', slug: 'main-page', structure_type: StructureType.main, parent: nil)
   3.times do |i|
     parent = FactoryBot.create(:structure_page, title: "node #{i}")
     2.times do |ii|

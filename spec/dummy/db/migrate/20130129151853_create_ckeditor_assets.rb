@@ -1,4 +1,4 @@
-class CreateCkeditorAssets < ActiveRecord::Migration
+class CreateCkeditorAssets < ActiveRecord::Migration[5.2]
   def change
     create_table :ckeditor_assets do |t|
       t.string  :data_file_name, null: false

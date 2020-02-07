@@ -1,4 +1,4 @@
-class CreateStructures < ActiveRecord::Migration
+class CreateStructures < ActiveRecord::Migration[5.2]
   def change
     create_table :structures do |t|
       t.string :slug, null: false

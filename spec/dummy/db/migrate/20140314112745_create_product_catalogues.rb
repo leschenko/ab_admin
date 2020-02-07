@@ -1,8 +1,8 @@
-class CreateProductCatalogues < ActiveRecord::Migration
+class CreateProductCatalogues < ActiveRecord::Migration[5.2]
   def change
     create_table :product_catalogues do |t|
-      t.references :product, index: true
-      t.references :catalogue, index: true
+      t.references :product
+      t.references :catalogue
 
       t.timestamps
     end

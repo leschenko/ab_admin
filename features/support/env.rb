@@ -37,7 +37,7 @@ require File.join(SPEC_PATH, 'support/shared_connection')
 
 include Warden::Test::Helpers
 Warden.test_mode!
-DatabaseCleaner.clean_with(:truncation)
+DatabaseCleaner.clean_with(:truncation, except: %w(ar_internal_metadata countries country_translations))
 
 After do
   Warden.test_reset!

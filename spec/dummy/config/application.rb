@@ -22,7 +22,7 @@ module Dummy
         #{config.root}/../../lib/generators/ab_admin/install/templates/models/ab_admin
         #{config.root}/app/models/ab_admin)
 
-    config.paths['db/migrate'] << File.expand_path('../../../../../db/migrate', __FILE__)
+    config.paths['db/migrate'] << File.expand_path('../../../../db/migrate', __FILE__)
     config.paths['app/helpers'] << File.expand_path('../../../../lib/generators/ab_admin/install/templates/helpers', __FILE__)
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
