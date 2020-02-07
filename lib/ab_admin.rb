@@ -194,6 +194,7 @@ module AbAdmin
       view_default_per_page: Hash.new { 50 }.update(table: 50, tree: 1000, map: 1000),
       pagination_index_views: [:table, :grid],
       collection_actions: %w(index search batch rebuild),
+      id_column_with_created_at: true
   }
 
   extend Utils
