@@ -184,6 +184,27 @@ label.control-label.label-reset {
     top: -5px;
   }
 }
+
+.pulse.badge-important {
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(185, 74, 72, 0.7);
+  animation: pulse-important 1s infinite;
+}
+.pulse:hover {
+  animation: none;
+}
+@keyframes pulse-important {
+  0% {
+    box-shadow: 0 0 0 0 rgba(185, 74, 72, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(185, 74, 72, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(185, 74, 72, 0);
+  }
+}
+
 @keyframes text-pop-up-top {
   0% {
     transform: translateY(0);

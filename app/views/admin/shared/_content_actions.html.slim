@@ -20,7 +20,7 @@
             - scope = opts[:block] ? opts[:block].call(controller, resource_class) : resource_class.accessible_by(current_ability).send(name)
             - scope_count = scope.send(*[opts[:badge][:value_type] || :count, opts[:badge][:column]].compact)
             - unless scope_count.zero?
-              span.badge< class=("badge-#{opts[:badge].try(:[], :type) || 'important'}") = scope_count
+              span.badge< class=("badge-#{opts.dig(:badge, :type) || 'important'} #{'pulse' if opts.dig(:badge, :pulse)}") = scope_count
 
   - if settings[:current_index_view] == :table
     .btn-group#columns_hider_wrap
