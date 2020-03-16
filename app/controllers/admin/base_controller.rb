@@ -29,16 +29,18 @@ class Admin::BaseController < ::InheritedResources::Base
   def index
     super do |format|
       format.js { render layout: false }
-      format.csv do
-        authorize! :export, resource_class
-        doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
-        send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
-      end
-      if Mime[:xlsx]
-        format.xlsx do
+      if settings[:export]
+        format.csv do
           authorize! :export, resource_class
-          doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
-          send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
+          doc = AbAdmin::Utils::CsvDocument.new(collection, export_options)
+          send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:csv], disposition: 'attachment')
+        end
+        if Mime[:xlsx]
+          format.xlsx do
+            authorize! :export, resource_class
+            doc = AbAdmin::Utils::XlsDocument.new(collection, export_options)
+            send_data(doc.render(self, locale: params[:locale]), filename: doc.filename, type: Mime[:xlsx], disposition: 'attachment')
+          end
         end
       end
     end
