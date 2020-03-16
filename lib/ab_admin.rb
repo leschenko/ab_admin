@@ -9,7 +9,7 @@ require 'ab_admin/engine'
 
 module AbAdmin
   DOMAINNAME_REGEXP = /\A(?:[0-9a-z]\.|[0-9a-z][0-9a-z\-]*[0-9a-z]+\.)+[a-z]{2,6}\z/
-  EMAIL_REGEXP = /\A(?#Local part)[_A-Za-z0-9\-]+(?:\.[_A-Za-z0-9\-]+)*@(?#Subdomains)(?:[0-9a-z]\.|[0-9a-z][0-9a-z\-]*[0-9a-z]+\.)+(?#TopLevel Domains)[a-z]{2,18}\z/
+  EMAIL_REGEXP = /\A(?#Local part)[_A-Za-z0-9\-+]+(?:\.[_A-Za-z0-9\-+]+)*@(?#Subdomains)(?:[0-9a-z]\.|[0-9a-z][0-9a-z\-]*[0-9a-z]+\.)+(?#TopLevel Domains)[a-z]{2,18}\z/
 
   autoload :Utils, 'ab_admin/utils'
   autoload :Devise, 'ab_admin/devise'
@@ -187,6 +187,7 @@ module AbAdmin
   @@default_resource_settings = {
       index_views: [:table],
       search: true,
+      export: true,
       batch: true,
       hotkeys: true,
       button_scopes: true,

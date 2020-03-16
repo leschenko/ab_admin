@@ -4,6 +4,9 @@ describe ::ActiveModel::Validations::EmailValidator do
   [
       'first@example.com',
       'first@i.com',
+      'first+@i.com',
+      '+first@i.com',
+      'firs++t@i.com',
       'first@ii.com',
       'first@i-i.com',
       '_first@example.com',
@@ -22,6 +25,7 @@ describe ::ActiveModel::Validations::EmailValidator do
 
   [
       '.first@example.com',
+      'first.@example.com',
       'first@Example.museum',
       'first@example.abc1',
       'first@example.Com',
