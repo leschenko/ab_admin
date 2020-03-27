@@ -64,13 +64,12 @@
 
 #main .content_actions {
   margin-bottom: 10px;
-  margin-left: -30px;
   .btn-group {
     float: left;
     margin-left: 10px;
   }
   > *:first-child {
-    margin-left: 30px;
+    margin-left: 0;
   }
 }
 
