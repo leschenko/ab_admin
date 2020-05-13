@@ -110,6 +110,7 @@ en:
       cancel: Cancel
       save: Save
       force_save: Force save
+      refresh: Refresh
       save_and_add_another: Save and add new
       save_and_edit: Save and continue editing
       save_and_edit_next: Save and next.
@@ -291,6 +292,6 @@ en:
       size_too_big: is too big (should be at most %{file_size})
       carrierwave_processing_error: Cannot resize image.
       carrierwave_integrity_error: Not an image.
-      changed: 'Record was changed, refresh and change again or use force save to overwrite'
+      changed: 'Record was changed by someone else, "Refresh" to get the latest version and repeat changes or "Force save" to overwrite'
   unauthorized:
     default: You are not authorized to access this page.
