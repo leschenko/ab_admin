@@ -55,7 +55,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def update
-    resource.last_updated_timestamp = params[:last_updated_timestamp].to_i if !params[:_force_save] && params[:last_updated_timestamp]
+    resource.last_updated_timestamp = params[:last_updated_timestamp].to_i if settings[:safe_save] && !params[:_force_save] && params[:last_updated_timestamp]
     update! do |success, failure|
       success.html { redirect_to redirect_to_on_success }
       failure.html { render :edit }

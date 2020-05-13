@@ -5,7 +5,7 @@ module AbAdmin
 
       included do
         attr_accessor :last_updated_timestamp
-        validate :do_not_overwrite
+        validate :do_not_overwrite, if: :last_updated_timestamp
         scope(:admin, proc { all }) unless respond_to?(:admin)
         scope(:base, -> { all }) unless respond_to?(:base)
         scope :by_ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) } unless respond_to?(:by_ids)
@@ -14,9 +14,11 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
-      def do_not_overwrite
-        return if new_record? || last_updated_timestamp.blank?
-        errors.add(:base, :changed) if updated_at.to_i > last_updated_timestamp
+      def updated_timestamp
+        res = [updated_at]
+        res += translations.map(&:updated_at) if self.class.translates?
+        res += updated_timestamp_associations.flat_map{|assoc| Array(send(assoc)).map(&:updated_timestamp) }
+        res.max
       end
 
       def for_input_token
@@ -69,6 +71,17 @@ module AbAdmin
         end
         sql = "(#{quoted_order_col} #{predicate} :val OR (#{quoted_order_col} = :val AND #{self.class.quote_column('id')} #{id_predicate} #{id}))"
         scope.where(sql, val: send(order_col)).ransack(query[:q]).result(distinct: true).first
+      end
+
+      private
+
+      def updated_timestamp_associations
+        self.class.nested_attributes_options.keys
+      end
+
+      def do_not_overwrite
+        return if new_record? || last_updated_timestamp.blank?
+        errors.add(:base, :changed) if updated_timestamp.to_i > last_updated_timestamp.to_i
       end
     end
   end
