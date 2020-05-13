@@ -18,7 +18,7 @@ module AbAdmin
         res = [updated_at]
         res += translations.map(&:updated_at) if self.class.translates?
         res += updated_timestamp_associations.flat_map{|assoc| Array(send(assoc)).map(&:updated_timestamp) }
-        res.max
+        res.compact.max
       end
 
       def for_input_token
