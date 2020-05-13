@@ -17,7 +17,9 @@ input[type="color"],
 .uneditable-input {
   padding: 4px;
 }
-
+.save-error {
+  box-shadow: 0 0 4px 4px rgba(232,109,109,1);
+}
 .simple_form {
   input, textarea.text {
     width: 100%;

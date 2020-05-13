@@ -7,7 +7,9 @@ module AbAdmin
         options = args.extract_options!
         options[:remote] = true if request.xhr?
         options[:html] ||= {}
-        options[:html][:class] ||= 'form-horizontal'
+        options[:html][:class] = Array(options[:html][:class])
+        options[:html][:class] << 'form-horizontal' if options[:html][:class].empty?
+        options[:html][:class] << 'save-error' if resource.errors.of_kind?(:base, :changed)
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
         options[:html]['data-id'] = record.id
         if controller_name == 'manager' && resource_class == Array(object).last.class

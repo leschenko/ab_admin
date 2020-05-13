@@ -103,6 +103,7 @@ it:
     form:
       cancel: Cancellazione
       save: Salvare
+      force_save: Force save
       save_and_add_another: Salva e aggiungere nuovi
       save_and_edit: Salva e continuare a modificare
       save_and_edit_next: Salva e traccia.

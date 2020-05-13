@@ -4,12 +4,19 @@ module AbAdmin
       extend ActiveSupport::Concern
 
       included do
+        attr_accessor :last_updated_timestamp
+        validate :do_not_overwrite
         scope(:admin, proc { all }) unless respond_to?(:admin)
         scope(:base, -> { all }) unless respond_to?(:base)
         scope :by_ids, lambda { |ids| where("#{quoted_table_name}.id IN (?)", AbAdmin.val_to_array(ids).push(0)) } unless respond_to?(:by_ids)
 
         class_attribute :batch_actions, instance_writer: false
         self.batch_actions = [:destroy]
+      end
+
+      def do_not_overwrite
+        return if new_record? || last_updated_timestamp.blank?
+        errors.add(:base, :changed) if updated_at.to_i > last_updated_timestamp
       end
 
       def for_input_token

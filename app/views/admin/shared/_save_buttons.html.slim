@@ -1,10 +1,16 @@
 - return_to = params[:return_to].presence || request.referer || collection_path
 - return_to = "#{return_to}##{dom_id(resource, 'list')}" if resource.persisted?
 input type='hidden' name='return_to' value=return_to
+- if resource.updated_at
+  input type='hidden' name='last_updated_timestamp' value=(resource.last_updated_timestamp || resource.updated_at.to_i)
 .form-actions
   button.btn.btn-primary type="submit" name="_save" data-disable-with=t('admin.form.save')
     = icon('ok', true)
     = t('admin.form.save')
+  - if resource.errors.of_kind?(:base, :changed)
+    button.btn.btn-warning type="submit" name="_force_save" data-disable-with='Force'
+      = icon('fire', true)
+      = t('admin.form.force_save')
   span.extra_buttons
     - unless resource.new_record?
       span.next_prev_buttons
