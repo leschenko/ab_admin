@@ -86,3 +86,23 @@ window.initNestedFields = (opts={}) ->
     window.initPickers() unless opts.skip_pickers
     window.initEditor() unless opts.skip_editor
     opts.callback.call(e) if opts.callback
+
+window.initCkeditor = (dom_id, options={}) ->
+  if window.CKEDITOR
+    CKEDITOR.replace(dom_id, options) unless CKEDITOR.instances[dom_id]
+  else
+    $.getScript $("##{dom_id}").data('cdnUrl'), ->
+      CKEDITOR.replaceClass = null;
+      CKEDITOR.replace(dom_id, options) unless CKEDITOR.instances[dom_id]
+
+window.lazyInitCkeditor = (dom_id, options={}) ->
+  $el = $("##{dom_id}")
+  $form = $el.closest('form')
+  height = options.height || 200
+  height += if options.toolbar == 'mini' then 34 else 67
+  $el.height(height)
+  callback = (intersectionRatio) ->
+    initCkeditor(dom_id, options) if intersectionRatio
+  window.ckeditorVisibilityObserver = new IntersectionObserver (entries, observer) =>
+    entries.forEach(((entry) => callback(entry.intersectionRatio)), {root: $form[0]})
+  window.ckeditorVisibilityObserver.observe document.getElementById(dom_id)
