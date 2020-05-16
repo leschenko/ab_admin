@@ -9,7 +9,7 @@
   %>
   $('#<%= form_wrap_id %>').remove();
   $('#list tbody:first').prepend('<%= j html %>');
-  $('#<%= form_wrap_id %> td:first').attr('colspan', $('#list tr:first th').length);
+  $('#<%= form_wrap_id %> > td').attr('colspan', $('#list > thead > tr > th').length);
   $('#<%= form_wrap_id %> form').trigger('admin:form_init');
 <% end %>
 
