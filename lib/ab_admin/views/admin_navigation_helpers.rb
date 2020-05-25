@@ -63,7 +63,7 @@ module AbAdmin
       end
 
       def collection_params
-        params.slice(:index_view, *button_scopes.map(&:first)).permit!.to_h.symbolize_keys
+        params.slice(:index_view, :view_data_type, *button_scopes.map(&:first)).permit!.to_h.symbolize_keys
       end
 
       def short_action_link(action, item)
