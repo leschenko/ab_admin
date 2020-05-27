@@ -7,6 +7,16 @@
 }
 
 table.index_table {
+  &.table th, &.table td {
+    padding: 3px 3px 5px;
+  }
+  input[type='checkbox'] {
+    margin-right: 5px;
+    margin-top: 0;
+  }
+  p {
+    margin: 0 0 4px;
+  }
   & > thead th {
     background: #EFEFEF;
     @include gradient-vertical(#EFEFEF, #DFE1E2);
@@ -21,9 +31,9 @@ table.index_table {
     color: #2E3439;
     border-right: none;
     text-align: left;
-    padding-left: 6px;
-    padding-right: 6px;
-
+    & > thead th a.sort_link {
+      white-space: normal;
+    }
     a, a:link, a:visited {
       text-decoration: none;
       display: block;
@@ -31,22 +41,18 @@ table.index_table {
       -webkit-font-smoothing: antialiased;
       color: #2E3439;
     }
-
     a:hover {
       color: #2E3439;
     }
-
     &.sortable a {
-      background: url("/images/admin/orderable.png") no-repeat 0 4px; padding-left: 13px;
+      background: url("/images/admin/orderable.png") no-repeat 0 4px;
+      padding-left: 13px;
     }
-
     &.sorted-asc a { background-position: 0 -27px; }
     &.sorted-desc a {  background-position: 0 -56px;}
-
     &.sorted-asc, &.sorted-desc {
       @include gradient-vertical(#e2e2e2, #d2d4d6);
     }
-
     &:last-child {
       border-right: solid 1px #d4d4d4;
     }
