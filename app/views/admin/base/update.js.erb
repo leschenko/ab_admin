@@ -12,7 +12,7 @@
   $('#<%= dom_id(resource, 'list') %>').replaceWith('<%= j html %>');
   var $el = $('#<%= dom_id(resource, 'list') %>');
   $(document).trigger('admin:list_init');
-  if (!$el[0].className) $el.addClass('success');
+  if (!$el[0].className) $el.addClass('bg-lemon');
 //  $el.scrollToEl();
 <% end %>
 

@@ -136,6 +136,43 @@ table.index_table {
   }
 }
 
+@mixin colored_row($color) {
+  &, &:hover, & > td, &:hover > td {
+    background-color: $color !important;
+  }
+}
+.bg-lemon {
+  @include colored_row(#d7ff76);
+}
+.bg-green {
+  @include colored_row(#a4f58a);
+}
+.bg-skyblue {
+  @include colored_row(#9de8f7);
+}
+.bg-blue {
+  @include colored_row(#bbddfb);
+}
+.bg-orange {
+  @include colored_row(#fce492);
+}
+.bg-yellow {
+  @include colored_row(#ffefd5);
+}
+.bg-pink {
+  @include colored_row(#f2c0db);
+}
+.bg-violet {
+  @include colored_row(#f0dcff);
+}
+.bg-grey {
+  @include colored_row(#eaeaea);
+  color: #828282;
+}
+.bg-turquoise {
+  @include colored_row(#ddfff3fc);
+}
+
 #batch_action_form {
   margin-bottom: 10px;
 }

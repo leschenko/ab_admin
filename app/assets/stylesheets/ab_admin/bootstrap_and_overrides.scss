@@ -223,8 +223,21 @@ label.control-label.label-reset {
 .clear {
   clear: both;
 }
-.white-space-nowrap {
+
+.white-space-nowrap, .wsn {
   white-space: nowrap;
+}
+
+.text-pink {
+  color: #F52887;
+}
+
+.text-violet {
+  color: #BA55D3;
+}
+
+.text-turquoise {
+  color: #07d3d3;
 }
 
 @media (max-width: 767px) {

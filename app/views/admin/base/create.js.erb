@@ -10,7 +10,7 @@
   $('#<%= form_wrap_id %>').remove();
   $('#list tbody:first').prepend('<%= j html %>');
   $(document).trigger('admin:list_init');
-  $('#<%= dom_id(resource, 'list') %>').addClass('success').scrollToEl();
+  $('#<%= dom_id(resource, 'list') %>').addClass('bg-lemon');
 <% end %>
 
 window.ab_admin_last_created = <%= raw resource.for_input_token.to_json %>;
