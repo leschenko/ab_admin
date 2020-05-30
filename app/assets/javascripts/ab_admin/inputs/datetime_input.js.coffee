@@ -7,6 +7,7 @@ $ ->
       viewSelect: 'month'
       minView: 'day'
       language: I18n.locale
+      weekStart: 1
 
     search_form_options = _.defaults({pickerPosition: "bottom-left datetimepicker-bottom-left-custom"}, base_options)
     search_form_options_gt = _.defaults({initialDate: new Date(new Date().setHours(0,0,0,0))}, search_form_options)
