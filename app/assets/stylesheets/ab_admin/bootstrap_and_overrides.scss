@@ -145,28 +145,6 @@ label.control-label.label-reset {
   text-align: left;
 }
 
-.table tbody {
-  tr.success > td, &.success > tr > td {
-    background-color: #dff0d8;
-  }
-
-  tr.error > td, &.error > tr > td {
-    background-color: #f2dede;
-  }
-
-  tr.warning > td, &.warning > tr > td {
-    background-color: #fcf8e3;
-  }
-
-  tr.muted > td, &.muted > tr > td {
-    background-color: #ededed;
-  }
-
-  tr.info > td, &.info > tr > td {
-    background-color: #d9edf7;
-  }
-}
-
 .js-copy-popup {
   position: relative;
   &:before {

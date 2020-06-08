@@ -173,6 +173,28 @@ table.index_table {
   @include colored_row(#ddfff3fc);
 }
 
+.table tbody {
+  tr.success > td, &.success > tr > td, td.success {
+    background-color: #dff0d8;
+  }
+
+  tr.error > td, &.error > tr > td, td.error {
+    background-color: #f2dede;
+  }
+
+  tr.warning > td, &.warning > tr > td, td.warning {
+    background-color: #fcf8e3;
+  }
+
+  tr.muted > td, &.muted > tr > td, td.muted {
+    background-color: #ededed;
+  }
+
+  tr.info > td, &.info > tr > td, td.info {
+    background-color: #d9edf7;
+  }
+}
+
 #batch_action_form {
   margin-bottom: 10px;
 }
