@@ -14,10 +14,13 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
-      def updated_timestamp
+      def updated_timestamp(associations: true)
         res = [updated_at]
         res += translations.map(&:updated_at) if self.class.translates?
-        res += updated_timestamp_associations.flat_map{|assoc| Array(send(assoc)).map(&:updated_timestamp) }
+        if associations
+          associations = self.class.nested_attributes_options.keys unless associations.is_a?(Array)
+          res += associations.flat_map{|assoc| Array(send(assoc)).map(&:updated_timestamp) }
+        end
         res.compact.max
       end
 
@@ -74,10 +77,6 @@ module AbAdmin
       end
 
       private
-
-      def updated_timestamp_associations
-        self.class.nested_attributes_options.keys
-      end
 
       def do_not_overwrite
         return if new_record? || last_updated_timestamp.blank?
