@@ -137,61 +137,59 @@ table.index_table {
 }
 
 @mixin colored_row($color) {
-  &, &:hover, & > td, &:hover > td {
+  background-color: $color !important;
+  & > td, &:hover > td {
     background-color: $color !important;
   }
 }
-.bg-lemon {
-  @include colored_row(#d7ff76);
-}
-.bg-green {
-  @include colored_row(#a4f58a);
-}
-.bg-skyblue {
-  @include colored_row(#9de8f7);
-}
-.bg-blue {
-  @include colored_row(#bbddfb);
-}
-.bg-orange {
-  @include colored_row(#fce492);
-}
-.bg-yellow {
-  @include colored_row(#ffefd5);
-}
-.bg-pink {
-  @include colored_row(#f2c0db);
-}
-.bg-violet {
-  @include colored_row(#f0dcff);
-}
-.bg-grey {
-  @include colored_row(#eaeaea);
-  color: #828282;
-}
-.bg-turquoise {
-  @include colored_row(#ddfff3fc);
-}
-
 .table tbody {
-  tr.success > td, &.success > tr > td, td.success {
-    background-color: #dff0d8;
+  .bg-green {
+    @include colored_row(#a4f58a);
   }
-
-  tr.error > td, &.error > tr > td, td.error {
-    background-color: #f2dede;
+  .bg-skyblue {
+    @include colored_row(#9de8f7);
   }
-
-  tr.warning > td, &.warning > tr > td, td.warning {
-    background-color: #fcf8e3;
+  .bg-blue {
+    @include colored_row(#bbddfb);
   }
-
-  tr.muted > td, &.muted > tr > td, td.muted {
-    background-color: #ededed;
+  .bg-orange {
+    @include colored_row(#fce492);
   }
-
-  tr.info > td, &.info > tr > td, td.info {
-    background-color: #d9edf7;
+  .bg-yellow {
+    @include colored_row(#ffefd5);
+  }
+  .bg-pink {
+    @include colored_row(#f2c0db);
+  }
+  .bg-violet {
+    @include colored_row(#f0dcff);
+  }
+  .bg-grey {
+    @include colored_row(#eaeaea);
+    color: #828282;
+  }
+  .bg-turquoise {
+    @include colored_row(#ddfff3fc);
+  }
+  .success {
+    @include colored_row(#dff0d8);
+  }
+  .error {
+    @include colored_row(#f2dede);
+  }
+  .warning {
+    @include colored_row(#fcf8e3);
+  }
+  .info {
+    @include colored_row(#d9edf7);
+  }
+  .bg-lemon {
+    @include colored_row(#d7ff76);
+  }
+}
+.muted {
+  & > td, &:hover > td {
+    background-color: #ededed !important;
   }
 }
 
