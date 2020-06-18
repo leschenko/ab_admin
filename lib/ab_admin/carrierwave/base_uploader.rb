@@ -130,9 +130,40 @@ module AbAdmin
 
       def convert_to_webp(options = {})
         webp_path = "#{File.dirname(path)}/#{filename.sub(/\.\w+$/, '.webp')}"
-        WebP.encode(path, webp_path, options)
+        WebP.encode(path, webp_path, options_for_webp(options))
         write_internal_identifier webp_path.split('/').pop
         @file = ::CarrierWave::SanitizedFile.new(tempfile: webp_path, filename: webp_path, content_type: 'image/webp')
+      end
+
+      def options_for_webp(options)
+        w, h = width, height
+        options = options.dup
+        ratio = w.to_f / h
+        if options[:resize_to_fill]
+          res_w, res_h = options[:resize_to_fill]
+          res_ratio = res_w.to_f / res_h
+          options.update(resize_w: res_w, resize_h: res_h) unless w == res_w && h == res_h
+          if ratio > res_ratio
+            crop_res_w = h * res_ratio
+            crop_res_h = h
+            options.update(crop_x: ((w - crop_res_w) / 2).to_i, crop_y: 0, crop_w: crop_res_w.to_i, crop_h: crop_res_h.to_i)
+          elsif ratio < res_ratio
+            crop_res_w = w
+            crop_res_h = w / res_ratio
+            options.update(crop_x: 0, crop_y: ((h - crop_res_h) / 2).to_i, crop_w: crop_res_w.to_i, crop_h: crop_res_h.to_i)
+          end
+        elsif options[:resize_to_fit]
+          res_w, res_h = options[:resize_to_fit]
+          res_ratio = res_w.to_f / res_h
+          if ratio == res_ratio
+            options.update(resize_w: res_w, resize_h: res_h) unless w == res_w && h == res_h
+          elsif ratio > res_ratio
+            options.update(resize_w: res_h)
+          elsif ratio < res_ratio
+            options.update(resize_h: res_w)
+          end
+        end
+        options.except(:resize_to_fill, :resize_to_fit)
       end
 
       # Strips out all embedded information from the image

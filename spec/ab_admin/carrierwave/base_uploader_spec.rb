@@ -265,5 +265,65 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
       end
     end
   end
+
+  describe 'webp' do
+    describe '#options_for_webp' do
+      before :all do
+        @image = create(:main_uploader_spec_image, assetable: @assetable)
+      end
+
+      context 'resize_to_fill' do
+        it 'return options for crop y' do
+          allow(@image.data).to receive(:width).and_return(50)
+          allow(@image.data).to receive(:height).and_return(64)
+          expect(@image.data.options_for_webp(resize_to_fill: [10, 10])).to eq({crop_h: 50, crop_w: 50, crop_x: 0, crop_y: 7, resize_h: 10, resize_w: 10})
+        end
+
+        it 'return options for crop x' do
+          allow(@image.data).to receive(:width).and_return(64)
+          allow(@image.data).to receive(:height).and_return(50)
+          expect(@image.data.options_for_webp(resize_to_fill: [10, 10])).to eq({crop_h: 50, crop_w: 50, crop_x: 7, crop_y: 0, resize_h: 10, resize_w: 10})
+        end
+
+        it 'omit crop options if not needed' do
+          allow(@image.data).to receive(:width).and_return(50)
+          allow(@image.data).to receive(:height).and_return(50)
+          expect(@image.data.options_for_webp(resize_to_fill: [10, 10])).to eq({resize_h: 10, resize_w: 10})
+        end
+
+        it 'omit crop and resize options if not needed' do
+          allow(@image.data).to receive(:width).and_return(10)
+          allow(@image.data).to receive(:height).and_return(10)
+          expect(@image.data.options_for_webp(resize_to_fill: [10, 10])).to be_blank
+        end
+      end
+
+      context 'resize_to_fit' do
+        it 'return options for resize y' do
+          allow(@image.data).to receive(:width).and_return(50)
+          allow(@image.data).to receive(:height).and_return(64)
+          expect(@image.data.options_for_webp(resize_to_fit: [10, 10])).to eq({resize_h: 10})
+        end
+
+        it 'return options for resize x' do
+          allow(@image.data).to receive(:width).and_return(64)
+          allow(@image.data).to receive(:height).and_return(50)
+          expect(@image.data.options_for_webp(resize_to_fit: [10, 10])).to eq({resize_w: 10})
+        end
+
+        it 'return options for resize x and y' do
+          allow(@image.data).to receive(:width).and_return(50)
+          allow(@image.data).to receive(:height).and_return(50)
+          expect(@image.data.options_for_webp(resize_to_fit: [10, 10])).to eq({resize_h: 10, resize_w: 10})
+        end
+
+        it 'omit resize options if not needed' do
+          allow(@image.data).to receive(:width).and_return(10)
+          allow(@image.data).to receive(:height).and_return(10)
+          expect(@image.data.options_for_webp(resize_to_fit: [10, 10])).to be_blank
+        end
+      end
+    end
+  end
 end
 
