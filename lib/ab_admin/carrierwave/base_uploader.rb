@@ -25,18 +25,21 @@ module AbAdmin
 
       process :set_model_info
 
-      def strict_filename(for_file=filename)
-        "#{version_name || secure_token}#{File.extname(for_file).downcase}"
-      end
-
       def save_original_name(file)
         model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
+      def strict_filename(for_file=filename)
+        "#{version_name || secure_token}#{File.extname(for_file).downcase}"
+      end
+
       def base_filename_part
-        return if version_name == :default
+        return if version_name.to_s.remove('retina_').remove('_webp').to_sym == :default
         return secure_token unless version_name
-        version_name.to_s.start_with?('retina_') ? "#{version_name.to_s.sub(/^retina_/, '')}@2x" : version_name.to_s
+        res = version_name.to_s
+        res = "#{res.remove(/^retina_/)}@2x" if version_name.to_s.start_with?('retina_')
+        res = "#{res.remove(/_webp$/)}" if version_name.to_s.end_with?('_webp')
+        res
       end
 
       def full_filename(for_file=filename)
@@ -44,9 +47,9 @@ module AbAdmin
       end
 
       def human_full_filename(for_file=filename)
-        ext = File.extname(for_file)
+        ext = version_name.to_s.end_with?('_webp') ? '.webp' : File.extname(for_file)
         system_part = base_filename_part
-        human_filename_part = for_file.chomp(ext)
+        human_filename_part = for_file.chomp(File.extname(for_file))
         return "#{system_part || version_name}#{ext}" if human_filename_part == secure_token
         system_part ? "#{human_filename_part}_#{system_part}#{ext}" : "#{human_filename_part}#{ext}"
       end
@@ -125,11 +128,18 @@ module AbAdmin
         [AbAdmin.uploads_dir, model.class.to_s.underscore, str_id[0..2], str_id[3..-1]].join('/')
       end
 
+      def convert_to_webp(options = {})
+        webp_path = "#{File.dirname(path)}/#{filename.sub(/\.\w+$/, '.webp')}"
+        WebP.encode(path, webp_path, options)
+        write_internal_identifier webp_path.split('/').pop
+        @file = ::CarrierWave::SanitizedFile.new(tempfile: webp_path, filename: webp_path, content_type: 'image/webp')
+      end
+
       # Strips out all embedded information from the image
       # process :strip
       #
       def strip
-        manipulate! do |img|
+        minimagick! do |img|
           img.strip
           img = yield(img) if block_given?
           img
@@ -143,7 +153,7 @@ module AbAdmin
         percentage = normalize_param(percentage)
 
         unless percentage.blank?
-          manipulate! do |img|
+          minimagick! do |img|
             img.quality percentage.to_s
             img = yield(img) if block_given?
             img
@@ -175,7 +185,7 @@ module AbAdmin
         geometry = normalize_param(geometry[0]) if geometry.size == 1
 
         if geometry && geometry.size == 4
-          manipulate! do |img|
+          minimagick! do |img|
             img.crop '%ix%i+%i+%i' % geometry
             img = yield(img) if block_given?
             img
@@ -184,7 +194,7 @@ module AbAdmin
       end
 
       def watermark(watermark_path, gravity='SouthEast')
-        manipulate! do |img|
+        minimagick! do |img|
           resolved_path = watermark_path.is_a?(Symbol) ? send(watermark_path) : watermark_path
           watermark_image = ::MiniMagick::Image.open(resolved_path)
           img.composite(watermark_image) { |c| c.gravity gravity }
@@ -201,12 +211,7 @@ module AbAdmin
       end
 
       def dimensions
-        [magick[:width], magick[:height]]
-      end
-
-      def magick
-        #@magick ||= ::MiniMagick::Image.new(current_path)
-        ::MiniMagick::Image.new(current_path)
+        [width, height]
       end
 
       protected

@@ -36,6 +36,7 @@ gem 'write_xlsx'
 gem 'rest-client'
 gem 'nested_form', '~> 0.2.2'
 gem 'ckeditor'
+gem 'webp-ffi'
 
 group :development, :test do
   gem 'rspec-rails'
