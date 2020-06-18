@@ -78,7 +78,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     describe 'store original filename' do
       it 'stored in original_name field' do
         @image = create(:uploader_spec_image, assetable: @assetable)
-        expect(@image.original_name).to eq 'А_и_б.png'
+        expect(@image.original_name).to eq 'А_б_в.png'
       end
     end
 
@@ -138,7 +138,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     it 'not valid with big size image', slow: true do
       @image = build(:avatar_big)
       expect(@image).not_to be_valid
-      @image.errors[:data].first.should =~ /слишком большой размер/
+      @image.errors[:data].first.should =~ /is too big/
     end
   end
 
@@ -153,7 +153,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     end
 
     it 'file size should be valid' do
-      expect(@image.data_file_size).to be_between(6400, 6600)
+      expect(@image.data_file_size).to be_between(6600, 6700)
     end
 
     it 'should be image' do
@@ -202,9 +202,9 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
 
       it 'crop image by specific geometry on save' do
         @image.save
-        expect(@image.width).to eq 40
-        expect(@image.height).to eq 54
-        expect(@image.data.dimensions).to eq [40, 54]
+        expect(@image.width).to eq 50
+        expect(@image.height).to eq 64
+        expect(@image.data.dimensions).to eq [50, 64]
       end
     end
 
@@ -212,12 +212,12 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
       it 'change filename' do
         @image.crop!('50,64,10,10')
 
-        expect(@image.data.dimensions).to eq [40, 54]
+        expect(@image.data.dimensions).to eq [50, 64]
         @image.data_file_name.should =~ /\d{1,4}\.png/
         File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
 
         @image = @image.class.find(@image.id)
-        expect(@image.data.dimensions).to eq [40, 54]
+        expect(@image.data.dimensions).to eq [50, 64]
         @image.data_file_name.should =~ /\d{1,4}\.png/
         File.basename(@image.data.url(:thumb)).should =~ /\d{1,4}_thumb\.png/
       end
