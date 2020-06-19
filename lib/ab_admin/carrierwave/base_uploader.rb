@@ -37,8 +37,8 @@ module AbAdmin
         return if version_name.to_s.remove('retina_').remove('_webp').to_sym == :default
         return secure_token unless version_name
         res = version_name.to_s
-        res = "#{res.remove(/^retina_/)}@2x" if version_name.to_s.start_with?('retina_')
         res = "#{res.remove(/_webp$/)}" if version_name.to_s.end_with?('_webp')
+        res = "#{res.remove(/^retina_/)}@2x" if version_name.to_s.start_with?('retina_')
         res
       end
 
