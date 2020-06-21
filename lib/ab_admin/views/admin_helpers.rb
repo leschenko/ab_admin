@@ -135,8 +135,10 @@ module AbAdmin
 
       def admin_pretty_data(object)
         case object
-          when String, Integer, BigDecimal, Float
+          when Integer, BigDecimal, Float
             object
+          when String
+            object.gsub("\n", '<br/>').html_safe
           when TrueClass, FalseClass
             color_bool(object)
           when Date, DateTime, Time, ActiveSupport::TimeWithZone
