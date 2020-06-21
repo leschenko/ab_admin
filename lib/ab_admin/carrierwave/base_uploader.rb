@@ -25,8 +25,21 @@ module AbAdmin
 
       process :set_model_info
 
-      def save_original_name(file)
-        model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
+      def full_filename(for_file=filename)
+        human_filenames ? human_full_filename(for_file) : strict_filename(for_file)
+      end
+
+      alias_method :store_filename, :filename
+      def filename
+        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
+      end
+
+      def human_full_filename(for_file=filename)
+        ext = version_name.to_s.end_with?('_webp') ? '.webp' : File.extname(for_file)
+        system_part = base_filename_part
+        human_filename_part = for_file.chomp(ext)
+        return "#{system_part || version_name}#{ext}" if human_filename_part == secure_token
+        system_part ? "#{human_filename_part}_#{system_part}#{ext}" : "#{human_filename_part}#{ext}"
       end
 
       def strict_filename(for_file=filename)
@@ -37,21 +50,9 @@ module AbAdmin
         return if version_name.to_s.remove('retina_').remove('_webp').to_sym == :default
         return secure_token unless version_name
         res = version_name.to_s
-        res = "#{res.remove(/_webp$/)}" if version_name.to_s.end_with?('_webp')
-        res = "#{res.remove(/^retina_/)}@2x" if version_name.to_s.start_with?('retina_')
+        res = "#{res.remove(/_webp$/)}" if webp?
+        res = "#{res.remove(/^retina_/)}@2x" if retina?
         res
-      end
-
-      def full_filename(for_file=filename)
-        human_filenames ? human_full_filename(for_file) : strict_filename(for_file)
-      end
-
-      def human_full_filename(for_file=filename)
-        ext = version_name.to_s.end_with?('_webp') ? '.webp' : File.extname(for_file)
-        system_part = base_filename_part
-        human_filename_part = for_file.chomp(File.extname(for_file))
-        return "#{system_part || version_name}#{ext}" if human_filename_part == secure_token
-        system_part ? "#{human_filename_part}_#{system_part}#{ext}" : "#{human_filename_part}#{ext}"
       end
 
       def full_original_filename
@@ -63,6 +64,14 @@ module AbAdmin
         model.data_secure_token ||= AbAdmin.friendly_token(20).downcase
       end
 
+      def retina?
+        version_name.to_s.start_with?('retina_')
+      end
+
+      def webp?
+        version_name.to_s.end_with?('_webp')
+      end
+
       def store_model_filename(record)
         old_file_name = filename
         new_file_name = model_filename(old_file_name, record)
@@ -70,10 +79,8 @@ module AbAdmin
         rename_via_move(new_file_name)
       end
 
-      alias_method :store_filename, :filename
-
-      def filename
-        internal_identifier || model.send("#{mounted_as}_file_name") || (store_filename && "#{secure_token}#{File.extname(store_filename).downcase}")
+      def save_original_name(file)
+        model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
       end
 
       def write_internal_identifier(internal_identifier)
