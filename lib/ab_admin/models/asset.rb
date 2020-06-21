@@ -76,14 +76,12 @@ module AbAdmin
         AbAdmin.image_types.include?(self.data_content_type)
       end
 
-      def base_filename
-        base = File.basename(data_file_name, '.*')
-        base == data_secure_token ? File.basename(original_name, '.*') : base
+      def human_filename
+        data.human_part
       end
 
-      def base_filename=(value)
-        return false if value.blank? || File.basename(data_file_name, '.*') == value
-        self.original_name = value + File.extname(data_file_name)
+      def human_filename=(value)
+        return if (human_filename.blank? && value.blank?) || human_filename == value
         rename!(value)
       end
 
@@ -116,14 +114,13 @@ module AbAdmin
 
       def rename!(name=nil)
         normalized_name = name ? data.normalize_filename(name) : rand(9999)
-        return false if normalized_name.blank?
-        data.rename_via_move "#{normalized_name}#{File.extname(data_file_name)}"
+        return if normalized_name.blank?
+        data.rename_via_move normalized_name
       end
 
       def refresh_assetable
         return unless assetable.try(:persisted?)
         assetable.touch
-        assetable.tire.update_index if assetable.respond_to?(:tire)
         true
       end
 

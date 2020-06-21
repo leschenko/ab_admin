@@ -7,7 +7,8 @@
           a.thumbnail href=asset.url target='_blank' = image_tag(asset.thumb_url)
         .span8
           - if first_locale == l
-            p= text_field :data, :base_filename, index: asset.id, value: asset.base_filename, placeholder: Asset.han(:data_file_name), style: 'width: 95%;'
+            .muted= asset.original_name
+            div= text_field :data, :human_filename, index: asset.id, value: asset.human_filename, placeholder: Asset.han(:data_file_name), style: 'width: 95%;'
           - [:alt, :name].each do |attr|
             - loc_attr = "#{attr}_#{l}"
             p= text_field :data, loc_attr, index: asset.id, value: asset.send(loc_attr), placeholder: Asset.han(attr), style: 'width: 95%;'

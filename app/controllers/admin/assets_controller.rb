@@ -53,7 +53,7 @@ class Admin::AssetsController < ApplicationController
   protected
 
   def permitted_params
-    params[:asset].try!(:permit, :data, :is_main, :original_name, :base_filename, *Asset.all_translated_attribute_names)
+    params[:asset].try!(:permit, :data, :is_main, :original_name, :human_filename, *Asset.all_translated_attribute_names)
   end
 
   def find_asset
