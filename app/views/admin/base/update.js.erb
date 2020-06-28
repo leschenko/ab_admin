@@ -1,7 +1,8 @@
+<%= render 'admin/shared/flash' %>
+
 <% if params[:flash] %>
   flash("<%= t("flash.admin.actions.#{action_name}.notice", resource_name: resource_class.model_name.human(count: 1)) %>")
 <% end %>
-
 
 <% unless params[:modal] %>
   <%
