@@ -183,6 +183,11 @@ module AbAdmin
         content_tag(:div, html, options)
       end
 
+      def copy_btn(text, btn_text: nil, tooltip: false)
+        return if text.blank?
+        content_tag(:div, "#{icon('share')} #{btn_text}".html_safe, 'data-clipboard-text' => text, class: ['btn', 'btn-mini', 'js-copy', ('tool' if tooltip)], title: (text.no_html if tooltip))
+      end
+
       def ha(attr)
         resource_class.han(attr)
       end
