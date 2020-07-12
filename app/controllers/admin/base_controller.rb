@@ -151,7 +151,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def redirect_to_back_or_root
-    redirect_back fallback_location: admin_root_path
+    redirect_back fallback_location: admin_root_path, turbolinks: false
   end
 
   def track_action(key=nil, item=nil)
