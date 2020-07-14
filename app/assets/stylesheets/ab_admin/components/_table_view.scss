@@ -164,6 +164,9 @@ table.index_table {
   .bg-violet {
     @include colored_row(#f0dcff);
   }
+  .bg-violet-dark {
+    @include colored_row(#d8c0ff);
+  }
   .bg-grey {
     @include colored_row(#eaeaea);
     color: #828282;
