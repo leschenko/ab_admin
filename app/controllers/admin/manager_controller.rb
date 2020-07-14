@@ -104,7 +104,6 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def manager
-    raise ActionController::RoutingError.new('AbAdmin access denied') unless current_user
     @manager ||= begin
       manager_class_name = "AbAdmin#{resource_class.name}"
       manager_instance = manager_class_name.constantize.instance
@@ -122,6 +121,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def resource_class
+    raise ActionController::RoutingError.new('AbAdmin access denied') unless current_user
     @model ||= begin
       params[:model_name].classify.constantize
     rescue NameError => e
