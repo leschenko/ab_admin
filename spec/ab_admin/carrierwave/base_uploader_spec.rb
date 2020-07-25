@@ -150,7 +150,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     end
 
     it 'file size should be valid' do
-      expect(@image.data_file_size).to be_between(6600, 6700)
+      expect(@image.data_file_size).to be_between(6500, 6700)
     end
 
     it 'should be image' do
