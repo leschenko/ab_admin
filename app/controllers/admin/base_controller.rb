@@ -21,7 +21,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   attr_reader :settings
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
-                :preview_resource_path, :get_subject, :settings, :batch_action_list, :tree_node_renderer,
+                :preview_resource_path, :settings, :batch_action_list, :tree_node_renderer,
                 :pjax?, :xhr?, :params_for_links, :resource_list_id, :ransack_collection, :search_collection
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
@@ -394,10 +394,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def bind_current_updater(*)
     resource.updater_id = current_user.id if !@settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
-  end
-
-  def get_subject
-    params[:id] ? resource : resource_class
   end
 
   def render_unauthorized(exception)

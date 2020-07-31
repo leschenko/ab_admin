@@ -130,7 +130,8 @@ module AbAdmin
       end
 
       def link_to_can?(act, *args, &block)
-        item_link_to_can?(act, get_subject, *args, &block)
+        subject = params[:id] ? resource : resource_class
+        item_link_to_can?(act, subject, *args, &block)
       end
 
       def item_link_to_can?(act, item, *args, &block)
