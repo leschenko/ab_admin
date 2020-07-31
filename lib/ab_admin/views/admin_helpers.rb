@@ -9,7 +9,7 @@ module AbAdmin
         options[:html] ||= {}
         options[:html][:class] = Array(options[:html][:class])
         options[:html][:class] << 'form-horizontal' if options[:html][:class].empty?
-        options[:html][:class] << 'save-error' if object.errors.of_kind?(:base, :changed)
+        options[:html][:class] << 'save-error' if Array(object).last.errors.of_kind?(:base, :changed)
         options[:builder] ||= ::AbAdmin::Views::FormBuilder
         options[:html]['data-id'] = record.id
         if controller_name == 'manager' && resource_class == Array(object).last.class
