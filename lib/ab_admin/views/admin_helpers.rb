@@ -79,7 +79,7 @@ module AbAdmin
             value: opts[:value] || item[attr],
             title: opts[:title] || item[attr]
         }
-        link_to html_title, '#', class: "editable #{opts[:class]}", data: data.update(opts[:data] || {})
+        link_to html_title, '#', class: "editable #{opts[:class]}", placeholder: opts[:placeholder], data: data.update(opts[:data] || {})
       end
 
       def options_for_ckeditor(options = {})
@@ -138,7 +138,7 @@ module AbAdmin
           when Integer, BigDecimal, Float
             object
           when String
-            object.gsub("\n", '<br/>').html_safe
+            object.html_safe? ? object : object.no_html.gsub("\n", '<br/>').html_safe
           when TrueClass, FalseClass
             color_bool(object)
           when Date, DateTime, Time, ActiveSupport::TimeWithZone
