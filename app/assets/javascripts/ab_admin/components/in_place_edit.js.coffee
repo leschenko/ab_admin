@@ -27,29 +27,30 @@ EditableForm.prototype.saveWithoutUrlHook = EditableForm.prototype.save
 EditableForm.prototype.save = EditableForm.prototype.saveWithUrlHook
 
 window.initInPlaceEditable = ->
-  $('.editable').editable
-    onblur: 'submit'
-    placement: 'bottom'
-    emptytext: I18n.lookup('admin.js.empty') || 'Empty'
-    error: (response, newValue) ->
-      log response
-      if response.status == 422
-        flash JSON.parse(response.responseText).errors.join(', ')
-      else
-        response.responseText
-    success: (response) ->
-      if response && $(this).data().options?.accept == 'script'
-        $.globalEval(response.responseText)
-    datetimepicker:
-      format: "dd.mm.yyyy hh:ii"
-      autoclose: true
-      todayBtn: true
-      language: I18n.locale
-    ajaxOptions:
-      xhrFields:
-        withCredentials: true
-      headers:
-        Accept: 'application/json'
+  $('.editable').each ->
+    $el = $(this)
+    $el.editable
+      onblur: 'submit'
+      placement: 'bottom'
+      emptytext: $el.attr('placeholder') || I18n.lookup('admin.js.empty') || 'Empty'
+      error: (response) ->
+        if response.status == 422
+          Object.entries(response.responseJSON.errors).map((i) -> i.join(': ')).join(', ')
+        else
+          response.responseText
+      success: (response) ->
+        if response && $(this).data().options?.accept == 'script'
+          $.globalEval(response.responseText)
+      datetimepicker:
+        format: "dd.mm.yyyy hh:ii"
+        autoclose: true
+        todayBtn: true
+        language: I18n.locale
+      ajaxOptions:
+        xhrFields:
+          withCredentials: true
+        headers:
+          Accept: 'application/json'
 
 
 $(document).on 'admin:init', initInPlaceEditable
