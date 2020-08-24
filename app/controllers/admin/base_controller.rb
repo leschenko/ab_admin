@@ -51,6 +51,10 @@ class Admin::BaseController < ::InheritedResources::Base
       success.html { redirect_to redirect_to_on_success }
       success.js { render layout: false }
       failure.js { render :new, layout: false }
+      unless respond_to_format?(:json)
+        success.json { head :no_content }
+        failure.json { render json: {errors: resource.errors}, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -63,7 +67,7 @@ class Admin::BaseController < ::InheritedResources::Base
       failure.js { render :edit, layout: false }
       unless respond_to_format?(:json)
         success.json { head :no_content }
-        failure.json { head :unprocessable }
+        failure.json { render json: {errors: resource.errors}, status: :unprocessable_entity }
       end
     end
   end
