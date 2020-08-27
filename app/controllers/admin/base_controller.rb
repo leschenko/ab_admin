@@ -227,6 +227,7 @@ class Admin::BaseController < ::InheritedResources::Base
       @settings[:per_page_variants] ||= @settings[:per_page_variants].find_all{|n| n <= @settings[:max_per_page] }
       @settings[:sidebar] = true unless @settings.key?(:sidebar)
       @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
+      @settings[:order] = button_scopes.filter_map{|sc| params[sc.first].present? && sc.last && sc.last[:default_order] }.first || @settings[:default_order] || ('id desc' unless @settings[:current_index_view] == :tree)
     end
     @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
   end
@@ -251,7 +252,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def self.scope(name, options={}, &block)
-    has_scope name, options.without(:badge, :if, :label, :title), &block
+    has_scope name, options.without(:badge, :if, :label, :title, :default_order), &block
     options[:badge] = {} if options[:badge] && !options[:badge].is_a?(Hash)
     options[:block] = block
     self.button_scopes ||= []
@@ -314,8 +315,7 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def query_params
     query = params[:q].try! {|q| q.permit!.to_h} || {}
-    nested = resource_class.respond_to?(:acts_as_nested_set_options) && @settings[:current_index_view] == :tree
-    query[:s] ||= @settings[:default_order] || ('id desc' unless nested)
+    query[:s] ||= @settings[:order]
     query.reject_blank
   end
 
