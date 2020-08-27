@@ -4,6 +4,7 @@ tmp
 /pkg/
 /bin
 /unused
+/notes
 /spec/exampples.txt
 /spec/dummy/db/*.sqlite3
 /spec/dummy/db/*.sqlite3-journal
