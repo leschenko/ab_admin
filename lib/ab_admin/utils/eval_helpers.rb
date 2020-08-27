@@ -83,22 +83,6 @@ module AbAdmin
             raise ArgumentError, 'Methods must be a symbol denoting the method to call, a block to be invoked, or a string to be evaluated'
           end
       end
-
-      def call_method_or_proc_on(obj, symbol_or_proc, options = {})
-        options.reverse_merge!(exec: true)
-        case symbol_or_proc
-          when String
-            symbol_or_proc
-          when Symbol
-            obj.public_send(symbol_or_proc.to_sym, *options[:attrs])
-          when Proc
-            if options[:context]
-              options[:context].instance_exec(obj, &symbol_or_proc)
-            else
-              options[:exec] ? obj.instance_exec(&symbol_or_proc) : symbol_or_proc.call(obj)
-            end
-        end
-      end
     end
   end
 end

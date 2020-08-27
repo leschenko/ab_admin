@@ -39,7 +39,7 @@ module AbAdmin
         elsif field.options[:image]
           item_image_link(item, assoc: field.name)
         else
-          admin_pretty_data call_method_or_proc_on(item, field.data)
+          admin_pretty_data method_or_proc_on(field.data, item)
         end
       end
 

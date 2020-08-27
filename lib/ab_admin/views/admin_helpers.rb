@@ -196,15 +196,19 @@ module AbAdmin
         AbAdmin.site_name.is_a?(String) ? AbAdmin.site_name : AbAdmin.site_name.call
       end
 
-      def call_method_or_proc_on(obj, symbol_or_proc, options = {})
-        exec = options[:exec].nil? ? true : options[:exec]
-        case symbol_or_proc
-          when String
-            symbol_or_proc
-          when Symbol
-            obj.send(symbol_or_proc.to_sym)
-          when Proc
-            exec ? instance_exec(obj, &symbol_or_proc) : symbol_or_proc.call(obj)
+      def option_conditions_met?(options)
+        return true unless options
+        condition = options[:if] || options[:unless]
+        return true unless condition
+        options[:if] ? method_or_proc_on(condition) : !method_or_proc_on(condition)
+      end
+
+      def method_or_proc_on(symbol_or_proc, object=nil)
+        return unless symbol_or_proc
+        if symbol_or_proc.is_a?(Symbol)
+          (object || self).public_send(symbol_or_proc)
+        else
+          object ? instance_exec(object, &symbol_or_proc) : instance_exec(&symbol_or_proc)
         end
       end
     end

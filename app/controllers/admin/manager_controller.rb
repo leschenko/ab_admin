@@ -1,5 +1,4 @@
 class ::Admin::ManagerController < ::Admin::BaseController
-  include AbAdmin::Utils::EvalHelpers
   include AbAdmin::Controllers::Tree
 
   prepend_before_action :manager
@@ -82,7 +81,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
 
   def apply_batch_action(item, batch_action, *batch_params)
     data = manager.batch_action_list.detect{|a| a.name == batch_action }.data
-    success = call_method_or_proc_on item,  data, exec: false, attrs: batch_params
+    success = data.is_a?(Symbol) ? item.public_send(data, batch_params) : data.call(item)
     track_action!("batch_#{batch_action}", item) if settings[:history]
     success
   end
@@ -142,8 +141,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def preview_resource_path(item)
-    return unless manager.preview_path
-    return if manager.preview_path[:options][:if] && !call_method_or_proc_on(item, manager.preview_path[:options][:if])
+    return unless manager.preview_path && option_conditions_met?(manager.preview_path[:options])
     I18n.with_locale I18n.default_locale do
       manager.preview_path[:value].is_a?(Proc) ? instance_exec(item, &manager.preview_path[:value]) : send(manager.preview_path[:value], item)
     end

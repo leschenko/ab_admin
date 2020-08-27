@@ -2,7 +2,6 @@ module AbAdmin
   module Menu
     class BaseGroup
       include ::Rails.application.routes.url_helpers
-      include ::AbAdmin::Utils::EvalHelpers
 
       def link(title, path, options={})
         @menu_tree << Item.new(title, path, options)

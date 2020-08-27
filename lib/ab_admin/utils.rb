@@ -1,10 +1,5 @@
 module AbAdmin
   module Utils
-    autoload :CSVBuilder, 'ab_admin/utils/csv_builder'
-    autoload :EvalHelpers, 'ab_admin/utils/eval_helpers'
-    autoload :Logger, 'ab_admin/utils/logger'
-    autoload :Mysql, 'ab_admin/utils/mysql'
-
     def all_models
       Kernel.suppress_warnings do
         Dir.glob(Rails.root.to_s + '/app/models/**/*.rb').reject { |path| path =~ /concerns|shared/ }.each { |file| require file }

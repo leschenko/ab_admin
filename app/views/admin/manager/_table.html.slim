@@ -19,7 +19,7 @@
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
-        tr id=dom_id(item, 'list') class=(call_method_or_proc_on(item, table_builder.options[:row_class]) if table_builder.options[:row_class])
+        tr id=dom_id(item, 'list') class=method_or_proc_on(table_builder.options[:row_class], item)
           = batch_action_item(item)
           td
             = id_link(item, edit: is_edit_link)

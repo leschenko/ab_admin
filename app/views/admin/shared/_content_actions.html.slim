@@ -10,8 +10,7 @@
   - if settings[:button_scopes] && button_scopes.present?
     .btn-group
       - button_scopes.each do |name, opts|
-        - next if opts[:if] && !call_method_or_proc_on(controller, opts[:if])
-        - next if opts[:unless] && call_method_or_proc_on(controller, opts[:unless])
+        - next unless option_conditions_met?(opts)
         - param_name = opts[:as] || name
         - active = params[param_name]
         - url = url_for(param_name => (active ? nil : 1), index_view: params[:index_view])

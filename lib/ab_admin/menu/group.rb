@@ -10,9 +10,7 @@ module AbAdmin
       end
 
       def render(template)
-        return if @options[:if] && !call_method_or_proc_on(template, @options[:if])
-        return if @options[:unless] && call_method_or_proc_on(template, @options[:unless])
-
+        return unless template.option_conditions_met?(@options)
         wrapper_class = "dropdown-wrap-#{@raw_title}" if @raw_title.is_a?(Symbol)
         <<-HTML.html_safe
       <li class="dropdown #{wrapper_class}">
@@ -26,7 +24,7 @@ module AbAdmin
 
       def title(template)
         return @title unless @options[:badge]
-        badge = call_method_or_proc_on(template, @options[:badge])
+        badge = @options[:badge].is_a?(Symbol) ? template.public_send(@options[:badge]) : template.instance_exec(&@options[:badge])
         return @title if !badge || badge == 0
         "#{@title}&nbsp;<span class='badge badge-#{@options[:badge_type] || 'important'}'>#{badge}</span>".html_safe
       end

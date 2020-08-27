@@ -3,8 +3,6 @@ require 'csv'
 module AbAdmin
   module Utils
     class CsvDocument
-      include AbAdmin::Utils::EvalHelpers
-
       def initialize(source, options = {})
         @source = source
         @options = options
@@ -33,7 +31,10 @@ module AbAdmin
 
           I18n.with_locale options[:locale] do
             each_record do |item|
-              csv << column_data.map { |column| AbAdmin.pretty_data call_method_or_proc_on(item, column, context: context) }
+              csv << column_data.map do |column|
+                value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(&column)
+                AbAdmin.pretty_data value
+              end
             end
           end
         end
@@ -62,7 +63,6 @@ module AbAdmin
           @source.class
         end
       end
-
     end
   end
 end

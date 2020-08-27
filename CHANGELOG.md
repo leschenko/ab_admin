@@ -15,6 +15,7 @@
   * removed `AbAdmin.per_page_variants`, use `settings[:per_page_variants]` instead
   * removed `AbAdmin.view_default_per_page`, use `settings[:view_default_per_page]` instead
   * removed `settings[:skip_pagination]`, use `settings[:pagination_index_views]` or `settings[:pagination]` instead
+  * removed `call_method_or_proc_on`, use `method_or_proc_on` instead
   * removed `AbAdmin.default_per_page`
   * use `custom_settings` controller method for settings customization
   * `index_view` renamed to `index_views` and allow only array of symbols

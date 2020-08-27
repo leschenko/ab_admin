@@ -12,8 +12,6 @@ module AbAdmin
     end
 
     class XlsDocument
-      include AbAdmin::Utils::EvalHelpers
-
       def initialize(source, options = {})
         @source = source
         @options = options
@@ -58,7 +56,7 @@ module AbAdmin
             row = index + 1
 
             column_data.each_with_index do |column, num|
-              value = call_method_or_proc_on(item, column, context: context)
+              value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(&column)
 
               case value
                 when Date
