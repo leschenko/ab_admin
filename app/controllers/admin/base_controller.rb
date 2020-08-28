@@ -13,8 +13,6 @@ class Admin::BaseController < ::InheritedResources::Base
   before_action :preflight_batch_action, only: :batch
 
   class_attribute :export_builder, :batch_actions, :button_scopes, instance_reader: true, instance_writer: false
-  self.button_scopes = []
-  self.batch_actions = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
 
   defaults finder: :friendly_find
 
@@ -169,6 +167,8 @@ class Admin::BaseController < ::InheritedResources::Base
       before_save :bind_current_updater
       before_save :track_current_action
     end
+    base.button_scopes = []
+    base.batch_actions = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
   end
 
   def track_current_action(*)

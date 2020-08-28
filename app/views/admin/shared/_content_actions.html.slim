@@ -16,7 +16,7 @@
         a.btn href=url title=s.options[:title] class=[s.options[:class], ('active' if active), ('tool tool-bottom' if s.options[:title])]
           = s.options[:label] || s.options[:title] || t("admin.scopes.#{s.name}", default: s.name.to_s.titleize)
           - if s.options[:badge]
-            - scope = resource_class.accessible_by(current_ability).send(s.name)
+            - scope = s.apply(self, resource_class.accessible_by(current_ability))
             - scope_count = scope.send(*[s.options[:badge][:value_type] || :count, s.options[:badge][:column]].compact)
             - unless scope_count.zero?
               span.badge< class=("badge-#{s.options.dig(:badge, :type) || 'important'} #{'pulse' if s.options.dig(:badge, :pulse)}") = scope_count
