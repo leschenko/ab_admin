@@ -1,6 +1,6 @@
 $ ->
   if $('#list')[0]
-    input_name = 'by_ids'
+    input_name = 'q[id_in]'
     $(document).on 'click', '#list input.toggle', ->
       checked = $(this).is(":checked")
       $("#list [name='#{input_name}[]']").attr "checked", checked

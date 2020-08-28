@@ -5,22 +5,21 @@
         = t 'admin.batch_actions.title'
         span.caret
       ul.dropdown-menu
-        - batch_action_list.each do |ba|
+        - batch_actions.each do |ba|
           li: a.batch_action_link href='#' data-form=ba.form data-action=ba.name data-confirm=ba.confirm = ba.title
   - if settings[:button_scopes] && button_scopes.present?
     .btn-group
-      - button_scopes.each do |name, opts|
-        - next unless option_conditions_met?(opts)
-        - param_name = opts[:as] || name
-        - active = params[param_name]
-        - url = url_for(param_name => (active ? nil : 1), index_view: params[:index_view])
-        a.btn href=url title=opts[:title] class=[opts[:class], ('active' if active), ('tool tool-bottom' if opts[:title])]
-          = opts[:label] || opts[:title] || t("admin.scopes.#{name}", default: name.to_s.titleize)
-          - if opts[:badge]
-            - scope = opts[:block] ? opts[:block].call(controller, resource_class) : resource_class.accessible_by(current_ability).send(name)
-            - scope_count = scope.send(*[opts[:badge][:value_type] || :count, opts[:badge][:column]].compact)
+      - button_scopes.each do |s|
+        - next unless option_conditions_met?(s.options)
+        - active = params[s.param_name]
+        - url = url_for(s.param_name => (active ? nil : 1), index_view: params[:index_view])
+        a.btn href=url title=s.options[:title] class=[s.options[:class], ('active' if active), ('tool tool-bottom' if s.options[:title])]
+          = s.options[:label] || s.options[:title] || t("admin.scopes.#{s.name}", default: s.name.to_s.titleize)
+          - if s.options[:badge]
+            - scope = resource_class.accessible_by(current_ability).send(s.name)
+            - scope_count = scope.send(*[s.options[:badge][:value_type] || :count, s.options[:badge][:column]].compact)
             - unless scope_count.zero?
-              span.badge< class=("badge-#{opts.dig(:badge, :type) || 'important'} #{'pulse' if opts.dig(:badge, :pulse)}") = scope_count
+              span.badge< class=("badge-#{s.options.dig(:badge, :type) || 'important'} #{'pulse' if s.options.dig(:badge, :pulse)}") = scope_count
 
   - if settings[:current_index_view] == :table
     .btn-group#columns_hider_wrap

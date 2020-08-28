@@ -1,6 +1,5 @@
 require 'inherited_resources'
 require 'rack-pjax'
-require 'has_scope'
 require 'cancan'
 
 require 'ab_admin/version'
@@ -20,6 +19,7 @@ module AbAdmin
     autoload :Search, 'ab_admin/config/base'
     autoload :Export, 'ab_admin/config/base'
     autoload :Form, 'ab_admin/config/base'
+    autoload :Scope, 'ab_admin/config/base'
     autoload :BaseBuilder, 'ab_admin/config/base'
     autoload :FieldGroup, 'ab_admin/config/base'
     autoload :Field, 'ab_admin/config/base'

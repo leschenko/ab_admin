@@ -10,18 +10,19 @@ class Admin::BaseController < ::InheritedResources::Base
 
   before_action :authenticate_user!, :require_admin_access, :build_settings, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
+  before_action :preflight_batch_action, only: :batch
 
-  class_attribute :export_builder, :batch_action_list, :button_scopes, instance_reader: false, instance_writer: false
+  class_attribute :export_builder, :batch_actions, :button_scopes, instance_reader: true, instance_writer: false
+  self.button_scopes = []
+  self.batch_actions = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
 
   defaults finder: :friendly_find
-
-  has_scope :by_ids, type: :array
 
   helper_method :admin?, :moderator?
 
   attr_reader :settings
   helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
-                :preview_resource_path, :settings, :batch_action_list, :tree_node_renderer,
+                :settings, :batch_actions, :tree_node_renderer,
                 :pjax?, :xhr?, :params_for_links, :resource_list_id, :ransack_collection, :search_collection
 
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
@@ -98,32 +99,23 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def batch
-    raise 'No ids specified for batch action' unless params[:by_ids].present?
-    batch_action = params[:batch_action].to_sym
-    if allow_batch_action?(batch_action) && collection.all?{|item| can?(batch_action, item) }
-      if batch_action.to_s.end_with?('_collection')
-        count = collection.size
-        resource_class.public_send(batch_action, collection, *[params[:batch_params]].compact)
-        if @settings[:history]
-          if Object.const_defined?('ActiveRecord::Import') && Track.respond_to?(:import)
-            tracks = collection.map { |item| track_action("batch_#{batch_action}", item) }
-            Track.import_from_batch_collection_action(tracks)
-          else
-            collection.each { |item| track_action!("batch_#{batch_action}", item) }
-          end
-        end
-      else
-        count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action, *[params[:batch_params]].compact) ? c + 1 : c }
-      end
-      batch_action_name = I18n.t("admin.actions.batch_#{batch_action}.title", default: batch_action.to_s.humanize)
-      flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action_name)
-    else
-      raise CanCan::AccessDenied
-    end
+    batch_action = batch_actions.detect{|a| a.name == params[:batch_action].to_sym }
+    count = collection.inject(0) { |c, item| apply_batch_action(item, batch_action, *params[:batch_params].presence) ? c + 1 : c }
+    flash[:success] = I18n.t('admin.batch_actions.status', count: count, action: batch_action.title)
     redirect_to_back_or_root
   end
 
-  protected
+  private
+
+  def set_layout
+    pjax? ? false : 'admin/application'
+  end
+
+  def preflight_batch_action
+    batch_action = params[:batch_action].to_sym
+    head :unprocessable_entity unless allow_batch_action?(batch_action) && params[:q].try!(:[], :id_in).present?
+    raise CanCan::AccessDenied unless collection.all?{|item| can?(batch_action, item) }
+  end
 
   def build_resource_params
     permitted_params || params[resource_class.model_name.param_key]
@@ -144,18 +136,22 @@ class Admin::BaseController < ::InheritedResources::Base
     options
   end
 
+  def self.batch_action(name, options={}, &block)
+    if options
+      self.batch_actions << AbAdmin::Config::BatchAction.new(name.to_sym, options, &block)
+    else
+      self.batch_actions.reject!{|a| a.name == name.to_sym }
+    end
+  end
+
   def apply_batch_action(item, batch_action, *batch_params)
-    success = item.send(batch_action, *batch_params)
-    track_action!("batch_#{batch_action}", item) if @settings[:history]
+    success = batch_action.data.is_a?(Symbol) ? item.public_send(batch_action.data, *batch_params) : batch_action.data.call(item)
+    track_action!("batch_#{batch_action.name}", item) if settings[:history]
     success
   end
 
   def allow_batch_action?(batch_action)
-    batch_action_list.detect { |a| a.name == batch_action }
-  end
-
-  def redirect_to_back_or_root
-    redirect_back fallback_location: admin_root_path, turbolinks: false
+    batch_actions.detect { |a| a.name == batch_action }
   end
 
   def track_action(key=nil, item=nil)
@@ -164,19 +160,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def track_action!(*args)
     track_action(*args).save!
-  end
-
-  def batch_action_list
-    self.class.batch_action_list ||= begin
-      resource_class.batch_actions.map do |a|
-        opts = a == :destroy ? {confirm: I18n.t('admin.delete_confirmation')} : {}
-        if a.is_a?(Hash)
-          opts.merge!(a.except(:name))
-          a = a[:name]
-        end
-        AbAdmin::Config::BatchAction.new(a, opts)
-      end
-    end
   end
 
   def self.inherited(base)
@@ -209,10 +192,6 @@ class Admin::BaseController < ::InheritedResources::Base
     export_builder.render_options
   end
 
-  def preview_resource_path(item)
-    nil
-  end
-
   def custom_settings
     {}
   end
@@ -227,7 +206,7 @@ class Admin::BaseController < ::InheritedResources::Base
       @settings[:per_page_variants] ||= @settings[:per_page_variants].find_all{|n| n <= @settings[:max_per_page] }
       @settings[:sidebar] = true unless @settings.key?(:sidebar)
       @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
-      @settings[:order] = button_scopes.filter_map{|sc| params[sc.first].present? && sc.last && sc.last[:default_order] }.first || @settings[:default_order] || ('id desc' unless @settings[:current_index_view] == :tree)
+      @settings[:order] = active_scopes.filter_map{|sc| sc.options[:default_order] }.first || @settings[:default_order] || ('id desc' unless @settings[:current_index_view] == :tree)
     end
     @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
   end
@@ -249,19 +228,6 @@ class Admin::BaseController < ::InheritedResources::Base
 
   def collection_action?
     @settings[:collection_actions].include?(action_name)
-  end
-
-  def self.scope(name, options={}, &block)
-    has_scope name, options.without(:badge, :if, :label, :title, :default_order), &block
-    options[:badge] = {} if options[:badge] && !options[:badge].is_a?(Hash)
-    options[:block] = block
-    self.button_scopes ||= []
-    self.button_scopes << [name, options]
-  end
-
-  def button_scopes
-    self.class.button_scopes ||= self.class.scopes_configuration.except(:by_ids).find_all{|_, s| s[:type] == :boolean }
-    self.class.button_scopes.to_h
   end
 
   def add_breadcrumbs
@@ -319,12 +285,20 @@ class Admin::BaseController < ::InheritedResources::Base
     query.reject_blank
   end
 
-  def with_scopes(relation)
-    relation
+  def self.scope(name, options={}, &block)
+    self.button_scopes << ::AbAdmin::Config::Scope.new(name, options, &block)
   end
 
-  def set_layout
-    pjax? ? false : 'admin/application'
+  def active_scopes
+    button_scopes.find_all{|scope| params[scope.name].present? }
+  end
+
+  def with_scopes(relation)
+    active_scopes.inject(relation) { |result, scope| scope.apply(self, result) }
+  end
+
+  def redirect_to_back_or_root
+    redirect_back fallback_location: admin_root_path, turbolinks: false
   end
 
   def back_or_collection
@@ -412,19 +386,9 @@ class Admin::BaseController < ::InheritedResources::Base
     end
   end
 
-  def default_serializer_options
-    if resource_class
-      {root: resource_class.model_name.plural}
-    else
-      {root: false}
-    end
-  end
-
   def resource_list_id
     "list_#{resource_instance_name}_#{resource.id}"
   end
-
-  private
 
   def per_page
     request_per_page = (params[:per_page].presence || cookies[:pp].presence).to_i.nonzero?

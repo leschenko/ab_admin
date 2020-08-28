@@ -32,7 +32,7 @@ module AbAdmin
           I18n.with_locale options[:locale] do
             each_record do |item|
               csv << column_data.map do |column|
-                value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(&column)
+                value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(item, &column)
                 AbAdmin.pretty_data value
               end
             end

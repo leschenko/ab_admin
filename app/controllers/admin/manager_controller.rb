@@ -15,18 +15,14 @@ class ::Admin::ManagerController < ::Admin::BaseController
     instance_exec(&custom_action.data)
   end
 
-  protected
+  private
 
   def button_scopes
-    manager.scopes.map{|scope| [scope.name, scope.options] }
+    manager.scopes
   end
 
-  def with_scopes(relation)
-    scopes_to_apply.inject(relation) { |result, scope| scope.apply(result, params) }
-  end
-
-  def scopes_to_apply
-    manager.scopes.find_all{|scope| params[scope.name].present? }
+  def batch_actions
+    manager.batch_actions
   end
 
   def begin_of_association_chain
@@ -79,21 +75,6 @@ class ::Admin::ManagerController < ::Admin::BaseController
     manager.default_action_items_for(action_name.to_sym, for_resource) + manager.action_items_for(action_name.to_sym)
   end
 
-  def apply_batch_action(item, batch_action, *batch_params)
-    data = manager.batch_action_list.detect{|a| a.name == batch_action }.data
-    success = data.is_a?(Symbol) ? item.public_send(data, batch_params) : data.call(item)
-    track_action!("batch_#{batch_action}", item) if settings[:history]
-    success
-  end
-
-  def allow_batch_action?(batch_action)
-    manager.batch_action_list.detect { |a| a.name == batch_action }
-  end
-
-  def batch_action_list
-    manager.batch_action_list
-  end
-
   def custom_settings
     manager.custom_settings || {}
   end
@@ -137,13 +118,6 @@ class ::Admin::ManagerController < ::Admin::BaseController
     else
       attrs = attrs + AbAdmin.default_permitted_params
       resource_params.permit(*attrs)
-    end
-  end
-
-  def preview_resource_path(item)
-    return unless manager.preview_path && option_conditions_met?(manager.preview_path[:options])
-    I18n.with_locale I18n.default_locale do
-      manager.preview_path[:value].is_a?(Proc) ? instance_exec(item, &manager.preview_path[:value]) : send(manager.preview_path[:value], item)
     end
   end
 

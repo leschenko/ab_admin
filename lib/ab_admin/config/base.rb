@@ -118,7 +118,7 @@ module AbAdmin
     end
 
     class BatchAction
-      attr_reader :name, :options, :data, :title, :form
+      attr_reader :name, :options, :data, :form
 
       def initialize(name, options={}, &block)
         @name = name
@@ -126,8 +126,11 @@ module AbAdmin
         if options.has_key?(:form)
           @form = options[:form].is_a?(String) ? options[:form] : "##{name}_batch_form"
         end
-        @title = options[:title] || I18n.t("admin.actions.batch_#{name}.link", default: name.to_s.humanize)
         @data = block_given? ? block : name.to_sym
+      end
+
+      def title
+        options[:title] || I18n.t("admin.actions.#{name}.title", default: name.to_s.humanize)
       end
 
       def confirm
@@ -176,8 +179,12 @@ module AbAdmin
         @data = block
       end
 
-      def apply(relation, params)
-        data.is_a?(Proc) ? data.call(relation, params) : relation.public_send(name)
+      def param_name
+        options[:as] || name
+      end
+
+      def apply(context, relation)
+        data.is_a?(Proc) ? data.call(context, relation) : relation.public_send(name)
       end
     end
   end

@@ -7,13 +7,13 @@ module AbAdmin
     end
 
     attr_accessor :model, :table, :search, :export, :form, :chart, :map, :modal_form, :show, :preview_path, :actions, :custom_settings,
-                  :batch_action_list, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
+                  :batch_actions, :action_items, :disabled_action_items, :resource_action_items, :tree_node_renderer,
                   :parent_resources, :custom_actions, :permitted_params, :scopes
 
     def initialize
       @actions = ACTIONS
       @custom_settings = {}
-      @batch_action_list = [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
+      @batch_actions= [AbAdmin::Config::BatchAction.new(:destroy, confirm: I18n.t('admin.delete_confirmation'))]
       @action_items = []
       @disabled_action_items = []
       @default_action_items_for = {}
@@ -87,9 +87,9 @@ module AbAdmin
 
       def batch_action(name, options={}, &block)
         if options
-          instance.batch_action_list << AbAdmin::Config::BatchAction.new(name.to_sym, options, &block)
+          instance.batch_actions << AbAdmin::Config::BatchAction.new(name.to_sym, options, &block)
         else
-          instance.batch_action_list.reject!{|a| a.name == name.to_sym }
+          instance.batch_actions.reject!{|a| a.name == name.to_sym }
         end
       end
 

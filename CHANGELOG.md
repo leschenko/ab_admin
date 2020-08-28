@@ -1,4 +1,9 @@
 * backwards incompatible changes
+  * removed `call_method_or_proc_on`, use `method_or_proc_on` instead
+  * removed collection batch action as rarely used
+
+### 0.9.0
+* backwards incompatible changes
   * removed fancybox, JCrop without replacement
   * removed `:crop` option from uploader
   * removed `globalize` gem

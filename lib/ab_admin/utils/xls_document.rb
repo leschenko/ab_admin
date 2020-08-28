@@ -56,7 +56,7 @@ module AbAdmin
             row = index + 1
 
             column_data.each_with_index do |column, num|
-              value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(&column)
+              value = column.is_a?(Symbol) ? item.public_send(column) : context.instance_exec(item, &column)
 
               case value
                 when Date

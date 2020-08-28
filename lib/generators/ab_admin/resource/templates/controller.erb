@@ -5,13 +5,6 @@ class Admin::<%= controller_class_name %>Controller < Admin::BaseController
 <% end -%>
   load_and_authorize_resource
 
-<% if model.respond_to?(:visible) -%>
-  has_scope :visible
-<% end -%>
-<% if model.respond_to?(:un_visible) -%>
-  has_scope :un_visible
-<% end -%>
-
 <% if model.respond_to?(:acts_as_nested_set_options) -%>
   protected
 

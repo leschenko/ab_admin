@@ -18,22 +18,13 @@ en:
     actions:
       activate:
         link: Activate
-      batch_destroy:
-        confirmation: Are you sure you want to delete the selected records?
-        link: Delete selected
-        title: Multi-remove
-      batch_publish:
-        link: Publish selected
-        title: Multi-publish
-      batch_un_publish:
-        link: Unpublish selected
-        title: Multi-hiding
       create:
         link: Create
         title: Creation
       destroy:
-        link: Remove
-        title: Removal
+        link: Destroy
+        title: Destroy
+        confirmation: Are you sure you want to delete the selected records?
       edit:
         link: Edit
         title: Editing
@@ -94,7 +85,7 @@ en:
     comments:
       add: Comment
       title_content: Comments (%{count})
-    delete: Remove
+    delete: Destroy
     delete_confirmation: Are you sure you want to delete this?
     empty: Empty
     exit: Output

@@ -44,7 +44,7 @@ module AbAdmin
           lookups << ['actions', key]
         end
         lookups.map!{|l| l.join('.').to_sym }
-        lookups << key
+        lookups << parts.last.humanize
 
         I18n.t(lookups.shift, (parameters.merge(params) || {}).merge(scope: :admin, default: lookups))
       end

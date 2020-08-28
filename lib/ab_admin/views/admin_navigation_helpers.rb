@@ -63,7 +63,7 @@ module AbAdmin
       end
 
       def collection_params
-        params.slice(:index_view, :view_options, *button_scopes.map(&:first)).permit!.to_h.symbolize_keys
+        params.slice(:index_view, :view_options, *button_scopes.map(&:name)).permit!.to_h.symbolize_keys
       end
 
       def short_action_link(action, item)
@@ -80,9 +80,7 @@ module AbAdmin
                               class: 'btn btn-info', title: t('admin.actions.show.link')
           when :preview
             preview_path = preview_resource_path(item)
-            if preview_path
-              link_to icon('eye-open', true), preview_path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
-            end
+            link_to(icon('eye-open', true), preview_path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank') if preview_path
           when :history
             item_link_to_can? :history, item, icon('book', true), history_resource_path(item),
                               class: 'btn btn-info', title: t('admin.actions.history.link')
@@ -111,9 +109,8 @@ module AbAdmin
           when :show
             link_to_can? :show, t('admin.actions.show.link'), resource_path, class: 'btn btn-info'
           when :preview
-            if path = preview_resource_path(resource)
-              link_to t('admin.actions.preview.link'), path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank'
-            end
+            preview_path = preview_resource_path(resource)
+            link_to(t('admin.actions.preview.link'), preview_path, class: 'btn btn-inverse', title: t('admin.actions.preview.link'), target: '_blank') if preview_path
           when :history
             link_to_can? :history, t('admin.actions.history.link'), history_resource_path, class: 'btn btn-info'
           when AbAdmin::Config::ActionItem
@@ -127,6 +124,11 @@ module AbAdmin
               send(resource_action_link_method, action)
             end
         end
+      end
+
+      def preview_resource_path(item)
+        return unless controller_name == 'manager' && manager.preview_path && option_conditions_met?(manager.preview_path[:options])
+        manager.preview_path[:value].is_a?(Symbol) ? public_send(manager.preview_path[:value], item) : instance_exec(item, &manager.preview_path[:value])
       end
 
       def link_to_can?(act, *args, &block)
@@ -208,7 +210,7 @@ module AbAdmin
       def batch_action_item(item)
         if settings[:batch]
           content_tag :td do
-            check_box_tag 'by_ids[]', item.id, false, id: "batch_action_item_#{item.id}", class: 'batch_check'
+            check_box_tag 'q[id_in][]', item.id, false, id: "batch_action_item_#{item.id}", class: 'batch_check'
           end
         end
       end
