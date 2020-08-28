@@ -4,5 +4,4 @@
   - show_builder.fields.each do |field|
     tr
       td= ha(field.name)
-      - data = field.data.is_a?(Symbol) ? resource.public_send(field.data) : field.data.call(resource)
-      td= admin_pretty_data data
+      td= admin_pretty_data method_or_proc_on(field.data, resource)
