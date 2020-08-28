@@ -2,15 +2,15 @@ require 'spec_helper'
 
 RSpec.describe User, type: :model do
   describe 'associations' do
-    it { should have_one(:avatar) }
+    it { is_expected.to have_one(:avatar) }
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:email) }
-    it { should_not allow_value('blah').for(:email) }
-    it { should allow_value('a@b.com').for(:email) }
-    it { should_not allow_value('123').for(:password) }
-    it { should allow_value('123456').for(:password) }
+    it { is_expected.to validate_presence_of(:email) }
+    it { is_expected.not_to allow_value('blah').for(:email) }
+    it { is_expected.to allow_value('a@b.com').for(:email) }
+    it { is_expected.not_to allow_value('123').for(:password) }
+    it { is_expected.to allow_value('123456').for(:password) }
   end
 
   context 'after create' do

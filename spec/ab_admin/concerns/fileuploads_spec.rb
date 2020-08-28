@@ -47,7 +47,7 @@ RSpec.describe AbAdmin::Concerns::Fileuploads do
     end
 
     it 'return fileuploads columns' do
-      @structure.fileuploads_columns.should include(:picture)
+      expect(@structure.fileuploads_columns).to include(:picture)
     end
   end
 end

@@ -4,13 +4,13 @@ RSpec.describe Structure, type: :model do
   it_should_behave_like 'headerable'
   it_should_behave_like 'nested_set'
 
-  it { should respond_to(:structure_type) }
-  it { should respond_to(:position_type) }
-  it { should respond_to(:simple_slug_options) }
+  it { is_expected.to respond_to(:structure_type) }
+  it { is_expected.to respond_to(:position_type) }
+  it { is_expected.to respond_to(:simple_slug_options) }
 
   describe 'associations' do
-    it { should have_many(:visible_children).class_name('Structure') }
-    it { should have_one(:static_page) }
+    it { is_expected.to have_many(:visible_children).class_name('Structure') }
+    it { is_expected.to have_one(:static_page) }
   end
 
   describe 'validations' do
