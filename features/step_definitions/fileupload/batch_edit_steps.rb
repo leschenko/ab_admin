@@ -8,7 +8,7 @@ When(/^I click image batch edit button$/) do
 end
 
 Then(/^I should see edit image meta form$/) do
-  page.should have_selector('form.fileupload-edit-form input[placeholder="Alt"]')
+  expect(page).to have_selector('form.fileupload-edit-form input[placeholder="Alt"]')
 end
 
 When(/^I fill in image meta$/) do
@@ -27,6 +27,6 @@ end
 
 Then(/^image should store meta$/) do
   image = @me.reload.avatar
-  image.alt.should == 'Alt text'
-  image.name.should == 'Title text'
+  expect(image.alt).to eq 'Alt text'
+  expect(image.name).to eq 'Title text'
 end

@@ -48,6 +48,6 @@ Feature: Admin comments
       """
     And comment "Hello" exists
     And I am on the edit admin product page
-    When I click "Remove" within "#admin_comments"
+    When I click "Destroy" within "#admin_comments"
     Then I should not see "Hello"
 

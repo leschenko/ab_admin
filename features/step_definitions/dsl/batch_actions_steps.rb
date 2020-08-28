@@ -9,7 +9,7 @@ When 'I check {int} products in the list' do |n|
 end
 
 Then /^I should see confirmation dialog$/ do
-  page.should have_selector('.bootbox.modal.fade.in')
+  expect(page).to have_selector('.bootbox.modal.fade.in')
 end
 
 When /^I choose batch action "(.*?)"$/ do |action|
@@ -18,9 +18,9 @@ When /^I choose batch action "(.*?)"$/ do |action|
 end
 
 Then 'I should see {int} item in the list' do |n|
-  all('#list tbody tr').count.should == n.to_i
+  expect(all('#list tbody tr').count).to eq n.to_i
 end
 
 Then 'I should see {int} published item in the list' do |n|
-  all('#list .badge-success').count.should == n.to_i
+  expect(all('#list .badge-success').count).to eq n.to_i
 end

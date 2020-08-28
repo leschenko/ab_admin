@@ -4,5 +4,5 @@ Given /^i18n key "(.*?)" with value "(.*?)"$/ do |keys, value|
 end
 
 When /^i18n key "(.*?)" should have "(.*?)" value$/ do |key, value|
-  I18n.t(key).should == value
+  expect(I18n.t(key)).to eq value
 end

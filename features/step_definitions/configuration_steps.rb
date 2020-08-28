@@ -50,7 +50,7 @@ end
 
 Given /^"([^"]*)" should contain:$/ do |filename, contents|
   filepath = Rails.root + filename
-  File.read(filepath).strip.should == contents.strip
+  expect(File.read(filepath).strip).to eq contents.strip
 end
 
 Given /^"([^"]*)" contains:$/ do |filename, contents|
@@ -90,5 +90,5 @@ end
 Given /^I should not see routing error on (.+)$/ do |page_name|
   expect {
     visit path_to(page_name)
-  }.to_not raise_error(ActionController::RoutingError)
+  }.not_to raise_error(ActionController::RoutingError)
 end

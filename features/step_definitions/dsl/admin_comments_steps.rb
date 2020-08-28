@@ -1,7 +1,7 @@
 Then /^I should see "(.*?)" comment with author$/ do |comment|
   within('#admin_comments') do
-    page.should have_content(comment)
-    page.should have_content(@me.name)
+    expect(page).to have_content(comment)
+    expect(page).to have_content(@me.name)
   end
 end
 
@@ -21,8 +21,8 @@ end
 
 Then(/^I should see "(.*?)" comment with attachment$/) do |comment|
   within '#admin_comments' do
-    page.should have_content(comment)
-    page.should have_css('.admin_comment-item-attachment')
+    expect(page).to have_content(comment)
+    expect(page).to have_css('.admin_comment-item-attachment')
   end
 end
 

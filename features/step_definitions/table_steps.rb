@@ -6,14 +6,14 @@ end
 
 Then /^I should see list of users$/ do
   User.all.each do |user|
-    page.should have_content(user.email)
+    expect(page).to have_content(user.email)
   end
 end
 
 Then /^I see search form with "(.*?)" filter$/ do |filter|
-  within '#search_form' do
-    page.should have_field(filter)
-  end
+  expect(page).to have_field(filter)
+  # within '#search_form' do
+  # end
 end
 
 Given /^I see search form with "(.*?)" filters$/ do |filters|

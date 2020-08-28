@@ -22,11 +22,11 @@ Feature: Actions items
 
     When I am on the edit admin product page
     Then I should see action items:
-      | Create | Review | Remove |
+      | Create | Review | Destroy |
 
     When I am on the the admin product page
     Then I should see action items:
-      | Create | Edit | Remove |
+      | Create | Edit | Destroy |
 
   Scenario: Preview action item
     Given a configuration of:
@@ -76,4 +76,4 @@ Feature: Actions items
       end
       """
     When I am on the the admin product page
-    Then I should not see an action item to "Remove"
+    Then I should not see an action item to "Destroy"

@@ -4,5 +4,5 @@ Given 'collection {string} with {int} products' do |collection, num|
 end
 
 Then 'I should see {int} products' do |num|
-  all('#list tbody tr').count.should == num
+  expect(all('#list tbody tr').count).to eq num
 end

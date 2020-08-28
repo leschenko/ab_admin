@@ -32,14 +32,14 @@ Feature: Resource history tracking
     When I destroy product
     Then Resource should have track with attributes:
       | key              | action_title | user  | owner |
-      | products.destroy | Removal      | admin | admin |
+      | products.destroy | Destroy      | admin | admin |
 
   Scenario: Track resource batch action
     Given a product with sku "table"
     When I batch un_publish product
     Then Resource should have track with attributes:
-      | key                       | action_title | user  | owner |
-      | products.batch_un_publish | Multi-hiding | admin | admin |
+      | key                       | action_title     | user  | owner |
+      | products.batch_un_publish | Batch un publish | admin | admin |
 
 
 

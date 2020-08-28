@@ -19,53 +19,52 @@ end
 ### THEN ###
 Then /^I should be redirected to (.+)$/ do |page|
   patiently do
-    current_path.should == path_to(page_name)
+    expect(current_path).to eq path_to(page_name)
   end
 end
 
 Then /^(?:|I )should see "([^"]*)"$/ do |text|
-  page.should have_content(text)
+  expect(page).to have_content(text)
 end
 
 Then /^(?:|I )should not see "([^"]*)"$/ do |text|
-  page.should have_no_content(text)
+  expect(page).to have_no_content(text)
 end
 
 Then /^(?:|I )should see \/([^\/]*)\/([imxo])?$/ do |regexp,flags|
   regexp_opts = [regexp,flags].compact
   regexp = Regexp.new(*regexp_opts)
 
-  page.should have_xpath('//*', text: regexp)
+  expect(page).to have_xpath('//*', text: regexp)
 end
 
 Then /^(?:|I )should not see \/([^\/]*)\/([imxo])?$/ do |regexp,flags|
   regexp_opts = [regexp,flags].compact
   regexp = Regexp.new(*regexp_opts)
 
-  page.should have_no_xpath('//*', text: regexp)
+  expect(page).to have_no_xpath('//*', text: regexp)
 end
 
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   sleep 0.3
-  current_path.should == path_to(page_name)
+  expect(current_path).to eq path_to(page_name)
 end
 
 Then /^I should see {int} elements? kind of (.+)$/ do |count, locator|
   actual_count = all(selector_for(locator)).count
   count = count.to_i
-
-  actual_count.should eq(count)
+  expect(actual_count).to eq count
 end
 
 Then /^I should not see elements? kind of (.+)$/ do |locator|
-  page.should_not have_css(selector_for(locator))
+  expect(page).not_to have_css(selector_for(locator))
 end
 
 def have_ordered_list(lines)
   lines = lines.collect { |line| line.to_s.gsub(/\s+/, ' ') }.collect(&:strip).reject(&:blank?)
   pattern = lines.collect(&Regexp.method(:quote)).join('.*?')
   pattern = Regexp.compile(pattern)
-  page.find('body').text.gsub(/\s+/, ' ').should =~ pattern
+  expect(page.find('body').text.gsub(/\s+/, ' ')).to match pattern
 end
 
 # Checks that these strings are rendered in the given order in a single line or in multiple lines
@@ -88,11 +87,11 @@ Then /^I should see in this order:?$/ do |text|
 end
 
 Then /^I should see an error$/ do
-  (400 .. 599).should include(page.status_code)
+  expect(400 .. 599).to include(page.status_code)
 end
 
 Then /^I should not see an error$/ do
-  (200..399).should include(page.status_code)
+  expect(200..399).to include(page.status_code)
 end
 
 When /^I reload the page$/ do

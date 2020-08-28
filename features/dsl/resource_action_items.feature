@@ -13,7 +13,7 @@ Feature: Resource action items
       """
     When I am on the admin products page
     Then I should see resource action items:
-      | Edit | Review | Remove |
+      | Edit | Review | Destroy |
 
   Scenario: Define list of resource action items
     Given a configuration of:
@@ -25,7 +25,7 @@ Feature: Resource action items
     When I am on the admin products page
     Then I should see resource action items:
       | Edit | Review |
-    And I should not see resource action item "Remove"
+    And I should not see resource action item "Destroy"
 
   Scenario: Custom resource action item
     Given a configuration of:

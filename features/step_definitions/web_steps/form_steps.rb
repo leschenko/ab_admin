@@ -77,7 +77,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should contain "([^"]*)"$/ do |field
     field = find_field(field)
     field_value = field.value
 
-    field_value.should =~ /#{value}/
+    expect(field_value).to match /#{value}/
   end
 end
 
@@ -86,7 +86,7 @@ Then /^the "([^"]*)" field(?: within (.*))? should not contain "([^"]*)"$/ do |f
     field = find_field(field)
     field_value = field.value
 
-    field_value.should_not =~ /#{value}/
+    expect(field_value).to match /#{value}/
   end
 end
 
@@ -94,7 +94,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should be checked$/ do |label, pa
   with_scope(parent) do
     field_checked = find_field(label)['checked']
 
-    field_checked.should be_truthy
+    expect(field_checked).to be_truthy
   end
 end
 
@@ -102,7 +102,7 @@ Then /^the "([^"]*)" checkbox(?: within (.*))? should not be checked$/ do |label
   with_scope(parent) do
     field_checked = find_field(label)['checked']
 
-    field_checked.should be_falsey
+    expect(field_checked).to be_falsey
   end
 end
 
@@ -124,7 +124,7 @@ Then /^the select "([^"]*)" should have following options:$/ do |field, options|
 
   actual_options = find_field(field).all('option').map { |option| option.text }
 
-  options.should eq(actual_options)
+  expect(options).to eq(actual_options)
 end
 
 When /^(?:I|i) select following values from "([^"]*)":$/ do |field, values|
@@ -166,7 +166,7 @@ Then /^the following values should be selected in "([^"]*)":$/ do |select_box, v
     raise 'this is not multiple select box!'
   else
     values.each do |value|
-	    select_box.value.should include(value)
+      expect(select_box.value).to include(value)
     end
   end
 end
@@ -184,7 +184,7 @@ Then /^the following values should not be selected in "([^"]*)":$/ do |select_bo
     raise 'this is not multiple select box!'
   else
     values.each do |value|
-	    select_box.value.should_not include(value)
+      expect(select_box.value).not_to include(value)
     end
   end
 end

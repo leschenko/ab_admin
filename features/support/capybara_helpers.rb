@@ -1,6 +1,6 @@
 module CapybaraHelpers
   def pause
-    STDIN.getc
+    STDIN.gets
   end
 
   def mini_sleep
