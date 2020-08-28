@@ -7,7 +7,6 @@ gem 'rails-i18n'
 gem 'slim'
 
 gem 'inherited_resources'
-gem 'has_scope'
 gem 'rack-pjax'
 
 gem 'devise'
