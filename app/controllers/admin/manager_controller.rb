@@ -1,8 +1,6 @@
 class ::Admin::ManagerController < ::Admin::BaseController
   include AbAdmin::Controllers::Tree
 
-  prepend_before_action :manager
-
   load_and_authorize_resource
 
   helper_method :manager, :admin_partial_name, :history_resource_path, :fetch_admin_template
@@ -87,13 +85,11 @@ class ::Admin::ManagerController < ::Admin::BaseController
     @manager ||= begin
       manager_class_name = "AbAdmin#{resource_class.name}"
       manager_instance = manager_class_name.constantize.instance
-      unless manager_instance.allow_action?(action_name)
-        raise ActionController::RoutingError.new("AbAdmin action #{action_name} for #{resource_class.name} not found")
-      end
+      raise ActionController::RoutingError.new("AbAdmin action #{action_name} not found") unless manager_instance.allow_action?(action_name)
       manager_instance
     rescue NameError => e
-      if e.message.include?(manager_class_name)
-        raise ActionController::RoutingError.new("AbAdmin manager_model for #{resource_class.name} not found (#{e.message})")
+      if e.message.include?("uninitialized constant #{manager_class_name}")
+        raise ActionController::RoutingError.new("AbAdmin manager for #{resource_class.name} not found (#{e.message})")
       else
         raise
       end
@@ -101,11 +97,15 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def resource_class
-    raise ActionController::RoutingError.new('AbAdmin access denied') unless current_user
     @model ||= begin
-      params[:model_name].classify.constantize
-    rescue NameError => e
-      raise ActionController::RoutingError.new("AbAdmin model #{params[:model_name]} not found (#{e.message})")
+      model_name = params[:model_name].classify
+      model_name.constantize
+      rescue NameError => e
+        if e.message.include?("uninitialized constant #{model_name}")
+          raise ActionController::RoutingError.new("AbAdmin model #{model_name} not found (#{e.message})")
+        else
+          raise
+        end
     end
   end
 
@@ -122,10 +122,7 @@ class ::Admin::ManagerController < ::Admin::BaseController
   end
 
   def admin_partial_name(builder)
-    builder.partial ||= begin
-      #if template_exists?(builder.partial_name, "admin/#{resource_collection_name}", true)
-      fetch_admin_template(builder.partial_name, true)
-    end
+    builder.partial ||= fetch_admin_template(builder.partial_name, true)
   end
 
   def fetch_admin_template(template_name, partial=false)
