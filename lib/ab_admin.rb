@@ -150,6 +150,9 @@ module AbAdmin
   mattr_accessor :devise_layout
   @@devise_layout = 'admin/devise'
 
+  mattr_accessor :render_unauthorized
+  @@render_unauthorized = true
+
   mattr_accessor :image_types
   @@image_types = %w(image/jpeg image/png image/gif image/jpg image/pjpeg image/tiff image/x-png)
 
