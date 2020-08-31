@@ -1,29 +1,23 @@
 class Admin::BaseController < ::InheritedResources::Base
-  use Rack::Pjax, only: :index
-
-  layout :set_layout
-
   include AbAdmin::Controllers::Fv
   include AbAdmin::Controllers::Callbacks
 
-  define_admin_callbacks :save, :create
+  class_attribute :export_builder, :batch_actions, :button_scopes, instance_reader: true, instance_writer: false
+  attr_reader :settings
 
-  before_action :authenticate_user!, :require_admin_access, :build_settings, :set_user_vars
+  before_action :authenticate_user!, :require_admin_access, :manager, :build_settings, :set_user_vars
   before_action :add_breadcrumbs, :set_title, unless: :xhr?
   before_action :preflight_batch_action, only: :batch
 
-  class_attribute :export_builder, :batch_actions, :button_scopes, instance_reader: true, instance_writer: false
-
-  defaults finder: :friendly_find
-
-  helper_method :admin?, :moderator?
-
-  attr_reader :settings
-  helper_method :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
+  helper_method :admin?, :moderator?, :button_scopes, :collection_action?, :action_items, :resource_action_items, :query_params,
                 :settings, :batch_actions, :tree_node_renderer,
                 :pjax?, :xhr?, :params_for_links, :resource_list_id, :ransack_collection, :search_collection
 
+  define_admin_callbacks :save, :create
+  use Rack::Pjax, only: :index
+  defaults finder: :friendly_find
   rescue_from ::CanCan::AccessDenied, with: :render_unauthorized
+  layout :set_layout
 
   def index
     super do |format|
@@ -104,6 +98,9 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   private
+
+  def manager
+  end
 
   def set_layout
     pjax? ? false : 'admin/application'
@@ -363,7 +360,7 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def require_admin_access
-    raise CanCan::AccessDenied unless current_user.admin_access?
+    raise CanCan::AccessDenied unless current_user&.admin_access?
   end
 
   def bind_current_user(*)
@@ -374,15 +371,28 @@ class Admin::BaseController < ::InheritedResources::Base
     resource.updater_id = current_user.id if !@settings[:skip_bind_current_updater] && resource.respond_to?(:updater_id)
   end
 
-  def render_unauthorized(exception)
-    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}, user: #{current_user.try(:id)}"
+  def authenticate_user!
+    Rails.logger.debug "Redirect unauthorized user"
+    super
+  end
 
+  def render_unauthorized(exception)
+    Rails.logger.debug "Access denied on #{exception.action} #{exception.subject.inspect}, user: #{current_user&.id}"
+    render_not_found and return unless AbAdmin.render_unauthorized
     if pjax?
       render partial: 'admin/shared/flash', locals: {flash: {alert: exception.message}}
     elsif request.format.try(:html?)
       redirect_to (current_user.try(:admin_access?) ? admin_root_path : root_path), alert: exception.message
     else
       head :unauthorized
+    end
+  end
+
+  def render_not_found
+    if request.format.try(:html?)
+      render file: Rails.root.join('public/404.html'), layout: false, status: :not_found
+    else
+      head :not_found
     end
   end
 
