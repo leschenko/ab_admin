@@ -127,7 +127,7 @@ module AbAdmin
       end
 
       def preview_resource_path(item)
-        return unless controller_name == 'manager' && manager.preview_path && option_conditions_met?(manager.preview_path[:options])
+        return unless controller_name == 'manager' && manager.preview_path && option_conditions_met?(manager.preview_path[:options], item)
         manager.preview_path[:value].is_a?(Symbol) ? public_send(manager.preview_path[:value], item) : instance_exec(item, &manager.preview_path[:value])
       end
 

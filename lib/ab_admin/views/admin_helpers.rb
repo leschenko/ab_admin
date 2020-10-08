@@ -196,11 +196,11 @@ module AbAdmin
         AbAdmin.site_name.is_a?(String) ? AbAdmin.site_name : AbAdmin.site_name.call
       end
 
-      def option_conditions_met?(options)
+      def option_conditions_met?(options, object=nil)
         return true unless options
         condition = options[:if] || options[:unless]
         return true unless condition
-        options[:if] ? method_or_proc_on(condition) : !method_or_proc_on(condition)
+        options[:if] ? method_or_proc_on(condition, object) : !method_or_proc_on(condition, object)
       end
 
       def method_or_proc_on(symbol_or_proc, object=nil)
