@@ -58,3 +58,9 @@
             = search_collection.distinct(false).sum(ag[:column]).try!(:round, 2)
           - elsif ag[:type] == :average
             = search_collection.average(ag[:column]).try!(:round, 2)
+          - elsif ag[:type] == :pct
+            - sc_count = search_collection.count
+            - if sc_count.zero?
+              | 0%
+            - else
+              = "#{(search_collection.where.not(ag[:column] => nil).count.to_f / search_collection.count * 100).try!(:round, 2)}%"
