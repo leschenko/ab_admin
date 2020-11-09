@@ -202,7 +202,7 @@ class Admin::BaseController < ::InheritedResources::Base
       @settings[:per_page] ||= per_page
       @settings[:per_page_variants] ||= @settings[:per_page_variants].find_all{|n| n <= @settings[:max_per_page] }
       @settings[:sidebar] = true unless @settings.key?(:sidebar)
-      @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view])
+      @settings[:pagination] = @settings[:pagination_index_views].include?(@settings[:current_index_view]) unless @settings.key?(:pagination)
       @settings[:order] = active_scopes.filter_map{|sc| sc.options[:default_order] }.first || @settings[:default_order] || ('id desc' unless @settings[:current_index_view] == :tree)
     end
     @settings[:well] = (collection_action? || %w(show history).include?(action_name)) && @settings[:current_index_view] != :tree unless @settings.key?(:well)
