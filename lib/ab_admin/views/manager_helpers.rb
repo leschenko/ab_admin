@@ -17,6 +17,10 @@ module AbAdmin
         manager.chart ||= ::AbAdmin::Config::Chart.default_for_model(resource_class)
       end
 
+      def stats_builder
+        manager.stats ||= ::AbAdmin::Config::Stats.default_for_model(resource_class)
+      end
+
       def map_builder
         manager.map ||= ::AbAdmin::Config::Map.default_for_model(resource_class)
       end

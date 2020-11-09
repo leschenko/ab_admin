@@ -42,6 +42,10 @@ module AbAdmin
       self.partial_name = 'chart'
     end
 
+    class Stats < BaseBuilder
+      self.partial_name = 'stats'
+    end
+
     class Map < BaseBuilder
       self.partial_name = 'map'
     end
