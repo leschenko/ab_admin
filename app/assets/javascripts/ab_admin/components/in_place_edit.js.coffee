@@ -6,7 +6,10 @@ EditableForm.prototype.saveWithUrlHook = (value) ->
       originalUrl.call(@options.scope, params)
     else
       params[@options.model] ||= {}
-      params[@options.model][params.name] = params.value
+      if _.isString(params.value) && params.value.match(/@\d+/)
+        params[@options.model][params.name] = params.value.replace('@', '')
+      else
+        params[@options.model][params.name] = params.value
       params._method = 'PATCH'
       ajax_opts =
         url: originalUrl
