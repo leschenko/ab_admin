@@ -26,7 +26,6 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'will_paginate'
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.1.24'
-gem 'select2-rails', '~> 3.5.9.3'
 gem 'jquery-fileupload-rails'
 gem 'i18n-js'
 

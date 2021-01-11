@@ -17,7 +17,7 @@
 //= require moment.min
 //= require ab_admin/bootstrap-editable
 //= require ab_admin/bootbox.min
-//= require select2
+//= require select2_3_5_2/select2
 //= require ab_admin/jquery-ui-1.10.3.custom.min
 //= require jquery.ui.nestedSortable
 //= require clipboard.min
