@@ -29,6 +29,7 @@ $ ->
 
   $(document).on 'admin:list_init', ->
     initPopover()
+    initInPlaceEditable()
 
   $(document).on 'admin:form_init', 'form', ->
     initEditor()

@@ -22,7 +22,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
 
   #settings default_order: true, history: true
   settings history: {sidebar: true}#, comments: {list: true}
-  settings history: {sidebar: true}, comments: true
+  settings history: {sidebar: true}, comments: true, list_edit: true
 
   belongs_to :collection
 
@@ -42,7 +42,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   table do
     field :sku, default_order: true
     field(:picture) { |item| item_image_link(item) }
-    field :name, default_order: {default_order: :id, default_order: 'desc'}
+    field :name, default_order: {default_order: :id, default_order: 'desc'}, editable: true
     field :is_visible
     field :collection
     field :created_at
