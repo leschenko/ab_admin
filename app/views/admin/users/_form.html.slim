@@ -18,8 +18,8 @@
     = f.input :locale, collection: AbAdmin.translated_locales
     = f.input :bg_color, as: :color
 
-    = f.input :password, input_html: {autocomplete: 'off'}
-    = f.input :password_confirmation, input_html: {autocomplete: 'off'}
+    = f.input :password, input_html: {autocomplete: 'new-password'}
+    = f.input :password_confirmation, input_html: {autocomplete: 'new-password'}
 
   = f.input :avatar, as: :uploader, edit_meta: true
 
