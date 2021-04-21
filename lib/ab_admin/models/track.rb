@@ -46,7 +46,7 @@ module AbAdmin
         lookups.map!{|l| l.join('.').to_sym }
         lookups << parts.last.humanize
 
-        I18n.t(lookups.shift, (parameters.merge(params) || {}).merge(scope: :admin, default: lookups))
+        I18n.t(lookups.shift, **(parameters.merge(params) || {}).merge(scope: :admin, default: lookups))
       end
 
       def trackable_changed_attrs
