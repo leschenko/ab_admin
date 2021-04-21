@@ -20,7 +20,7 @@ class PictureUploader < AbAdmin::CarrierWave::BaseUploader
   #   process convert_to_webp: [{quality: 80, method: 5, resize_w: 800, resize_h: 800}]
   # end
 
-  def extension_whitelist
+  def extension_allowlist
     %w(jpg jpeg gif png)
   end
 end
