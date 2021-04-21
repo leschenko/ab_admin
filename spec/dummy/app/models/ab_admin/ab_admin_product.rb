@@ -34,10 +34,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   end
 
   scope :un_visible
-
-  scope :visible do |scope|
-    scope.visible
-  end
+  scope :visible
 
   table do
     field :sku, default_order: true
