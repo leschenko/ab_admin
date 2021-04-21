@@ -13,10 +13,6 @@ module AbAdmin
       class_option :skip_table, type: :boolean, default: false, description: 'Don\'t create table template'
       class_option :skip_search_form, type: :boolean, default: false, description: 'Don\'t create search_form template'
 
-      hook_for :helper, in: :rails do |instance, helper|
-        instance.invoke helper, ["admin/#{instance.send(:plural_name)}"]
-      end
-
       def create_controller_files
         template 'controller.erb', File.join('app/controllers/admin', "#{controller_file_name}_controller.rb")
       end

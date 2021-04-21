@@ -30,7 +30,6 @@ RSpec.describe AbAdmin::Generators::ResourceGenerator do
                 /table/, /collection\.each/, /batch_action_item/, /td/, /item_index_actions/
     assert_file 'app/views/admin/headers/_search_form.html.slim',
                 /f\.input :title/, /f\.input :created_at/
-    assert_file 'app/helpers/admin/headers_helper.rb', /Admin::HeadersHelper/
   end
 
 end
