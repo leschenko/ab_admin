@@ -5,7 +5,7 @@
     div
       = f.submit t('admin.search.submit'), class: 'btn btn-success search-submit'
       button.js-search-cancel.btn.search-cancel= icon('remove')
-  = render 'search_form', f: f
+  = render settings[:search_form_name] || 'search_form', f: f
   div
     = f.submit t('admin.search.submit'), class: 'btn btn-success search-submit'
     button.js-search-cancel.btn.search-cancel= icon('remove')
