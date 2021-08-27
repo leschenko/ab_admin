@@ -277,9 +277,12 @@ class Admin::BaseController < ::InheritedResources::Base
   end
 
   def query_params
-    query = params[:q].try! {|q| q.permit!.to_h} || {}
-    query[:s] ||= @settings[:order]
-    query.reject_blank
+    @query_params ||= begin
+      query = params[:q].try! {|q| q.permit!.to_h} || {}
+      query[:s] ||= @settings[:order]
+      query.reverse_merge!(@settings[:default_q].to_h{ [_1.to_s, _2.to_s] }) if @settings[:default_q] && !params[:q]
+      query.reject_blank
+    end
   end
 
   def self.scope(name, options={}, &block)
