@@ -94,7 +94,7 @@ module AbAdmin
           opts = [['=', 'eq'], ['>', 'gt'], ['<', 'lt']].map { |m| [m[0], "#{attr}_#{m[1]}"] }
           current_filter = (opts.detect { |m| query_params[m[1]].present? } || opts.first)[1]
           select_tag('', options_for_select(opts, current_filter), class: 'input-small predicate-select') +
-          text_field_tag("q[#{current_filter}]", query_params[current_filter], class: 'input-small', type: :number)
+          text_field_tag("q[#{current_filter}]", query_params[current_filter], class: 'input-small', type: :number, step: 0.01)
         end
       end
 
