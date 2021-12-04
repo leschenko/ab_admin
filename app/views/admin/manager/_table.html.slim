@@ -19,7 +19,7 @@
     tbody
       - is_edit_link = manager.actions.include?(:edit)
       - collection.each do |item|
-        tr id=dom_id(item, 'list') class=method_or_proc_on(table_builder.options[:row_class], item)
+        tr id=dom_id(item, 'list') class=method_or_proc_on(table_builder.row_html_class, item)
           = batch_action_item(item)
           td
             = id_link(item, edit: is_edit_link)
@@ -27,7 +27,7 @@
               div: i= l(item.created_at, format: AbAdmin.time_format)
           = item_index_actions_panel(item)
           - table_builder.fields.each do |field|
-            td class=(field.options[:cell_class] if field.options[:cell_class])
+            td class=field.options[:cell_html_class]
               - field_content = table_item_field(item, field)
               - if field_content.present? && field.options[:copy_button]
                 - field_id = dom_id(item, field.name)

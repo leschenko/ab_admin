@@ -1,6 +1,8 @@
 * backwards incompatible changes
   * removed `call_method_or_proc_on`, use `method_or_proc_on` instead
   * removed collection batch action as rarely used
+  * rename table builder option `row_class` to `row_html_class`
+  * rename table builder option `cell_class` to `cell_html_class`
 
 ### 0.9.0
 * backwards incompatible changes

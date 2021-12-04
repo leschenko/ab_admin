@@ -32,6 +32,11 @@ module AbAdmin
 
     class Table < BaseBuilder
       self.partial_name = 'table'
+
+      def row_html_class
+        return :row_html_class if options[:row_html_class].is_a?(TrueClass)
+        options[:row_html_class]
+      end
     end
 
     class Search < BaseBuilder
