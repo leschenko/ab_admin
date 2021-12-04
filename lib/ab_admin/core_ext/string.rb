@@ -1,11 +1,6 @@
 class String
   def no_html
-    str = self.dup
-    str.gsub!(/<br\/?>/, ' ')
-    str.gsub!(/<\/?[^>]*>/, '')
-    str.strip!
-    str.gsub!('&nbsp;', ' ')
-    str
+    self.dup.gsub(/<br\/?>/, ' ').gsub(/<\/?[^>]*>/, '').strip.gsub('&nbsp;', ' ').gsub('&gt;', '>').gsub('&lt;', '<')
   end
 end
 
