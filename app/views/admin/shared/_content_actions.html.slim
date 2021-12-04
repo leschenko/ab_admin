@@ -55,9 +55,11 @@
         .label> class=(ag[:css] || 'label-success')
           => ag[:label] || "#{ag[:column].to_s.humanize}:"
           - if !ag[:type] || ag[:type] == :sum
-            = search_collection.unscope(:includes).distinct(false).sum(ag[:column]).try!(:round, 2)
+            - res = search_collection.unscope(:includes).distinct(false).sum(ag[:column])
+            = number_with_delimiter(res.round(2), delimiter: ' ') if res
           - elsif ag[:type] == :average
-            = search_collection.unscope(:includes).average(ag[:column]).try!(:round, 2)
+            - res = search_collection.unscope(:includes).average(ag[:column])
+            = number_with_delimiter(res.round(2), delimiter: ' ') if res
           - elsif ag[:type] == :pct
             - sc_count = search_collection.count
             - if sc_count.zero?
