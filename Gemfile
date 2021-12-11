@@ -11,7 +11,6 @@ gem 'inherited_resources'
 gem 'rack-pjax'
 
 gem 'devise'
-gem 'devise-encryptable'
 gem 'cancancan'
 gem 'cancan-inherited_resources'
 

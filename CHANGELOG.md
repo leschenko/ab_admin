@@ -3,6 +3,7 @@
   * removed collection batch action as rarely used
   * rename table builder option `row_class` to `row_html_class`
   * rename table builder option `cell_class` to `cell_html_class`
+  * removed `devise-encryptable` gem
 
 ### 0.9.0
 * backwards incompatible changes
