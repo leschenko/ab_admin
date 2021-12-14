@@ -3,6 +3,8 @@
   .form-inputs
     = f.input :email, required: false, autofocus: true
     = f.input :password, required: false
+    - if devise_mapping.try(:two_factor_authenticatable?)
+      = f.input :otp_attempt, required: false
     = f.input :remember_me, as: :boolean, wrapper: :default if devise_mapping.rememberable?
   = f.button :submit, t('admin.auth.sessions.button', default: 'Sign in'), class: 'btn-primary btn-large'
   br

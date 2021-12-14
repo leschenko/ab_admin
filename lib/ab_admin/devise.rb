@@ -29,6 +29,13 @@ module AbAdmin
               super
             end
       end
+
+      protected
+
+      def sign_in_params
+        devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt]) if devise_mapping.try(:two_factor_authenticatable?)
+        devise_parameter_sanitizer.sanitize(:sign_in)
+      end
     end
 
     class PasswordsController < ::Devise::PasswordsController

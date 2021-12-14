@@ -238,6 +238,7 @@ en:
     updater_id: 'Updater'
     remember_me: Remember
     password: Password
+    otp_attempt: OTP
   flash:
     admin:
       actions:
