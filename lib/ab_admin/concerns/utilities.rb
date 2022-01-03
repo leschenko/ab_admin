@@ -70,7 +70,7 @@ module AbAdmin
             add_cond << assoc.klass.instance_exec(&assoc.scope).to_sql[/WHERE(.*?)(?:(?:ORDER|LIMIT).*)?$/, 1] if assoc.scope
             if assoc.klass.default_scopes.present?
               assoc.klass.default_scopes.each do |scope|
-                add_cond << scope.call.to_sql[/WHERE(.*?)(?:(?:ORDER|LIMIT).*)?$/, 1]
+                add_cond << scope.scope.call.to_sql[/WHERE(.*?)(?:(?:ORDER|LIMIT).*)?$/, 1]
               end
             end
             count_klass = assoc_count.klass
