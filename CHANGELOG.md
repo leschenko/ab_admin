@@ -4,6 +4,7 @@
   * rename table builder option `row_class` to `row_html_class`
   * rename table builder option `cell_class` to `cell_html_class`
   * removed `devise-encryptable` gem
+  * rename AbAdmin#time_format to AbAdmin#datetime_format
 
 ### 0.9.0
 * backwards incompatible changes
