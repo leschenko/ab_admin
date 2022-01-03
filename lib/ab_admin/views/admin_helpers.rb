@@ -141,8 +141,10 @@ module AbAdmin
             object.html_safe? ? object : object.no_html.gsub("\n", '<br/>').html_safe
           when TrueClass, FalseClass
             color_bool(object)
-          when Date, DateTime, Time, ActiveSupport::TimeWithZone
-            I18n.l(object, format: AbAdmin.time_format)
+          when Date
+            I18n.l(object, format: AbAdmin.date_format)
+          when DateTime, Time, ActiveSupport::TimeWithZone
+            I18n.l(object, format: AbAdmin.datetime_format)
           when NilClass
             ''
           when ActiveRecord::Base

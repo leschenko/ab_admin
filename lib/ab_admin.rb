@@ -174,8 +174,11 @@ module AbAdmin
   mattr_accessor :uploads_dir
   @@uploads_dir = 'uploads'
 
-  mattr_accessor :time_format
-  @@time_format = '%d.%m.%y %H:%M'
+  mattr_accessor :date_format
+  @@date_format = '%d.%m.%y'
+
+  mattr_accessor :datetime_format
+  @@datetime_format = '%d.%m.%y %H:%M'
 
   mattr_accessor :default_permitted_params
   @@default_permitted_params = [:fileupload_guid]
