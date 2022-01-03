@@ -39,7 +39,7 @@ class AbAdminProduct < AbAdmin::AbstractResource
   table do
     field :sku, default_order: true
     field(:picture) { |item| item_image_link(item) }
-    field :name, default_order: {default_order: :id, default_order: 'desc'}, editable: true
+    field :name, sortable: {column: :id, default_order: 'desc'}, editable: true
     field :is_visible
     field :collection
     field :created_at
