@@ -2,7 +2,7 @@ module AbAdmin
   class Engine < ::Rails::Engine
     engine_name 'ab_admin'
 
-    initializer 'ab_admin.assets_precompile', :group => :all do |app|
+    initializer 'ab_admin.assets_precompile', group: :all do |app|
       app.config.assets.precompile += AbAdmin.assets
     end
 
