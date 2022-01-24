@@ -7,8 +7,7 @@ gem 'rails-i18n'
 gem 'slim'
 gem 'rexml', '>= 3.2.5'
 
-# https://github.com/activeadmin/inherited_resources/pull/707
-gem 'inherited_resources', git: 'https://github.com/activeadmin/inherited_resources'
+gem 'inherited_resources'
 gem 'rack-pjax'
 
 gem 'devise'
@@ -18,8 +17,7 @@ gem 'cancan-inherited_resources'
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
 gem 'simple_slug'
-# https://github.com/collectiveidea/awesome_nested_set/pull/460
-gem "awesome_nested_set", github: "peterberkenbosch/awesome_nested_set", branch: "rails-7-support"
+gem "awesome_nested_set", github: 'collectiveidea/awesome_nested_set'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -48,8 +46,7 @@ end
 
 group :test do
   gem 'puma'
-  # https://github.com/cucumber/cucumber-rails/issues/523
-  gem 'cucumber-rails', require: false
+  gem 'cucumber-rails', require: false, github: 'cucumber/cucumber-rails', branch: 'main'
   gem 'capybara'
   gem 'generator_spec'
   gem 'selenium-webdriver'
