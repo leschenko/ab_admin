@@ -15,12 +15,12 @@ module AbAdmin
         validates_numericality_of :structure_type_id, only_integer: true
 
         has_one :static_page, dependent: :destroy
-        has_many :visible_children, -> { where(is_visible: true) }, class_name: name, foreign_key: 'parent_id'
+        has_many :visible_children, -> { where(is_visible: true) }, class_name: name, foreign_key: :parent_id
 
         scope :visible, lambda { where(is_visible: true) }
-        scope :with_type, lambda { |structure_type| where(structure_type_id: structure_type.id) }
+        scope :with_type, lambda { |type| where(structure_type_id: (type.is_a?(Symbol) ? StructureType.public_send(type) : type.id)) }
         scope :with_depth, lambda { |level| where(depth: level.to_i) }
-        scope :with_position, lambda { |position_type| where(position_type_id: position_type.id).order('lft DESC') }
+        scope :with_position, lambda { |type| where(position_type_id: (type.is_a?(Symbol) ? StructureType.public_send(type) : type.id)).order(lft: :desc) }
       end
 
       def redirect?

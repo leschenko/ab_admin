@@ -5,6 +5,7 @@ module AbAdmin
         record = Array(object).last
         record.fallbacks_for_empty_translations = false if record.respond_to?(:fallbacks_for_empty_translations)
         options = args.extract_options!
+        options[:wrapper] = :bootstrap
         options[:remote] = true if request.xhr?
         options[:html] ||= {}
         options[:html][:class] = Array(options[:html][:class])

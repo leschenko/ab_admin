@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'cancan-inherited_resources'
   s.add_dependency 'galetahub-enum_field', '~> 0.4.0'
   s.add_dependency 'awesome_nested_set'
+  s.add_dependency 'mime-types'
 
   s.add_dependency 'carrierwave'
   s.add_dependency 'mini_magick'
