@@ -8,8 +8,18 @@ module AbAdmin
           error("#{e.class} #{message}\n#{backtrace}\n\n")
         end
 
+        def puts(msg)
+          debug msg
+        end
+
         def reopen
           @logdev = LogDevice.new(@logdev.filename)
+        end
+      end
+
+      class BasicFormatter
+        def call(severity, time, _, msg)
+          "#{msg}\n"
         end
       end
 
@@ -22,9 +32,9 @@ module AbAdmin
         end
       end
 
-      def self.for_file(filename)
+      def self.for_file(filename, formatter: nil)
         logger = ExtendedLogger.new(Rails.root.join('log', filename))
-        logger.formatter = Formatter.new
+        logger.formatter = formatter || Formatter.new
         logger
       end
     end
