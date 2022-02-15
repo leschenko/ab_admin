@@ -1,5 +1,5 @@
 - return_to = params[:return_to].presence || request.referer || collection_path
-- return_to = "#{return_to}##{dom_id(resource, 'list')}" if resource.persisted?
+- return_to = "#{return_to.split('#', 2).first}##{dom_id(resource, 'list')}" if resource.persisted?
 input type='hidden' name='return_to' value=return_to
 - if settings[:safe_save] && resource.updated_at
   input type='hidden' name='last_updated_timestamp' value=(resource.last_updated_timestamp || resource.updated_timestamp.to_i)
