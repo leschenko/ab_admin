@@ -63,7 +63,7 @@ module AbAdmin
 
       def make_trackable
         self.name ||= trackable.han.first(250)
-        self.trackable_changes = trackable.saved_changes.except(:updated_at)
+        self.trackable_changes = trackable.saved_changes.except(:updated_at).to_h
       end
     end
   end
