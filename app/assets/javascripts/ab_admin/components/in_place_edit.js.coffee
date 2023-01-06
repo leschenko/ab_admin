@@ -35,7 +35,7 @@ window.initInPlaceEditable = ->
     $el.editable
       onblur: 'submit'
       placement: 'bottom'
-      emptytext: $el.attr('placeholder') || I18n.lookup('admin.js.empty') || 'Empty'
+      emptytext: $el.attr('placeholder') || I18n.t('admin.js.empty') || 'Empty'
       error: (response) ->
         if response.status == 422
           Object.entries(response.responseJSON.errors).map((i) -> i.join(': ')).join(', ')
