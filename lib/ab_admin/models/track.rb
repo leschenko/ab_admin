@@ -63,7 +63,19 @@ module AbAdmin
 
       def make_trackable
         self.name ||= trackable.han.first(250)
-        self.trackable_changes = trackable.saved_changes.except(:updated_at).to_h
+        self.trackable_changes = format_trackable_changes(trackable.saved_changes.except(:updated_at))
+      end
+
+      def format_trackable_changes(value)
+        value.to_h.deep_transform_values do |v|
+          if v.is_a?(BigDecimal)
+            v.to_f
+          elsif v.is_a?(ActiveSupport::TimeWithZone)
+            v.to_s
+          else
+            v
+          end
+        end
       end
     end
   end
