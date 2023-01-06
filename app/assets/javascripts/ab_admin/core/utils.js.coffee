@@ -174,3 +174,11 @@ window.localeToFlag = (l) ->
   l = {'JA': 'JP', 'EN': 'GB', 'UK': 'UA'}[l] || l
   chars = {"A":"🇦","B":"🇧","C":"🇨","D":"🇩","E":"🇪","F":"🇫","G":"🇬","H":"🇭","I":"🇮","J":"🇯","K":"🇰","L":"🇱","M":"🇲","N":"🇳","O":"🇴","P":"🇵","Q":"🇶","R":"🇷","S":"🇸","T":"🇹","U":"🇺","V":"🇻","W":"🇼","X":"🇽","Y":"🇾","Z":"🇿"}
   l.replace /[A-Z]/g, (m) -> chars[m]
+
+window.I18n ||= {}
+window.I18n.locale = 'en'
+window.I18n.translations ||= {}
+I18n.t = (key) ->
+  keys = key.split('.')
+  keys.unshift(I18n.locale)
+  _.get(I18n.translations, keys)
