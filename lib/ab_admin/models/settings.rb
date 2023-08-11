@@ -38,7 +38,7 @@ module AbAdmin
         end
 
         def read_data
-          paths = base_paths.dup.push(editable_path).compact.find_all { |path| File.exists?(path) }
+          paths = base_paths.dup.push(editable_path).compact.find_all { |path| File.exist?(path) }
           hash = paths.map{|path| YAML.safe_load(File.read(path)) }.inject(&:deep_merge).deep_symbolize_keys
           SettingsStruct.new(hash)
         end
@@ -53,7 +53,7 @@ module AbAdmin
         end
 
         def editable_path
-          editable_paths.detect { |path| File.exists?(path) }
+          editable_paths.detect { |path| File.exist?(path) }
         end
       end
 

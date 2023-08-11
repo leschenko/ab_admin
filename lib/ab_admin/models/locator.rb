@@ -127,7 +127,7 @@ module AbAdmin
             next if locale == I18n.default_locale
             clean_locale_hash = main_file.data.deep_clear_values
             path = File.join(main_file.dir, main_file.filename.sub(locale_replace_regexp, locale.to_s))
-            if File.exists?(path)
+            if File.exist?(path)
               file = self.class.prepare_data(path)
               self.class.save(path, {locale.to_s => clean_locale_hash.deep_add(file.data)})
             else

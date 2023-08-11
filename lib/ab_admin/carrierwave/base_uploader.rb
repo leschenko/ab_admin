@@ -96,7 +96,7 @@ module AbAdmin
         new_names = versions.values.unshift(self).map(&:full_filename)
         old_names.zip(new_names).each do |old_name, new_name|
           old_path, new_path = File.join(dir, old_name), File.join(dir, new_name)
-          next if old_path == new_path || !File.exists?(old_path)
+          next if old_path == new_path || !File.exist?(old_path)
           FileUtils.mv(old_path, new_path)
         end
         retrieve_from_store!(model.send("#{mounted_as}_file_name"))
