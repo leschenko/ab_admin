@@ -50,15 +50,15 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
 
       context 'full name' do
         it 'include secure_token' do
-          expect(File.basename(@image.data.url)).to eq 'abc.png'
-          expect(File.basename(@image.class.find(@image.id).data.url)).to eq 'abc.png'
+          expect(File.basename(@image.data.url)).to eq 'juer_gen_abc.png'
+          expect(File.basename(@image.class.find(@image.id).data.url)).to eq 'juer_gen_abc.png'
         end
       end
 
       context 'version name' do
         it 'only version name' do
-          expect(File.basename(@image.data.url(:thumb))).to eq 'thumb.png'
-          expect(File.basename(@image.class.find(@image.id).data.url(:thumb))).to eq 'thumb.png'
+          expect(File.basename(@image.data.url(:thumb))).to eq 'juer_gen_thumb.png'
+          expect(File.basename(@image.class.find(@image.id).data.url(:thumb))).to eq 'juer_gen_thumb.png'
         end
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     describe 'store original filename' do
       it 'stored in original_name field' do
         @image = create(:uploader_spec_image, assetable: @assetable)
-        expect(@image.original_name).to eq 'А_б_в.png'
+        expect(@image.original_name).to eq 'Jür_gen.png'
       end
     end
 
@@ -99,14 +99,14 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
         UploaderSpecImage.stub_build_filename = 'Test . - + ='
         @image = create(:main_uploader_spec_image, assetable: @assetable)
         @image.store_model_filename(@assetable)
-        expect(File.basename(@image.data.url)).to eq 'test__abc.png'
+        expect(File.basename(@image.data.url)).to eq 'test_abc.png'
       end
     end
 
     describe '#rename!' do
       it 'rename file via move' do
         @image = create(:main_uploader_spec_image, assetable: @assetable)
-        expect(File.basename(@image.data.url(:thumb))).to eq 'thumb.png'
+        expect(File.basename(@image.data.url(:thumb))).to eq 'juer_gen_thumb.png'
         @image.rename!
         @image.save!
         expect(File.basename(@image.url, '.*')).to match /\d+/
@@ -158,7 +158,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     end
 
     it 'data_file_name should be valid' do
-      expect(@image.data_file_name).to eq 'abc.png'
+      expect(@image.data_file_name).to eq 'juer_gen_abc.png'
     end
 
     it 'width and height should be valid' do
@@ -169,8 +169,8 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     end
 
     it 'urls should be valid' do
-      expect(@image.url).to eq "/uploads/#{@image.class.to_s.underscore}/123/45678/abc.png"
-      expect(@image.thumb_url).to eq "/uploads/#{@image.class.to_s.underscore}/123/45678/thumb.png"
+      expect(@image.url).to eq "/uploads/#{@image.class.to_s.underscore}/123/45678/juer_gen_abc.png"
+      expect(@image.thumb_url).to eq "/uploads/#{@image.class.to_s.underscore}/123/45678/juer_gen_thumb.png"
       expect(@image.data.default_url).to eq '/assets/defaults/uploader_spec_image.png'
     end
   end

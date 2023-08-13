@@ -7,8 +7,7 @@ module AbAdmin
       include ::CarrierWave::MiniMagick
       include AbAdmin::Utils::EvalHelpers
 
-      class_attribute :transliterate, :human_filenames
-      self.transliterate = true
+      class_attribute :human_filenames
       self.human_filenames = true
 
       attr_accessor :internal_identifier
@@ -37,7 +36,7 @@ module AbAdmin
       end
 
       def human_part
-        model.send("#{mounted_as}_file_name").to_s.remove(/\.\w+$/).remove(secure_token).chomp('_').presence
+        normalize_filename(model.send("#{mounted_as}_file_name").to_s.strip.remove(/\.\w+$/)).remove(secure_token).chomp('_').presence
       end
 
       def extension
@@ -86,7 +85,7 @@ module AbAdmin
       private :model_filename
 
       def normalize_filename(raw_filename)
-        I18n.transliterate(raw_filename).parameterize(separator: '_').gsub(/[\-_]+/, '_').downcase
+        I18n.transliterate(raw_filename.unicode_normalize).parameterize(separator: '_').gsub(/[\-_]+/, '_').downcase
       end
 
       def rename_via_move(new_filename)

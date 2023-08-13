@@ -5,7 +5,7 @@ FactoryBot.define do
     end
 
     trait :with_file do
-      data {File.open(File.expand_path('../files/А б в.png', __FILE__))}
+      data {File.open(File.expand_path('../files/Jür gen.png', __FILE__))}
     end
 
     before(:create) do |instance|
