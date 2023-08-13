@@ -5,11 +5,11 @@ class ApplicationRecord < ActiveRecord::Base
     super
     subclass.singleton_class.class_eval do
       def ransackable_attributes(*)
-        @@ransackable_attributes ||= authorizable_ransackable_attributes
+        @ransackable_attributes_cache ||= authorizable_ransackable_attributes
       end
 
       def ransackable_associations(*)
-        @@ransackable_associations ||= authorizable_ransackable_associations
+        @ransackable_associations_cache ||= authorizable_ransackable_associations
       end
     end
   end
