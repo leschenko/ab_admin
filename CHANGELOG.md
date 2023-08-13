@@ -107,7 +107,6 @@
   * AdminComment model: renamed `author_id` to `user_id`, `author_name` to `user_name`, `user_id` to `resource_user_id`
   * Devise: see `config.clean_up_csrf_token_on_authentication`, `config.secret_key` config options
   * Fileupload
-    * remove 'sunrise-file-upload' and 'fine-uploader'
     * instead of `:file`, `:video` use `file_type: :file` `file_type: :video`
     * instead of `:container` use `:theme` to set subdirectory with fileupload templates
     * `:file_max_size` option renamed to `:max_size`
