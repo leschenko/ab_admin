@@ -13,6 +13,16 @@ module AbAdmin
         self.batch_actions = [:destroy]
       end
 
+      module ClassMethods
+        def ransackable_attributes(*)
+          authorizable_ransackable_attributes
+        end
+
+        def ransackable_associations(*)
+          authorizable_ransackable_associations
+        end
+      end
+
       def updated_timestamp(associations: true)
         res = [updated_at]
         res += translations.map(&:updated_at) if self.class.translates?
