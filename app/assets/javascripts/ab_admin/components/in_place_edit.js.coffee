@@ -45,7 +45,7 @@ window.initInPlaceEditable = ->
         if response && $(this).data().options?.accept == 'script'
           $.globalEval(response.responseText)
       datetimepicker:
-        format: "dd.mm.yyyy hh:ii"
+        format: "yyyy-mm-dd hh:ii"
         autoclose: true
         todayBtn: true
         language: I18n.locale

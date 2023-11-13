@@ -49,24 +49,23 @@ module AbAdmin
           end
         end
 
-        unless opts[:type]
-          if opts[:source]
-            opts[:type] = 'select'
+        if opts[:source]
+          opts[:type] ||= 'select'
+        else
+          case attr.to_s
+          when /_at$/
+            opts[:type] ||= 'date'
+            opts[:title] ||= html_title
+            opts[:value] ||= item[attr].try! { _1.to_fs(:db).split.first.html_safe }
+          when /^is_/
+            opts[:type] ||= 'select'
+            opts[:source] ||= { 1 => 'yes', 0 => 'no' }
+            opts[:value] ||= item[attr] ? 1 : 0
+            opts[:title] ||= item[attr] ? 'yes' : 'no'
+          when /description|body|content/
+            opts[:type] ||= 'textarea'
           else
-            case attr.to_s
-              when /_at$/
-                opts[:type] ||= 'date'
-                opts[:title] ||= html_title
-              when /^is_/
-                opts[:type] ||= 'select'
-                opts[:source] ||= {1 => 'yes', 0 => 'no'}
-                opts[:value] ||= item[attr] ? 1 : 0
-                opts[:title] ||= item[attr] ? 'yes' : 'no'
-              when /description|body|content/
-                opts[:type] ||= 'textarea'
-              else
-                opts[:type] ||= 'text'
-            end
+            opts[:type] ||= 'text'
           end
         end
 
