@@ -34,7 +34,7 @@ class Admin::AssetsController < ApplicationController
   end
 
   def batch_update
-    Asset.update(params[:data].keys, params[:data].values)
+    Asset.update(params[:data].keys, params[:data].values.map{ _1.permit(*permitted_assets_attributes) })
     @assets = Asset.find(params[:data].keys)
   end
 
@@ -53,7 +53,11 @@ class Admin::AssetsController < ApplicationController
   protected
 
   def permitted_params
-    params[:asset].try!(:permit, :data, :is_main, :original_name, :human_filename, *Asset.all_translated_attribute_names)
+    params[:asset].try!(:permit, :data, *permitted_assets_attributes)
+  end
+
+  def permitted_assets_attributes
+    [:is_main, :original_name, :human_filename, *Asset.all_translated_attribute_names.map(&:to_sym)]
   end
 
   def find_asset

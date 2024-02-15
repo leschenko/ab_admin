@@ -9,8 +9,8 @@ module AbAdmin
         belongs_to :owner, class_name: 'User'
         belongs_to :user, class_name: 'User'
 
-        serialize :parameters, Hash
-        serialize :trackable_changes, Hash
+        serialize :parameters, type: Hash
+        serialize :trackable_changes, type: Hash
 
         before_create :make_trackable, if: :trackable
 

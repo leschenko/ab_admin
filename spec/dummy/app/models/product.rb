@@ -19,7 +19,7 @@ class Product < ApplicationRecord
 
   scope :admin, proc { includes(:translations, :picture) }
 
-  alias_attribute :title, :name
+  # alias_attribute :title, :name
 
   validates :sku, presence: true
 

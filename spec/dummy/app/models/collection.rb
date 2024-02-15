@@ -14,5 +14,5 @@ class Collection < ApplicationRecord
 
   accepts_nested_attributes_for :products, allow_destroy: true
 
-  alias_attribute :title, :name
+  # alias_attribute :title, :name
 end
