@@ -6,7 +6,7 @@ Simple and real-life tested Rails::Engine admin interface based on slim, bootstr
 
 Add this line to your application's Gemfile:
 
-    gem 'simple_slug'
+    gem 'ab_admin'
 
 And then execute:
 
@@ -14,7 +14,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install simple_slug
+    $ gem install ab_admin
 
 Run generators
 
