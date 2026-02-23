@@ -4,3 +4,6 @@ end
 Then /^pause$/ do
   pause
 end
+Then /^debugger$/ do
+  debugger
+end
