@@ -17,6 +17,7 @@ tmp
 /spec/dummy/app/assets/javascripts/i18n/translations.js
 /spec/dummy/public/javascripts/ckeditor
 /spec/factories/files/silicon_valley.jpg
+/spec/dummy/public/assets
 rerun.txt
 Gemfile.lock
 NOTES
