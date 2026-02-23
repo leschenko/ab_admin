@@ -17,8 +17,8 @@ gem 'cancan-inherited_resources'
 
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
-gem 'simple_slug'
-gem "awesome_nested_set", github: 'collectiveidea/awesome_nested_set'
+gem 'simple_slug', '~> 0.4.6'
+gem 'awesome_nested_set', '~> 3.8.0'
 
 gem 'carrierwave'
 gem 'mini_magick'
@@ -47,7 +47,7 @@ end
 
 group :test do
   gem 'puma'
-  gem 'cucumber-rails', require: false, github: 'cucumber/cucumber-rails', branch: 'main'
+  gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'generator_spec'
   gem 'selenium-webdriver'
