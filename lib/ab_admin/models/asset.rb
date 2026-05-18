@@ -113,7 +113,7 @@ module AbAdmin
       end
 
       def rename!(name=nil)
-        normalized_name = name ? data.normalize_filename(name) : rand(9999)
+        normalized_name = name ? data.normalize_filename(name) : data.human_part(SecureRandom.random_number(100..999))
         return if normalized_name.blank?
         data.rename_via_move normalized_name
       end
