@@ -10,6 +10,8 @@ module AbAdmin
       class_attribute :human_filenames
       self.human_filenames = true
 
+      CACHE_ID_PATTERN = /\A\d+[-_]\d+[-_]\d+[-_]\d+[-_]/.freeze
+
       attr_accessor :internal_identifier
 
       before :cache, :save_original_name
@@ -36,7 +38,11 @@ module AbAdmin
       end
 
       def human_part
-        normalize_filename(model.send("#{mounted_as}_file_name").to_s.strip.remove(/\.\w+$/)).remove(secure_token).chomp('_').presence
+        raw = model.public_send("#{mounted_as}_file_name").to_s.strip
+        raw = raw.remove(CACHE_ID_PATTERN).remove(/\.\w+$/)
+        normalized = normalize_filename(raw)
+        normalized = normalized.remove(secure_token).chomp('_')
+        normalized.presence
       end
 
       def extension
@@ -87,7 +93,7 @@ module AbAdmin
       def normalize_filename(raw_filename)
         I18n.transliterate(raw_filename.unicode_normalize).parameterize(separator: '_').gsub(/[\-_]+/, '_').downcase
       end
-
+      
       def rename_via_move(new_filename)
         dir = File.dirname(path)
         old_names = versions.values.unshift(self).map(&:full_filename)
