@@ -10,7 +10,7 @@ module AbAdmin
       class_attribute :human_filenames
       self.human_filenames = true
 
-      CACHE_ID_PATTERN = /\A(\d+[-_]){1,4}/.freeze
+      CACHE_ID_REGEXP = /\A(?:\d+[-_]){4}/.freeze
 
       attr_accessor :internal_identifier
 
@@ -31,7 +31,9 @@ module AbAdmin
       end
 
       def identifier
-        strip_cache_id(super.to_s).presence
+        raw = super
+        return raw unless raw.is_a?(String) && raw.match?(CACHE_ID_REGEXP)
+        raw.sub(CACHE_ID_REGEXP, '')
       end
 
       def full_filename(*)
@@ -41,16 +43,26 @@ module AbAdmin
         [human_part, base].compact.join('_')
       end
 
-      def human_part
+      def human_part(index = nil)
         raw = model.public_send("#{mounted_as}_file_name").to_s.strip
-        raw = raw.remove(/\.\w+$/)
+        raw = strip_extension(raw)
+        raw = strip_cache_id(raw)
         normalized = normalize_filename(raw)
         normalized = normalized.remove(secure_token).chomp('_')
-        normalized.presence
+        normalized = strip_index(normalized) if index
+        [normalized, index].compact.join('_')
       end
 
       def strip_cache_id(name)
-        name.to_s.sub(CACHE_ID_PATTERN, '')
+        name.remove(CACHE_ID_REGEXP)
+      end
+
+      def strip_extension(name)
+        name.remove(/\.\w+$/)
+      end
+
+      def strip_index(name)
+        name.remove(/_\d{3}$/)
       end
 
       def extension
@@ -88,7 +100,8 @@ module AbAdmin
       end
 
       def save_original_name(file)
-        model.original_name ||= file.original_filename if file.respond_to?(:original_filename)
+        return unless file.respond_to?(:original_filename)
+        model.original_name ||= strip_cache_id(file.original_filename.to_s)
       end
 
       def model_filename(base_filename, record)
