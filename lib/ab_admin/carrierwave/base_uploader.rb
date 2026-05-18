@@ -30,6 +30,10 @@ module AbAdmin
         "#{[human_part, secure_token].compact.join('_')}#{extension}"
       end
 
+      def identifier
+        strip_cache_id(super.to_s).presence
+      end
+
       def full_filename(*)
         return filename unless version_name
         base = "#{version_filename_part}#{version_extension}"
@@ -39,10 +43,14 @@ module AbAdmin
 
       def human_part
         raw = model.public_send("#{mounted_as}_file_name").to_s.strip
-        raw = raw.remove(CACHE_ID_PATTERN).remove(/\.\w+$/)
+        raw = raw.remove(/\.\w+$/)
         normalized = normalize_filename(raw)
         normalized = normalized.remove(secure_token).chomp('_')
         normalized.presence
+      end
+
+      def strip_cache_id(name)
+        name.to_s.sub(CACHE_ID_PATTERN, '')
       end
 
       def extension

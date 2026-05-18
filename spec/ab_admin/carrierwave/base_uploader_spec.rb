@@ -154,9 +154,9 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
       expect(@image.image?).to be_truthy
     end
 
-    # it 'data_file_name should be valid' do
-      # expect(@image.data_file_name).to eq 'juer_gen_abc.png'
-    # end
+    it 'data_file_name should be valid' do
+      expect(@image.data_file_name).to eq 'juer_gen_abc.png'
+    end
 
     it 'width and height should be valid' do
       if @image.has_dimensions?
