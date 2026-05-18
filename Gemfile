@@ -6,6 +6,8 @@ gem 'jquery-rails'
 gem 'rails-i18n'
 gem 'slim'
 gem 'rexml', '>= 3.2.5'
+gem 'ostruct'
+gem 'csv'
 
 gem 'inherited_resources'
 gem 'rack-pjax'
