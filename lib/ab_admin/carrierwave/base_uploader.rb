@@ -10,7 +10,7 @@ module AbAdmin
       class_attribute :human_filenames
       self.human_filenames = true
 
-      CACHE_ID_PATTERN = /\A\d+[-_]\d+[-_]\d+[-_]\d+[-_]/.freeze
+      CACHE_ID_PATTERN = /\A(\d+[-_]){1,4}/.freeze
 
       attr_accessor :internal_identifier
 
