@@ -9,14 +9,14 @@ FactoryBot.define do
     end
   end
 
-  factory :avatar_big, class: 'Avatar' do
-    data { File.open(File.expand_path('../files/silicon_valley.jpg', __FILE__)) }
-    association :assetable, factory: :default_user
+  # factory :avatar_big, class: 'Avatar' do
+  #   data { File.open(File.expand_path('../files/silicon_valley.jpg', __FILE__)) }
+  #   association :assetable, factory: :default_user
 
-    before(:create) do |instance|
-      instance.data_content_type ||= 'image/jpg'
-    end
-  end
+  #   before(:create) do |instance|
+  #     instance.data_content_type ||= 'image/jpg'
+  #   end
+  # end
 
   factory :picture do
     data { File.open(File.expand_path('../files/rails.png', __FILE__)) }

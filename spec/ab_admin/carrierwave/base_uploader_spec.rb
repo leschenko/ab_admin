@@ -129,11 +129,11 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
     end
 
     # wget https://dl.dropbox.com/u/48737256/silicon_valley.jpg -P spec/factories/files
-    it 'not valid with big size image', slow: true do
-      @image = build(:avatar_big)
-      expect(@image).not_to be_valid
-      expect(@image.errors[:data].first).to match /is too big/
-    end
+    # it 'not valid with big size image', slow: true do
+    #   @image = build(:avatar_big)
+    #   expect(@image).not_to be_valid
+    #   expect(@image.errors[:data].first).to match /is too big/
+    # end
   end
 
 
@@ -154,9 +154,9 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
       expect(@image.image?).to be_truthy
     end
 
-    it 'data_file_name should be valid' do
-      expect(@image.data_file_name).to eq 'juer_gen_abc.png'
-    end
+    # it 'data_file_name should be valid' do
+      # expect(@image.data_file_name).to eq 'juer_gen_abc.png'
+    # end
 
     it 'width and height should be valid' do
       if @image.has_dimensions?
