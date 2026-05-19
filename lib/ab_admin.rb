@@ -2,6 +2,13 @@ require 'inherited_resources'
 require 'rack-pjax'
 require 'cancan'
 
+# Rack 3.x removed Rack::Utils::HeaderHash in favor of Rack::Headers.
+# rack-pjax (1.1.0) still references HeaderHash, so we restore the constant
+# for compatibility. See https://github.com/eval/rack-pjax/issues/
+if defined?(Rack::Headers) && !defined?(Rack::Utils::HeaderHash)
+  Rack::Utils::HeaderHash = Rack::Headers
+end
+
 require 'ab_admin/version'
 require 'ab_admin/core_ext'
 require 'ab_admin/engine'
