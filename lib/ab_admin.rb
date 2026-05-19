@@ -212,6 +212,10 @@ module AbAdmin
   def self.setup
     yield self
   end
+
+  def self.deprecator
+    @deprecator ||= ActiveSupport::Deprecation.new(VERSION, 'AbAdmin')
+  end
 end
 
 

@@ -12,7 +12,7 @@ class Array
   end
 
   def without!(*values)
-    ActiveSupport::Deprecation.warn('Array#without! is deprecated without replacement')
+    AbAdmin.deprecator.warn('Array#without! is deprecated without replacement')
     values.flatten.each { |value| self.delete(value) }
     self
   end
@@ -21,7 +21,9 @@ class Array
     (other - self).empty?
   end
 
-  def intersect?(other)
-    !(self & other).empty?
+  unless method_defined?(:intersect?)
+    def intersect?(other)
+      !(self & other).empty?
+    end
   end
 end

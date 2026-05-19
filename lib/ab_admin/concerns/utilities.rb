@@ -94,7 +94,7 @@ module AbAdmin
         end
 
         def all_columns_names
-          ActiveSupport::Deprecation.warn('#all_columns_names is deprecated without replacement')
+          AbAdmin.deprecator.warn('#all_columns_names is deprecated without replacement')
           if translates?
             column_names + all_translated_attribute_names + translated_attribute_names.map(&:to_s)
           else

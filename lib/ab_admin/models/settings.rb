@@ -25,7 +25,7 @@ module AbAdmin
 
       module ClassMethods
         def load_config
-          ActiveSupport::Deprecation.warn('`Settings.load_config` is deprecated, use `Settings.data` instead')
+          AbAdmin.deprecator.warn('`Settings.load_config` is deprecated, use `Settings.data` instead')
           data
         end
 

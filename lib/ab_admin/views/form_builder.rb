@@ -73,7 +73,7 @@ module AbAdmin
       end
 
       def disable_not_accessible_for(roles)
-        ActiveSupport::Deprecation.warn('#disable_not_accessible_for is deprecated without replacement')
+        AbAdmin.deprecator.warn('#disable_not_accessible_for is deprecated without replacement')
         @disable_not_accessible_for = roles
       end
 

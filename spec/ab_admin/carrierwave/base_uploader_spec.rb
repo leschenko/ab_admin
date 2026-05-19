@@ -106,7 +106,7 @@ RSpec.describe AbAdmin::CarrierWave::BaseUploader do
         expect(File.basename(@image.data.url(:thumb))).to eq 'juer_gen_thumb.png'
         @image.rename!
         @image.save!
-        expect(File.basename(@image.url, '.*')).to match /\d+/
+        expect(File.basename(@image.url, '.*')).to match(/\d+/)
       end
     end
 
