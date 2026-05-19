@@ -4,29 +4,49 @@ Rails.application.routes.draw do
     get 'dashboards', as: 'dashboards'
 
     resources :structures do
-      post :batch, :rebuild, on: :collection
+      collection do
+        post :batch
+        post :rebuild
+      end
       resource :static_page
     end
 
     resources :users do
-      post :batch, on: :collection
-      post :activate, :suspend, on: :member
+      collection do
+        post :batch
+      end
+      member do
+        post :activate
+        post :suspend
+      end
     end
 
     resources :assets, only: [:create, :destroy] do
-      post :rotate, :main, :crop, on: :member
-      post :sort, on: :collection
-      get :batch_edit, on: :collection
-      post :batch_update, on: :collection
+      member do
+        post :rotate
+        post :main
+        post :crop
+      end
+      collection do
+        post :sort
+        get :batch_edit
+        post :batch_update
+      end
     end
 
     resource :settings, only: [:edit, :update] do
-      post :cache_clear, on: :collection
+      collection do
+        post :cache_clear
+      end
     end
 
     resource :locators do
-      post :prepare, :reload, :import, on: :collection
-      get :export, on: :collection
+      collection do
+        post :prepare
+        post :reload
+        post :import
+        get :export
+      end
     end
 
     resources :admin_comments
