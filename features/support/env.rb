@@ -39,6 +39,14 @@ include Warden::Test::Helpers
 Warden.test_mode!
 DatabaseCleaner.clean_with(:truncation, except: %w(ar_internal_metadata countries country_translations))
 
+# Force Rails to load routes so Devise can finalize its Warden serializer.
+# Without this, the first `login_as` in a scenario triggers an ArgumentError
+# inside Devise::Models::Authenticatable.serialize_from_session.
+# See https://github.com/heartcombo/devise/issues/5752
+Before do
+  Rails.application.try(:reload_routes_unless_loaded)
+end
+
 After do
   Warden.test_reset!
   AbAdmin.test_settings = {}
