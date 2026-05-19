@@ -19,8 +19,8 @@ gem 'cancan-inherited_resources'
 
 gem 'galetahub-enum_field', require: 'enum_field'
 gem 'ransack'
-gem 'simple_slug', '~> 0.4.6'
-gem 'awesome_nested_set', '~> 3.8.0'
+gem 'simple_slug', '~> 0.4.7'
+gem 'awesome_nested_set', '~> 3.9.0'
 
 gem 'carrierwave'
 gem 'mini_magick'
