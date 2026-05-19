@@ -42,7 +42,7 @@ $ ->
       $form.append($idsInputs)
       $form.append($extraData)
       $form.submit()
-      $.fancybox.close()
+      bootbox.hideAll() if window.bootbox?
       $extraData?.remove()
       $idsInputs.remove()
 
@@ -63,10 +63,14 @@ $ ->
         $form = $($el.data('form'))
         unless $form.find('.js-batch_form_submit').length
           $form.append("<div class='btn btn-primary js-batch_form_submit' data-form=#{$el.data('form')} data-action=#{$el.data('action')}><i class='icon-ok icon-white'></i></div>")
-          $form.append("<div class='btn' onclick='$.fancybox.close()'><i class='icon-remove'></i></div>")
-        $.fancybox($form)
+          $form.append("<div class='btn js-batch_form_cancel'><i class='icon-remove'></i></div>")
+        bootbox.dialog({message: $form.show(), className: 'batch-action-form'})
       else
         submitBatch(this)
+
+    $(document).on 'click', '.js-batch_form_cancel', (e) ->
+      e.preventDefault()
+      bootbox.hideAll() if window.bootbox?
 
     $(document).on 'click', '.js-batch_form_submit', (e) ->
       e.preventDefault()
